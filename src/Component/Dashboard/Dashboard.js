@@ -25,7 +25,8 @@ import MuiAccordionSummary from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { signOut } from "firebase/auth";
-import auth from "../FirebaseAuth/firebase.config";
+import auth from "../../FirebaseAuth/firebase.config";
+import logo from "../../Assets/Image/logo.png";
 
 const drawerWidth = 268;
 
@@ -76,17 +77,9 @@ function Dashboard(props) {
 	};
 	const drawer = (
 		<Box className='dashboard'>
-			<Typography
-				variant='h6'
-				sx={{
-					py: 1,
-					backgroundColor: "#44ba06",
-					color: "white",
-					width: "100%",
-					fontWeight: "bold",
-				}}>
-				LOGO HERE
-			</Typography>
+			<Box sx={{ padding: "2px 0px 0px 0px", backgroundColor: "#fff", border: "1px solid green" }}>
+				<img src={logo} alt="Main Logo" />
+			</Box>
 			<Box
 				sx={{
 					display: "flex",
@@ -94,19 +87,7 @@ function Dashboard(props) {
 					alignItems: "center",
 					py: 1.5,
 				}}>
-				<Avatar
-					sx={{ border: "2px solid #44ba06", mb: 0.7 }}
-					alt=''
-					src='https://expertphotography.b-cdn.net/wp-content/uploads/2020/08/social-media-profile-photos-3.jpg'
-				/>
-				<Typography variant='h5' style={{ color: "white" }}>
-					John Doe
-				</Typography>
-				<Typography style={{ color: "#44ba06", fontWeight: "bold" }}>
-					Admin
-				</Typography>
 			</Box>
-
 			<Link className='link' to=''>
 				<ListItem
 					button
@@ -114,7 +95,7 @@ function Dashboard(props) {
 					<ListItemIcon className='listItemIcon'>
 						<HomeIcon />
 					</ListItemIcon>
-					<ListItemText primary={"Dashboard"} />
+					<ListItemText primary={"Home"} />
 				</ListItem>
 			</Link>
 			<Accordion
@@ -124,115 +105,314 @@ function Dashboard(props) {
 					<ListItemIcon className='listItemIcon'>
 						<LinkIcon />
 					</ListItemIcon>
-					<Typography>Common Settings</Typography>
+					<Typography>Team</Typography>
 				</AccordionSummary>
 				<AccordionDetails>
 					<List>
-						<Link className='link' to='CompanyWings'>
+						<Link className='link' to='branch'>
 							<ListItem
 								button
 								className={
-									location?.pathname === "/CompanyWings" && "activeButton"
+									location?.pathname === "/branch" && "activeButton"
 								}>
 								<ListItemIcon className='listItemIcon'>
 									<LinkIcon />
 								</ListItemIcon>
-								<ListItemText primary={"Company Wings"} />
+								<ListItemText primary={"Branch"} />
 							</ListItem>
 						</Link>
-						<Link className='link' to='CompanyBranch'>
+						<Link className='link' to='branchUser'>
 							<ListItem
 								button
 								className={
-									location?.pathname === "/CompanyBranch" && "activeButton"
+									location?.pathname === "/branchUser" && "activeButton"
 								}>
 								<ListItemIcon className='listItemIcon'>
 									<LinkIcon />
 								</ListItemIcon>
-								<ListItemText primary={"Company Branch Office"} />
+								<ListItemText primary={"Branch User"} />
 							</ListItem>
 						</Link>
 						<Link className='link' to='Departments'>
 							<ListItem
 								button
 								className={
-									location?.pathname === "/Departments" && "activeButton"
+									location?.pathname === "/merchant" && "activeButton"
 								}>
 								<ListItemIcon className='listItemIcon'>
 									<LinkIcon />
 								</ListItemIcon>
-								<ListItemText primary={"Department"} />
+								<ListItemText primary={"Merchant"} />
 							</ListItem>
 						</Link>
-						<Link className='link' to='Sections'>
+						<Link className='link' to='rider'>
 							<ListItem
 								button
 								className={
-									location?.pathname === "/Sections" && "activeButton"
+									location?.pathname === "/rider" && "activeButton"
 								}>
 								<ListItemIcon className='listItemIcon'>
 									<LinkIcon />
 								</ListItemIcon>
-								<ListItemText primary={"Sections"} />
+								<ListItemText primary={"Rider"} />
 							</ListItem>
 						</Link>
-						<Link className='link' to='Designations'>
+						<Link className='link' to='warehouse'>
 							<ListItem
 								button
 								className={
-									location?.pathname === "/Designations" && "activeButton"
+									location?.pathname === "/warehouse" && "activeButton"
 								}>
 								<ListItemIcon className='listItemIcon'>
 									<LinkIcon />
 								</ListItemIcon>
-								<ListItemText primary={"Designations"} />
+								<ListItemText primary={"Warehouse"} />
 							</ListItem>
 						</Link>
-						<Link className='link' to='Grades'>
+						<Link className='link' to='warehouseUser'>
 							<ListItem
 								button
-								className={location?.pathname === "/Grades" && "activeButton"}>
+								className={location?.pathname === "/warehouseUser" && "activeButton"}>
 								<ListItemIcon className='listItemIcon'>
 									<LinkIcon />
 								</ListItemIcon>
-								<ListItemText primary={"Grades"} />
+								<ListItemText primary={"Warehouse User"} />
 							</ListItem>
 						</Link>
-						<Link className='link' to='PaymentTypes'>
-							<ListItem
-								button
-								className={
-									location?.pathname === "/PaymentTypes" && "activeButton"
-								}>
-								<ListItemIcon className='listItemIcon'>
-									<LinkIcon />
-								</ListItemIcon>
-								<ListItemText primary={"Salary Payment Types"} />
-							</ListItem>
-						</Link>
-						<Link className='link' to='Schedules'>
-							<ListItem
-								button
-								className={
-									location?.pathname === "/Schedules" && "activeButton"
-								}>
-								<ListItemIcon className='listItemIcon'>
-									<LinkIcon />
-								</ListItemIcon>
-								<ListItemText primary={"Office Time Schedules"} />
-							</ListItem>
-						</Link>
-						<Link className='link' to='AuthorizedSignatures'>
+					</List>
+				</AccordionDetails>
+			</Accordion>
+			<Accordion
+				expanded={expanded === "panel2"}
+				onChange={handleChange("panel2")}>
+				<AccordionSummary aria-controls='panel2d-content' id='panel2d-header'>
+					<ListItemIcon className='listItemIcon'>
+						<LinkIcon />
+					</ListItemIcon>
+					<Typography>Parcel</Typography>
+				</AccordionSummary>
+				<AccordionDetails>
+					<List>
+						<Link className='link' to='parcelList'>
 							<ListItem
 								button
 								className={
-									location?.pathname === "/AuthorizedSignatures" &&
-									"activeButton"
+									location?.pathname === "/parcelList" && "activeButton"
 								}>
 								<ListItemIcon className='listItemIcon'>
 									<LinkIcon />
 								</ListItemIcon>
-								<ListItemText primary={"Authorized Signatures"} />
+								<ListItemText primary={"Parcel List"} />
+							</ListItem>
+						</Link>
+					</List>
+				</AccordionDetails>
+			</Accordion>
+			<Accordion
+				expanded={expanded === "panel3"}
+				onChange={handleChange("panel3")}>
+				<AccordionSummary aria-controls='panel3d-content' id='panel3d-header'>
+					<ListItemIcon className='listItemIcon'>
+						<LinkIcon />
+					</ListItemIcon>
+					<Typography>Application Setting</Typography>
+				</AccordionSummary>
+				<AccordionDetails>
+					<List>
+						<Link className='link' to='weightPackage'>
+							<ListItem
+								button
+								className={
+									location?.pathname === "/weightPackage" && "activeButton"
+								}>
+								<ListItemIcon className='listItemIcon'>
+									<LinkIcon />
+								</ListItemIcon>
+								<ListItemText primary={"Weight Package"} />
+							</ListItem>
+						</Link>
+						<Link className='link' to='serviceArea'>
+							<ListItem
+								button
+								className={
+									location?.pathname === "/serviceArea" && "activeButton"
+								}>
+								<ListItemIcon className='listItemIcon'>
+									<LinkIcon />
+								</ListItemIcon>
+								<ListItemText primary={"Service Area"} />
+							</ListItem>
+						</Link>
+						<Link className='link' to='serviceAreaSetting'>
+							<ListItem
+								button
+								className={
+									location?.pathname === "/serviceAreaSetting" && "activeButton"
+								}>
+								<ListItemIcon className='listItemIcon'>
+									<LinkIcon />
+								</ListItemIcon>
+								<ListItemText primary={"Service Area Setting"} />
+							</ListItem>
+						</Link>
+						<Link className='link' to='district'>
+							<ListItem
+								button
+								className={
+									location?.pathname === "/district" && "activeButton"
+								}>
+								<ListItemIcon className='listItemIcon'>
+									<LinkIcon />
+								</ListItemIcon>
+								<ListItemText primary={"District"} />
+							</ListItem>
+						</Link>
+						<Link className='link' to='upazila'>
+							<ListItem
+								button
+								className={
+									location?.pathname === "/upazila" && "activeButton"
+								}>
+								<ListItemIcon className='listItemIcon'>
+									<LinkIcon />
+								</ListItemIcon>
+								<ListItemText primary={"Thana/Upazila"} />
+							</ListItem>
+						</Link>
+						<Link className='link' to='area'>
+							<ListItem
+								button
+								className={location?.pathname === "/area" && "activeButton"}>
+								<ListItemIcon className='listItemIcon'>
+									<LinkIcon />
+								</ListItemIcon>
+								<ListItemText primary={"Area"} />
+							</ListItem>
+						</Link>
+					</List>
+				</AccordionDetails>
+			</Accordion>
+			<Accordion
+				expanded={expanded === "panel4"}
+				onChange={handleChange("panel4")}>
+				<AccordionSummary aria-controls='panel4d-content' id='panel4d-header'>
+					<ListItemIcon className='listItemIcon'>
+						<LinkIcon />
+					</ListItemIcon>
+					<Typography>Traditional Parcel Book</Typography>
+				</AccordionSummary>
+				<AccordionDetails>
+					<List>
+						<Link className='link' to='bookingParcelList'>
+							<ListItem
+								button
+								className={
+									location?.pathname === "/bookingParcelList" && "activeButton"
+								}>
+								<ListItemIcon className='listItemIcon'>
+									<LinkIcon />
+								</ListItemIcon>
+								<ListItemText primary={"Booking Parcel List"} />
+							</ListItem>
+						</Link>
+					</List>
+				</AccordionDetails>
+			</Accordion>
+			<Accordion
+				expanded={expanded === "panel5"}
+				onChange={handleChange("panel5")}>
+				<AccordionSummary aria-controls='panel5d-content' id='panel5d-header'>
+					<ListItemIcon className='listItemIcon'>
+						<LinkIcon />
+					</ListItemIcon>
+					<Typography>Traditional Parcel Setting</Typography>
+				</AccordionSummary>
+				<AccordionDetails>
+					<List>
+						<Link className='link' to='vehicle'>
+							<ListItem
+								button
+								className={
+									location?.pathname === "/vehicle" && "activeButton"
+								}>
+								<ListItemIcon className='listItemIcon'>
+									<LinkIcon />
+								</ListItemIcon>
+								<ListItemText primary={"Vehicle"} />
+							</ListItem>
+						</Link>
+						<Link className='link' to='itemCategory'>
+							<ListItem
+								button
+								className={
+									location?.pathname === "/itemCategory" && "activeButton"
+								}>
+								<ListItemIcon className='listItemIcon'>
+									<LinkIcon />
+								</ListItemIcon>
+								<ListItemText primary={"Item Category"} />
+							</ListItem>
+						</Link>
+						<Link className='link' to='unit'>
+							<ListItem
+								button
+								className={
+									location?.pathname === "/unit" && "activeButton"
+								}>
+								<ListItemIcon className='listItemIcon'>
+									<LinkIcon />
+								</ListItemIcon>
+								<ListItemText primary={"Unit"} />
+							</ListItem>
+						</Link>
+						<Link className='link' to='item'>
+							<ListItem
+								button
+								className={
+									location?.pathname === "/item" && "activeButton"
+								}>
+								<ListItemIcon className='listItemIcon'>
+									<LinkIcon />
+								</ListItemIcon>
+								<ListItemText primary={"Item"} />
+							</ListItem>
+						</Link>
+					</List>
+				</AccordionDetails>
+			</Accordion>
+			<Accordion
+				expanded={expanded === "panel6"}
+				onChange={handleChange("panel6")}>
+				<AccordionSummary aria-controls='panel6d-content' id='panel6d-header'>
+					<ListItemIcon className='listItemIcon'>
+						<LinkIcon />
+					</ListItemIcon>
+					<Typography>Setting</Typography>
+				</AccordionSummary>
+				<AccordionDetails>
+					<List>
+						<Link className='link' to='adminUser'>
+							<ListItem
+								button
+								className={
+									location?.pathname === "/adminUser" && "activeButton"
+								}>
+								<ListItemIcon className='listItemIcon'>
+									<LinkIcon />
+								</ListItemIcon>
+								<ListItemText primary={"Admin User"} />
+							</ListItem>
+						</Link>
+						<Link className='link' to='application'>
+							<ListItem
+								button
+								className={
+									location?.pathname === "/application" && "activeButton"
+								}>
+								<ListItemIcon className='listItemIcon'>
+									<LinkIcon />
+								</ListItemIcon>
+								<ListItemText primary={"Application"} />
 							</ListItem>
 						</Link>
 					</List>
@@ -266,7 +446,19 @@ function Dashboard(props) {
 					</IconButton>
 					<Box display='flex' sx={{ flexGrow: 1, alignItems: "center" }}>
 						<DashboardIcon sx={{ mr: 1 }} />
-						<Typography variant='h6'>DASHBOARD</Typography>
+						<Typography variant='h6'>ADMIN-DASHBOARD</Typography>
+					</Box>
+					<Box>
+						<Typography variant='p' style={{ color: "white", fontWeight: "bold", margin: "0px 10px" }}>
+							John Doe
+						</Typography>
+					</Box>
+					<Box>
+						<Avatar
+							sx={{ border: "2px solid #44ba06", }}
+							alt=''
+							src='https://expertphotography.b-cdn.net/wp-content/uploads/2020/08/social-media-profile-photos-3.jpg'
+						/>
 					</Box>
 					<Box className='logout'>
 						<Button onClick={() => signOut(auth)}>

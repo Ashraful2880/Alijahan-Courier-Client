@@ -1,3 +1,167 @@
 .App {
   text-align: center;
 }
+
+:root {
+  --color1: #2c3135;
+  --color2: #1d1f20;
+  --color3: #44ba06;
+}
+
+.App {
+  text-align: center;
+}
+
+/* common classes */
+.borderColor {
+  border-color: var(--color1) !important;
+}
+
+.bgColor {
+  background-color: var(--color1) !important;
+}
+
+.textColor {
+  color: var(--color1) !important;
+}
+
+.iconBtn {
+  color: var(--color2) !important;
+  cursor: pointer;
+  width: 1.2em !important;
+  height: 1.2em !important;
+  margin: 0 5px;
+}
+
+/* //MuiInputBase// */
+.MuiInputBase-formControl::before,
+.MuiInputBase-formControl::after,
+.MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
+  border-color: var(--color1) !important;
+}
+
+.MuiInputBase-input,
+.MuiOutlinedInput-root,
+.MuiInputLabel-root {
+  background-color: transparent !important;
+}
+
+.MuiInputLabel-shrink {
+  color: var(--color1) !important;
+}
+
+/* //dashboard// */
+.dashboard .MuiDrawer-paper {
+  background-color: var(--color1);
+}
+
+.dashboard .MuiTypography-root {
+  font-size: 1rem;
+}
+
+.dashboard .MuiListItem-root {
+  color: white;
+  padding: 4px 1px;
+}
+
+.dashboard .MuiListItem-root:hover .MuiSvgIcon-root,
+.dashboard .MuiAccordionSummary-root:hover .MuiSvgIcon-root {
+  color: var(--color3);
+}
+
+.dashboard .MuiListItem-root:hover {
+  background-color: var(--color1);
+  border-left: 4px solid var(--color3);
+}
+
+.dashboard .MuiListItemIcon-root {
+  color: white;
+  min-width: 22px !important;
+}
+
+.dashboard .MuiSvgIcon-root {
+  width: 0.8em;
+  height: 0.8em;
+  min-width: 41px;
+  color: white;
+}
+
+.dashboard .link {
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.dashboard .MuiAvatar-root {
+  width: 65px;
+  height: 65px;
+}
+
+.dashboard .MuiAccordionSummary-content {
+  margin: 0 !important;
+}
+
+.dashboard .MuiAccordionSummary-root {
+  flex-direction: row !important;
+  background-color: var(--color1);
+  color: white;
+  padding: 0;
+  min-height: auto !important;
+  padding: 7px 1px;
+}
+
+.dashboard .MuiAccordionSummary-root:hover {
+  background-color: var(--color1);
+  border-left: 4px solid var(--color3);
+}
+
+.dashboard .MuiAccordionDetails-root {
+  padding: 0;
+}
+
+.dashboard .MuiList-root {
+  background-color: var(--color2);
+}
+
+.activeButton {
+  background-color: var(--color1);
+  border-left: 4px solid var(--color3);
+}
+
+.button {
+  background-color: var(--color1) !important;
+  color: transparent !important;
+  color: white !important;
+}
+
+.button:hover {
+  background-color: white !important;
+  color: var(--color1) !important;
+}
+
+/*  Scrollbar style */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color3) !important;
+}
+
+/* logout button */
+.logout .MuiSvgIcon-root {
+  color: var(--color3) !important;
+}
+
+.logout .MuiButton-root:hover {
+  color: white !important;
+  background-color: var(--color3);
+}
+
+.logout .MuiButton-root:hover .MuiSvgIcon-root {
+  color: white !important;
+}
+
+/* Table */
+.table .MuiButtonBase-root {
+  color: var(--color1) !important;
+}
