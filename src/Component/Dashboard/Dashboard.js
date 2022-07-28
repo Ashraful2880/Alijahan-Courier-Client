@@ -157,7 +157,7 @@ function Dashboard(props) {
 								<ListItemText primary={"Branch User"} />
 							</ListItem>
 						</Link>
-						<Link className='link' to='Departments'>
+						<Link className='link' to='merchant'>
 							<ListItem
 								button
 								className={
