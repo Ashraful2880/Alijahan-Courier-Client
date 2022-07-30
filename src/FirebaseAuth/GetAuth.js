@@ -14,7 +14,7 @@ const GetAuth = () => {
 		return () => unSubscribed;
 	}, []);
 
-	return [user, loading, token];
+	return { user, loading, token };
 };
 
 export default GetAuth;

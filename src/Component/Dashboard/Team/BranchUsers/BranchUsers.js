@@ -1,11 +1,11 @@
 import React from 'react';
 
-const Item = () => {
+const BranchUsers = () => {
     return (
         <div>
-            <h2>This is Item Page</h2>
+            
         </div>
     );
 };
 
-export default Item;
+export default BranchUsers;
