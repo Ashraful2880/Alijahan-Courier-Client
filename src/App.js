@@ -1,62 +1,40 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import './App.css';
-import Dashboard from './Component/Dashboard/Dashboard';
-import Login from './Component/Login/Login';
-import ResetPassword from './Component/ResetPassword/ResetPassword';
-import Signup from './Component/Signup/Signup';
-import Branch from './Component/Dashboard/Team/Branch';
-import BranchUser from './Component/Dashboard/Team/BranchUser';
-import Merchant from './Component/Dashboard/Team/Merchant';
-import Warehouse from './Component/Dashboard/Team/Warehouse';
-import WarehouseUser from './Component/Dashboard/Team/WarehouseUser';
-import Rider from './Component/Dashboard/Team/Rider';
-import ParcelList from './Component/Dashboard/Parcel/ParcelList';
-import WeightPackage from './Component/Dashboard/ApplicationSetting/WeightPackage';
-import ServiceArea from './Component/Dashboard/ApplicationSetting/ServiceArea';
-import ServiceAreaSetting from './Component/Dashboard/ApplicationSetting/ServiceAreaSetting';
-import District from './Component/Dashboard/ApplicationSetting/District';
-import Upazila from './Component/Dashboard/ApplicationSetting/Upazila';
-import Area from './Component/Dashboard/ApplicationSetting/Area';
-import BookingParcelList from './Component/Dashboard/TraditionalParcelBooking/BookingParcelList';
-import Vehicle from './Component/Dashboard/TraditionalParcelSetting/Vehicle';
-import Item from './Component/Dashboard/TraditionalParcelSetting/Item';
-import Unit from './Component/Dashboard/TraditionalParcelSetting/Unit';
-import ItemCategory from './Component/Dashboard/TraditionalParcelSetting/ItemCategory';
-import AdminUser from './Component/Dashboard/Setting/AdminUser';
-import Application from './Component/Dashboard/Setting/Application';
-import DashboardHome from './Component/Dashboard/DashboardHome/DashboardHome';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import "./App.css";
+import Dashboard from "./Component/Dashboard/Dashboard";
+import Branches from "./Component/Dashboard/Team/Branches/Branches";
+import BranchUsers from "./Component/Dashboard/Team/BranchUsers/BranchUsers";
+import Merchants from "./Component/Dashboard/Team/Merchants/Merchants";
+import Riders from "./Component/Dashboard/Team/Riders/Riders";
+import Warehouses from "./Component/Dashboard/Team/Warehouses/Warehouses";
+import WarehouseUsers from "./Component/Dashboard/Team/WarehouseUsers/WarehouseUsers";
+import Login from "./Component/Login/Login";
+import DeliveryParcelList from "./Component/MerchantDashboard/Account/DeliveryParcelList";
+import DeliveryPaymentList from "./Component/MerchantDashboard/Account/DeliveryPaymentList";
+import MerchantDashboard from "./Component/MerchantDashboard/MerchantDashboard";
+import AddParcel from "./Component/MerchantDashboard/Parcel/AddParcel";
+import ParcelList from "./Component/MerchantDashboard/Parcel/ParcelList";
+import Profile from "./Component/MerchantDashboard/Profile";
 
 function App() {
   return (
-    <div className="App">
+    <div className='App'>
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<Dashboard />} />
-          <Route path='/register' element={<Signup />} />
           <Route path='/login' element={<Login />} />
-          <Route path='/resetPassword' element={<ResetPassword />} />
-          <Route path="dashboard" element={<Dashboard />}>
-            <Route path="" element={<DashboardHome />} />
-            <Route path="branch" element={<Branch />} />
-            <Route path="branchUser" element={<BranchUser />} />
-            <Route path="merchant" element={<Merchant />} />
-            <Route path="rider" element={<Rider />} />
-            <Route path="warehouse" element={<Warehouse />} />
-            <Route path="warehouseUser" element={<WarehouseUser />} />
-            <Route path="parcelList" element={<ParcelList />} />
-            <Route path="weightPackage" element={<WeightPackage />} />
-            <Route path="serviceArea" element={<ServiceArea />} />
-            <Route path="serviceAreaSetting" element={<ServiceAreaSetting />} />
-            <Route path="district" element={<District />} />
-            <Route path="upazila" element={<Upazila />} />
-            <Route path="area" element={<Area />} />
-            <Route path="bookingParcelList" element={<BookingParcelList />} />
-            <Route path="vehicle" element={<Vehicle />} />
-            <Route path="itemCategory" element={<ItemCategory />} />
-            <Route path="unit" element={<Unit />} />
-            <Route path="item" element={<Item />} />
-            <Route path="adminUser" element={<AdminUser />} />
-            <Route path="application" element={<Application />} />
+          <Route path='/' element={<Dashboard />}>
+            <Route path='/branches' element={<Branches />} />
+            <Route path='/branchusers' element={<BranchUsers />} />
+            <Route path='/merchants' element={<Merchants />} />
+            <Route path='/riders' element={<Riders />} />
+            <Route path='/warehouses' element={<Warehouses />} />
+            <Route path='/warehouseusers' element={<WarehouseUsers />} />
+            {/* Merchant Dashboard Code Here */}
+            <Route path='/merchantDashboard' element={<MerchantDashboard />} />
+            <Route path='/merchantDashboard/profile' element={<Profile />} />
+            <Route path='/merchantDashboard/AddParcel' element={<AddParcel />} />
+            <Route path='/merchantDashboard/parcelList' element={<ParcelList />} />
+            <Route path='/merchantDashboard/deliveryPaymentList' element={<DeliveryPaymentList />} />
+            <Route path='/merchantDashboard/deliveryParcelList' element={<DeliveryParcelList />} />
           </Route>
         </Routes>
       </BrowserRouter>
