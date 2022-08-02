@@ -440,8 +440,8 @@ function Dashboard(props) {
 			</Accordion>
 
 			{/* Merchant Dashboard Code Here */}
-			<Typography variant='h6' className='title' sx={{ color: "gray" }}>
-				Merchant Dashboard From Here
+			<Typography variant='h6' className='title' sx={{ color: "gray", marginY: "5px" }}>
+				Merchant Dashboard Here
 			</Typography>
 
 			<Link className='link' to='/merchantDashboard'>
@@ -479,7 +479,7 @@ function Dashboard(props) {
 							<ListItem
 								button
 								className={
-									location?.pathname === "/addParcel" && "activeButton"
+									location?.pathname === "merchantDashboard/addParcel" && "activeButton"
 								}>
 								<ListItemIcon className='listItemIcon'>
 									<AdminPanelSettingsIcon />
