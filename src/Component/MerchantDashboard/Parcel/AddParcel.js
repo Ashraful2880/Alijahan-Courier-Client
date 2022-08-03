@@ -47,7 +47,7 @@ const AddParcel = () => {
                                                 required: true,
                                             })}
                                         />
-                                        {errors?.customerName?.type === "required" && <p>This field is required</p>}
+                                        {errors?.customerName?.type === "required" && <p style={{ color: "red", fontSize: "14px", marginTop: "-10px" }}>This field is required</p>}
                                     </Box>
                                     <Box sx={{ width: "48%" }}>
                                         <TextField
@@ -57,7 +57,7 @@ const AddParcel = () => {
                                             {...register("customerNumber", {
                                                 required: true,
                                             })} />
-                                        {errors?.customerNumber?.type === "required" && <p>This field is required</p>}
+                                        {errors?.customerNumber?.type === "required" && <p style={{ color: "red", fontSize: "14px", marginTop: "-10px" }}>This field is required</p>}
                                     </Box>
                                 </Box>
                                 <Box sx={{ display: "flex", justifyContent: "space-between", margin: "20px 30px" }}>
@@ -69,7 +69,7 @@ const AddParcel = () => {
                                             {...register("address", {
                                                 required: true,
                                             })} />
-                                        {errors?.address?.type === "required" && <p>This field is required</p>}
+                                        {errors?.address?.type === "required" && <p style={{ color: "red", fontSize: "14px", marginTop: "-10px" }}>This field is required</p>}
                                     </Box>
                                     <Box sx={{ width: "48%" }}>
                                         <TextField
@@ -86,7 +86,7 @@ const AddParcel = () => {
                                                 </MenuItem>
                                             ))}
                                         </TextField>
-                                        {errors?.district?.type === "required" && <p>This field is required</p>}
+                                        {errors?.district?.type === "required" && <p style={{ color: "red", fontSize: "14px", marginTop: "-10px" }}>This field is required</p>}
                                     </Box>
                                 </Box>
                                 <Box sx={{ display: "flex", justifyContent: "space-between", margin: "20px 30px" }}>
@@ -105,7 +105,7 @@ const AddParcel = () => {
                                                 </MenuItem>
                                             ))}
                                         </TextField>
-                                        {errors?.upazila?.type === "required" && <p>This field is required</p>}
+                                        {errors?.upazila?.type === "required" && <p style={{ color: "red", fontSize: "14px", marginTop: "-10px" }}>This field is required</p>}
                                     </Box>
                                     <Box sx={{ width: "48%" }}>
                                         <TextField
@@ -122,7 +122,7 @@ const AddParcel = () => {
                                                 </MenuItem>
                                             ))}
                                         </TextField>
-                                        {errors?.area?.type === "required" && <p>This field is required</p>}
+                                        {errors?.area?.type === "required" && <p style={{ color: "red", fontSize: "14px", marginTop: "-10px" }}>This field is required</p>}
                                     </Box>
                                 </Box>
                             </Card>
@@ -140,7 +140,7 @@ const AddParcel = () => {
                                                 required: true,
                                             })}
                                         />
-                                        {errors?.merchantOrderID?.type === "required" && <p>This field is required</p>}
+                                        {errors?.merchantOrderID?.type === "required" && <p style={{ color: "red", fontSize: "14px", marginTop: "-10px" }}>This field is required</p>}
                                     </Box>
                                     <Box sx={{ width: "48%" }}>
                                         <TextField
@@ -157,7 +157,7 @@ const AddParcel = () => {
                                                 </MenuItem>
                                             ))}
                                         </TextField>
-                                        {errors?.weight?.type === "required" && <p>This field is required</p>}
+                                        {errors?.weight?.type === "required" && <p style={{ color: "red", fontSize: "14px", marginTop: "-10px" }}>This field is required</p>}
                                     </Box>
                                 </Box>
                                 <Box sx={{ display: "flex", justifyContent: "space-between", margin: "20px 30px" }}>
@@ -176,7 +176,7 @@ const AddParcel = () => {
                                                 </MenuItem>
                                             ))}
                                         </TextField>
-                                        {errors?.deliveryOption?.type === "required" && <p>This field is required</p>}
+                                        {errors?.deliveryOption?.type === "required" && <p style={{ color: "red", fontSize: "14px", marginTop: "-10px" }}>This field is required</p>}
                                     </Box>
                                     <Box sx={{ width: "48%" }}>
                                         <TextField
@@ -186,7 +186,7 @@ const AddParcel = () => {
                                             {...register("productsDetails", {
                                                 required: true,
                                             })} />
-                                        {errors?.productsDetails?.type === "required" && <p>This field is required</p>}
+                                        {errors?.productsDetails?.type === "required" && <p style={{ color: "red", fontSize: "14px", marginTop: "-10px" }}>This field is required</p>}
                                     </Box>
                                 </Box>
                                 <Box sx={{ display: "flex", justifyContent: "space-between", margin: "20px 30px" }}>
@@ -198,7 +198,7 @@ const AddParcel = () => {
                                             {...register("collectionAmount", {
                                                 required: true,
                                             })} />
-                                        {errors?.collectionAmount?.type === "required" && <p>This field is required</p>}
+                                        {errors?.collectionAmount?.type === "required" && <p style={{ color: "red", fontSize: "14px", marginTop: "-10px" }}>This field is required</p>}
                                     </Box>
                                     <TextareaAutosize
                                         onChange={handleChange}
@@ -209,7 +209,7 @@ const AddParcel = () => {
                                             required: true,
                                         })}
                                     />
-                                    {errors?.remark?.type === "required" && <p>This field is required</p>}
+                                    {errors?.remark?.type === "required" && <p style={{ color: "red", fontSize: "14px", marginTop: "-10px" }}>This field is required</p>}
                                 </Box>
                             </Card>
                         </Grid>
