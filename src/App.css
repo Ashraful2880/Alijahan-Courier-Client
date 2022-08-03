@@ -153,8 +153,7 @@
 }
 
 .logout .MuiButton-root:hover {
-  color: white !important;
-  background-color: var(--color3);
+  color: var(--color3) !important;
 }
 
 .logout .MuiButton-root:hover .MuiSvgIcon-root {

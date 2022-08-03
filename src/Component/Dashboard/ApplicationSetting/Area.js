@@ -21,7 +21,7 @@ import RemoveDoneIcon from "@mui/icons-material/RemoveDone";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
 import { useAPI } from "../../../ApiContext";
 
-const Thana = () => {
+const Area = () => {
 	const { user, loading, token } = useAPI();
 	const { register, handleSubmit, reset } = useForm();
 	const [submitting, setSubmitting] = useState(false);
@@ -295,4 +295,4 @@ const Thana = () => {
 	);
 };
 
-export default Thana;
+export default Area;

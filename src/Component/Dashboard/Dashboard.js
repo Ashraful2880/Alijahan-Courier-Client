@@ -295,10 +295,10 @@ function Dashboard(props) {
 								<ListItemText primary={"District"} />
 							</ListItem>
 						</Link>
-						<Link className='link' to='thana'>
+						<Link className='link' to='upazila'>
 							<ListItem
 								button
-								className={location?.pathname === "/thana" && "activeButton"}>
+								className={location?.pathname === "/upazila" && "activeButton"}>
 								<ListItemIcon className='listItemIcon'>
 									<FlagIcon />
 								</ListItemIcon>
@@ -438,6 +438,138 @@ function Dashboard(props) {
 					</List>
 				</AccordionDetails>
 			</Accordion>
+
+			{/* Merchant Dashboard Code Here */}
+			<Typography variant='h6' className='title' sx={{ color: "gray", marginY: "5px" }}>
+				Merchant Dashboard Here
+			</Typography>
+
+			<Link className='link' to='/merchantDashboard'>
+				<ListItem
+					button
+					className={location?.pathname === "/" && "activeButton"}>
+					<ListItemIcon className='listItemIcon'>
+						<HomeIcon />
+					</ListItemIcon>
+					<ListItemText primary={"Home"} />
+				</ListItem>
+			</Link>
+			<Link className='link' to='/merchantDashboard/profile'>
+				<ListItem
+					button
+					className={location?.pathname === "/" && "activeButton"}>
+					<ListItemIcon className='listItemIcon'>
+						<HomeIcon />
+					</ListItemIcon>
+					<ListItemText primary={"Profile"} />
+				</ListItem>
+			</Link>
+			<Accordion
+				expanded={expanded === "panel7"}
+				onChange={handleChange("panel7")}>
+				<AccordionSummary aria-controls='panel7d-content' id='panel7d-header'>
+					<ListItemIcon className='listItemIcon'>
+						<SettingsIcon />
+					</ListItemIcon>
+					<Typography>Parcel</Typography>
+				</AccordionSummary>
+				<AccordionDetails>
+					<List>
+						<Link className='link' to='merchantDashboard/addParcel'>
+							<ListItem
+								button
+								className={
+									location?.pathname === "merchantDashboard/addParcel" && "activeButton"
+								}>
+								<ListItemIcon className='listItemIcon'>
+									<AdminPanelSettingsIcon />
+								</ListItemIcon>
+								<ListItemText primary={"Add Parcel"} />
+							</ListItem>
+						</Link>
+						<Link className='link' to='merchantDashboard/parcelList'>
+							<ListItem
+								button
+								className={
+									location?.pathname === "merchantDashboard/ParcelList" && "activeButton"
+								}>
+								<ListItemIcon className='listItemIcon'>
+									<ComputerIcon />
+								</ListItemIcon>
+								<ListItemText primary={"Parcel List"} />
+							</ListItem>
+						</Link>
+					</List>
+				</AccordionDetails>
+			</Accordion>
+			<Accordion
+				expanded={expanded === "panel8"}
+				onChange={handleChange("panel8")}>
+				<AccordionSummary aria-controls='panel8d-content' id='panel8d-header'>
+					<ListItemIcon className='listItemIcon'>
+						<SettingsIcon />
+					</ListItemIcon>
+					<Typography>Account</Typography>
+				</AccordionSummary>
+				<AccordionDetails>
+					<List>
+						<Link className='link' to='merchantDashboard/deliveryPaymentList'>
+							<ListItem
+								button
+								className={
+									location?.pathname === "/deliveryPaymentList" && "activeButton"
+								}>
+								<ListItemIcon className='listItemIcon'>
+									<AdminPanelSettingsIcon />
+								</ListItemIcon>
+								<ListItemText primary={"Delivery Payment List"} />
+							</ListItem>
+						</Link>
+						<Link className='link' to='merchantDashboard/deliveryParcelList'>
+							<ListItem
+								button
+								className={
+									location?.pathname === "/deliveryParcelList" && "activeButton"
+								}>
+								<ListItemIcon className='listItemIcon'>
+									<ComputerIcon />
+								</ListItemIcon>
+								<ListItemText primary={"Delivery Parcel List"} />
+							</ListItem>
+						</Link>
+					</List>
+				</AccordionDetails>
+			</Accordion>
+			<Link className='link' to='/merchantDashboard/orderTracking'>
+				<ListItem
+					button
+					className={location?.pathname === "/merchantDashboard/orderTracking" && "activeButton"}>
+					<ListItemIcon className='listItemIcon'>
+						<HomeIcon />
+					</ListItemIcon>
+					<ListItemText primary={"Order Tracking"} />
+				</ListItem>
+			</Link>
+			<Link className='link' to='/merchantDashboard/coverageArea'>
+				<ListItem
+					button
+					className={location?.pathname === "/merchantDashboard/coverageArea" && "activeButton"}>
+					<ListItemIcon className='listItemIcon'>
+						<HomeIcon />
+					</ListItemIcon>
+					<ListItemText primary={"Coverage Area"} />
+				</ListItem>
+			</Link>
+			<Link className='link' to='/merchantDashboard/serviceCharge'>
+				<ListItem
+					button
+					className={location?.pathname === "/merchantDashboard/serviceCharge" && "activeButton"}>
+					<ListItemIcon className='listItemIcon'>
+						<HomeIcon />
+					</ListItemIcon>
+					<ListItemText primary={"Service Charge"} />
+				</ListItem>
+			</Link>
 		</Box>
 	);
 

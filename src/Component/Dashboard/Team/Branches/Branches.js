@@ -19,7 +19,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import RemoveDoneIcon from "@mui/icons-material/RemoveDone";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
-import EditBranches from "./EditBranches";
+import EditBranches from "./EditBranches.js";
 import AddIcon from "@mui/icons-material/Add";
 import GetAuth from "../../../../FirebaseAuth/GetAuth";
 import AddBranches from "./AddBranches";
