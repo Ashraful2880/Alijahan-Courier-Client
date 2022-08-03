@@ -18,8 +18,9 @@ const OrderTracking = () => {
             <Typography variant='h5' sx={{ textAlign: "left", marginY: "15px" }}>Order Tracking</Typography>
             <Box>
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <Box sx={{ display: "flex", gap: "0px 30px" }}>
-                        <Box sx={{ width: "48%" }}>
+                    <Typography component="p" sx={{ fontSize: "20px", fontWeight: "bold" }}>Track Your Order</Typography>
+                    <Box sx={{ width: { sx: "100%", sm: "100%", md: "80%", lg: "30%" }, margin: "auto" }}>
+                        <Box sx={{ width: "100%", marginY: "10px" }}>
                             <TextField
                                 sx={{ width: "100%" }}
                                 helperText="Parcel Invoice Barcode"
@@ -27,9 +28,9 @@ const OrderTracking = () => {
                                 {...register("invoice", {
                                     required: true,
                                 })} />
-                            {errors?.invoice?.type === "required" && <p>This field is required</p>}
+                            {errors?.invoice?.type === "required" && <p style={{ color: "red", fontSize: "14px", marginTop: "-15px" }}>This field is required</p>}
                         </Box>
-                        <Box sx={{ width: "48%" }}>
+                        <Box sx={{ width: "100%", marginY: "10px" }}>
                             <TextField
                                 sx={{ width: "100%" }}
                                 helperText="Merchant Order ID"
@@ -37,13 +38,13 @@ const OrderTracking = () => {
                                 {...register("address", {
                                     required: true,
                                 })} />
-                            {errors?.address?.type === "required" && <p>This field is required</p>}
+                            {errors?.address?.type === "required" && <p style={{ color: "red", fontSize: "14px", marginTop: "-15px" }}>This field is required</p>}
                         </Box>
-                    </Box>
-                    <Box sx={{ marginY: "20px", padding: "0px 26px" }}>
-                        <Button type="submit" variant="contained" color="success" sx={{ margin: "0px 10px" }}>
-                            Search
-                        </Button>
+                        <Box sx={{ marginY: "10px" }}>
+                            <Button type="submit" variant="contained" color="success" sx={{ padding: "12px 0px", width: "100%" }}>
+                                Search
+                            </Button>
+                        </Box>
                     </Box>
                 </form>
             </Box>
