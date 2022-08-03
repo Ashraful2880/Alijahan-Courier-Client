@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, Button, Card, CardActions, CardContent, Grid, MenuItem, TextareaAutosize, TextField, Typography } from '@mui/material';
 import { useForm } from 'react-hook-form';
+import "../MerchantDashboard.css";
 
 const AddParcel = () => {
     const [district, setDistrict] = React.useState('Select District');
@@ -34,8 +35,8 @@ const AddParcel = () => {
             <Box sx={{ width: '100%' }}>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                        <Grid item xs={6}>
-                            <Typography component='p' sx={{ textAlign: "left", marginY: "15px", fontWeight: "bold", fontSize: "18px" }}>Customer Information</Typography>
+                        <Grid item xs={12} md={6} lg={6} style={{ position: "relative" }}>
+                            <Typography className="divider" component='p' sx={{ textAlign: "left", marginY: "15px", fontWeight: "bold", fontSize: "18px" }}>Customer Information</Typography>
                             <Card sx={{ minWidth: 275 }}>
                                 <Box sx={{ display: "flex", justifyContent: "space-between", margin: "20px 30px" }}>
                                     <Box sx={{ width: "48%" }}>
@@ -127,8 +128,8 @@ const AddParcel = () => {
                                 </Box>
                             </Card>
                         </Grid>
-                        <Grid item xs={6}>
-                            <Typography component='p' sx={{ textAlign: "left", marginY: "15px", fontWeight: "bold", fontSize: "18px" }}>Parcel Information</Typography>
+                        <Grid item xs={12} md={6} lg={6} style={{ position: "relative" }}>
+                            <Typography component='p' sx={{ textAlign: "left", marginY: "15px", fontWeight: "bold", fontSize: "18px" }} className="divider">Parcel Information</Typography>
                             <Card sx={{ minWidth: 275 }}>
                                 <Box sx={{ display: "flex", justifyContent: "space-between", margin: "20px 30px" }}>
                                     <Box sx={{ width: "48%" }}>
@@ -213,8 +214,8 @@ const AddParcel = () => {
                                 </Box>
                             </Card>
                         </Grid>
-                        <Grid item xs={6}>
-                            <Typography component='p' sx={{ textAlign: "left", marginY: "15px", fontWeight: "bold", fontSize: "18px" }}>Merchant Information</Typography>
+                        <Grid item xs={12} md={6} lg={6} style={{ position: "relative" }}>
+                            <Typography component='p' sx={{ textAlign: "left", marginY: "15px", fontWeight: "bold", fontSize: "18px" }} className="divider">Merchant Information</Typography>
                             <Card sx={{ minWidth: 275 }}>
                                 <Box sx={{ display: "grid", gridTemplateColumns: "2fr 1fr 2fr", marginBottom: "20px", marginTop: "20px" }}>
                                     <Typography component='p' sx={{ fontWeight: "bold", fontSize: "14px" }}>
@@ -273,8 +274,8 @@ const AddParcel = () => {
                                 </Box>
                             </Card>
                         </Grid>
-                        <Grid item xs={6}>
-                            <Typography component='p' sx={{ textAlign: "left", fontWeight: "bold", marginY: "15px", fontSize: "18px" }}>Parcel Charge</Typography>
+                        <Grid item xs={12} md={6} lg={6} style={{ position: "relative" }}>
+                            <Typography component='p' sx={{ textAlign: "left", fontWeight: "bold", marginY: "15px", fontSize: "18px" }} className="divider">Parcel Charge</Typography>
                             <Card sx={{ minWidth: 275, padding: "0px 15px" }}>
                                 <Box sx={{ display: "grid", gridTemplateColumns: "2fr 1fr 2fr", marginBottom: "20px", marginTop: "20px" }}>
                                     <Typography component='p' sx={{ fontWeight: "bold", fontSize: "14px" }}>
