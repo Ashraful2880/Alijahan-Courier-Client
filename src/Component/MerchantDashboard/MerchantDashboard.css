@@ -1,0 +1,9 @@
+.divider::after {
+    content: "";
+    height: 3px;
+    background-image: linear-gradient(to right, #1e793c0e, #013c1775, #0c304d11);
+    width: 20%;
+    position: absolute;
+    top: 50px;
+    left: 25px;
+}

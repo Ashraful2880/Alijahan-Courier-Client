@@ -15,30 +15,20 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { useEffect } from "react";
 import { useState } from "react";
-import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import RemoveDoneIcon from "@mui/icons-material/RemoveDone";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
-import EditBranches from "./EditBranches.js";
-import AddIcon from "@mui/icons-material/Add";
-import GetAuth from "../../../../FirebaseAuth/GetAuth";
-import AddBranches from "./AddBranches";
+import { useAPI } from "../../../ApiContext";
 
-const Branches = () => {
-	const { user, loading, token } = GetAuth();
+const District = () => {
+	const { user, loading, token } = useAPI();
 	const { register, handleSubmit, reset } = useForm();
 	const [submitting, setSubmitting] = useState(false);
 	const [data, setData] = useState();
-	const [open, setOpen] = React.useState(false);
-	const [openEdit, setOpenEdit] = React.useState(false);
-	const [id, setId] = React.useState();
-	const handleOpen = (id) => {
-		setOpenEdit(true);
-		setId(id);
-	};
+
 	useEffect(() => {
 		axios
-			.get(`${process.env.REACT_APP_API_PATH}/branches`, {
+			.get(`${process.env.REACT_APP_API_PATH}/districts`, {
 				headers: {
 					Authorization: `Bearer ${token}`,
 				},
@@ -50,7 +40,31 @@ const Branches = () => {
 				console.log(error);
 			});
 	}, [token, submitting]);
-
+	const onSubmit = ({ district }) => {
+		setSubmitting(true);
+		axios
+			.post(
+				`${process.env.REACT_APP_API_PATH}/district`,
+				{
+					district,
+					status: "Active",
+				},
+				{
+					headers: {
+						Authorization: `Bearer ${token}`,
+					},
+				},
+			)
+			.then((response) => {
+				setSubmitting(false);
+				reset();
+				Swal.fire("", "Successfully Added!", "success");
+			})
+			.catch((error) => {
+				setSubmitting(false);
+				console.log(error);
+			});
+	};
 	const renderDetailsButton = (params) => {
 		return (
 			<strong>
@@ -67,7 +81,7 @@ const Branches = () => {
 									setSubmitting(true);
 									axios
 										.put(
-											`${process.env.REACT_APP_API_PATH}/branchStatus/${params.row?._id}`,
+											`${process.env.REACT_APP_API_PATH}/districtStatus/${params.row?._id}`,
 											{
 												status: "Inactive",
 											},
@@ -102,7 +116,7 @@ const Branches = () => {
 									setSubmitting(true);
 									axios
 										.put(
-											`${process.env.REACT_APP_API_PATH}/branchStatus/${params.row?._id}`,
+											`${process.env.REACT_APP_API_PATH}/districtStatus/${params.row?._id}`,
 											{
 												status: "Active",
 											},
@@ -125,12 +139,6 @@ const Branches = () => {
 						}}
 					/>
 				)}
-				<EditIcon
-					className='iconBtn'
-					onClick={() => {
-						handleOpen(params.row?._id);
-					}}
-				/>
 				<DeleteIcon
 					className='iconBtn'
 					onClick={() => {
@@ -143,7 +151,7 @@ const Branches = () => {
 								setSubmitting(true);
 								axios
 									.delete(
-										`${process.env.REACT_APP_API_PATH}/grade/${params.row?._id}`,
+										`${process.env.REACT_APP_API_PATH}/district/${params.row?._id}`,
 										{
 											headers: {
 												Authorization: `Bearer ${token}`,
@@ -167,18 +175,12 @@ const Branches = () => {
 	};
 
 	const columns = [
-		{ field: "branchName", headerName: "Branch Name", width: 100 },
-		{ field: "branchAddress", headerName: "Branch Address", width: 100 },
-		{ field: "branchDistrict", headerName: "Branch District", width: 100 },
-		{ field: "branchThana", headerName: "Branch Thana", width: 100 },
-		{ field: "branchArea", headerName: "Branch Area", width: 100 },
-		{ field: "branchContact", headerName: "Branch Contact", width: 150 },
-		{ field: "branchEmail", headerName: "Branch Email", width: 200 },
-		{ field: "status", headerName: "Status", width: 100 },
+		{ field: "district", headerName: "District Name", flex: 1 },
+		{ field: "status", headerName: "Status", flex: 1 },
 		{
 			field: "_id",
 			headerName: "Action",
-			width: 130,
+			flex: 1,
 			renderCell: renderDetailsButton,
 			disableClickEventBubbling: true,
 		},
@@ -186,16 +188,28 @@ const Branches = () => {
 	return (
 		<Container sx={{ py: 1 }}>
 			<Typography variant='h5' sx={{ fontWeight: "bold" }}>
-				Branch
+				Manage District
 			</Typography>
-			<Button
-				onClick={() => setOpen(true)}
-				variant='contained'
-				className='button'
-				sx={{ my: 0.7, fontWeight: "bold", px: 2.5 }}>
-				Add New Branch <AddIcon sx={{ ml: 1.5 }} />
-			</Button>
 			<Grid container spacing={1} sx={{ justifyContent: "center" }}>
+				<Grid item xs={12} md={6}>
+					<form onSubmit={handleSubmit(onSubmit)}>
+						<TextField
+							size='small'
+							sx={{ my: 0.7 }}
+							fullWidth
+							required
+							label='District Name'
+							{...register("district", { required: true })}
+						/>
+						<Button
+							type='submit'
+							variant='contained'
+							className='button'
+							sx={{ my: 0.7, fontWeight: "bold", px: 2.5 }}>
+							Submit <SendIcon sx={{ ml: 1.5 }} />
+						</Button>
+					</form>
+				</Grid>
 				<Grid item xs={12} md={12}>
 					{data && (
 						<div style={{ height: 400, width: "100%" }} className='table'>
@@ -217,26 +231,8 @@ const Branches = () => {
 				open={submitting || !data}>
 				<CircularProgress color='inherit' />
 			</Backdrop>
-			{open && (
-				<AddBranches
-					open={open}
-					setOpen={setOpen}
-					id={id}
-					token={token}
-					setSubmitting={setSubmitting}
-				/>
-			)}
-			{openEdit && (
-				<EditBranches
-					open={openEdit}
-					setOpen={setOpenEdit}
-					id={id}
-					token={token}
-					setSubmitting={setSubmitting}
-				/>
-			)}
 		</Container>
 	);
 };
 
-export default Branches;
+export default District;
