@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Button, Card, CardActions, CardContent, Grid, MenuItem, TextareaAutosize, TextField, Typography } from '@mui/material';
+import { Box, Button, Card, Grid, MenuItem, TextareaAutosize, TextField, Typography } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import "../MerchantDashboard.css";
 
@@ -19,7 +19,6 @@ const AddParcel = () => {
     const {
         register,
         handleSubmit,
-        watch,
         formState: { errors }
     } = useForm();
 
