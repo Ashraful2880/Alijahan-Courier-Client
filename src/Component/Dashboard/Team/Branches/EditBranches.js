@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import {
@@ -7,6 +7,7 @@ import {
 	Backdrop,
 	Typography,
 	CircularProgress,
+	Autocomplete,
 } from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
@@ -43,6 +44,50 @@ const EditBranches = ({ open, setOpen, id, token, setSubmitting }) => {
 			branchImage: "",
 		},
 	});
+	const [thanas, setThanas] = useState();
+	const [areas, setAreas] = useState();
+	const [districts, setDistricts] = useState([]);
+	const [selectedDistricts, setSelectedDistricts] = useState("");
+	const [selectedThana, setSelectedThana] = useState("");
+
+	useEffect(() => {
+		axios
+			.get(`${process.env.REACT_APP_API_PATH}/thanas`, {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			})
+			.then((response) => {
+				setThanas(response.data);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+		axios
+			.get(`${process.env.REACT_APP_API_PATH}/areas`, {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			})
+			.then((response) => {
+				setAreas(response.data);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+		axios
+			.get(`${process.env.REACT_APP_API_PATH}/districts`, {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			})
+			.then((response) => {
+				setDistricts(response.data);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	}, [token]);
 	const [data, setData] = React.useState();
 	useEffect(() => {
 		axios
@@ -134,24 +179,96 @@ const EditBranches = ({ open, setOpen, id, token, setSubmitting }) => {
 										sx={{ my: 0.7 }}
 										fullWidth
 										required
-										InputLabelProps={{
-											shrink: true,
-										}}
-										label='Grade Name'
-										{...register("gradeName", { required: true })}
+										label='Branch Name'
+										{...register("branchName", { required: true })}
 									/>
 									<TextField
 										size='small'
 										sx={{ my: 0.7 }}
 										fullWidth
 										multiline
-										rows={3}
-										required
-										InputLabelProps={{
-											shrink: true,
-										}}
-										label='Description'
-										{...register("decription", { required: true })}
+										rows={2}
+										label='Branch Address'
+										{...register("branchAddress", { required: true })}
+									/>
+									<Autocomplete
+										onChange={(e) => setSelectedDistricts(e.target.innerText)}
+										size='small'
+										sx={{ my: 1, width: "100% !important" }}
+										options={districts}
+										defaultValue={
+											districts[
+												districts?.findIndex(
+													(x) => x.district === data?.district,
+												)
+											]
+										}
+										getOptionLabel={(option) => option.district}
+										style={{ width: 300 }}
+										renderInput={(params) => (
+											<TextField
+												{...register("branchDistrict", { required: true })}
+												{...params}
+												label='Districts Name'
+												variant='outlined'
+											/>
+										)}
+									/>
+									<Autocomplete
+										onChange={(e) => setSelectedThana(e.target.innerText)}
+										size='small'
+										sx={{ my: 1, width: "100% !important" }}
+										options={thanas?.filter(
+											(item) => item.district === selectedDistricts,
+										)}
+										getOptionLabel={(option) => option.thana}
+										style={{ width: 300 }}
+										renderInput={(params) => (
+											<TextField
+												{...register("branchThana", { required: true })}
+												{...params}
+												label='Thana Name'
+												variant='outlined'
+											/>
+										)}
+									/>
+									<Autocomplete
+										size='small'
+										sx={{ my: 1, width: "100% !important" }}
+										options={areas?.filter(
+											(item) => item.thana === selectedThana,
+										)}
+										getOptionLabel={(option) => option.area}
+										style={{ width: 300 }}
+										renderInput={(params) => (
+											<TextField
+												{...register("branchArea", { required: true })}
+												{...params}
+												label='Area Name'
+												variant='outlined'
+											/>
+										)}
+									/>
+									<TextField
+										size='small'
+										sx={{ my: 0.7 }}
+										fullWidth
+										label='Branch Contact'
+										{...register("branchContact", { required: true })}
+									/>
+									<TextField
+										size='small'
+										sx={{ my: 0.7 }}
+										fullWidth
+										label='Branch Email'
+										{...register("branchEmail", { required: true })}
+									/>
+									<TextField
+										size='small'
+										sx={{ my: 0.7 }}
+										fullWidth
+										label='Branch Image'
+										{...register("branchEmail", { required: true })}
 									/>
 									<Button
 										type='submit'

@@ -295,10 +295,10 @@ function Dashboard(props) {
 								<ListItemText primary={"District"} />
 							</ListItem>
 						</Link>
-						<Link className='link' to='upazila'>
+						<Link className='link' to='thana'>
 							<ListItem
 								button
-								className={location?.pathname === "/upazila" && "activeButton"}>
+								className={location?.pathname === "/thana" && "activeButton"}>
 								<ListItemIcon className='listItemIcon'>
 									<FlagIcon />
 								</ListItemIcon>
