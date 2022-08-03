@@ -351,10 +351,10 @@ const AddParcel = () => {
                             </Card>
                         </Grid>
                         <Box sx={{ marginY: "20px", padding: "0px 26px" }}>
-                            <Button type="submit" variant="contained" color="success" sx={{ margin: "0px 10px" }}>
+                            <Button type="submit" variant="contained" color="success" sx={{ margin: "0px 10px", width: "200px" }}>
                                 Submit
                             </Button>
-                            <Button type='reset' variant="contained" sx={{ margin: "0px 10px" }}>
+                            <Button type='reset' variant="contained" sx={{ margin: "0px 10px", width: "200px" }}>
                                 Reset
                             </Button>
                         </Box>
