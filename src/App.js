@@ -11,9 +11,25 @@ import Login from "./Component/Login/Login";
 import DeliveryParcelList from "./Component/MerchantDashboard/Account/DeliveryParcelList";
 import DeliveryPaymentList from "./Component/MerchantDashboard/Account/DeliveryPaymentList";
 import MerchantDashboard from "./Component/MerchantDashboard/MerchantDashboard";
+import OrderTracking from "./Component/MerchantDashboard/OrderTracking";
 import AddParcel from "./Component/MerchantDashboard/Parcel/AddParcel";
 import ParcelList from "./Component/MerchantDashboard/Parcel/ParcelList";
 import Profile from "./Component/MerchantDashboard/Profile";
+import CoverageArea from './Component/MerchantDashboard/CoverageArea';
+import ServiceCharge from './Component/MerchantDashboard/ServiceCharge';
+import WeightPackage from './Component/Dashboard/ApplicationSetting/WeightPackage';
+import ServiceArea from './Component/Dashboard/ApplicationSetting/ServiceArea';
+import ServiceAreaSetting from './Component/Dashboard/ApplicationSetting/ServiceAreaSetting';
+import District from "./Component/Dashboard/ApplicationSetting/District";
+import Upazilla from "./Component/Dashboard/ApplicationSetting/Upazilla";
+import Area from "./Component/Dashboard/ApplicationSetting/Area";
+import BookingParcelList from "./Component/Dashboard/TraditionalParcelBook/BookingParcelList";
+import Vehicle from "./Component/Dashboard/TraditionalParcelSetting/Vehicle";
+import ItemCategory from "./Component/Dashboard/TraditionalParcelSetting/ItemCategory";
+import Unit from './Component/Dashboard/TraditionalParcelSetting/Unit';
+import Item from "./Component/Dashboard/TraditionalParcelSetting/Item";
+import AdminUser from './Component/Dashboard/Setting/AdminUser';
+import Application from "./Component/Dashboard/Setting/Application";
 
 function App() {
   return (
@@ -28,6 +44,20 @@ function App() {
             <Route path='/riders' element={<Riders />} />
             <Route path='/warehouses' element={<Warehouses />} />
             <Route path='/warehouseusers' element={<WarehouseUsers />} />
+            <Route path='/parcelList' element={<ParcelList />} />
+            <Route path='/weightPackage' element={<WeightPackage />} />
+            <Route path='/serviceArea' element={<ServiceArea />} />
+            <Route path='/serviceAreaSetting' element={<ServiceAreaSetting />} />
+            <Route path='/district' element={<District />} />
+            <Route path='/upazila' element={<Upazilla />} />
+            <Route path='/area' element={<Area />} />
+            <Route path='/bookingParcelList' element={<BookingParcelList />} />
+            <Route path='/vehicle' element={<Vehicle />} />
+            <Route path='/itemCategory' element={<ItemCategory />} />
+            <Route path='/unit' element={<Unit />} />
+            <Route path='/item' element={<Item />} />
+            <Route path='/adminUser' element={<AdminUser />} />
+            <Route path='/application' element={<Application />} />
             {/* Merchant Dashboard Code Here */}
             <Route path='/merchantDashboard' element={<MerchantDashboard />} />
             <Route path='/merchantDashboard/profile' element={<Profile />} />
@@ -35,6 +65,9 @@ function App() {
             <Route path='/merchantDashboard/parcelList' element={<ParcelList />} />
             <Route path='/merchantDashboard/deliveryPaymentList' element={<DeliveryPaymentList />} />
             <Route path='/merchantDashboard/deliveryParcelList' element={<DeliveryParcelList />} />
+            <Route path='/merchantDashboard/orderTracking' element={<OrderTracking />} />
+            <Route path='/merchantDashboard/coverageArea' element={<CoverageArea />} />
+            <Route path='/merchantDashboard/serviceCharge' element={<ServiceCharge />} />
           </Route>
         </Routes>
       </BrowserRouter>

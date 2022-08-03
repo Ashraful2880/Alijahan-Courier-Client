@@ -540,7 +540,36 @@ function Dashboard(props) {
 					</List>
 				</AccordionDetails>
 			</Accordion>
-
+			<Link className='link' to='/merchantDashboard/orderTracking'>
+				<ListItem
+					button
+					className={location?.pathname === "/merchantDashboard/orderTracking" && "activeButton"}>
+					<ListItemIcon className='listItemIcon'>
+						<HomeIcon />
+					</ListItemIcon>
+					<ListItemText primary={"Order Tracking"} />
+				</ListItem>
+			</Link>
+			<Link className='link' to='/merchantDashboard/coverageArea'>
+				<ListItem
+					button
+					className={location?.pathname === "/merchantDashboard/coverageArea" && "activeButton"}>
+					<ListItemIcon className='listItemIcon'>
+						<HomeIcon />
+					</ListItemIcon>
+					<ListItemText primary={"Coverage Area"} />
+				</ListItem>
+			</Link>
+			<Link className='link' to='/merchantDashboard/serviceCharge'>
+				<ListItem
+					button
+					className={location?.pathname === "/merchantDashboard/serviceCharge" && "activeButton"}>
+					<ListItemIcon className='listItemIcon'>
+						<HomeIcon />
+					</ListItemIcon>
+					<ListItemText primary={"Service Charge"} />
+				</ListItem>
+			</Link>
 		</Box>
 	);
 
