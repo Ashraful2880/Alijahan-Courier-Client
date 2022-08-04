@@ -19,12 +19,12 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import RemoveDoneIcon from "@mui/icons-material/RemoveDone";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
-import EditWarehouseUsers from "./EditWarehouseUsers.js";
+import EditWeightPackage from "./EditWeightPackage.js";
 import AddIcon from "@mui/icons-material/Add";
 import GetAuth from "../../../../FirebaseAuth/GetAuth";
-import AddWarehouseUsers from "./AddWarehouseUsers";
+import AddWeightPackage from "./AddWeightPackage";
 
-const WarehouseUsers = () => {
+const WeightPackage = () => {
 	const { user, loading, token } = GetAuth();
 	const { register, handleSubmit, reset } = useForm();
 	const [submitting, setSubmitting] = useState(false);
@@ -38,7 +38,7 @@ const WarehouseUsers = () => {
 	};
 	useEffect(() => {
 		axios
-			.get(`${process.env.REACT_APP_API_PATH}/warehouseUsers`, {
+			.get(`${process.env.REACT_APP_API_PATH}/weightPackages`, {
 				headers: {
 					Authorization: `Bearer ${token}`,
 				},
@@ -67,7 +67,7 @@ const WarehouseUsers = () => {
 									setSubmitting(true);
 									axios
 										.put(
-											`${process.env.REACT_APP_API_PATH}/warehouseUserStatus/${params.row?._id}`,
+											`${process.env.REACT_APP_API_PATH}/weightPackageStatus/${params.row?._id}`,
 											{
 												status: "Inactive",
 											},
@@ -102,7 +102,7 @@ const WarehouseUsers = () => {
 									setSubmitting(true);
 									axios
 										.put(
-											`${process.env.REACT_APP_API_PATH}/warehouseUserStatus/${params.row?._id}`,
+											`${process.env.REACT_APP_API_PATH}/weightPackageStatus/${params.row?._id}`,
 											{
 												status: "Active",
 											},
@@ -143,7 +143,7 @@ const WarehouseUsers = () => {
 								setSubmitting(true);
 								axios
 									.delete(
-										`${process.env.REACT_APP_API_PATH}/warehouseUser/${params.row?._id}`,
+										`${process.env.REACT_APP_API_PATH}/weightPackage/${params.row?._id}`,
 										{
 											headers: {
 												Authorization: `Bearer ${token}`,
@@ -168,21 +168,27 @@ const WarehouseUsers = () => {
 
 	const columns = [
 		{
-			field: "warehouseUserName",
-			headerName: "Warehouse User Name",
+			field: "weightPackageId",
+			headerName: "ID",
 			flex: 1,
 		},
 		{
-			field: "warehouseUserEmail",
-			headerName: "Warehous eUser Email",
+			field: "weightPackageName",
+			headerName: "Name",
 			flex: 1,
 		},
-		{ field: "wareHouseName", headerName: "WareHouse Name", flex: 1 },
 		{
-			field: "warehouseUserContact",
-			headerName: "Contact Number",
+			field: "weightPackageTitle",
+			headerName: "Title",
 			flex: 1,
 		},
+		{ field: "weightPackageType", headerName: "Type", flex: 1 },
+		{
+			field: "weightPackageDescription",
+			headerName: "Description",
+			flex: 1,
+		},
+		{ field: "weightPackageRate", headerName: "Rate", flex: 1 },
 		{ field: "status", headerName: "Status", flex: 1 },
 		{
 			field: "_id",
@@ -195,14 +201,14 @@ const WarehouseUsers = () => {
 	return (
 		<Container sx={{ py: 1 }}>
 			<Typography variant='h5' sx={{ fontWeight: "bold" }}>
-				Warehouse Users
+				Weight Package
 			</Typography>
 			<Button
 				onClick={() => setOpen(true)}
 				variant='contained'
 				className='button'
 				sx={{ my: 0.7, fontWeight: "bold", px: 2.5 }}>
-				Add New Warehouse User <AddIcon sx={{ ml: 1.5 }} />
+				Add New Weight Package <AddIcon sx={{ ml: 1.5 }} />
 			</Button>
 			<Grid container spacing={1} sx={{ justifyContent: "center" }}>
 				<Grid item xs={12} md={12}>
@@ -227,7 +233,7 @@ const WarehouseUsers = () => {
 				<CircularProgress color='inherit' />
 			</Backdrop>
 			{open && (
-				<AddWarehouseUsers
+				<AddWeightPackage
 					open={open}
 					setOpen={setOpen}
 					id={id}
@@ -236,7 +242,7 @@ const WarehouseUsers = () => {
 				/>
 			)}
 			{openEdit && (
-				<EditWarehouseUsers
+				<EditWeightPackage
 					open={openEdit}
 					setOpen={setOpenEdit}
 					id={id}
@@ -248,4 +254,4 @@ const WarehouseUsers = () => {
 	);
 };
 
-export default WarehouseUsers;
+export default WeightPackage;
