@@ -8,12 +8,15 @@ import {
 	Typography,
 	CircularProgress,
 	Autocomplete,
+	InputAdornment,
 } from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
 import CancelIcon from "@mui/icons-material/Cancel";
 import { useForm } from "react-hook-form";
-import SendIcon from "@mui/icons-material/Send";
+import ReplayIcon from '@mui/icons-material/Replay';
+import SaveIcon from '@mui/icons-material/Save';
+import AddTaskIcon from '@mui/icons-material/AddTask';
 import Swal from "sweetalert2";
 const style = {
 	position: "absolute",
@@ -36,8 +39,8 @@ const AddMerchants = ({ open, setOpen, token, setSubmitting }) => {
 	const [thanas, setThanas] = useState();
 	const [areas, setAreas] = useState();
 	const [districts, setDistricts] = useState([]);
-	const [selectedDistricts, setSelectedDistricts] = useState("");
-	const [selectedThana, setSelectedThana] = useState("");
+	const [branches, setBranches] = useState([]);
+	const [selectedBranches, setSelectedBranches] = useState([]);
 
 	useEffect(() => {
 		axios
@@ -76,22 +79,35 @@ const AddMerchants = ({ open, setOpen, token, setSubmitting }) => {
 			.catch((error) => {
 				console.log(error);
 			});
+		axios
+			.get(`${process.env.REACT_APP_API_PATH}/branches`, {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			})
+			.then((response) => {
+				setBranches(response.data);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
 	}, [token]);
 	const onSubmit = ({
 		merchantName,
 		merchantCompanyName,
 		merchantAddress,
 		merchantBusinessAddress,
-		merchantDistrict,
-		merchantThana,
-		merchantArea,
 		merchantBranchName,
 		merchantContact,
+		pickupArea,
 		merchantEmail,
-		merchantPass,
-		merchantImage,
+		/* merchantDistrict,
+		merchantThana,
+		merchantArea,
 		merchantFacebook,
 		merchantWebsite,
+		merchantImage,
+		merchantPass,
 		merchatCODPercentage,
 		merchantServChargeInsideCity,
 		merchanttServChargeSubCity,
@@ -107,7 +123,7 @@ const AddMerchants = ({ open, setOpen, token, setSubmitting }) => {
 		rocketAccNumber,
 		nidCard,
 		tradeLicense,
-		tinCertificate,
+		tinCertificate, */
 	}) => {
 		setSubmitting(true);
 		axios
@@ -118,33 +134,10 @@ const AddMerchants = ({ open, setOpen, token, setSubmitting }) => {
 					merchantCompanyName,
 					merchantAddress,
 					merchantBusinessAddress,
-					merchantDistrict,
-					merchantThana,
-					merchantArea,
 					merchantBranchName,
 					merchantContact,
+					pickupArea,
 					merchantEmail,
-					merchantPass,
-					merchantImage,
-					merchantFacebook,
-					merchantWebsite,
-					merchatCODPercentage,
-					merchantServChargeInsideCity,
-					merchanttServChargeSubCity,
-					merchanttServChargeOutsideCity,
-					merchantRetChargeInsideCity,
-					merchantRetChargeSubCity,
-					merchantRetChargeOutsideCity,
-					bankAccName,
-					bankAccNumber,
-					bankName,
-					bkashAccNumber,
-					nagadAccNumber,
-					rocketAccNumber,
-					nidCard,
-					tradeLicense,
-					tinCertificate,
-					status: "Active",
 				},
 				{
 					headers: {
@@ -181,87 +174,144 @@ const AddMerchants = ({ open, setOpen, token, setSubmitting }) => {
 							className='textColor'
 							sx={{
 								position: "fixed",
-								top: "5px",
-								right: "5px",
+								top: "30px",
+								right: "30px",
 								cursor: "pointer",
+								background: "White",
+								borderRadius: "50%"
 							}}
 						/>
 
-						<Typography variant='h5' sx={{ fontWeight: "bold", mb: 1.5 }}>
-							Add Merchant
+						<Typography variant='h6' sx={{ fontWeight: "bold", mb: 2, textAlign: "left", background: "green", padding: "8px 20px", color: "#fff", borderRadius: "5px", display: "flex", alignItems: "center" }}>
+							<AddTaskIcon sx={{ mr: 2 }} /> Add New Merchant
 						</Typography>
 						<form onSubmit={handleSubmit(onSubmit)}>
-							<TextField
-								size='small'
-								sx={{ my: 0.7 }}
-								fullWidth
-								required
-								label='Merchant Name'
-								{...register("merchantName", { required: true })}
-							/>
-
-							<Autocomplete
-								onChange={(e) => setSelectedDistricts(e.target.innerText)}
-								size='small'
-								sx={{ my: 1, width: "100% !important" }}
-								options={districts}
-								getOptionLabel={(option) => option.district}
-								style={{ width: 300 }}
-								renderInput={(params) => (
-									<TextField
-										{...register("branchDistrict", { required: true })}
-										{...params}
-										label='Districts Name'
-										variant='outlined'
-									/>
-								)}
-							/>
-							<Autocomplete
-								onChange={(e) => setSelectedThana(e.target.innerText)}
-								size='small'
-								sx={{ my: 1, width: "100% !important" }}
-								options={thanas?.filter(
-									(item) => item.district === selectedDistricts,
-								)}
-								getOptionLabel={(option) => option.thana}
-								style={{ width: 300 }}
-								renderInput={(params) => (
-									<TextField
-										{...register("branchThana", { required: true })}
-										{...params}
-										label='Thana Name'
-										variant='outlined'
-									/>
-								)}
-							/>
-							<Autocomplete
-								size='small'
-								sx={{ my: 1, width: "100% !important" }}
-								options={areas?.filter((item) => item.thana === selectedThana)}
-								getOptionLabel={(option) => option.area}
-								style={{ width: 300 }}
-								renderInput={(params) => (
-									<TextField
-										{...register("branchArea", { required: true })}
-										{...params}
-										label='Area Name'
-										variant='outlined'
-									/>
-								)}
-							/>
-
-							<Button
-								type='submit'
-								variant='contained'
-								className='button'
-								sx={{ my: 0.7, fontWeight: "bold", px: 2.5 }}>
-								Add Branch <SendIcon sx={{ ml: 1.5 }} />
-							</Button>
+							<Box sx={{ display: "flex", gap: "20px" }}>
+								<TextField
+									size='small'
+									sx={{ my: 0.5 }}
+									fullWidth
+									required
+									label='Merchant Name'
+									helperText="Name"
+									{...register("merchantName", { required: true })}
+								/>
+								<TextField
+									size='small'
+									sx={{ my: 0.5 }}
+									fullWidth
+									required
+									label='Company Name'
+									helperText="Company Name"
+									{...register("merchantCompanyName", { required: true })}
+								/>
+							</Box>
+							<Box sx={{ display: "flex", gap: "20px" }}>
+								<TextField
+									size='small'
+									sx={{ my: 0.5 }}
+									fullWidth
+									required
+									multiline
+									rows={2}
+									label='Merchant Address'
+									helperText="Full Address"
+									{...register("merchantAddress", { required: true })}
+								/>
+								<TextField
+									size='small'
+									sx={{ my: 0.5 }}
+									fullWidth
+									required
+									multiline
+									rows={2}
+									label='Business Address'
+									helperText="Business Address"
+									{...register("merchantBusinessAddress", { required: true })}
+								/>
+							</Box>
+							<Box sx={{ display: "flex", gap: "20px" }}>
+								<Autocomplete
+									onChange={(e) => setSelectedBranches(e.target.innerText)}
+									size='small'
+									sx={{ my: 0.5, width: "100% !important" }}
+									options={branches}
+									getOptionLabel={(option) => option.branchName}
+									style={{ width: 300 }}
+									renderInput={(params) => (
+										<TextField
+											{...register("merchantBranchName", { required: true })}
+											{...params}
+											label='Select Branch'
+											variant='outlined'
+											helperText="Branch"
+										/>
+									)}
+								/>
+								<TextField
+									helperText="Contact Number"
+									id="filled-start-adornment"
+									placeholder="Merchant Contact Number"
+									size='small'
+									sx={{ my: 0.5, width: "100% !important" }}
+									InputProps={{
+										startAdornment: <InputAdornment position="start">+88</InputAdornment>,
+									}}
+									{...register("merchantContact", { required: true })}
+									variant="outlined"
+								/>
+							</Box>
+							<Box sx={{ display: "flex", gap: "20px" }}>
+								<Autocomplete
+									onChange={(e) => setSelectedBranches(e.target.innerText)}
+									size='small'
+									sx={{ my: 0.5, width: "100% !important" }}
+									options={branches}
+									getOptionLabel={(option) => option.branchName}
+									style={{ width: 300 }}
+									renderInput={(params) => (
+										<TextField
+											{...register("pickupArea", { required: true })}
+											{...params}
+											label='Pickup Area'
+											variant='outlined'
+											helperText="Your Location"
+										/>
+									)}
+								/>
+								<TextField
+									size='small'
+									sx={{ my: 0.5 }}
+									fullWidth
+									required
+									label='Email'
+									helperText="Email"
+									{...register("merchantCompanyName", { required: true })}
+								/>
+							</Box>
+							<Box sx={{ mb: 4 }}>
+								<Button
+									type='submit'
+									variant='contained'
+									color="success"
+									// className='button'
+									sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+									<SaveIcon sx={{ mr: 0.5 }} />Save
+								</Button>
+								<Button
+									onClick={() => setOpen(false)}
+									type='reset'
+									variant='contained'
+									// className='button'
+									sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+									<ReplayIcon sx={{ mr: 0.5 }} />Close
+								</Button>
+							</Box>
 						</form>
 					</Box>
 				</Fade>
 			</Modal>
-		</div>
+		</div >
 	);
 };
 

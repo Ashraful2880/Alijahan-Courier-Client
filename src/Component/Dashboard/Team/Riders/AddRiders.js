@@ -13,7 +13,9 @@ import { Box } from "@mui/system";
 import axios from "axios";
 import CancelIcon from "@mui/icons-material/Cancel";
 import { useForm } from "react-hook-form";
-import SendIcon from "@mui/icons-material/Send";
+import ReplayIcon from '@mui/icons-material/Replay';
+import SaveIcon from '@mui/icons-material/Save';
+import AddTaskIcon from '@mui/icons-material/AddTask';
 import Swal from "sweetalert2";
 const style = {
 	position: "absolute",
@@ -79,15 +81,15 @@ const AddRiders = ({ open, setOpen, token, setSubmitting }) => {
 	}, [token]);
 	const onSubmit = ({
 		riderName,
-		riderBranch,
 		riderAddress,
-		riderDistrict,
-		riderThana,
-		riderArea,
+		userEmail,
 		riderContact,
-		riderEmail,
-		riderPass,
-		riderImage,
+		riderNID,
+		riderLicense,
+		userPassword,
+		confirmUserPassword,
+		riderDOB,
+		riderStatus,
 	}) => {
 		setSubmitting(true);
 		axios
@@ -95,16 +97,15 @@ const AddRiders = ({ open, setOpen, token, setSubmitting }) => {
 				`${process.env.REACT_APP_API_PATH}/rider`,
 				{
 					riderName,
-					riderBranch,
 					riderAddress,
-					riderDistrict,
-					riderThana,
-					riderArea,
+					userEmail,
 					riderContact,
-					riderEmail,
-					riderPass,
-					riderImage,
-					status: "Active",
+					riderNID,
+					riderLicense,
+					userPassword,
+					confirmUserPassword,
+					riderDOB,
+					riderStatus,
 				},
 				{
 					headers: {
@@ -141,42 +142,132 @@ const AddRiders = ({ open, setOpen, token, setSubmitting }) => {
 							className='textColor'
 							sx={{
 								position: "fixed",
-								top: "5px",
-								right: "5px",
+								top: "30px",
+								right: "30px",
 								cursor: "pointer",
+								background: "White",
+								borderRadius: "50%"
 							}}
 						/>
-
-						<Typography variant='h5' sx={{ fontWeight: "bold", mb: 1.5 }}>
-							Add Rider
+						<Typography variant='h6' sx={{ fontWeight: "bold", mb: 2, textAlign: "left", background: "green", padding: "8px 20px", color: "#fff", borderRadius: "5px", display: "flex", alignItems: "center" }}>
+							<AddTaskIcon sx={{ mr: 2 }} /> Add New Rider
 						</Typography>
 						<form onSubmit={handleSubmit(onSubmit)}>
-							<TextField
-								size='small'
-								sx={{ my: 0.7 }}
-								fullWidth
-								required
-								label='Rider Name'
-								{...register("riderName", { required: true })}
-							/>
+							<Box sx={{ display: "flex", gap: "20px" }}>
+								<TextField
+									size='small'
+									sx={{ my: 0.5 }}
+									fullWidth
+									required
+									label='Rider Name'
+									helperText="Rider Name"
+									{...register("riderName", { required: true })}
+								/>
+								<TextField
+									size='small'
+									sx={{ my: 0.5 }}
+									fullWidth
+									required
+									label='Address'
+									helperText="Rider Address"
+									{...register("riderAddress", { required: true })}
+								/>
+							</Box>
+							<Box sx={{ display: "flex", gap: "20px" }}>
+								<TextField
+									size='small'
+									sx={{ my: 0.5 }}
+									fullWidth
+									required
+									label='User Email'
+									helperText="User Email"
+									{...register("userEmail", { required: true })}
+								/>
+								<TextField
+									size='small'
+									sx={{ my: 0.5 }}
+									fullWidth
+									required
+									label='Mobile Number'
+									helperText="Mobile Number"
+									{...register("riderContact", { required: true })}
+								/>
+							</Box>
 
-							<Autocomplete
-								onChange={(e) => setSelectedDistricts(e.target.innerText)}
-								size='small'
-								sx={{ my: 1, width: "100% !important" }}
-								options={districts}
-								getOptionLabel={(option) => option.district}
-								style={{ width: 300 }}
-								renderInput={(params) => (
-									<TextField
-										{...register("branchDistrict", { required: true })}
-										{...params}
-										label='Districts Name'
-										variant='outlined'
-									/>
-								)}
-							/>
-							<Autocomplete
+							<Box sx={{ display: "flex", gap: "20px" }}>
+								<TextField
+									size='small'
+									sx={{ my: 0.5 }}
+									fullWidth
+									required
+									label='Rider NID'
+									helperText="Rider NID"
+									{...register("riderNID", { required: true })}
+								/>
+								<TextField
+									size='small'
+									sx={{ my: 0.5 }}
+									fullWidth
+									required
+									label='Driving License'
+									helperText="Deriving License"
+									{...register("riderLicense", { required: true })}
+								/>
+							</Box>
+							<Box sx={{ display: "flex", gap: "20px" }}>
+								<TextField
+									size='small'
+									sx={{ my: 0.5 }}
+									fullWidth
+									required
+									type="password"
+									label='User Password'
+									helperText="User Password"
+									{...register("userPassword", { required: true })}
+								/>
+								<TextField
+									size='small'
+									sx={{ my: 0.5 }}
+									type="password"
+									fullWidth
+									required
+									label='Confirm Password'
+									helperText="Confirm Password"
+									{...register("confirmuserPassword", { required: true })}
+								/>
+							</Box>
+							<Box sx={{ display: "flex", gap: "20px" }}>
+								<TextField
+									size='small'
+									sx={{ my: 0.5 }}
+									fullWidth
+									required
+									type="date"
+									helperText="Date of Birth"
+									{...register("riderDOB", { required: true })}
+								/>
+								<Autocomplete
+									onChange={(e) => setSelectedThana(e.target.innerText)}
+									size='small'
+									sx={{ my: 0.5, width: "100% !important" }}
+									options={thanas?.filter(
+										(item) => item.district === selectedDistricts,
+									)}
+									getOptionLabel={(option) => option.thana}
+									style={{ width: 300 }}
+									renderInput={(params) => (
+										<TextField
+											{...register("riderStatus", { required: true })}
+											{...params}
+											label='Status'
+											helperText="Status"
+											variant='outlined'
+										/>
+									)}
+								/>
+							</Box>
+
+							{/* <Autocomplete
 								onChange={(e) => setSelectedThana(e.target.innerText)}
 								size='small'
 								sx={{ my: 1, width: "100% !important" }}
@@ -208,15 +299,26 @@ const AddRiders = ({ open, setOpen, token, setSubmitting }) => {
 										variant='outlined'
 									/>
 								)}
-							/>
+							/> */}
 
-							<Button
-								type='submit'
-								variant='contained'
-								className='button'
-								sx={{ my: 0.7, fontWeight: "bold", px: 2.5 }}>
-								Add Branch <SendIcon sx={{ ml: 1.5 }} />
-							</Button>
+							<Box sx={{ mb: 4 }}>
+								<Button
+									type='submit'
+									variant='contained'
+									color="success"
+									// className='button'
+									sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+									<SaveIcon sx={{ mr: 0.5 }} />Save
+								</Button>
+								<Button
+									onClick={() => setOpen(false)}
+									type='reset'
+									variant='contained'
+									// className='button'
+									sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+									<ReplayIcon sx={{ mr: 0.5 }} />Close
+								</Button>
+							</Box>
 						</form>
 					</Box>
 				</Fade>
