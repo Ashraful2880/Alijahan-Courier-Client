@@ -249,6 +249,7 @@ const AddMerchants = ({ open, setOpen, token, setSubmitting }) => {
 									)}
 								/>
 								<TextField
+									type="number"
 									helperText="Contact Number"
 									id="filled-start-adornment"
 									placeholder="Merchant Contact Number"
@@ -280,6 +281,7 @@ const AddMerchants = ({ open, setOpen, token, setSubmitting }) => {
 									)}
 								/>
 								<TextField
+									type="email"
 									size='small'
 									sx={{ my: 0.5 }}
 									fullWidth

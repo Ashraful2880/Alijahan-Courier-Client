@@ -175,6 +175,7 @@ const AddRiders = ({ open, setOpen, token, setSubmitting }) => {
 							</Box>
 							<Box sx={{ display: "flex", gap: "20px" }}>
 								<TextField
+									type="email"
 									size='small'
 									sx={{ my: 0.5 }}
 									fullWidth
@@ -184,6 +185,7 @@ const AddRiders = ({ open, setOpen, token, setSubmitting }) => {
 									{...register("userEmail", { required: true })}
 								/>
 								<TextField
+									type="number"
 									size='small'
 									sx={{ my: 0.5 }}
 									fullWidth
@@ -196,6 +198,7 @@ const AddRiders = ({ open, setOpen, token, setSubmitting }) => {
 
 							<Box sx={{ display: "flex", gap: "20px" }}>
 								<TextField
+									type="number"
 									size='small'
 									sx={{ my: 0.5 }}
 									fullWidth

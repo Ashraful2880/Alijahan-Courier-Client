@@ -12,7 +12,7 @@ const BranchUsers = () => {
             <Button onClick={handleOpen} variant="contained" endIcon={<ModeEditIcon />} sx={{ marginTop: "10px" }}>
                 Add Branch User
             </Button>
-            <AddBranchUser open={open} handleClose={handleClose} />
+            <AddBranchUser open={open} handleClose={handleClose} setOpen={setOpen} />
         </div>
     );
 };
