@@ -115,7 +115,7 @@ function Dashboard(props) {
 				sx={{
 					padding: "2px 0px 0px 0px",
 					backgroundColor: "#fff",
-					border: "1px solid green",
+					border: "1px solid #1E793C",
 				}}>
 				<img src={logo} alt='Main Logo' />
 			</Box>
