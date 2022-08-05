@@ -31,10 +31,8 @@ import ScaleIcon from "@mui/icons-material/Scale";
 import LeakAddIcon from "@mui/icons-material/LeakAdd";
 import RoomPreferencesIcon from "@mui/icons-material/RoomPreferences";
 import PublicIcon from "@mui/icons-material/Public";
-import FlagIcon from "@mui/icons-material/Flag";
 import CropRotateIcon from "@mui/icons-material/CropRotate";
 import GifBoxIcon from "@mui/icons-material/GifBox";
-import FeaturedPlayListIcon from "@mui/icons-material/FeaturedPlayList";
 import ComputerIcon from "@mui/icons-material/Computer";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import PostAddIcon from "@mui/icons-material/PostAdd";
@@ -42,6 +40,18 @@ import CableIcon from "@mui/icons-material/Cable";
 import CategoryIcon from "@mui/icons-material/Category";
 import SettingsApplicationsIcon from "@mui/icons-material/SettingsApplications";
 import SettingsIcon from "@mui/icons-material/Settings";
+import InstallDesktopIcon from '@mui/icons-material/InstallDesktop';
+import NoteAddIcon from '@mui/icons-material/NoteAdd';
+import RedeemIcon from '@mui/icons-material/Redeem';
+import AddTaskIcon from '@mui/icons-material/AddTask';
+import CreditScoreIcon from '@mui/icons-material/CreditScore';
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
+import CellTowerIcon from '@mui/icons-material/CellTower';
+import ShareLocationIcon from '@mui/icons-material/ShareLocation';
+import PlaylistAddCheckIcon from '@mui/icons-material/PlaylistAddCheck';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import ManageHistoryIcon from '@mui/icons-material/ManageHistory';
 import { styled } from "@mui/material/styles";
 import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
 import MuiAccordion from "@mui/material/Accordion";
@@ -237,6 +247,56 @@ function Dashboard(props) {
 				</AccordionDetails>
 			</Accordion>
 			<Accordion
+				expanded={expanded === "panel9"}
+				onChange={handleChange("panel9")}>
+				<AccordionSummary aria-controls='panel9d-content' id='panel9d-header'>
+					<ListItemIcon className='listItemIcon'>
+						<ManageHistoryIcon />
+					</ListItemIcon>
+					<Typography>Manage Orders</Typography>
+				</AccordionSummary>
+				<AccordionDetails>
+					<List>
+						<Link className='link' to='officeToOffice'>
+							<ListItem
+								button
+								className={
+									location?.pathname === "/officeToOffice" && "activeButton"
+								}>
+								<ListItemIcon className='listItemIcon'>
+									<InstallDesktopIcon />
+								</ListItemIcon>
+								<ListItemText primary={"Office to Office Order"} />
+							</ListItem>
+						</Link>
+						<Link className='link' to='officeToHome'>
+							<ListItem
+								button
+								className={
+									location?.pathname === "/officeToHome" && "activeButton"
+								}>
+								<ListItemIcon className='listItemIcon'>
+									<LocalShippingIcon />
+								</ListItemIcon>
+								<ListItemText primary={"Office to Home Order"} />
+							</ListItem>
+						</Link>
+						<Link className='link' to='createMerchantOrder'>
+							<ListItem
+								button
+								className={
+									location?.pathname === "/createMerchantOrder" && "activeButton"
+								}>
+								<ListItemIcon className='listItemIcon'>
+									<NoteAddIcon />
+								</ListItemIcon>
+								<ListItemText primary={"Create Merchant Order"} />
+							</ListItem>
+						</Link>
+					</List>
+				</AccordionDetails>
+			</Accordion>
+			<Accordion
 				expanded={expanded === "panel3"}
 				onChange={handleChange("panel3")}>
 				<AccordionSummary aria-controls='panel3d-content' id='panel3d-header'>
@@ -336,7 +396,7 @@ function Dashboard(props) {
 									location?.pathname === "/bookingParcelList" && "activeButton"
 								}>
 								<ListItemIcon className='listItemIcon'>
-									<FeaturedPlayListIcon />
+									<PlaylistAddCheckIcon />
 								</ListItemIcon>
 								<ListItemText primary={"Booking Parcel List"} />
 							</ListItem>
@@ -462,7 +522,7 @@ function Dashboard(props) {
 					button
 					className={location?.pathname === "/" && "activeButton"}>
 					<ListItemIcon className='listItemIcon'>
-						<HomeIcon />
+						<AccountCircleIcon />
 					</ListItemIcon>
 					<ListItemText primary={"Profile"} />
 				</ListItem>
@@ -472,7 +532,7 @@ function Dashboard(props) {
 				onChange={handleChange("panel7")}>
 				<AccordionSummary aria-controls='panel7d-content' id='panel7d-header'>
 					<ListItemIcon className='listItemIcon'>
-						<SettingsIcon />
+						<RedeemIcon />
 					</ListItemIcon>
 					<Typography>Parcel</Typography>
 				</AccordionSummary>
@@ -486,7 +546,7 @@ function Dashboard(props) {
 									"activeButton"
 								}>
 								<ListItemIcon className='listItemIcon'>
-									<AdminPanelSettingsIcon />
+									<AddTaskIcon />
 								</ListItemIcon>
 								<ListItemText primary={"Add Parcel"} />
 							</ListItem>
@@ -499,7 +559,7 @@ function Dashboard(props) {
 									"activeButton"
 								}>
 								<ListItemIcon className='listItemIcon'>
-									<ComputerIcon />
+									<FormatListNumberedIcon />
 								</ListItemIcon>
 								<ListItemText primary={"Parcel List"} />
 							</ListItem>
@@ -512,7 +572,7 @@ function Dashboard(props) {
 				onChange={handleChange("panel8")}>
 				<AccordionSummary aria-controls='panel8d-content' id='panel8d-header'>
 					<ListItemIcon className='listItemIcon'>
-						<SettingsIcon />
+						<ManageAccountsIcon />
 					</ListItemIcon>
 					<Typography>Account</Typography>
 				</AccordionSummary>
@@ -526,7 +586,7 @@ function Dashboard(props) {
 									"activeButton"
 								}>
 								<ListItemIcon className='listItemIcon'>
-									<AdminPanelSettingsIcon />
+									<CreditScoreIcon />
 								</ListItemIcon>
 								<ListItemText primary={"Delivery Payment List"} />
 							</ListItem>
@@ -538,7 +598,7 @@ function Dashboard(props) {
 									location?.pathname === "/deliveryParcelList" && "activeButton"
 								}>
 								<ListItemIcon className='listItemIcon'>
-									<ComputerIcon />
+									<FormatListNumberedIcon />
 								</ListItemIcon>
 								<ListItemText primary={"Delivery Parcel List"} />
 							</ListItem>
@@ -554,7 +614,7 @@ function Dashboard(props) {
 						"activeButton"
 					}>
 					<ListItemIcon className='listItemIcon'>
-						<HomeIcon />
+						<ShareLocationIcon />
 					</ListItemIcon>
 					<ListItemText primary={"Order Tracking"} />
 				</ListItem>
@@ -567,7 +627,7 @@ function Dashboard(props) {
 						"activeButton"
 					}>
 					<ListItemIcon className='listItemIcon'>
-						<HomeIcon />
+						<CellTowerIcon />
 					</ListItemIcon>
 					<ListItemText primary={"Coverage Area"} />
 				</ListItem>
@@ -580,7 +640,7 @@ function Dashboard(props) {
 						"activeButton"
 					}>
 					<ListItemIcon className='listItemIcon'>
-						<HomeIcon />
+						<CurrencyExchangeIcon />
 					</ListItemIcon>
 					<ListItemText primary={"Service Charge"} />
 				</ListItem>
