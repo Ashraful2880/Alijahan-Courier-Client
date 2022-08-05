@@ -17,31 +17,31 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import { Avatar, Button } from "@mui/material";
 import { useLocation } from "react-router-dom";
 import HomeIcon from "@mui/icons-material/Home";
-import GroupIcon from '@mui/icons-material/Group';
-import LocalOfferIcon from '@mui/icons-material/LocalOffer';
-import PersonIcon from '@mui/icons-material/Person';
-import LocalMallIcon from '@mui/icons-material/LocalMall';
-import BluetoothDriveIcon from '@mui/icons-material/BluetoothDrive';
-import AddBusinessIcon from '@mui/icons-material/AddBusiness';
-import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
-import LocalShippingIcon from '@mui/icons-material/LocalShipping';
-import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
-import SettingsSuggestIcon from '@mui/icons-material/SettingsSuggest';
-import ScaleIcon from '@mui/icons-material/Scale';
-import LeakAddIcon from '@mui/icons-material/LeakAdd';
-import RoomPreferencesIcon from '@mui/icons-material/RoomPreferences';
-import PublicIcon from '@mui/icons-material/Public';
-import FlagIcon from '@mui/icons-material/Flag';
-import CropRotateIcon from '@mui/icons-material/CropRotate';
-import GifBoxIcon from '@mui/icons-material/GifBox';
-import FeaturedPlayListIcon from '@mui/icons-material/FeaturedPlayList';
-import ComputerIcon from '@mui/icons-material/Computer';
-import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
-import PostAddIcon from '@mui/icons-material/PostAdd';
-import CableIcon from '@mui/icons-material/Cable';
-import CategoryIcon from '@mui/icons-material/Category';
-import SettingsApplicationsIcon from '@mui/icons-material/SettingsApplications';
-import SettingsIcon from '@mui/icons-material/Settings';
+import GroupIcon from "@mui/icons-material/Group";
+import LocalOfferIcon from "@mui/icons-material/LocalOffer";
+import PersonIcon from "@mui/icons-material/Person";
+import LocalMallIcon from "@mui/icons-material/LocalMall";
+import BluetoothDriveIcon from "@mui/icons-material/BluetoothDrive";
+import AddBusinessIcon from "@mui/icons-material/AddBusiness";
+import SupervisedUserCircleIcon from "@mui/icons-material/SupervisedUserCircle";
+import LocalShippingIcon from "@mui/icons-material/LocalShipping";
+import FormatListNumberedIcon from "@mui/icons-material/FormatListNumbered";
+import SettingsSuggestIcon from "@mui/icons-material/SettingsSuggest";
+import ScaleIcon from "@mui/icons-material/Scale";
+import LeakAddIcon from "@mui/icons-material/LeakAdd";
+import RoomPreferencesIcon from "@mui/icons-material/RoomPreferences";
+import PublicIcon from "@mui/icons-material/Public";
+import FlagIcon from "@mui/icons-material/Flag";
+import CropRotateIcon from "@mui/icons-material/CropRotate";
+import GifBoxIcon from "@mui/icons-material/GifBox";
+import FeaturedPlayListIcon from "@mui/icons-material/FeaturedPlayList";
+import ComputerIcon from "@mui/icons-material/Computer";
+import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
+import PostAddIcon from "@mui/icons-material/PostAdd";
+import CableIcon from "@mui/icons-material/Cable";
+import CategoryIcon from "@mui/icons-material/Category";
+import SettingsApplicationsIcon from "@mui/icons-material/SettingsApplications";
+import SettingsIcon from "@mui/icons-material/Settings";
 import { styled } from "@mui/material/styles";
 import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
 import MuiAccordion from "@mui/material/Accordion";
@@ -295,7 +295,7 @@ function Dashboard(props) {
 								<ListItemText primary={"District"} />
 							</ListItem>
 						</Link>
-						<Link className='link' to='upazila'>
+						{/* <Link className='link' to='upazila'>
 							<ListItem
 								button
 								className={location?.pathname === "/upazila" && "activeButton"}>
@@ -304,7 +304,7 @@ function Dashboard(props) {
 								</ListItemIcon>
 								<ListItemText primary={"Thana/Upazila"} />
 							</ListItem>
-						</Link>
+						</Link> */}
 						<Link className='link' to='area'>
 							<ListItem
 								button
@@ -440,7 +440,10 @@ function Dashboard(props) {
 			</Accordion>
 
 			{/* Merchant Dashboard Code Here */}
-			<Typography variant='h6' className='title' sx={{ color: "gray", marginY: "5px" }}>
+			<Typography
+				variant='h6'
+				className='title'
+				sx={{ color: "gray", marginY: "5px" }}>
 				Merchant Dashboard Here
 			</Typography>
 
@@ -479,7 +482,8 @@ function Dashboard(props) {
 							<ListItem
 								button
 								className={
-									location?.pathname === "merchantDashboard/addParcel" && "activeButton"
+									location?.pathname === "merchantDashboard/addParcel" &&
+									"activeButton"
 								}>
 								<ListItemIcon className='listItemIcon'>
 									<AdminPanelSettingsIcon />
@@ -491,7 +495,8 @@ function Dashboard(props) {
 							<ListItem
 								button
 								className={
-									location?.pathname === "merchantDashboard/ParcelList" && "activeButton"
+									location?.pathname === "merchantDashboard/ParcelList" &&
+									"activeButton"
 								}>
 								<ListItemIcon className='listItemIcon'>
 									<ComputerIcon />
@@ -517,7 +522,8 @@ function Dashboard(props) {
 							<ListItem
 								button
 								className={
-									location?.pathname === "/deliveryPaymentList" && "activeButton"
+									location?.pathname === "/deliveryPaymentList" &&
+									"activeButton"
 								}>
 								<ListItemIcon className='listItemIcon'>
 									<AdminPanelSettingsIcon />
@@ -543,7 +549,10 @@ function Dashboard(props) {
 			<Link className='link' to='/merchantDashboard/orderTracking'>
 				<ListItem
 					button
-					className={location?.pathname === "/merchantDashboard/orderTracking" && "activeButton"}>
+					className={
+						location?.pathname === "/merchantDashboard/orderTracking" &&
+						"activeButton"
+					}>
 					<ListItemIcon className='listItemIcon'>
 						<HomeIcon />
 					</ListItemIcon>
@@ -553,7 +562,10 @@ function Dashboard(props) {
 			<Link className='link' to='/merchantDashboard/coverageArea'>
 				<ListItem
 					button
-					className={location?.pathname === "/merchantDashboard/coverageArea" && "activeButton"}>
+					className={
+						location?.pathname === "/merchantDashboard/coverageArea" &&
+						"activeButton"
+					}>
 					<ListItemIcon className='listItemIcon'>
 						<HomeIcon />
 					</ListItemIcon>
@@ -563,7 +575,10 @@ function Dashboard(props) {
 			<Link className='link' to='/merchantDashboard/serviceCharge'>
 				<ListItem
 					button
-					className={location?.pathname === "/merchantDashboard/serviceCharge" && "activeButton"}>
+					className={
+						location?.pathname === "/merchantDashboard/serviceCharge" &&
+						"activeButton"
+					}>
 					<ListItemIcon className='listItemIcon'>
 						<HomeIcon />
 					</ListItemIcon>
@@ -601,13 +616,19 @@ function Dashboard(props) {
 						<Typography variant='h6'>DASHBOARD</Typography>
 					</Box>
 					<Box>
-						<Typography variant='p' style={{ color: "white", fontWeight: "bold", margin: "0px 10px" }}>
+						<Typography
+							variant='p'
+							style={{
+								color: "white",
+								fontWeight: "bold",
+								margin: "0px 10px",
+							}}>
 							John Doe
 						</Typography>
 					</Box>
 					<Box>
 						<Avatar
-							sx={{ border: "2px solid #44ba06", }}
+							sx={{ border: "2px solid #44ba06" }}
 							alt=''
 							src='https://expertphotography.b-cdn.net/wp-content/uploads/2020/08/social-media-profile-photos-3.jpg'
 						/>

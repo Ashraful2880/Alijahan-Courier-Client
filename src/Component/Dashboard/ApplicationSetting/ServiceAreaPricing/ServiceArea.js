@@ -19,12 +19,12 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import RemoveDoneIcon from "@mui/icons-material/RemoveDone";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
-import EditBranches from "./EditBranches.js";
+import EditServiceArea from "./EditServiceArea.js";
 import AddIcon from "@mui/icons-material/Add";
 import GetAuth from "../../../../FirebaseAuth/GetAuth";
-import AddBranches from "./AddBranches";
+import AddServiceArea from "./AddServiceArea";
 
-const Branches = () => {
+const ServiceArea = () => {
 	const { user, loading, token } = GetAuth();
 	const { register, handleSubmit, reset } = useForm();
 	const [submitting, setSubmitting] = useState(false);
@@ -38,7 +38,7 @@ const Branches = () => {
 	};
 	useEffect(() => {
 		axios
-			.get(`${process.env.REACT_APP_API_PATH}/branches`, {
+			.get(`${process.env.REACT_APP_API_PATH}/serviceAreas`, {
 				headers: {
 					Authorization: `Bearer ${token}`,
 				},
@@ -67,7 +67,7 @@ const Branches = () => {
 									setSubmitting(true);
 									axios
 										.put(
-											`${process.env.REACT_APP_API_PATH}/branchStatus/${params.row?._id}`,
+											`${process.env.REACT_APP_API_PATH}/serviceAreaStatus/${params.row?._id}`,
 											{
 												status: "Inactive",
 											},
@@ -102,7 +102,7 @@ const Branches = () => {
 									setSubmitting(true);
 									axios
 										.put(
-											`${process.env.REACT_APP_API_PATH}/branchStatus/${params.row?._id}`,
+											`${process.env.REACT_APP_API_PATH}/serviceAreaStatus/${params.row?._id}`,
 											{
 												status: "Active",
 											},
@@ -143,7 +143,7 @@ const Branches = () => {
 								setSubmitting(true);
 								axios
 									.delete(
-										`${process.env.REACT_APP_API_PATH}/grade/${params.row?._id}`,
+										`${process.env.REACT_APP_API_PATH}/serviceArea/${params.row?._id}`,
 										{
 											headers: {
 												Authorization: `Bearer ${token}`,
@@ -167,11 +167,21 @@ const Branches = () => {
 	};
 
 	const columns = [
-		{ field: "branchName", headerName: "Branch Name", flex: 1 },
-		{ field: "pickupCom", headerName: "Pickup", flex: 1 },
-		{ field: "deliveryCom", headerName: "Delivery", flex: 1 },
-		{ field: "bookingCom", headerName: "Booking", flex: 1 },
-		{ field: "officeDeliveryCom", headerName: "Office Delivery", flex: 1 },
+		{
+			field: "serviceAreaName",
+			headerName: "Service Area",
+			flex: 1,
+		},
+		{
+			field: "serviceAreaCODPercentage",
+			headerName: "COD Percentage",
+			flex: 1,
+		},
+		{
+			field: "serviceAreaCharge",
+			headerName: "Charge",
+			flex: 1,
+		},
 		{ field: "status", headerName: "Status", flex: 1 },
 		{
 			field: "_id",
@@ -184,14 +194,14 @@ const Branches = () => {
 	return (
 		<Container sx={{ py: 1 }}>
 			<Typography variant='h5' sx={{ fontWeight: "bold" }}>
-				Branch
+				Service Area And Pricing
 			</Typography>
 			<Button
 				onClick={() => setOpen(true)}
 				variant='contained'
 				className='button'
 				sx={{ my: 0.7, fontWeight: "bold", px: 2.5 }}>
-				Add New Branch <AddIcon sx={{ ml: 1.5 }} />
+				Add New Service Area <AddIcon sx={{ ml: 1.5 }} />
 			</Button>
 			<Grid container spacing={1} sx={{ justifyContent: "center" }}>
 				<Grid item xs={12} md={12}>
@@ -216,7 +226,7 @@ const Branches = () => {
 				<CircularProgress color='inherit' />
 			</Backdrop>
 			{open && (
-				<AddBranches
+				<AddServiceArea
 					open={open}
 					setOpen={setOpen}
 					id={id}
@@ -225,7 +235,7 @@ const Branches = () => {
 				/>
 			)}
 			{openEdit && (
-				<EditBranches
+				<EditServiceArea
 					open={openEdit}
 					setOpen={setOpenEdit}
 					id={id}
@@ -237,4 +247,4 @@ const Branches = () => {
 	);
 };
 
-export default Branches;
+export default ServiceArea;

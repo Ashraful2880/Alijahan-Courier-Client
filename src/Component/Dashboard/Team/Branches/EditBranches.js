@@ -37,32 +37,20 @@ const EditBranches = ({ open, setOpen, id, token, setSubmitting }) => {
 			branchName: "",
 			branchAddress: "",
 			branchDistrict: "",
-			branchThana: "",
 			branchArea: "",
 			branchContact: "",
 			branchEmail: "",
-			branchImage: "",
+			branchPassword: "",
+			pickupCom: "",
+			deliveryCom: "",
+			bookingCom: "",
+			officeDeliveryCom: "",
 		},
 	});
-	const [thanas, setThanas] = useState();
+	const [value, setValue] = React.useState();
 	const [areas, setAreas] = useState();
-	const [districts, setDistricts] = useState([]);
 	const [selectedDistricts, setSelectedDistricts] = useState("");
-	const [selectedThana, setSelectedThana] = useState("");
-
 	useEffect(() => {
-		axios
-			.get(`${process.env.REACT_APP_API_PATH}/thanas`, {
-				headers: {
-					Authorization: `Bearer ${token}`,
-				},
-			})
-			.then((response) => {
-				setThanas(response.data);
-			})
-			.catch((error) => {
-				console.log(error);
-			});
 		axios
 			.get(`${process.env.REACT_APP_API_PATH}/areas`, {
 				headers: {
@@ -71,18 +59,6 @@ const EditBranches = ({ open, setOpen, id, token, setSubmitting }) => {
 			})
 			.then((response) => {
 				setAreas(response.data);
-			})
-			.catch((error) => {
-				console.log(error);
-			});
-		axios
-			.get(`${process.env.REACT_APP_API_PATH}/districts`, {
-				headers: {
-					Authorization: `Bearer ${token}`,
-				},
-			})
-			.then((response) => {
-				setDistricts(response.data);
 			})
 			.catch((error) => {
 				console.log(error);
@@ -108,11 +84,13 @@ const EditBranches = ({ open, setOpen, id, token, setSubmitting }) => {
 		branchName,
 		branchAddress,
 		branchDistrict,
-		branchThana,
-		branchArea,
 		branchContact,
 		branchEmail,
-		branchImage,
+		branchPassword,
+		pickupCom,
+		deliveryCom,
+		bookingCom,
+		officeDeliveryCom,
 	}) => {
 		setSubmitting(true);
 		axios
@@ -122,11 +100,14 @@ const EditBranches = ({ open, setOpen, id, token, setSubmitting }) => {
 					branchName,
 					branchAddress,
 					branchDistrict,
-					branchThana,
-					branchArea,
 					branchContact,
 					branchEmail,
-					branchImage,
+					branchPassword,
+					pickupCom,
+					deliveryCom,
+					bookingCom,
+					officeDeliveryCom,
+					branchArea: value || data?.branchArea,
 				},
 				{
 					headers: {
@@ -195,15 +176,8 @@ const EditBranches = ({ open, setOpen, id, token, setSubmitting }) => {
 										onChange={(e) => setSelectedDistricts(e.target.innerText)}
 										size='small'
 										sx={{ my: 1, width: "100% !important" }}
-										options={districts}
-										defaultValue={
-											districts[
-												districts?.findIndex(
-													(x) => x.district === data?.district,
-												)
-											]
-										}
-										getOptionLabel={(option) => option.district}
+										options={areas}
+										getOptionLabel={(option) => option?.district}
 										style={{ width: 300 }}
 										renderInput={(params) => (
 											<TextField
@@ -214,40 +188,57 @@ const EditBranches = ({ open, setOpen, id, token, setSubmitting }) => {
 											/>
 										)}
 									/>
+
 									<Autocomplete
-										onChange={(e) => setSelectedThana(e.target.innerText)}
+										sx={{ my: 1.5, width: "100% !important" }}
 										size='small'
-										sx={{ my: 1, width: "100% !important" }}
-										options={thanas?.filter(
-											(item) => item.district === selectedDistricts,
+										onChange={(event, newValue) => {
+											setValue(newValue);
+										}}
+										multiple
+										id='tags-outlined'
+										options={areas?.filter(
+											(item) => item?.district === selectedDistricts,
 										)}
-										getOptionLabel={(option) => option.thana}
-										style={{ width: 300 }}
+										getOptionLabel={(option) => option.area}
+										defaultValue={data?.branchArea}
+										filterSelectedOptions
 										renderInput={(params) => (
 											<TextField
-												{...register("branchThana", { required: true })}
 												{...params}
-												label='Thana Name'
-												variant='outlined'
+												label='Areas'
+												placeholder='Select Areas'
 											/>
 										)}
 									/>
-									<Autocomplete
+
+									<TextField
 										size='small'
-										sx={{ my: 1, width: "100% !important" }}
-										options={areas?.filter(
-											(item) => item.thana === selectedThana,
-										)}
-										getOptionLabel={(option) => option.area}
-										style={{ width: 300 }}
-										renderInput={(params) => (
-											<TextField
-												{...register("branchArea", { required: true })}
-												{...params}
-												label='Area Name'
-												variant='outlined'
-											/>
-										)}
+										sx={{ my: 0.7 }}
+										fullWidth
+										label='Pickup Commission (in %)'
+										{...register("pickupCom", { required: true })}
+									/>
+									<TextField
+										size='small'
+										sx={{ my: 0.7 }}
+										fullWidth
+										label='Delivery Commission (in %)'
+										{...register("deliveryCom", { required: true })}
+									/>
+									<TextField
+										size='small'
+										sx={{ my: 0.7 }}
+										fullWidth
+										label='Booking Commission (in %)'
+										{...register("bookingCom", { required: true })}
+									/>
+									<TextField
+										size='small'
+										sx={{ my: 0.7 }}
+										fullWidth
+										label='Office Delivery Commission (in %)'
+										{...register("officeDeliveryCom", { required: true })}
 									/>
 									<TextField
 										size='small'
@@ -267,8 +258,8 @@ const EditBranches = ({ open, setOpen, id, token, setSubmitting }) => {
 										size='small'
 										sx={{ my: 0.7 }}
 										fullWidth
-										label='Branch Image'
-										{...register("branchEmail", { required: true })}
+										label='Branch Password'
+										{...register("branchPassword", { required: true })}
 									/>
 									<Button
 										type='submit'

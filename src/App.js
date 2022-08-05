@@ -27,10 +27,10 @@ import Item from "./Component/Dashboard/TraditionalParcelSetting/Item";
 import AdminUser from "./Component/Dashboard/Setting/AdminUser";
 import Application from "./Component/Dashboard/Setting/Application";
 import { APIContextProvider } from "./ApiContext";
-import ServiceArea from "./Component/Dashboard/ApplicationSetting/ServiceArea";
 import WeightPackage from "./Component/Dashboard/ApplicationSetting/WeightPackage/WeightPackage";
 import Vehicles from "./Component/Dashboard/TraditionalParcelSetting/Vehicles/Vehicles";
 import ItemCategory from "./Component/Dashboard/TraditionalParcelSetting/ItemCategory/ItemCategory";
+import ServiceArea from "./Component/Dashboard/ApplicationSetting/ServiceAreaPricing/ServiceArea";
 
 function App() {
 	return (
