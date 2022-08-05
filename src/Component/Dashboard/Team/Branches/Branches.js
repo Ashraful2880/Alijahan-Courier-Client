@@ -143,7 +143,7 @@ const Branches = () => {
 								setSubmitting(true);
 								axios
 									.delete(
-										`${process.env.REACT_APP_API_PATH}/grade/${params.row?._id}`,
+										`${process.env.REACT_APP_API_PATH}/branch/${params.row?._id}`,
 										{
 											headers: {
 												Authorization: `Bearer ${token}`,

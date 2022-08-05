@@ -167,11 +167,16 @@ const Riders = () => {
 	};
 
 	const columns = [
-		{ field: "riderName", headerName: "Rider Name", width: 100 },
+		{ field: "riderName", headerName: "Name", flex:1 },
+		{ field: "riderAddress", headerName: "Address", flex:1 },
+		{ field: "riderContact", headerName: "Contact", flex:1 },
+		{ field: "riderNID", headerName: "NID", flex:1 },
+		{ field: "riderLicense", headerName: "Driving License", flex:1 },
+		{ field: "status", headerName: "Status", flex:1 },
 		{
 			field: "_id",
 			headerName: "Action",
-			width: 130,
+			flex:1,
 			renderCell: renderDetailsButton,
 			disableClickEventBubbling: true,
 		},

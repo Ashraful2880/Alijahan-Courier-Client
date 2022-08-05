@@ -159,7 +159,7 @@ function Dashboard(props) {
 								<ListItemText primary={"Branch"} />
 							</ListItem>
 						</Link>
-						<Link className='link' to='branchusers'>
+						{/* <Link className='link' to='branchusers'>
 							<ListItem
 								button
 								className={
@@ -170,7 +170,7 @@ function Dashboard(props) {
 								</ListItemIcon>
 								<ListItemText primary={"Branch User"} />
 							</ListItem>
-						</Link>
+						</Link> */}
 						<Link className='link' to='merchants'>
 							<ListItem
 								button
@@ -331,7 +331,7 @@ function Dashboard(props) {
 								<ListItemText primary={"Service Area"} />
 							</ListItem>
 						</Link>
-						<Link className='link' to='serviceAreaSetting'>
+						{/* <Link className='link' to='serviceAreaSetting'>
 							<ListItem
 								button
 								className={
@@ -342,7 +342,7 @@ function Dashboard(props) {
 								</ListItemIcon>
 								<ListItemText primary={"Service Area Setting"} />
 							</ListItem>
-						</Link>
+						</Link> */}
 						<Link className='link' to='district'>
 							<ListItem
 								button
@@ -447,7 +447,7 @@ function Dashboard(props) {
 								<ListItemText primary={"Unit"} />
 							</ListItem>
 						</Link>
-						<Link className='link' to='item'>
+						{/* <Link className='link' to='item'>
 							<ListItem
 								button
 								className={location?.pathname === "/item" && "activeButton"}>
@@ -456,7 +456,7 @@ function Dashboard(props) {
 								</ListItemIcon>
 								<ListItemText primary={"Item"} />
 							</ListItem>
-						</Link>
+						</Link> */}
 					</List>
 				</AccordionDetails>
 			</Accordion>

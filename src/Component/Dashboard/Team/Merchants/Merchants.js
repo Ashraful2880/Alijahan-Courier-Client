@@ -167,11 +167,15 @@ const Merchants = () => {
 	};
 
 	const columns = [
-		{ field: "merchantName", headerName: "Merchant Name", width: 100 },
+		{ field: "merchantName", headerName: "Merchant Name", flex: 1 },
+		{ field: "merchantBranchName", headerName: "Branch", flex: 1 },
+		{ field: "merchantArea", headerName: "Area", flex: 1 },
+		{ field: "merchantContact", headerName: "Contact", flex: 1 },
+		{ field: "status", headerName: "Status", flex: 1 },
 		{
 			field: "_id",
 			headerName: "Action",
-			width: 130,
+			flex: 1,
 			renderCell: renderDetailsButton,
 			disableClickEventBubbling: true,
 		},

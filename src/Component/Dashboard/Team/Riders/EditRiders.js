@@ -13,7 +13,9 @@ import { Box } from "@mui/system";
 import axios from "axios";
 import CancelIcon from "@mui/icons-material/Cancel";
 import { useForm } from "react-hook-form";
-import SendIcon from "@mui/icons-material/Send";
+import ReplayIcon from "@mui/icons-material/Replay";
+import SaveIcon from "@mui/icons-material/Save";
+import AddTaskIcon from "@mui/icons-material/AddTask";
 import Swal from "sweetalert2";
 const style = {
 	position: "absolute",
@@ -32,59 +34,31 @@ const style = {
 };
 
 const EditRiders = ({ open, setOpen, id, token, setSubmitting }) => {
-	const { register, handleSubmit, reset } = useForm({
+	const { register, handleSubmit, watch, reset } = useForm({
 		defaultValues: {
 			riderName: "",
 			riderBranch: "",
 			riderAddress: "",
-			riderDistrict: "",
-			riderThana: "",
-			riderArea: "",
 			riderContact: "",
 			riderEmail: "",
-			riderPass: "",
-			riderImage: "",
+			riderPassword: "",
+			riderNID: "",
+			riderLicense: "",
+			riderDOB: "",
 		},
 	});
-	const [thanas, setThanas] = useState();
-	const [areas, setAreas] = useState();
-	const [districts, setDistricts] = useState([]);
-	const [selectedDistricts, setSelectedDistricts] = useState("");
-	const [selectedThana, setSelectedThana] = useState("");
+	const [branch, setBranch] = useState();
+	const [error, setError] = useState(false);
 
 	useEffect(() => {
 		axios
-			.get(`${process.env.REACT_APP_API_PATH}/thanas`, {
+			.get(`${process.env.REACT_APP_API_PATH}/branches`, {
 				headers: {
 					Authorization: `Bearer ${token}`,
 				},
 			})
 			.then((response) => {
-				setThanas(response.data);
-			})
-			.catch((error) => {
-				console.log(error);
-			});
-		axios
-			.get(`${process.env.REACT_APP_API_PATH}/areas`, {
-				headers: {
-					Authorization: `Bearer ${token}`,
-				},
-			})
-			.then((response) => {
-				setAreas(response.data);
-			})
-			.catch((error) => {
-				console.log(error);
-			});
-		axios
-			.get(`${process.env.REACT_APP_API_PATH}/districts`, {
-				headers: {
-					Authorization: `Bearer ${token}`,
-				},
-			})
-			.then((response) => {
-				setDistricts(response.data);
+				setBranch(response.data);
 			})
 			.catch((error) => {
 				console.log(error);
@@ -110,13 +84,12 @@ const EditRiders = ({ open, setOpen, id, token, setSubmitting }) => {
 		riderName,
 		riderBranch,
 		riderAddress,
-		riderDistrict,
-		riderThana,
-		riderArea,
+		userEmail,
 		riderContact,
-		riderEmail,
-		riderPass,
-		riderImage,
+		riderNID,
+		riderLicense,
+		riderPassword,
+		riderDOB,
 	}) => {
 		setSubmitting(true);
 		axios
@@ -126,13 +99,12 @@ const EditRiders = ({ open, setOpen, id, token, setSubmitting }) => {
 					riderName,
 					riderBranch,
 					riderAddress,
-					riderDistrict,
-					riderThana,
-					riderArea,
+					userEmail,
 					riderContact,
-					riderEmail,
-					riderPass,
-					riderImage,
+					riderNID,
+					riderLicense,
+					riderPassword,
+					riderDOB,
 				},
 				{
 					headers: {
@@ -180,81 +152,165 @@ const EditRiders = ({ open, setOpen, id, token, setSubmitting }) => {
 									Edit Rider
 								</Typography>
 								<form onSubmit={handleSubmit(onSubmit)}>
-									<TextField
-										size='small'
-										sx={{ my: 0.7 }}
-										fullWidth
-										required
-										label='Rider Name'
-										{...register("riderName", { required: true })}
-									/>
+									<Box sx={{ display: "flex", gap: "20px" }}>
+										<TextField
+											size='small'
+											sx={{ my: 0.5 }}
+											fullWidth
+											required
+											label='Rider Name'
+											helperText='Rider Name'
+											{...register("riderName", { required: true })}
+										/>
+										<TextField
+											size='small'
+											sx={{ my: 0.5 }}
+											fullWidth
+											required
+											label='Address'
+											helperText='Rider Address'
+											{...register("riderAddress", { required: true })}
+										/>
+									</Box>
+									<Box sx={{ display: "flex", gap: "20px" }}>
+										<TextField
+											size='small'
+											sx={{ my: 0.5 }}
+											fullWidth
+											required
+											type='date'
+											helperText='Date of Birth'
+											{...register("riderDOB", { required: true })}
+										/>
+										<Autocomplete
+											size='small'
+											sx={{ my: 0.5, width: "100% !important" }}
+											options={branch}
+											getOptionLabel={(option) => option.branchName}
+											style={{ width: 300 }}
+											defaultValue={
+												branch[
+													branch?.findIndex(
+														(x) => x.branchName === data?.riderBranch,
+													)
+												]
+											}
+											renderInput={(params) => (
+												<TextField
+													{...register("riderBranch", { required: true })}
+													{...params}
+													label='Rider Branch'
+													helperText='Rider Branch'
+													variant='outlined'
+												/>
+											)}
+										/>
+									</Box>
+									<Box sx={{ display: "flex", gap: "20px" }}>
+										<TextField
+											type='email'
+											size='small'
+											sx={{ my: 0.5 }}
+											fullWidth
+											required
+											label='User Email'
+											helperText='User Email'
+											{...register("userEmail", { required: true })}
+										/>
+										<TextField
+											type='number'
+											size='small'
+											sx={{ my: 0.5 }}
+											fullWidth
+											required
+											label='Mobile Number'
+											helperText='Mobile Number'
+											{...register("riderContact", { required: true })}
+										/>
+									</Box>
 
-									<Autocomplete
-										onChange={(e) => setSelectedDistricts(e.target.innerText)}
-										size='small'
-										sx={{ my: 1, width: "100% !important" }}
-										options={districts}
-										defaultValue={
-											districts[
-												districts?.findIndex(
-													(x) => x.district === data?.district,
+									<Box sx={{ display: "flex", gap: "20px" }}>
+										<TextField
+											type='number'
+											size='small'
+											sx={{ my: 0.5 }}
+											fullWidth
+											required
+											label='Rider NID'
+											helperText='Rider NID'
+											{...register("riderNID", { required: true })}
+										/>
+										<TextField
+											size='small'
+											sx={{ my: 0.5 }}
+											fullWidth
+											required
+											label='Driving License'
+											helperText='Deriving License'
+											{...register("riderLicense", { required: true })}
+										/>
+									</Box>
+									<Box sx={{ display: "flex", gap: "20px" }}>
+										<TextField
+											size='small'
+											sx={{ my: 0.5 }}
+											fullWidth
+											required
+											type='password'
+											label='User Password'
+											helperText='User Password'
+											defaultValue={data?.riderPassword}
+											{...register("password", {
+												required: true,
+											})}
+										/>
+										<TextField
+											size='small'
+											sx={{ my: 0.5 }}
+											type='password'
+											fullWidth
+											required
+											label='Confirm Password'
+											helperText={
+												error ? (
+													<span style={{ color: "red" }}>
+														Your password didn't matched.
+													</span>
+												) : (
+													"Confirm Password"
 												)
-											]
-										}
-										getOptionLabel={(option) => option.district}
-										style={{ width: 300 }}
-										renderInput={(params) => (
-											<TextField
-												{...register("branchDistrict", { required: true })}
-												{...params}
-												label='Districts Name'
-												variant='outlined'
-											/>
-										)}
-									/>
-									<Autocomplete
-										onChange={(e) => setSelectedThana(e.target.innerText)}
-										size='small'
-										sx={{ my: 1, width: "100% !important" }}
-										options={thanas?.filter(
-											(item) => item.district === selectedDistricts,
-										)}
-										getOptionLabel={(option) => option.thana}
-										style={{ width: 300 }}
-										renderInput={(params) => (
-											<TextField
-												{...register("branchThana", { required: true })}
-												{...params}
-												label='Thana Name'
-												variant='outlined'
-											/>
-										)}
-									/>
-									<Autocomplete
-										size='small'
-										sx={{ my: 1, width: "100% !important" }}
-										options={areas?.filter(
-											(item) => item.thana === selectedThana,
-										)}
-										getOptionLabel={(option) => option.area}
-										style={{ width: 300 }}
-										renderInput={(params) => (
-											<TextField
-												{...register("branchArea", { required: true })}
-												{...params}
-												label='Area Name'
-												variant='outlined'
-											/>
-										)}
-									/>
-
-									<Button
-										type='submit'
-										variant='contained'
-										className='button'
-										sx={{ my: 0.7, fontWeight: "bold", px: 2.5 }}>
-										Update <SendIcon sx={{ ml: 1.5 }} />
-									</Button>
+											}
+											{...register("riderPassword", {
+												required: true,
+												validate: (val) => {
+													if (watch("password") !== val) {
+														setError(true);
+														return "false";
+													}
+												},
+											})}
+										/>
+									</Box>
+									<Box sx={{ mb: 4 }}>
+										<Button
+											type='submit'
+											variant='contained'
+											color='success'
+											// className='button'
+											sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+											<SaveIcon sx={{ mr: 0.5 }} />
+											Update
+										</Button>
+										<Button
+											onClick={() => setOpen(false)}
+											type='reset'
+											variant='contained'
+											// className='button'
+											sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+											<ReplayIcon sx={{ mr: 0.5 }} />
+											Close
+										</Button>
+									</Box>
 								</form>
 							</>
 						) : (
