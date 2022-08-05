@@ -13,9 +13,9 @@ import { Box } from "@mui/system";
 import axios from "axios";
 import CancelIcon from "@mui/icons-material/Cancel";
 import { useForm } from "react-hook-form";
-import ReplayIcon from '@mui/icons-material/Replay';
-import SaveIcon from '@mui/icons-material/Save';
-import AddTaskIcon from '@mui/icons-material/AddTask';
+import ReplayIcon from "@mui/icons-material/Replay";
+import SaveIcon from "@mui/icons-material/Save";
+import AddTaskIcon from "@mui/icons-material/AddTask";
 import Swal from "sweetalert2";
 const style = {
 	position: "absolute",
@@ -34,46 +34,18 @@ const style = {
 };
 
 const AddRiders = ({ open, setOpen, token, setSubmitting }) => {
-	const { register, handleSubmit, reset } = useForm();
-	const [thanas, setThanas] = useState();
-	const [areas, setAreas] = useState();
-	const [districts, setDistricts] = useState([]);
-	const [selectedDistricts, setSelectedDistricts] = useState("");
-	const [selectedThana, setSelectedThana] = useState("");
-
+	const { register, handleSubmit, reset, watch } = useForm();
+	const [branch, setBranch] = useState();
+	const [error, setError] = useState(false);
 	useEffect(() => {
 		axios
-			.get(`${process.env.REACT_APP_API_PATH}/thanas`, {
+			.get(`${process.env.REACT_APP_API_PATH}/branches`, {
 				headers: {
 					Authorization: `Bearer ${token}`,
 				},
 			})
 			.then((response) => {
-				setThanas(response.data);
-			})
-			.catch((error) => {
-				console.log(error);
-			});
-		axios
-			.get(`${process.env.REACT_APP_API_PATH}/areas`, {
-				headers: {
-					Authorization: `Bearer ${token}`,
-				},
-			})
-			.then((response) => {
-				setAreas(response.data);
-			})
-			.catch((error) => {
-				console.log(error);
-			});
-		axios
-			.get(`${process.env.REACT_APP_API_PATH}/districts`, {
-				headers: {
-					Authorization: `Bearer ${token}`,
-				},
-			})
-			.then((response) => {
-				setDistricts(response.data);
+				setBranch(response.data);
 			})
 			.catch((error) => {
 				console.log(error);
@@ -81,15 +53,14 @@ const AddRiders = ({ open, setOpen, token, setSubmitting }) => {
 	}, [token]);
 	const onSubmit = ({
 		riderName,
+		riderBranch,
 		riderAddress,
 		userEmail,
 		riderContact,
 		riderNID,
 		riderLicense,
-		userPassword,
-		confirmUserPassword,
+		riderPassword,
 		riderDOB,
-		riderStatus,
 	}) => {
 		setSubmitting(true);
 		axios
@@ -97,15 +68,15 @@ const AddRiders = ({ open, setOpen, token, setSubmitting }) => {
 				`${process.env.REACT_APP_API_PATH}/rider`,
 				{
 					riderName,
+					riderBranch,
 					riderAddress,
 					userEmail,
 					riderContact,
 					riderNID,
 					riderLicense,
-					userPassword,
-					confirmUserPassword,
+					riderPassword,
 					riderDOB,
-					riderStatus,
+					status: "Active",
 				},
 				{
 					headers: {
@@ -146,10 +117,22 @@ const AddRiders = ({ open, setOpen, token, setSubmitting }) => {
 								right: "30px",
 								cursor: "pointer",
 								background: "White",
-								borderRadius: "50%"
+								borderRadius: "50%",
 							}}
 						/>
-						<Typography variant='h6' sx={{ fontWeight: "bold", mb: 2, textAlign: "left", background: "green", padding: "8px 20px", color: "#fff", borderRadius: "5px", display: "flex", alignItems: "center" }}>
+						<Typography
+							variant='h6'
+							sx={{
+								fontWeight: "bold",
+								mb: 2,
+								textAlign: "left",
+								background: "green",
+								padding: "8px 20px",
+								color: "#fff",
+								borderRadius: "5px",
+								display: "flex",
+								alignItems: "center",
+							}}>
 							<AddTaskIcon sx={{ mr: 2 }} /> Add New Rider
 						</Typography>
 						<form onSubmit={handleSubmit(onSubmit)}>
@@ -160,7 +143,7 @@ const AddRiders = ({ open, setOpen, token, setSubmitting }) => {
 									fullWidth
 									required
 									label='Rider Name'
-									helperText="Rider Name"
+									helperText='Rider Name'
 									{...register("riderName", { required: true })}
 								/>
 								<TextField
@@ -169,42 +152,69 @@ const AddRiders = ({ open, setOpen, token, setSubmitting }) => {
 									fullWidth
 									required
 									label='Address'
-									helperText="Rider Address"
+									helperText='Rider Address'
 									{...register("riderAddress", { required: true })}
 								/>
 							</Box>
 							<Box sx={{ display: "flex", gap: "20px" }}>
 								<TextField
-									type="email"
+									size='small'
+									sx={{ my: 0.5 }}
+									fullWidth
+									required
+									type='date'
+									helperText='Date of Birth'
+									{...register("riderDOB", { required: true })}
+								/>
+								<Autocomplete
+									size='small'
+									sx={{ my: 0.5, width: "100% !important" }}
+									options={branch}
+									getOptionLabel={(option) => option.branchName}
+									style={{ width: 300 }}
+									renderInput={(params) => (
+										<TextField
+											{...register("riderBranch", { required: true })}
+											{...params}
+											label='Rider Branch'
+											helperText='Rider Branch'
+											variant='outlined'
+										/>
+									)}
+								/>
+							</Box>
+							<Box sx={{ display: "flex", gap: "20px" }}>
+								<TextField
+									type='email'
 									size='small'
 									sx={{ my: 0.5 }}
 									fullWidth
 									required
 									label='User Email'
-									helperText="User Email"
+									helperText='User Email'
 									{...register("userEmail", { required: true })}
 								/>
 								<TextField
-									type="number"
+									type='number'
 									size='small'
 									sx={{ my: 0.5 }}
 									fullWidth
 									required
 									label='Mobile Number'
-									helperText="Mobile Number"
+									helperText='Mobile Number'
 									{...register("riderContact", { required: true })}
 								/>
 							</Box>
 
 							<Box sx={{ display: "flex", gap: "20px" }}>
 								<TextField
-									type="number"
+									type='number'
 									size='small'
 									sx={{ my: 0.5 }}
 									fullWidth
 									required
 									label='Rider NID'
-									helperText="Rider NID"
+									helperText='Rider NID'
 									{...register("riderNID", { required: true })}
 								/>
 								<TextField
@@ -213,7 +223,7 @@ const AddRiders = ({ open, setOpen, token, setSubmitting }) => {
 									fullWidth
 									required
 									label='Driving License'
-									helperText="Deriving License"
+									helperText='Deriving License'
 									{...register("riderLicense", { required: true })}
 								/>
 							</Box>
@@ -223,95 +233,50 @@ const AddRiders = ({ open, setOpen, token, setSubmitting }) => {
 									sx={{ my: 0.5 }}
 									fullWidth
 									required
-									type="password"
+									type='password'
 									label='User Password'
-									helperText="User Password"
-									{...register("userPassword", { required: true })}
+									helperText='User Password'
+									{...register("password", {
+										required: true,
+									})}
 								/>
 								<TextField
 									size='small'
 									sx={{ my: 0.5 }}
-									type="password"
+									type='password'
 									fullWidth
 									required
 									label='Confirm Password'
-									helperText="Confirm Password"
-									{...register("confirmuserPassword", { required: true })}
+									helperText={
+										error ? (
+											<span style={{ color: "red" }}>
+												Your password didn't matched.
+											</span>
+										) : (
+											"Confirm Password"
+										)
+									}
+									{...register("riderPassword", {
+										required: true,
+										validate: (val) => {
+											if (watch("password") !== val) {
+												setError(true);
+												return "false";
+											}
+										},
+									})}
 								/>
 							</Box>
-							<Box sx={{ display: "flex", gap: "20px" }}>
-								<TextField
-									size='small'
-									sx={{ my: 0.5 }}
-									fullWidth
-									required
-									type="date"
-									helperText="Date of Birth"
-									{...register("riderDOB", { required: true })}
-								/>
-								<Autocomplete
-									onChange={(e) => setSelectedThana(e.target.innerText)}
-									size='small'
-									sx={{ my: 0.5, width: "100% !important" }}
-									options={thanas?.filter(
-										(item) => item.district === selectedDistricts,
-									)}
-									getOptionLabel={(option) => option.thana}
-									style={{ width: 300 }}
-									renderInput={(params) => (
-										<TextField
-											{...register("riderStatus", { required: true })}
-											{...params}
-											label='Status'
-											helperText="Status"
-											variant='outlined'
-										/>
-									)}
-								/>
-							</Box>
-
-							{/* <Autocomplete
-								onChange={(e) => setSelectedThana(e.target.innerText)}
-								size='small'
-								sx={{ my: 1, width: "100% !important" }}
-								options={thanas?.filter(
-									(item) => item.district === selectedDistricts,
-								)}
-								getOptionLabel={(option) => option.thana}
-								style={{ width: 300 }}
-								renderInput={(params) => (
-									<TextField
-										{...register("branchThana", { required: true })}
-										{...params}
-										label='Thana Name'
-										variant='outlined'
-									/>
-								)}
-							/>
-							<Autocomplete
-								size='small'
-								sx={{ my: 1, width: "100% !important" }}
-								options={areas?.filter((item) => item.thana === selectedThana)}
-								getOptionLabel={(option) => option.area}
-								style={{ width: 300 }}
-								renderInput={(params) => (
-									<TextField
-										{...register("branchArea", { required: true })}
-										{...params}
-										label='Area Name'
-										variant='outlined'
-									/>
-								)}
-							/> */}
 
 							<Box sx={{ mb: 4 }}>
 								<Button
 									type='submit'
 									variant='contained'
-									color="success"
+									color='success'
 									// className='button'
 									sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
-									<SaveIcon sx={{ mr: 0.5 }} />Save
+									<SaveIcon sx={{ mr: 0.5 }} />
+									Save
 								</Button>
 								<Button
 									onClick={() => setOpen(false)}
@@ -319,7 +284,8 @@ const AddRiders = ({ open, setOpen, token, setSubmitting }) => {
 									variant='contained'
 									// className='button'
 									sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
-									<ReplayIcon sx={{ mr: 0.5 }} />Close
+									<ReplayIcon sx={{ mr: 0.5 }} />
+									Close
 								</Button>
 							</Box>
 						</form>
