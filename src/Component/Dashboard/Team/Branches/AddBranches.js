@@ -8,6 +8,7 @@ import {
 	Typography,
 	CircularProgress,
 	Autocomplete,
+	Chip,
 } from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
@@ -33,25 +34,10 @@ const style = {
 
 const AddBranches = ({ open, setOpen, token, setSubmitting }) => {
 	const { register, handleSubmit, reset } = useForm();
-	const [thanas, setThanas] = useState();
 	const [areas, setAreas] = useState();
-	const [districts, setDistricts] = useState([]);
 	const [selectedDistricts, setSelectedDistricts] = useState("");
-	const [selectedThana, setSelectedThana] = useState("");
 
 	useEffect(() => {
-		axios
-			.get(`${process.env.REACT_APP_API_PATH}/thanas`, {
-				headers: {
-					Authorization: `Bearer ${token}`,
-				},
-			})
-			.then((response) => {
-				setThanas(response.data);
-			})
-			.catch((error) => {
-				console.log(error);
-			});
 		axios
 			.get(`${process.env.REACT_APP_API_PATH}/areas`, {
 				headers: {
@@ -64,28 +50,19 @@ const AddBranches = ({ open, setOpen, token, setSubmitting }) => {
 			.catch((error) => {
 				console.log(error);
 			});
-		axios
-			.get(`${process.env.REACT_APP_API_PATH}/districts`, {
-				headers: {
-					Authorization: `Bearer ${token}`,
-				},
-			})
-			.then((response) => {
-				setDistricts(response.data);
-			})
-			.catch((error) => {
-				console.log(error);
-			});
 	}, [token]);
+	const [value, setValue] = React.useState();
 	const onSubmit = ({
 		branchName,
 		branchAddress,
 		branchDistrict,
-		branchThana,
-		branchArea,
 		branchContact,
 		branchEmail,
-		branchImage,
+		branchPassword,
+		pickupCom,
+		deliveryCom,
+		bookingCom,
+		officeDeliveryCom,
 	}) => {
 		setSubmitting(true);
 		axios
@@ -95,11 +72,14 @@ const AddBranches = ({ open, setOpen, token, setSubmitting }) => {
 					branchName,
 					branchAddress,
 					branchDistrict,
-					branchThana,
-					branchArea,
+					branchArea: value,
 					branchContact,
 					branchEmail,
-					branchImage,
+					branchPassword,
+					pickupCom,
+					deliveryCom,
+					bookingCom,
+					officeDeliveryCom,
 					status: "Active",
 				},
 				{
@@ -146,102 +126,128 @@ const AddBranches = ({ open, setOpen, token, setSubmitting }) => {
 						<Typography variant='h5' sx={{ fontWeight: "bold", mb: 1.5 }}>
 							Add Branch
 						</Typography>
-						<form onSubmit={handleSubmit(onSubmit)}>
-							<TextField
-								size='small'
-								sx={{ my: 0.7 }}
-								fullWidth
-								required
-								label='Branch Name'
-								{...register("branchName", { required: true })}
-							/>
-							<TextField
-								size='small'
-								sx={{ my: 0.7 }}
-								fullWidth
-								multiline
-								rows={2}
-								label='Branch Address'
-								{...register("branchAddress", { required: true })}
-							/>
-							<Autocomplete
-								onChange={(e) => setSelectedDistricts(e.target.innerText)}
-								size='small'
-								sx={{ my: 1, width: "100% !important" }}
-								options={districts}
-								getOptionLabel={(option) => option.district}
-								style={{ width: 300 }}
-								renderInput={(params) => (
-									<TextField
-										{...register("branchDistrict", { required: true })}
-										{...params}
-										label='Districts Name'
-										variant='outlined'
-									/>
-								)}
-							/>
-							<Autocomplete
-								onChange={(e) => setSelectedThana(e.target.innerText)}
-								size='small'
-								sx={{ my: 1, width: "100% !important" }}
-								options={thanas?.filter(
-									(item) => item.district === selectedDistricts,
-								)}
-								getOptionLabel={(option) => option.thana}
-								style={{ width: 300 }}
-								renderInput={(params) => (
-									<TextField
-										{...register("branchThana", { required: true })}
-										{...params}
-										label='Thana Name'
-										variant='outlined'
-									/>
-								)}
-							/>
-							<Autocomplete
-								size='small'
-								sx={{ my: 1, width: "100% !important" }}
-								options={areas?.filter((item) => item.thana === selectedThana)}
-								getOptionLabel={(option) => option.area}
-								style={{ width: 300 }}
-								renderInput={(params) => (
-									<TextField
-										{...register("branchArea", { required: true })}
-										{...params}
-										label='Area Name'
-										variant='outlined'
-									/>
-								)}
-							/>
-							<TextField
-								size='small'
-								sx={{ my: 0.7 }}
-								fullWidth
-								label='Branch Contact'
-								{...register("branchContact", { required: true })}
-							/>
-							<TextField
-								size='small'
-								sx={{ my: 0.7 }}
-								fullWidth
-								label='Branch Email'
-								{...register("branchEmail", { required: true })}
-							/>
-							<TextField
-								size='small'
-								sx={{ my: 0.7 }}
-								fullWidth
-								label='Branch Image'
-								{...register("branchEmail", { required: true })}
-							/>
-							<Button
-								type='submit'
-								variant='contained'
-								className='button'
-								sx={{ my: 0.7, fontWeight: "bold", px: 2.5 }}>
-								Add Branch <SendIcon sx={{ ml: 1.5 }} />
-							</Button>
-						</form>
+						{areas && (
+							<form onSubmit={handleSubmit(onSubmit)}>
+								<TextField
+									size='small'
+									sx={{ my: 0.7 }}
+									fullWidth
+									required
+									label='Branch Name'
+									{...register("branchName", { required: true })}
+								/>
+								<TextField
+									size='small'
+									sx={{ my: 0.7 }}
+									fullWidth
+									multiline
+									rows={2}
+									label='Branch Address'
+									{...register("branchAddress", { required: true })}
+								/>
+								<Autocomplete
+									onChange={(e) => setSelectedDistricts(e.target.innerText)}
+									size='small'
+									sx={{ my: 1, width: "100% !important" }}
+									options={areas}
+									getOptionLabel={(option) => option?.district}
+									style={{ width: 300 }}
+									renderInput={(params) => (
+										<TextField
+											{...register("branchDistrict", { required: true })}
+											{...params}
+											label='Districts Name'
+											variant='outlined'
+										/>
+									)}
+								/>
+
+								<Autocomplete
+									sx={{ my: 1.5, width: "100% !important" }}
+									size='small'
+									onChange={(event, newValue) => {
+										setValue(newValue);
+									}}
+									multiple
+									id='tags-outlined'
+									options={areas?.filter(
+										(item) => item?.district === selectedDistricts,
+									)}
+									getOptionLabel={(option) => option.area}
+									defaultValue={
+										areas?.filter(
+											(item) => item?.district === selectedDistricts,
+										)[0]
+									}
+									filterSelectedOptions
+									renderInput={(params) => (
+										<TextField
+											{...params}
+											label='Areas'
+											placeholder='Select Areas'
+										/>
+									)}
+								/>
+
+								<TextField
+									size='small'
+									sx={{ my: 0.7 }}
+									fullWidth
+									label='Pickup Commission (in %)'
+									{...register("pickupCom", { required: true })}
+								/>
+								<TextField
+									size='small'
+									sx={{ my: 0.7 }}
+									fullWidth
+									label='Delivery Commission (in %)'
+									{...register("deliveryCom", { required: true })}
+								/>
+								<TextField
+									size='small'
+									sx={{ my: 0.7 }}
+									fullWidth
+									label='Booking Commission (in %)'
+									{...register("bookingCom", { required: true })}
+								/>
+								<TextField
+									size='small'
+									sx={{ my: 0.7 }}
+									fullWidth
+									label='Office Delivery Commission (in %)'
+									{...register("officeDeliveryCom", { required: true })}
+								/>
+								<TextField
+									size='small'
+									sx={{ my: 0.7 }}
+									fullWidth
+									label='Branch Contact'
+									{...register("branchContact", { required: true })}
+								/>
+								<TextField
+									size='small'
+									sx={{ my: 0.7 }}
+									fullWidth
+									label='Branch Email'
+									{...register("branchEmail", { required: true })}
+								/>
+
+								<TextField
+									size='small'
+									sx={{ my: 0.7 }}
+									fullWidth
+									label='Branch Password'
+									{...register("branchPassword", { required: true })}
+								/>
+								<Button
+									type='submit'
+									variant='contained'
+									className='button'
+									sx={{ my: 0.7, fontWeight: "bold", px: 2.5 }}>
+									Add Branch <SendIcon sx={{ ml: 1.5 }} />
+								</Button>
+							</form>
+						)}
 					</Box>
 				</Fade>
 			</Modal>

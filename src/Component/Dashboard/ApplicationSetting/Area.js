@@ -27,7 +27,6 @@ const Area = () => {
 	const [submitting, setSubmitting] = useState(false);
 	const [data, setData] = useState();
 	const [districts, setDistricts] = useState([]);
-	const [thanas, setThanas] = useState([]);
 	useEffect(() => {
 		axios
 			.get(`${process.env.REACT_APP_API_PATH}/areas`, {
@@ -41,18 +40,7 @@ const Area = () => {
 			.catch((error) => {
 				console.log(error);
 			});
-		axios
-			.get(`${process.env.REACT_APP_API_PATH}/thanas`, {
-				headers: {
-					Authorization: `Bearer ${token}`,
-				},
-			})
-			.then((response) => {
-				setThanas(response.data);
-			})
-			.catch((error) => {
-				console.log(error);
-			});
+
 		axios
 			.get(`${process.env.REACT_APP_API_PATH}/districts`, {
 				headers: {
@@ -66,14 +54,13 @@ const Area = () => {
 				console.log(error);
 			});
 	}, [token, submitting]);
-	const onSubmit = ({ area, district, thana }) => {
+	const onSubmit = ({ area, district }) => {
 		setSubmitting(true);
 		axios
 			.post(
 				`${process.env.REACT_APP_API_PATH}/area`,
 				{
 					district,
-					thana,
 					area,
 					status: "Active",
 				},
@@ -204,7 +191,6 @@ const Area = () => {
 
 	const columns = [
 		{ field: "district", headerName: "District Name", flex: 1 },
-		{ field: "thana", headerName: "Thana Name", flex: 1 },
 		{ field: "area", headerName: "Area Name", flex: 1 },
 		{ field: "status", headerName: "Status", flex: 1 },
 		{
@@ -238,21 +224,7 @@ const Area = () => {
 								/>
 							)}
 						/>
-						<Autocomplete
-							size='small'
-							sx={{ my: 1, width: "100% !important" }}
-							options={thanas}
-							getOptionLabel={(option) => option.thana}
-							style={{ width: 300 }}
-							renderInput={(params) => (
-								<TextField
-									{...register("thana", { required: true })}
-									{...params}
-									label='Districts Name'
-									variant='outlined'
-								/>
-							)}
-						/>
+
 						<TextField
 							size='small'
 							sx={{ my: 0.7 }}
