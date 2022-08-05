@@ -1,5 +1,8 @@
 import React from 'react';
 import { Box, Button, Card, Grid, MenuItem, TextareaAutosize, TextField, Typography } from '@mui/material';
+import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
+import SaveIcon from '@mui/icons-material/Save';
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import { useForm } from 'react-hook-form';
 import "../MerchantDashboard.css";
 
@@ -29,7 +32,9 @@ const AddParcel = () => {
         <Box sx={{ padding: "0px 15px" }}>
             <Box>
                 <Typography variant='h5' sx={{ textAlign: "left", marginY: "15px" }}>Add New Parcel</Typography>
-                <Typography component='p' sx={{ textAlign: "left", background: "#1E793C", padding: "10px 15px", borderRadius: "6px", fontSize: "18px", color: "#fff" }}>Add New Parcel</Typography>
+                <Typography variant='h6' sx={{ textAlign: "left", background: "#1E793C", padding: "10px 15px", borderRadius: "6px", fontSize: "19px", color: "#fff", display: "flex", alignItems: "center" }}>
+                    <CreateNewFolderIcon sx={{ mr: 2 }} /> Add New Parcel
+                </Typography>
             </Box>
             <Box sx={{ width: '100%' }}>
                 <form onSubmit={handleSubmit(onSubmit)}>
@@ -350,12 +355,23 @@ const AddParcel = () => {
                                 </Box>
                             </Card>
                         </Grid>
-                        <Box sx={{ marginY: "20px", padding: "0px 26px" }}>
-                            <Button type="submit" variant="contained" color="success" sx={{ margin: "0px 10px", width: "200px" }}>
-                                Submit
+                        {/* <Box sx={{ marginY: "20px", padding: "0px 26px" }}>
+            
+                        </Box> */}
+                        <Box sx={{ display: "flex", gap: "15px", mx: 1, mt: 1, mb: 5, padding: "0px 26px" }}>
+                            <Button
+                                type='submit'
+                                variant='contained'
+                                color="success"
+                                sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1, }}>
+                                <SaveIcon sx={{ mr: 0.5 }} />Submit
                             </Button>
-                            <Button type='reset' variant="contained" sx={{ margin: "0px 10px", width: "200px" }}>
-                                Reset
+                            <Button
+                                type='reset'
+                                variant='contained'
+                                color="error"
+                                sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1, }}>
+                                <RestartAltIcon sx={{ mr: 0.5 }} />Reset
                             </Button>
                         </Box>
                     </Grid>

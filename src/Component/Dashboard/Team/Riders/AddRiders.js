@@ -123,10 +123,9 @@ const AddRiders = ({ open, setOpen, token, setSubmitting }) => {
 						<Typography
 							variant='h6'
 							sx={{
-								fontWeight: "bold",
 								mb: 2,
 								textAlign: "left",
-								background: "green",
+								background: "#1E793C",
 								padding: "8px 20px",
 								color: "#fff",
 								borderRadius: "5px",

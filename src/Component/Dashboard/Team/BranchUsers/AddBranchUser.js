@@ -50,7 +50,7 @@ const AddBranchUser = ({ open, handleClose, setOpen }) => {
                                 borderRadius: "50%"
                             }}
                         />
-                        <Typography variant='h6' sx={{ fontWeight: "bold", mb: 2, textAlign: "left", background: "green", padding: "8px 20px", color: "#fff", borderRadius: "5px", display: "flex", alignItems: "center" }}>
+                        <Typography variant='h6' sx={{ mb: 2, textAlign: "left", background: "#1E793C", padding: "8px 20px", color: "#fff", borderRadius: "5px", display: "flex", alignItems: "center" }}>
                             <AddTaskIcon sx={{ mr: 2 }} /> Create New Branch User
                         </Typography>
                         <Box sx={{ display: "flex", gap: "20px" }}>
