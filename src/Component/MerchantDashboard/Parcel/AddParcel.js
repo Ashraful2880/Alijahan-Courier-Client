@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Button, Card, Grid, MenuItem, TextareaAutosize, TextField, Typography } from '@mui/material';
 import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
-import SaveIcon from '@mui/icons-material/Save';
+import DoneIcon from '@mui/icons-material/Done';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import { useForm } from 'react-hook-form';
 import "../MerchantDashboard.css";
@@ -364,7 +364,7 @@ const AddParcel = () => {
                                 variant='contained'
                                 color="success"
                                 sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1, }}>
-                                <SaveIcon sx={{ mr: 0.5 }} />Submit
+                                <DoneIcon sx={{ mr: 0.5 }} />Submit
                             </Button>
                             <Button
                                 type='reset'

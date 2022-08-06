@@ -12,11 +12,11 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
-import CancelIcon from "@mui/icons-material/Cancel";
 import { useForm } from "react-hook-form";
 import ReplayIcon from "@mui/icons-material/Replay";
-import SaveIcon from "@mui/icons-material/Save";
-import AddTaskIcon from "@mui/icons-material/AddTask";
+import DoneIcon from '@mui/icons-material/Done';
+import CancelIcon from "@mui/icons-material/Cancel";
+import BorderColorIcon from '@mui/icons-material/BorderColor';
 import Swal from "sweetalert2";
 const style = {
 	position: "absolute",
@@ -142,15 +142,28 @@ const EditMerchants = ({ open, setOpen, id, token, setSubmitting }) => {
 							className='textColor'
 							sx={{
 								position: "fixed",
-								top: "5px",
-								right: "5px",
+								top: "30px",
+								right: "30px",
 								cursor: "pointer",
+								background: "White",
+								borderRadius: "50%",
 							}}
 						/>
 						{data && branches ? (
 							<>
-								<Typography variant='h5' sx={{ fontWeight: "bold", mb: 1.5 }}>
-									Edit Merchant
+								<Typography
+									variant='h6'
+									sx={{
+										mb: 3,
+										textAlign: "left",
+										background: "#1E793C",
+										padding: "8px 20px",
+										color: "#fff",
+										borderRadius: "5px",
+										display: "flex",
+										alignItems: "center",
+									}}>
+									<BorderColorIcon sx={{ mr: 2 }} /> Edit Merchant
 								</Typography>
 								<form onSubmit={handleSubmit(onSubmit)}>
 									<Box sx={{ display: "flex", gap: "20px" }}>
@@ -211,9 +224,9 @@ const EditMerchants = ({ open, setOpen, id, token, setSubmitting }) => {
 											style={{ width: 300 }}
 											defaultValue={
 												branches[
-													branches?.findIndex(
-														(x) => x.branchName === data?.merchantBranchName,
-													)
+												branches?.findIndex(
+													(x) => x.branchName === data?.merchantBranchName,
+												)
 												]
 											}
 											renderInput={(params) => (
@@ -319,21 +332,21 @@ const EditMerchants = ({ open, setOpen, id, token, setSubmitting }) => {
 										/>
 									</Box>
 
-									<Box sx={{ mb: 4 }}>
+									<Box sx={{ my: 2 }}>
 										<Button
 											type='submit'
 											variant='contained'
 											color='success'
 											// className='button'
 											sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
-											<SaveIcon sx={{ mr: 0.5 }} />
-											Save
+											<DoneIcon sx={{ mr: 0.5 }} />
+											Update
 										</Button>
 										<Button
 											onClick={() => setOpen(false)}
 											type='reset'
 											variant='contained'
-											// className='button'
+											color='error'
 											sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
 											<ReplayIcon sx={{ mr: 0.5 }} />
 											Close

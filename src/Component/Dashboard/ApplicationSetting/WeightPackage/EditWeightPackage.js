@@ -13,9 +13,11 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
-import CancelIcon from "@mui/icons-material/Cancel";
 import { useForm } from "react-hook-form";
-import SendIcon from "@mui/icons-material/Send";
+import ReplayIcon from "@mui/icons-material/Replay";
+import DoneIcon from '@mui/icons-material/Done';
+import CancelIcon from "@mui/icons-material/Cancel";
+import BorderColorIcon from '@mui/icons-material/BorderColor';
 import Swal from "sweetalert2";
 const style = {
 	position: "absolute",
@@ -120,74 +122,110 @@ const EditWeightPackage = ({ open, setOpen, id, token, setSubmitting }) => {
 							className='textColor'
 							sx={{
 								position: "fixed",
-								top: "5px",
-								right: "5px",
+								top: "30px",
+								right: "30px",
 								cursor: "pointer",
+								background: "White",
+								borderRadius: "50%",
 							}}
 						/>
 						{data ? (
 							<>
-								<Typography variant='h5' sx={{ fontWeight: "bold", mb: 1.5 }}>
-									Edit WeightPackage
+								<Typography
+									variant='h6'
+									sx={{
+										mb: 3,
+										textAlign: "left",
+										background: "#1E793C",
+										padding: "8px 20px",
+										color: "#fff",
+										borderRadius: "5px",
+										display: "flex",
+										alignItems: "center",
+									}}>
+									<BorderColorIcon sx={{ mr: 2 }} /> Edit Weight Package
 								</Typography>
 								<form onSubmit={handleSubmit(onSubmit)}>
-									<TextField
-										size='small'
-										sx={{ my: 0.7 }}
-										fullWidth
-										required
-										label='Weight Package ID'
-										{...register("weightPackageId", { required: true })}
-									/>
-									<TextField
-										size='small'
-										sx={{ my: 0.7 }}
-										fullWidth
-										required
-										label='Weight Package Name'
-										{...register("weightPackageName", { required: true })}
-									/>
-									<TextField
-										size='small'
-										sx={{ my: 0.7 }}
-										fullWidth
-										label='Weight Package Title'
-										{...register("weightPackageTitle", { required: true })}
-									/>
+									<Box sx={{ display: "flex", gap: "20px" }}>
+										<TextField
+											size='small'
+											sx={{ my: 0.7 }}
+											fullWidth
+											required
+											label='Weight Package ID'
+											helperText='Weight Package ID'
+											{...register("weightPackageId", { required: true })}
+										/>
+										<TextField
+											size='small'
+											sx={{ my: 0.7 }}
+											fullWidth
+											required
+											label='Weight Package Name'
+											{...register("weightPackageName", { required: true })}
+										/>
+									</Box>
+									<Box sx={{ display: "flex", gap: "20px" }}>
+										<TextField
+											size='small'
+											sx={{ my: 0.7 }}
+											fullWidth
+											label='Weight Package Title'
+											helperText='Weight Package Title'
+											{...register("weightPackageTitle", { required: true })}
+										/>
 
-									<Select
-										sx={{ width: "100%", textAlign: "left", my: 0.8 }}
-										{...register("weightPackageType", { required: true })}
-										size='small'
-										value={type || data?.weightPackageType}
-										onChange={handleChange}>
-										<MenuItem value={"KG"}>KG</MenuItem>
-										<MenuItem value={"CFT"}>CFT</MenuItem>
-									</Select>
-									<TextField
-										size='small'
-										sx={{ my: 0.7 }}
-										fullWidth
-										label='Weight Package Description'
-										{...register("weightPackageDescription", {
-											required: true,
-										})}
-									/>
-									<TextField
-										size='small'
-										sx={{ my: 0.7 }}
-										fullWidth
-										label='Weight Package Rate'
-										{...register("weightPackageRate", { required: true })}
-									/>
+										<Select
+											sx={{ width: "100%", textAlign: "left", height: 40, mt: 0.5 }}
+											{...register("weightPackageType", { required: true })}
+											size='small'
+											value={type || data?.weightPackageType}
+											onChange={handleChange}>
+											<MenuItem value={"KG"}>KG</MenuItem>
+											<MenuItem value={"CFT"}>CFT</MenuItem>
+										</Select>
+									</Box>
+									<Box sx={{ display: "flex", gap: "20px" }}>
+										<TextField
+											size='small'
+											sx={{ my: 0.7 }}
+											fullWidth
+											label='Weight Package Description'
+											helperText='Weight Package Description'
+											{...register("weightPackageDescription", {
+												required: true,
+											})}
+										/>
+										<TextField
+											size='small'
+											sx={{ my: 0.7 }}
+											fullWidth
+											label='Weight Package Rate'
+											helperText='Weight Package Rate'
+											{...register("weightPackageRate", { required: true })}
+										/>
+									</Box>
 
-									<Button
-										type='submit'
-										variant='contained'
-										className='button'
-										sx={{ my: 0.7, fontWeight: "bold", px: 2.5 }}>
-										Update <SendIcon sx={{ ml: 1.5 }} />
-									</Button>
+									<Box sx={{ mt: 2, mb: 1 }}>
+										<Button
+											type='submit'
+											variant='contained'
+											color='success'
+											// className='button'
+											sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+											<DoneIcon sx={{ mr: 0.5 }} />
+											Update
+										</Button>
+										<Button
+											onClick={() => setOpen(false)}
+											type='reset'
+											variant='contained'
+											color='error'
+											sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+											<ReplayIcon sx={{ mr: 0.5 }} />
+											Close
+										</Button>
+									</Box>
 								</form>
 							</>
 						) : (

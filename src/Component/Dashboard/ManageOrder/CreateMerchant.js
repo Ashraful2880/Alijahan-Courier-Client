@@ -1,57 +1,40 @@
 import React, { useState } from 'react';
-import { Autocomplete, Box, Button, TextField, Typography } from '@mui/material';
+import { Autocomplete, Box, Button, Checkbox, FormControlLabel, FormGroup, TextField, Typography } from '@mui/material';
 import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
 import DoneIcon from '@mui/icons-material/Done';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
 import { useForm } from 'react-hook-form';
 
-const OfficeToHome = () => {
+const CreateMerchant = () => {
     const [deliveryAreas, setdeliveryAreas] = useState([]);
     const [selectedBranches, setSelectDeliveryArea] = useState([]);
     const [paymentTypes, setPaymentTypes] = useState([]);
     const [conditionType, setConditionType] = useState([]);
     const { register, handleSubmit, reset } = useForm();
+    // Table Function Here
+    function createData(name, calories, fat, carbs, protein) {
+        return { name, calories, fat, carbs, protein };
+    }
+    const rows = [
+        createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
+        createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
+        createData('Eclair', 262, 16.0, 24, 6.0),
+        createData('Cupcake', 305, 3.7, 67, 4.3),
+        createData('Gingerbread', 356, 16.0, 49, 3.9),
+    ];
     return (
         <Box sx={{ mt: 2.5, mx: 2.5, boxShadow: "0px 0px 10px #b5b5b5", pt: 2, pb: 5 }}>
             <Typography variant='h6' sx={{ mb: 3, textAlign: "left", background: "#1E793C", padding: "8px 20px", color: "#fff", borderRadius: "5px", display: "flex", alignItems: "center", mx: 2 }}>
-                <CreateNewFolderIcon sx={{ mr: 2 }} /> Create a New Parcel Order
+                <CreateNewFolderIcon sx={{ mr: 2 }} />Create a New Parcel Order (Merchant)
             </Typography>
             <Box sx={{ mx: 3 }}>
                 <form>
-                    {/* Sender Info Here */}
-                    <Typography component="p" sx={{ fontWeight: "bold", textAlign: "left", my: 1, mx: 2, color: "#009688", fontSize: "18px", }}>
-                        Sender Information
-                    </Typography>
-                    <Box sx={{ display: "flex", gap: "15px", mx: 2 }}>
-                        <TextField
-                            size='small'
-                            sx={{ my: 0.5 }}
-                            fullWidth
-                            required
-                            label='Sender Name'
-                            helperText="Sender Name"
-                            {...register("senderName", { required: true })}
-                        />
-                        <TextField
-                            type="number"
-                            size='small'
-                            sx={{ my: 0.5 }}
-                            fullWidth
-                            required
-                            label='Sender Mobile Number'
-                            helperText="Sender Number"
-                            {...register("senderNumber", { required: true })}
-                        />
-                        <TextField
-                            size='small'
-                            sx={{ my: 0.5 }}
-                            fullWidth
-                            required
-                            label='Sender Address'
-                            helperText="Sender Address"
-                            {...register("senderAddress", { required: true })}
-                        />
-                    </Box>
                     {/* Receiver Info Here */}
                     <Typography component="p" sx={{ fontWeight: "bold", textAlign: "left", my: 1, mx: 2, color: "#009688", fontSize: "18px", }}>
                         Receiver Information
@@ -162,83 +145,14 @@ const OfficeToHome = () => {
                     </Box>
                     <Box sx={{ display: "flex", gap: "15px", mx: 2 }}>
                         <TextField
-                            size='small'
-                            sx={{ my: 0.5 }}
-                            fullWidth
-                            required
-                            label='Product Title & Description'
-                            helperText="Product Title & Description"
-                            {...register("productDetails", { required: true })}
-                        />
-                        <TextField
-                            size='small'
-                            sx={{ my: 0.5 }}
-                            fullWidth
-                            label='Instructions'
-                            helperText="Any Instructions"
-                            {...register("instructions", { required: true })}
-                        />
-                    </Box>
-                    {/* Payment Info Here */}
-                    <Typography component="p" sx={{ fontWeight: "bold", textAlign: "left", my: 1, mx: 2, color: "#009688", fontSize: "18px", }}>
-                        Payment Information
-                    </Typography>
-                    <Box sx={{ display: "flex", gap: "15px", mx: 2 }}>
-                        <TextField
                             type="number"
                             size='small'
                             sx={{ my: 0.5 }}
                             fullWidth
                             required
-                            label='Service Charge'
-                            helperText="Type Service Charge Here"
-                            {...register("serviceCharge", { required: true })}
-                        />
-                        <Autocomplete
-                            onChange={(e) => setPaymentTypes(e.target.innerText)}
-                            size='small'
-                            sx={{ my: 0.5, width: "100% !important" }}
-                            options={paymentTypes}
-                            getOptionLabel={(option) => option.branchName}
-                            style={{ width: 300 }}
-                            renderInput={(params) => (
-                                <TextField
-                                    {...register("paymentType", { required: true })}
-                                    {...params}
-                                    label='Payment Type'
-                                    variant='outlined'
-                                    helperText="Select Payment type"
-                                />
-                            )}
-                        />
-                        <Autocomplete
-                            onChange={(e) => setConditionType(e.target.innerText)}
-                            size='small'
-                            sx={{ my: 0.5, width: "100% !important" }}
-                            options={conditionType}
-                            getOptionLabel={(option) => option.branchName}
-                            style={{ width: 300 }}
-                            renderInput={(params) => (
-                                <TextField
-                                    {...register("conditionType", { required: true })}
-                                    {...params}
-                                    label='Condition Type'
-                                    variant='outlined'
-                                    helperText="Select Condition type"
-                                />
-                            )}
-                        />
-                    </Box>
-                    <Box sx={{ display: "flex", gap: "15px", mx: 2 }}>
-                        <TextField
-                            type="number"
-                            size='small'
-                            sx={{ my: 0.5 }}
-                            fullWidth
-                            required
-                            label='Condition Amount'
-                            helperText="Type Condition Amount"
-                            {...register("conditionAmount", { required: true })}
+                            label='Cash Collection'
+                            helperText="Cash Collection"
+                            {...register("cashCollection", { required: true })}
                         />
                         <TextField
                             size='small'
@@ -258,7 +172,92 @@ const OfficeToHome = () => {
                             {...register("instructions", { required: true })}
                         />
                     </Box>
-                    <Box sx={{ display: "flex", gap: "15px", mx: 1, mt: 1 }}>
+                    <FormGroup sx={{ mb: 1, mx: 2, width: "30%" }}>
+                        <FormControlLabel control={<Checkbox defaultUnChecked />} label="With Delivery Charge" />
+                    </FormGroup>
+                    <Typography component="p" sx={{ fontWeight: "bold", textAlign: "left", my: 1, mx: 2, color: "#009688", fontSize: "18px", }}>
+                        Order Summary
+                    </Typography>
+                    <TableContainer component={Paper} sx={{ width: { lg: "30%", md: "40%", sn: "100%" } }}>
+                        <Table aria-label="simple table">
+                            <TableBody>
+                                <TableRow >
+                                    <TableCell component="th" scope="row">
+                                        <Typography component="p" sx={{ fontWeight: "600", color: "gray", fontSize: "15px" }}>
+                                            Cash Collection
+                                        </Typography>
+                                    </TableCell>
+                                    <TableCell align="right">
+                                        <Typography sx={{ fontWeight: "600", color: "gray", fontSize: "15px" }}>
+                                            3000.00 Taka
+                                        </Typography>
+                                    </TableCell>
+                                </TableRow>
+                                <TableRow >
+                                    <TableCell component="th" scope="row">
+                                        <Typography sx={{ fontWeight: "600", color: "gray", fontSize: "15px" }}>
+                                            Weight Charge
+                                        </Typography>
+                                    </TableCell>
+                                    <TableCell align="right">
+                                        <Typography sx={{ fontWeight: "600", color: "gray", fontSize: "15px" }}>
+                                            3000.00 Taka
+                                        </Typography>
+                                    </TableCell>
+                                </TableRow>
+                                <TableRow >
+                                    <TableCell component="th" scope="row">
+                                        <Typography sx={{ fontWeight: "600", color: "gray", fontSize: "15px" }}>
+                                            Delivery Charge
+                                        </Typography>
+                                    </TableCell>
+                                    <TableCell align="right">
+                                        <Typography sx={{ fontWeight: "600", color: "gray", fontSize: "15px" }}>
+                                            3000.00 Taka
+                                        </Typography>
+                                    </TableCell>
+                                </TableRow>
+                                <TableRow >
+                                    <TableCell component="th" scope="row">
+                                        <Typography sx={{ fontWeight: "600", color: "gray", fontSize: "15px" }}>
+                                            Cash On Delivery
+                                        </Typography>
+                                    </TableCell>
+                                    <TableCell align="right">
+                                        <Typography sx={{ fontWeight: "600", color: "gray", fontSize: "15px" }}>
+                                            3000.00 Taka
+                                        </Typography>
+                                    </TableCell>
+                                </TableRow>
+                                <TableRow >
+                                    <TableCell component="th" scope="row">
+                                        <Typography sx={{ fontWeight: "600", color: "gray", fontSize: "15px" }}>
+                                            Total
+                                        </Typography>
+                                    </TableCell>
+                                    <TableCell align="right">
+                                        <Typography sx={{ fontWeight: "600", color: "gray", fontSize: "15px" }}>
+                                            3000.00 Taka
+                                        </Typography>
+                                    </TableCell>
+                                </TableRow>
+                                <TableRow style={{ background: "#e9e9e9" }} >
+                                    <TableCell component="th" scope="row">
+                                        <Typography sx={{ fontWeight: "600", color: "gray", fontSize: "15px" }}>
+                                            Payable Amount
+                                        </Typography>
+                                    </TableCell>
+                                    <TableCell align="right">
+                                        <Typography sx={{ fontWeight: "600", color: "gray", fontSize: "15px" }}>
+                                            3000.00 Taka
+                                        </Typography>
+                                    </TableCell>
+                                </TableRow>
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+
+                    <Box sx={{ display: "flex", gap: "15px", mx: 1, mt: 2 }}>
                         <Button
                             type='submit'
                             variant='contained'
@@ -280,4 +279,4 @@ const OfficeToHome = () => {
     );
 };
 
-export default OfficeToHome;
+export default CreateMerchant;

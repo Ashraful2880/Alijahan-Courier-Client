@@ -7,7 +7,7 @@ import {
 	Typography,
 } from "@mui/material";
 import CreateNewFolderIcon from "@mui/icons-material/CreateNewFolder";
-import SaveIcon from "@mui/icons-material/Save";
+import DoneIcon from '@mui/icons-material/Done';
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import { useForm } from "react-hook-form";
 
@@ -17,15 +17,13 @@ const OfficeToOffice = () => {
 	const [paymentTypes, setPaymentTypes] = useState([]);
 	const [conditionType, setConditionType] = useState([]);
 	const { register, handleSubmit, reset } = useForm();
-	const onSubmit = () => {};
+	const onSubmit = () => { };
 	return (
 		<Box
 			sx={{
 				mt: 2.5,
 				mx: 2.5,
-				border: "1px solid gray",
-				borderRadius: 2,
-				boxShadow: "0px 0px 10px gray",
+				boxShadow: "0px 0px 10px #b5b5b5",
 				pt: 2,
 				pb: 5,
 			}}>
@@ -234,7 +232,7 @@ const OfficeToOffice = () => {
 							variant='contained'
 							color='success'
 							sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
-							<SaveIcon sx={{ mr: 0.5 }} />
+							<DoneIcon sx={{ mr: 0.5 }} />
 							Place
 						</Button>
 						<Button

@@ -13,7 +13,9 @@ import { Box } from "@mui/system";
 import axios from "axios";
 import CancelIcon from "@mui/icons-material/Cancel";
 import { useForm } from "react-hook-form";
-import SendIcon from "@mui/icons-material/Send";
+import ReplayIcon from "@mui/icons-material/Replay";
+import DoneIcon from '@mui/icons-material/Done';
+import AddTaskIcon from "@mui/icons-material/AddTask";
 import Swal from "sweetalert2";
 const style = {
 	position: "absolute",
@@ -107,84 +109,127 @@ const AddWarehouseUsers = ({ open, setOpen, token, setSubmitting }) => {
 							className='textColor'
 							sx={{
 								position: "fixed",
-								top: "5px",
-								right: "5px",
+								top: "28px",
+								right: "30px",
 								cursor: "pointer",
+								background: "White",
+								borderRadius: "50%",
 							}}
 						/>
 
-						<Typography variant='h5' sx={{ fontWeight: "bold", mb: 1.5 }}>
-							Add Warehouse
+						<Typography
+							variant='h6'
+							sx={{
+								mb: 2,
+								textAlign: "left",
+								background: "#1E793C",
+								padding: "8px 20px",
+								color: "#fff",
+								borderRadius: "5px",
+								display: "flex",
+								alignItems: "center",
+							}}>
+							<AddTaskIcon sx={{ mr: 2 }} /> Add New Warehouse User
 						</Typography>
 						<form onSubmit={handleSubmit(onSubmit)}>
-							<TextField
-								size='small'
-								sx={{ my: 0.7 }}
-								fullWidth
-								required
-								label='Warehouse Name'
-								{...register("warehouseUserName", { required: true })}
-							/>
-							<TextField
-								size='small'
-								sx={{ my: 0.7 }}
-								fullWidth
-								multiline
-								rows={2}
-								label='Warehouse Address'
-								{...register("warehouseUserAddress", { required: true })}
-							/>
-							<Autocomplete
-								size='small'
-								sx={{ my: 1, width: "100% !important" }}
-								options={warehouses}
-								getOptionLabel={(option) => option.warehouseName}
-								style={{ width: 300 }}
-								renderInput={(params) => (
-									<TextField
-										{...register("wareHouseName", { required: true })}
-										{...params}
-										label='Warehouse Name'
-										variant='outlined'
-									/>
-								)}
-							/>
+							<Box sx={{ display: "flex", gap: "20px" }}>
+								<TextField
+									size='small'
+									sx={{ my: 0.5 }}
+									fullWidth
+									required
+									label='Warehouse Name'
+									helperText=" Warehouse Name"
+									{...register("warehouseUserName", { required: true })}
+								/>
+								<TextField
+									size='small'
+									sx={{ my: 0.5 }}
+									fullWidth
+									multiline
+									rows={1}
+									label='Warehouse Address'
+									helperText=" Warehouse Address"
+									{...register("warehouseUserAddress", { required: true })}
+								/>
+							</Box>
+							<Box sx={{ display: "flex", gap: "20px" }}>
 
-							<TextField
-								size='small'
-								sx={{ my: 0.7 }}
-								fullWidth
-								label='Warehouse Contact'
-								{...register("warehouseUserContact", { required: true })}
-							/>
-							<TextField
-								size='small'
-								sx={{ my: 0.7 }}
-								fullWidth
-								label='Warehouse Email'
-								{...register("warehouseUserEmail", { required: true })}
-							/>
-							<TextField
-								size='small'
-								sx={{ my: 0.7 }}
-								fullWidth
-								label='Warehouse Password'
-								{...register("warehouseUserPassword", { required: true })}
-							/>
-							<TextField
-								size='small'
-								sx={{ my: 0.7 }}
-								fullWidth
-								label='Warehouse Image'
-								{...register("warehouseUserImage", { required: true })}
-							/>
-							<Button
-								type='submit'
-								variant='contained'
-								className='button'
-								sx={{ my: 0.7, fontWeight: "bold", px: 2.5 }}>
-								Add <SendIcon sx={{ ml: 1.5 }} />
-							</Button>
+								<Autocomplete
+									size='small'
+									sx={{ my: 1, width: "100% !important" }}
+									options={warehouses}
+									getOptionLabel={(option) => option.warehouseName}
+									style={{ width: 300 }}
+									renderInput={(params) => (
+										<TextField
+											{...register("wareHouseName", { required: true })}
+											{...params}
+											label='Warehouse Name'
+											helperText=" Warehouse Name"
+											variant='outlined'
+										/>
+									)}
+								/>
+
+								<TextField
+									size='small'
+									sx={{ my: 1 }}
+									fullWidth
+									label='Warehouse Contact'
+									helperText=" Warehouse Contact"
+									{...register("warehouseUserContact", { required: true })}
+								/>
+							</Box>
+							<Box sx={{ display: "flex", gap: "20px" }}>
+								<TextField
+									size='small'
+									sx={{ my: 0.5 }}
+									fullWidth
+									label='Warehouse Email'
+									helperText=" Warehouse Email"
+									{...register("warehouseUserEmail", { required: true })}
+								/>
+								<TextField
+									size='small'
+									sx={{ my: 0.5 }}
+									fullWidth
+									label='Warehouse Password'
+									helperText=" Warehouse Password"
+									{...register("warehouseUserPassword", { required: true })}
+								/>
+							</Box>
+							<Box sx={{ display: "flex", gap: "10px" }}>
+								<TextField
+									size='small'
+									sx={{ my: 0.5, width: "49%" }}
+									fullWidth
+									label='Warehouse Image'
+									helperText=" Warehouse Image"
+									{...register("warehouseUserImage", { required: true })}
+								/>
+							</Box>
+							<Box sx={{ mt: 2, mb: 1 }}>
+								<Button
+									type='submit'
+									variant='contained'
+									color='success'
+									// className='button'
+									sx={{ my: 0.5, fontWeight: "bold", px: 1.5, mx: 1 }}>
+									<DoneIcon sx={{ mr: 0.5 }} />
+									Add User
+								</Button>
+								<Button
+									onClick={() => setOpen(false)}
+									type='reset'
+									variant='contained'
+									color="error"
+									// className='button'
+									sx={{ my: 0.5, fontWeight: "bold", px: 1.5, mx: 1 }}>
+									<ReplayIcon sx={{ mr: 0.5 }} />
+									Close
+								</Button>
+							</Box>
 						</form>
 					</Box>
 				</Fade>
