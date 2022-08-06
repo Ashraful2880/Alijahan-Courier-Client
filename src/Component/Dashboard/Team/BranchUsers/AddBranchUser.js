@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import CancelIcon from "@mui/icons-material/Cancel";
 import ReplayIcon from '@mui/icons-material/Replay';
-import SaveIcon from '@mui/icons-material/Save';
+import DoneIcon from '@mui/icons-material/Done';
 import AddTaskIcon from '@mui/icons-material/AddTask';
 import { useForm } from 'react-hook-form';
 import { Autocomplete, Button } from '@mui/material';
@@ -131,7 +131,7 @@ const AddBranchUser = ({ open, handleClose, setOpen }) => {
                                 color="success"
                                 // className='button'
                                 sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
-                                <SaveIcon sx={{ mr: 0.5 }} />Save
+                                <DoneIcon sx={{ mr: 0.5 }} />Save
                             </Button>
                             <Button
                                 onClick={() => setOpen(false)}

@@ -15,7 +15,9 @@ import { Box } from "@mui/system";
 import axios from "axios";
 import CancelIcon from "@mui/icons-material/Cancel";
 import { useForm } from "react-hook-form";
-import SendIcon from "@mui/icons-material/Send";
+import AddTaskIcon from "@mui/icons-material/AddTask";
+import DoneIcon from '@mui/icons-material/Done';
+import ReplayIcon from "@mui/icons-material/Replay";
 import Swal from "sweetalert2";
 const style = {
 	position: "absolute",
@@ -80,42 +82,68 @@ const AddItemCategory = ({ open, setOpen, token, setSubmitting }) => {
 							className='textColor'
 							sx={{
 								position: "fixed",
-								top: "5px",
-								right: "5px",
+								top: "28px",
+								right: "30px",
 								cursor: "pointer",
+								background: "White",
+								borderRadius: "50%",
 							}}
 						/>
-
-						<Typography variant='h5' sx={{ fontWeight: "bold", mb: 1.5 }}>
-							Add Item Category
+						<Typography
+							variant='h6'
+							sx={{
+								mb: 2,
+								textAlign: "left",
+								background: "#1E793C",
+								padding: "8px 20px",
+								color: "#fff",
+								borderRadius: "5px",
+								display: "flex",
+								alignItems: "center",
+							}}>
+							<AddTaskIcon sx={{ mr: 2 }} /> Add Item Category
 						</Typography>
 						<form onSubmit={handleSubmit(onSubmit)}>
 							<TextField
 								size='small'
-								sx={{ my: 0.7 }}
+								sx={{ my: 0.5 }}
 								fullWidth
 								required
 								label='Category Name'
+								helperText='Item Category Name'
 								{...register("itemCategoryName", { required: true })}
 							/>
-
 							<TextField
 								size='small'
-								sx={{ my: 0.7 }}
+								sx={{ my: 0.5 }}
 								fullWidth
-								label='Details'
+								label='Details (Optional)'
+								helperText='Details'
 								multiline
-								rows={3}
+								rows={2}
 								{...register("itemCategoryDetails", { required: true })}
 							/>
-
-							<Button
-								type='submit'
-								variant='contained'
-								className='button'
-								sx={{ my: 0.7, fontWeight: "bold", px: 2.5 }}>
-								Add <SendIcon sx={{ ml: 1.5 }} />
-							</Button>
+							<Box sx={{ mb: 2 }}>
+								<Button
+									type='submit'
+									variant='contained'
+									color='success'
+									// className='button'
+									sx={{ my: 0.5, fontWeight: "bold", px: 1.5, mx: 1 }}>
+									<DoneIcon sx={{ mr: 0.5 }} />
+									Add Category
+								</Button>
+								<Button
+									onClick={() => setOpen(false)}
+									type='reset'
+									variant='contained'
+									color="error"
+									// className='button'
+									sx={{ my: 0.5, fontWeight: "bold", px: 1.5, mx: 1 }}>
+									<ReplayIcon sx={{ mr: 0.5 }} />
+									Close
+								</Button>
+							</Box>
 						</form>
 					</Box>
 				</Fade>

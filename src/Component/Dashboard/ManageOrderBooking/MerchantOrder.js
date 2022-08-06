@@ -10,17 +10,15 @@ import {
 	Typography,
 } from "@mui/material";
 import CreateNewFolderIcon from "@mui/icons-material/CreateNewFolder";
-import SaveIcon from "@mui/icons-material/Save";
+import DoneIcon from '@mui/icons-material/Done';
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { useForm } from "react-hook-form";
-import taka from "../../../Assets/Image/Taka Icon.png";
 import axios from "axios";
 import GetAuth from "../../../FirebaseAuth/GetAuth";
 
@@ -498,7 +496,7 @@ const MerchantOrder = () => {
 							variant='contained'
 							color='success'
 							sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
-							<SaveIcon sx={{ mr: 0.5 }} />
+							<DoneIcon sx={{ mr: 0.5 }} />
 							Place
 						</Button>
 						<Button

@@ -14,7 +14,7 @@ import axios from "axios";
 import CancelIcon from "@mui/icons-material/Cancel";
 import { useForm } from "react-hook-form";
 import ReplayIcon from "@mui/icons-material/Replay";
-import SaveIcon from "@mui/icons-material/Save";
+import DoneIcon from '@mui/icons-material/Done';
 import AddTaskIcon from "@mui/icons-material/AddTask";
 import Swal from "sweetalert2";
 const style = {
@@ -267,20 +267,21 @@ const AddRiders = ({ open, setOpen, token, setSubmitting }) => {
 								/>
 							</Box>
 
-							<Box sx={{ mb: 4 }}>
+							<Box sx={{ my: 2 }}>
 								<Button
 									type='submit'
 									variant='contained'
 									color='success'
 									// className='button'
 									sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
-									<SaveIcon sx={{ mr: 0.5 }} />
+									<DoneIcon sx={{ mr: 0.5 }} />
 									Save
 								</Button>
 								<Button
 									onClick={() => setOpen(false)}
 									type='reset'
 									variant='contained'
+									color="error"
 									// className='button'
 									sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
 									<ReplayIcon sx={{ mr: 0.5 }} />

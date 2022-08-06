@@ -13,8 +13,10 @@ import {
 import { Box } from "@mui/system";
 import axios from "axios";
 import CancelIcon from "@mui/icons-material/Cancel";
+import AddTaskIcon from "@mui/icons-material/AddTask";
 import { useForm } from "react-hook-form";
-import SendIcon from "@mui/icons-material/Send";
+import DoneIcon from '@mui/icons-material/Done';
+import ReplayIcon from "@mui/icons-material/Replay";
 import Swal from "sweetalert2";
 const style = {
 	position: "absolute",
@@ -117,132 +119,180 @@ const AddBranches = ({ open, setOpen, token, setSubmitting }) => {
 							className='textColor'
 							sx={{
 								position: "fixed",
-								top: "5px",
-								right: "5px",
+								top: "28px",
+								right: "30px",
 								cursor: "pointer",
+								background: "White",
+								borderRadius: "50%",
 							}}
 						/>
 
-						<Typography variant='h5' sx={{ fontWeight: "bold", mb: 1.5 }}>
-							Add Branch
+						<Typography
+							variant='h6'
+							sx={{
+								mb: 2,
+								textAlign: "left",
+								background: "#1E793C",
+								padding: "8px 20px",
+								color: "#fff",
+								borderRadius: "5px",
+								display: "flex",
+								alignItems: "center",
+							}}>
+							<AddTaskIcon sx={{ mr: 2 }} /> Add New Branch
 						</Typography>
 						{areas && (
 							<form onSubmit={handleSubmit(onSubmit)}>
-								<TextField
-									size='small'
-									sx={{ my: 0.7 }}
-									fullWidth
-									required
-									label='Branch Name'
-									{...register("branchName", { required: true })}
-								/>
-								<TextField
-									size='small'
-									sx={{ my: 0.7 }}
-									fullWidth
-									multiline
-									rows={2}
-									label='Branch Address'
-									{...register("branchAddress", { required: true })}
-								/>
-								<Autocomplete
-									onChange={(event, newValue) => {
-										setSelectedDistricts(newValue);
-									}}
-									size='small'
-									sx={{ my: 1, width: "100% !important" }}
-									options={areas}
-									getOptionLabel={(option) => option?.district}
-									style={{ width: 300 }}
-									renderInput={(params) => (
-										<TextField
-											{...register("branchDistrict", { required: true })}
-											{...params}
-											label='Districts Name'
-											variant='outlined'
-										/>
-									)}
-								/>
+								<Box sx={{ display: "flex", gap: "20px" }}>
+									<TextField
+										size='small'
+										sx={{ my: 0.5 }}
+										fullWidth
+										required
+										helperText="Branch Name"
+										label='Branch Name'
+										{...register("branchName", { required: true })}
+									/>
+									<TextField
+										size='small'
+										sx={{ my: 0.5 }}
+										fullWidth
+										multiline
+										rows={1}
+										label='Branch Address'
+										helperText="Branch Address"
+										{...register("branchAddress", { required: true })}
+									/>
+								</Box>
+								<Box sx={{ display: "flex", gap: "20px" }}>
 
-								<Autocomplete
-									sx={{ my: 1.5, width: "100% !important" }}
-									size='small'
-									onChange={(event, newValue) => {
-										setValue(newValue);
-									}}
-									multiple
-									id='tags-outlined'
-									options={areas?.filter(
-										(item) => item?.district === selectedDistricts?.district,
-									)}
-									getOptionLabel={(option) => option.area}
-									filterSelectedOptions
-									renderInput={(params) => (
-										<TextField
-											{...params}
-											label='Areas'
-											placeholder='Select Areas'
-										/>
-									)}
-								/>
-
-								<TextField
-									size='small'
-									sx={{ my: 0.7 }}
-									fullWidth
-									label='Pickup Commission (in %)'
-									{...register("pickupCom", { required: true })}
-								/>
-								<TextField
-									size='small'
-									sx={{ my: 0.7 }}
-									fullWidth
-									label='Delivery Commission (in %)'
-									{...register("deliveryCom", { required: true })}
-								/>
-								<TextField
-									size='small'
-									sx={{ my: 0.7 }}
-									fullWidth
-									label='Booking Commission (in %)'
-									{...register("bookingCom", { required: true })}
-								/>
-								<TextField
-									size='small'
-									sx={{ my: 0.7 }}
-									fullWidth
-									label='Office Delivery Commission (in %)'
-									{...register("officeDeliveryCom", { required: true })}
-								/>
-								<TextField
-									size='small'
-									sx={{ my: 0.7 }}
-									fullWidth
-									label='Branch Contact'
-									{...register("branchContact", { required: true })}
-								/>
-								<TextField
-									size='small'
-									sx={{ my: 0.7 }}
-									fullWidth
-									label='Branch Email'
-									{...register("branchEmail", { required: true })}
-								/>
-
-								<TextField
-									size='small'
-									sx={{ my: 0.7 }}
-									fullWidth
-									label='Branch Password'
-									{...register("branchPassword", { required: true })}
-								/>
-								<Button
-									type='submit'
-									variant='contained'
-									className='button'
-									sx={{ my: 0.7, fontWeight: "bold", px: 2.5 }}>
-									Add Branch <SendIcon sx={{ ml: 1.5 }} />
-								</Button>
+									<Autocomplete
+										onChange={(event, newValue) => {
+											setSelectedDistricts(newValue);
+										}}
+										size='small'
+										sx={{ my: 1, width: "100% !important" }}
+										options={areas}
+										getOptionLabel={(option) => option?.district}
+										style={{ width: 300 }}
+										renderInput={(params) => (
+											<TextField
+												{...register("branchDistrict", { required: true })}
+												{...params}
+												label='Districts Name'
+												helperText="Districts Name"
+												variant='outlined'
+											/>
+										)}
+									/>
+									<Autocomplete
+										sx={{ my: 1, width: "100% !important" }}
+										size='small'
+										onChange={(event, newValue) => {
+											setValue(newValue);
+										}}
+										multiple
+										id='tags-outlined'
+										options={areas?.filter(
+											(item) => item?.district === selectedDistricts?.district,
+										)}
+										getOptionLabel={(option) => option.area}
+										filterSelectedOptions
+										renderInput={(params) => (
+											<TextField
+												{...params}
+												label='Areas'
+												helperText="Areas"
+												placeholder='Select Areas'
+											/>
+										)}
+									/>
+								</Box>
+								<Box sx={{ display: "flex", gap: "20px" }}>
+									<TextField
+										size='small'
+										sx={{ my: 0.5 }}
+										fullWidth
+										label='Pickup Commission (in %)'
+										helperText="Pickup Commission (in %)"
+										{...register("pickupCom", { required: true })}
+									/>
+									<TextField
+										size='small'
+										sx={{ my: 0.5 }}
+										fullWidth
+										label='Delivery Commission (in %)'
+										helperText="Delivery Commission (in %)"
+										{...register("deliveryCom", { required: true })}
+									/>
+								</Box>
+								<Box sx={{ display: "flex", gap: "20px" }}>
+									<TextField
+										size='small'
+										sx={{ my: 0.5 }}
+										fullWidth
+										label='Booking Commission (in %)'
+										helperText="Booking Commission (in %)"
+										{...register("bookingCom", { required: true })}
+									/>
+									<TextField
+										size='small'
+										sx={{ my: 0.5 }}
+										fullWidth
+										label='Office Delivery Commission (in %)'
+										helperText="Office Delivery Commission (in %)"
+										{...register("officeDeliveryCom", { required: true })}
+									/>
+								</Box>
+								<Box sx={{ display: "flex", gap: "20px" }}>
+									<TextField
+										size='small'
+										sx={{ my: 0.5 }}
+										fullWidth
+										label='Branch Contact'
+										helperText="Branch Contact"
+										{...register("branchContact", { required: true })}
+									/>
+									<TextField
+										size='small'
+										sx={{ my: 0.5 }}
+										fullWidth
+										label='Branch Email'
+										helperText="Branch Email"
+										{...register("branchEmail", { required: true })}
+									/>
+								</Box>
+								<Box sx={{ display: "flex", gap: "20px", }}>
+									<TextField
+										size='small'
+										sx={{ my: 0.5, width: "49%", }}
+										fullWidth
+										label='Branch Password'
+										helperText="Branch Password"
+										{...register("branchPassword", { required: true })}
+									/>
+								</Box>
+								<Box sx={{ mb: 2 }}>
+									<Button
+										type='submit'
+										variant='contained'
+										color='success'
+										// className='button'
+										sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+										<DoneIcon sx={{ mr: 0.5 }} />
+										Add Branch
+									</Button>
+									<Button
+										onClick={() => setOpen(false)}
+										type='reset'
+										variant='contained'
+										color="error"
+										// className='button'
+										sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+										<ReplayIcon sx={{ mr: 0.5 }} />
+										Close
+									</Button>
+								</Box>
 							</form>
 						)}
 					</Box>

@@ -11,9 +11,11 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
-import CancelIcon from "@mui/icons-material/Cancel";
 import { useForm } from "react-hook-form";
-import SendIcon from "@mui/icons-material/Send";
+import ReplayIcon from "@mui/icons-material/Replay";
+import DoneIcon from '@mui/icons-material/Done';
+import CancelIcon from "@mui/icons-material/Cancel";
+import BorderColorIcon from '@mui/icons-material/BorderColor';
 import Swal from "sweetalert2";
 const style = {
 	position: "absolute",
@@ -132,92 +134,133 @@ const EditWarehouseUsers = ({ open, setOpen, id, token, setSubmitting }) => {
 							className='textColor'
 							sx={{
 								position: "fixed",
-								top: "5px",
-								right: "5px",
+								top: "30px",
+								right: "30px",
 								cursor: "pointer",
+								background: "White",
+								borderRadius: "50%",
 							}}
 						/>
 						{data ? (
 							<>
-								<Typography variant='h5' sx={{ fontWeight: "bold", mb: 1.5 }}>
-									Edit Warehouse
+								<Typography
+									variant='h6'
+									sx={{
+										mb: 3,
+										textAlign: "left",
+										background: "#1E793C",
+										padding: "8px 20px",
+										color: "#fff",
+										borderRadius: "5px",
+										display: "flex",
+										alignItems: "center",
+									}}>
+									<BorderColorIcon sx={{ mr: 2 }} /> Edit Warehouse
 								</Typography>
 								<form onSubmit={handleSubmit(onSubmit)}>
-									<TextField
-										size='small'
-										sx={{ my: 0.7 }}
-										fullWidth
-										required
-										label='Warehouse Name'
-										{...register("warehouseUserName", { required: true })}
-									/>
-									<TextField
-										size='small'
-										sx={{ my: 0.7 }}
-										fullWidth
-										multiline
-										rows={2}
-										label='Warehouse Address'
-										{...register("warehouseUserAddress", { required: true })}
-									/>
-									<Autocomplete
-										size='small'
-										sx={{ my: 1, width: "100% !important" }}
-										options={warehouses}
-										defaultValue={
-											warehouses[
+									<Box sx={{ display: "flex", gap: "20px" }}>
+										<TextField
+											size='small'
+											sx={{ my: 0.5 }}
+											fullWidth
+											required
+											label='Warehouse Name'
+											helperText='Warehouse Name'
+											{...register("warehouseUserName", { required: true })}
+										/>
+										<TextField
+											size='small'
+											sx={{ my: 0.5 }}
+											fullWidth
+											multiline
+											rows={1}
+											label='Warehouse Address'
+											helperText='Warehouse Address'
+											{...register("warehouseUserAddress", { required: true })}
+										/>
+									</Box>
+									<Box sx={{ display: "flex", gap: "20px" }}>
+										<Autocomplete
+											size='small'
+											sx={{ my: 1, width: "100% !important" }}
+											options={warehouses}
+											defaultValue={
+												warehouses[
 												warehouses?.findIndex(
 													(x) => x.warehouseName === data?.wareHouseName,
 												)
-											]
-										}
-										getOptionLabel={(option) => option.warehouseName}
-										style={{ width: 300 }}
-										renderInput={(params) => (
-											<TextField
-												{...register("wareHouseName", { required: true })}
-												{...params}
-												label='Warehouse Name'
-												variant='outlined'
-											/>
-										)}
-									/>
+												]
+											}
+											getOptionLabel={(option) => option.warehouseName}
+											style={{ width: 300 }}
+											renderInput={(params) => (
+												<TextField
+													{...register("wareHouseName", { required: true })}
+													{...params}
+													label='Warehouse Name'
+													helperText='Warehouse Name'
+													variant='outlined'
+												/>
+											)}
+										/>
 
-									<TextField
-										size='small'
-										sx={{ my: 0.7 }}
-										fullWidth
-										label='Warehouse Contact'
-										{...register("warehouseUserContact", { required: true })}
-									/>
-									<TextField
-										size='small'
-										sx={{ my: 0.7 }}
-										fullWidth
-										label='Warehouse Email'
-										{...register("warehouseUserEmail", { required: true })}
-									/>
-									<TextField
-										size='small'
-										sx={{ my: 0.7 }}
-										fullWidth
-										label='Warehouse Password'
-										{...register("warehouseUserPassword", { required: true })}
-									/>
-									<TextField
-										size='small'
-										sx={{ my: 0.7 }}
-										fullWidth
-										label='Warehouse Image'
-										{...register("warehouseUserImage", { required: true })}
-									/>
-									<Button
-										type='submit'
-										variant='contained'
-										className='button'
-										sx={{ my: 0.7, fontWeight: "bold", px: 2.5 }}>
-										Update <SendIcon sx={{ ml: 1.5 }} />
-									</Button>
+										<TextField
+											size='small'
+											sx={{ my: 0.5 }}
+											fullWidth
+											label='Warehouse Contact'
+											helperText='Warehouse Contact'
+											{...register("warehouseUserContact", { required: true })}
+										/>
+									</Box>
+									<Box sx={{ display: "flex", gap: "20px" }}>
+										<TextField
+											size='small'
+											sx={{ my: 0.5 }}
+											fullWidth
+											label='Warehouse Email'
+											helperText='Warehouse Email'
+											{...register("warehouseUserEmail", { required: true })}
+										/>
+										<TextField
+											size='small'
+											sx={{ my: 0.5 }}
+											fullWidth
+											label='Warehouse Password'
+											helperText='Warehouse Password'
+											{...register("warehouseUserPassword", { required: true })}
+										/>
+									</Box>
+									<Box sx={{ display: "flex", gap: "20px" }}>
+										<TextField
+											size='small'
+											sx={{ my: 0.5, width: "50%" }}
+											fullWidth
+											label='Warehouse Image'
+											helperText='Warehouse Image'
+											{...register("warehouseUserImage", { required: true })}
+										/>
+									</Box>
+									<Box sx={{ mb: 2 }}>
+										<Button
+											type='submit'
+											variant='contained'
+											color='success'
+											// className='button'
+											sx={{ my: 0.5, fontWeight: "bold", px: 1.5, mx: 1 }}>
+											<DoneIcon sx={{ mr: 0.5 }} />
+											Update
+										</Button>
+										<Button
+											onClick={() => setOpen(false)}
+											type='reset'
+											variant='contained'
+											color='error'
+											sx={{ my: 0.5, fontWeight: "bold", px: 1.5, mx: 1 }}>
+											<ReplayIcon sx={{ mr: 0.5 }} />
+											Close
+										</Button>
+									</Box>
 								</form>
 							</>
 						) : (

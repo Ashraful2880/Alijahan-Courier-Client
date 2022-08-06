@@ -6,8 +6,8 @@ import {
 	TextField,
 	Backdrop,
 	Typography,
+	Box,
 } from "@mui/material";
-import SendIcon from "@mui/icons-material/Send";
 import React from "react";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { useForm } from "react-hook-form";
@@ -57,6 +57,7 @@ const Vehicles = () => {
 				{params.row?.status === "Active" ? (
 					<RemoveDoneIcon
 						className='iconBtn'
+						sx={{ color: "#1565C0!important", }}
 						onClick={() => {
 							Swal.fire({
 								title: "Do you want to Deactive this?",
@@ -127,12 +128,14 @@ const Vehicles = () => {
 				)}
 				<EditIcon
 					className='iconBtn'
+					sx={{ color: "green!important", }}
 					onClick={() => {
 						handleOpen(params.row?._id);
 					}}
 				/>
 				<DeleteIcon
 					className='iconBtn'
+					sx={{ color: "#df0f00!important", }}
 					onClick={() => {
 						Swal.fire({
 							title: "Do you want to Delete this?",
@@ -191,17 +194,19 @@ const Vehicles = () => {
 		},
 	];
 	return (
-		<Container sx={{ py: 1 }}>
-			<Typography variant='h5' sx={{ fontWeight: "bold" }}>
-				Vehicles
-			</Typography>
-			<Button
-				onClick={() => setOpen(true)}
-				variant='contained'
-				className='button'
-				sx={{ my: 0.7, fontWeight: "bold", px: 2.5 }}>
-				Add New Vehicle <AddIcon sx={{ ml: 1.5 }} />
-			</Button>
+		<Box sx={{ mx: 4, pt: 2, pb: 5 }}>
+			<Box sx={{ px: 0.5, pb: 1, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+				<Typography variant='h5' sx={{ fontWeight: "bold", color: "#1E793C" }}>
+					Vehicles
+				</Typography>
+				<Button
+					onClick={() => setOpen(true)}
+					variant='contained'
+					color='success'
+					sx={{ my: 0.7, fontWeight: "bold", px: 2.5 }}>
+					Add New Vehicle <AddIcon sx={{ ml: 1.5 }} />
+				</Button>
+			</Box>
 			<Grid container spacing={1} sx={{ justifyContent: "center" }}>
 				<Grid item xs={12} md={12}>
 					{data && (
@@ -242,7 +247,7 @@ const Vehicles = () => {
 					setSubmitting={setSubmitting}
 				/>
 			)}
-		</Container>
+		</Box>
 	);
 };
 

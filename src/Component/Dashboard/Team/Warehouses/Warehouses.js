@@ -8,8 +8,9 @@ import {
 	Typography,
 	Select,
 	MenuItem,
+	Box,
 } from "@mui/material";
-import SendIcon from "@mui/icons-material/Send";
+import DownloadDoneIcon from '@mui/icons-material/DownloadDone';
 import React from "react";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { useForm } from "react-hook-form";
@@ -78,6 +79,7 @@ const Warehouses = () => {
 				{params.row?.status === "Active" ? (
 					<RemoveDoneIcon
 						className='iconBtn'
+						sx={{ color: "#1565C0!important", }}
 						onClick={() => {
 							Swal.fire({
 								title: "Do you want to Deactive this?",
@@ -148,6 +150,7 @@ const Warehouses = () => {
 				)}
 				<DeleteIcon
 					className='iconBtn'
+					sx={{ color: "#df0f00!important", }}
 					onClick={() => {
 						Swal.fire({
 							title: "Do you want to Delete this?",
@@ -194,46 +197,44 @@ const Warehouses = () => {
 		},
 	];
 	return (
-		<Container sx={{ py: 1 }}>
-			<Typography variant='h5' sx={{ fontWeight: "bold" }}>
-				Manage Warehouse
-			</Typography>
+		<Box sx={{ mx: 4, pt: 2, pb: 5 }}>
+			<Box sx={{ px: 0.5, pb: 1, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+				<Typography variant='h5' sx={{ fontWeight: "bold", color: "#1E793C", }}>
+					Manage Warehouse
+				</Typography>
+				<form onSubmit={handleSubmit(onSubmit)} style={{ display: "flex", mx: 4 }}>
+					<TextField
+						size='small'
+						sx={{ mx: 0.7, width: 300 }}
+						fullWidth
+						required
+						label='Warehouse Name'
+						{...register("warehouseName", { required: true })}
+					/>
+					<Select
+						sx={{ mx: 0.7, minWidth: 300 }}
+						{...register("warehouseType", { required: true })}
+						size='small'
+						value={type}
+						onChange={handleChange}
+						displayEmpty
+						inputProps={{ "aria-label": "Without label" }}>
+						<MenuItem value=''>
+							<em>Select Type</em>
+						</MenuItem>
+						<MenuItem value={"Division"}>Division</MenuItem>
+						<MenuItem value={"District"}>District</MenuItem>
+					</Select>
+					<Button
+						type='submit'
+						variant='contained'
+						color='success'
+						sx={{ mx: 0.7, fontWeight: "bold", px: 3, width: "20%" }}>
+						Add <DownloadDoneIcon sx={{ ml: 1 }} />
+					</Button>
+				</form>
+			</Box>
 			<Grid container spacing={1} sx={{ justifyContent: "center", mt: 1 }}>
-				<Grid item xs={12} md={6}>
-					<form
-						onSubmit={handleSubmit(onSubmit)}
-						style={{ display: "flex", flexDirection: "row" }}>
-						<TextField
-							size='small'
-							sx={{ mx: 0.7 }}
-							fullWidth
-							required
-							label='Warehouse Name'
-							{...register("warehouseName", { required: true })}
-						/>
-						<Select
-							sx={{ mx: 0.7, minWidth: 130 }}
-							{...register("warehouseType", { required: true })}
-							size='small'
-							value={type}
-							onChange={handleChange}
-							displayEmpty
-							inputProps={{ "aria-label": "Without label" }}>
-							<MenuItem value=''>
-								<em>Select Type</em>
-							</MenuItem>
-							<MenuItem value={"Division"}>Division</MenuItem>
-							<MenuItem value={"District"}>District</MenuItem>
-						</Select>
-						<Button
-							type='submit'
-							variant='contained'
-							className='button'
-							sx={{ mx: 0.7, fontWeight: "bold", px: 3 }}>
-							Add <SendIcon sx={{ ml: 1 }} />
-						</Button>
-					</form>
-				</Grid>
 				<Grid item xs={12} md={12}>
 					{data && (
 						<div style={{ height: 400, width: "100%" }} className='table'>
@@ -255,7 +256,7 @@ const Warehouses = () => {
 				open={submitting || !data}>
 				<CircularProgress color='inherit' />
 			</Backdrop>
-		</Container>
+		</Box>
 	);
 };
 

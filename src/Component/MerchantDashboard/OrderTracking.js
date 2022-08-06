@@ -1,6 +1,7 @@
+import React from 'react';
 import { Box, Button, TextField, Typography } from '@mui/material';
 import { useForm } from 'react-hook-form';
-import React from 'react';
+import FindReplaceIcon from '@mui/icons-material/FindReplace';
 
 const OrderTracking = () => {
 
@@ -15,7 +16,7 @@ const OrderTracking = () => {
     };
     return (
         <Box sx={{ padding: "0px 15px" }}>
-            <Typography variant='h5' sx={{ textAlign: "left", marginY: "15px" }}>Order Tracking</Typography>
+            <Typography variant='h5' sx={{ textAlign: "left", marginY: "15px", fontWeight: "bold" }}>Order Tracking</Typography>
             <Box>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <Typography component="p" sx={{ fontSize: "20px", fontWeight: "bold" }}>Track Your Order</Typography>
@@ -40,9 +41,9 @@ const OrderTracking = () => {
                                 })} />
                             {errors?.address?.type === "required" && <p style={{ color: "red", fontSize: "14px", marginTop: "-15px" }}>This field is required</p>}
                         </Box>
-                        <Box sx={{ marginY: "10px" }}>
-                            <Button type="submit" variant="contained" color="success" sx={{ padding: "12px 0px", width: "100%" }}>
-                                Search
+                        <Box sx={{ marginY: "10px", display: "flex" }}>
+                            <Button type="submit" variant="contained" color="success" sx={{ padding: "10px 0px", width: "100%", fontSize: "15px" }}>
+                                <FindReplaceIcon sx={{ mr: 1 }} /> Search
                             </Button>
                         </Box>
                     </Box>

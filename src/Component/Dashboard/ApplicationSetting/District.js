@@ -6,8 +6,9 @@ import {
 	TextField,
 	Backdrop,
 	Typography,
+	Box,
 } from "@mui/material";
-import SendIcon from "@mui/icons-material/Send";
+import DownloadDoneIcon from '@mui/icons-material/DownloadDone';
 import React from "react";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { useForm } from "react-hook-form";
@@ -71,6 +72,7 @@ const District = () => {
 				{params.row?.status === "Active" ? (
 					<RemoveDoneIcon
 						className='iconBtn'
+						sx={{ color: "#1565C0!important", }}
 						onClick={() => {
 							Swal.fire({
 								title: "Do you want to Deactive this?",
@@ -141,6 +143,7 @@ const District = () => {
 				)}
 				<DeleteIcon
 					className='iconBtn'
+					sx={{ color: "#df0f00!important", }}
 					onClick={() => {
 						Swal.fire({
 							title: "Do you want to Delete this?",
@@ -186,30 +189,32 @@ const District = () => {
 		},
 	];
 	return (
-		<Container sx={{ py: 1 }}>
-			<Typography variant='h5' sx={{ fontWeight: "bold" }}>
-				Manage District
-			</Typography>
+		<Box sx={{ mx: 4, pt: 2, pb: 5 }}>
+			<Box sx={{ px: 0.5, pb: 1, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+				<Typography variant='h5' sx={{ fontWeight: "bold", color: "#1E793C" }}>
+					Manage District
+				</Typography>
+				<form
+					onSubmit={handleSubmit(onSubmit)}
+					style={{ display: "flex", flexDirection: "row", }}>
+					<TextField
+						size='small'
+						sx={{ my: 0.7 }}
+						fullWidth
+						required
+						label='District Name'
+						{...register("district", { required: true })}
+					/>
+					<Button
+						type='submit'
+						variant='contained'
+						color="success"
+						sx={{ my: 0.7, fontWeight: "bold", px: 2.5, width: "50%", ml: 2 }}>
+						<DownloadDoneIcon sx={{ mr: 1.5 }} /> Submit
+					</Button>
+				</form>
+			</Box>
 			<Grid container spacing={1} sx={{ justifyContent: "center" }}>
-				<Grid item xs={12} md={6}>
-					<form onSubmit={handleSubmit(onSubmit)}>
-						<TextField
-							size='small'
-							sx={{ my: 0.7 }}
-							fullWidth
-							required
-							label='District Name'
-							{...register("district", { required: true })}
-						/>
-						<Button
-							type='submit'
-							variant='contained'
-							className='button'
-							sx={{ my: 0.7, fontWeight: "bold", px: 2.5 }}>
-							Submit <SendIcon sx={{ ml: 1.5 }} />
-						</Button>
-					</form>
-				</Grid>
 				<Grid item xs={12} md={12}>
 					{data && (
 						<div style={{ height: 400, width: "100%" }} className='table'>
@@ -231,7 +236,7 @@ const District = () => {
 				open={submitting || !data}>
 				<CircularProgress color='inherit' />
 			</Backdrop>
-		</Container>
+		</Box>
 	);
 };
 
