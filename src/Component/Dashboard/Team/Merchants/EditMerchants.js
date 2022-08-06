@@ -201,14 +201,9 @@ const EditMerchants = ({ open, setOpen, id, token, setSubmitting }) => {
 									</Box>
 									<Box sx={{ display: "flex", gap: "20px" }}>
 										<Autocomplete
-											onChange={(e) =>
-												setSelectedBranch(
-													branches?.find(
-														(branch) =>
-															branch?.branchName === e.target.innerText,
-													)?.branchArea,
-												)
-											}
+											onChange={(event, newValue) => {
+												setSelectedBranch(newValue);
+											}}
 											size='small'
 											sx={{ my: 0.5, width: "100% !important" }}
 											options={branches}

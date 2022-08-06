@@ -146,7 +146,9 @@ const AddBranches = ({ open, setOpen, token, setSubmitting }) => {
 									{...register("branchAddress", { required: true })}
 								/>
 								<Autocomplete
-									onChange={(e) => setSelectedDistricts(e.target.innerText)}
+									onChange={(event, newValue) => {
+										setSelectedDistricts(newValue);
+									}}
 									size='small'
 									sx={{ my: 1, width: "100% !important" }}
 									options={areas}
@@ -171,14 +173,9 @@ const AddBranches = ({ open, setOpen, token, setSubmitting }) => {
 									multiple
 									id='tags-outlined'
 									options={areas?.filter(
-										(item) => item?.district === selectedDistricts,
+										(item) => item?.district === selectedDistricts?.district,
 									)}
 									getOptionLabel={(option) => option.area}
-									defaultValue={
-										areas?.filter(
-											(item) => item?.district === selectedDistricts,
-										)[0]
-									}
 									filterSelectedOptions
 									renderInput={(params) => (
 										<TextField
