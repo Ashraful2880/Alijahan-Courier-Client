@@ -31,9 +31,9 @@ import WeightPackage from "./Component/Dashboard/ApplicationSetting/WeightPackag
 import Vehicles from "./Component/Dashboard/TraditionalParcelSetting/Vehicles/Vehicles";
 import ItemCategory from "./Component/Dashboard/TraditionalParcelSetting/ItemCategory/ItemCategory";
 import ServiceArea from "./Component/Dashboard/ApplicationSetting/ServiceAreaPricing/ServiceArea";
-import OfficeToOffice from './Component/Dashboard/ManageOrder/OfficeToOffice';
-import OfficeToHome from './Component/Dashboard/ManageOrder/OfficeToHome';
-import CreateMerchant from "./Component/Dashboard/ManageOrder/CreateMerchant";
+import MerchantOrder from "./Component/Dashboard/ManageOrderBooking/MerchantOrder";
+import OfficeToOffice from "./Component/Dashboard/ManageOrderBooking/OfficeToOffice";
+import OfficeToHome from "./Component/Dashboard/ManageOrderBooking/OfficeToHome";
 
 function App() {
 	return (
@@ -52,7 +52,7 @@ function App() {
 							<Route path='/parcelList' element={<ParcelList />} />
 							<Route path='/officeToOffice' element={<OfficeToOffice />} />
 							<Route path='/officeToHome' element={<OfficeToHome />} />
-							<Route path='/createMerchantOrder' element={<CreateMerchant />} />
+							<Route path='/createMerchantOrder' element={<MerchantOrder />} />
 							<Route path='/weightPackage' element={<WeightPackage />} />
 							<Route path='/serviceArea' element={<ServiceArea />} />
 							<Route
