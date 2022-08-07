@@ -14,9 +14,12 @@ import axios from "axios";
 import CancelIcon from "@mui/icons-material/Cancel";
 import { useForm } from "react-hook-form";
 import ReplayIcon from "@mui/icons-material/Replay";
-import DoneIcon from '@mui/icons-material/Done';
+import DoneIcon from "@mui/icons-material/Done";
 import AddTaskIcon from "@mui/icons-material/AddTask";
 import Swal from "sweetalert2";
+import auth2 from "../../../../FirebaseAuth/firebase.config2";
+import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
+import { signOut } from "firebase/auth";
 const style = {
 	position: "absolute",
 	top: "50%",
@@ -33,10 +36,16 @@ const style = {
 	backgroundColor: "white",
 };
 
-const AddRiders = ({ open, setOpen, token, setSubmitting }) => {
+const AddRiders = ({
+	open,
+	setOpen,
+	token,
+	setSubmitting,
+	sendSignInLinkToEmail,
+}) => {
 	const { register, handleSubmit, reset, watch } = useForm();
 	const [branch, setBranch] = useState();
-	const [error, setError] = useState(false);
+	const [errors, setErrors] = useState(false);
 	useEffect(() => {
 		axios
 			.get(`${process.env.REACT_APP_API_PATH}/branches`, {
@@ -51,31 +60,27 @@ const AddRiders = ({ open, setOpen, token, setSubmitting }) => {
 				console.log(error);
 			});
 	}, [token]);
-	const onSubmit = ({
-		riderName,
-		riderBranch,
-		riderAddress,
-		userEmail,
-		riderContact,
-		riderNID,
-		riderLicense,
-		riderPassword,
-		riderDOB,
-	}) => {
+	const [createUserWithEmailAndPassword, user, loading, error] =
+		useCreateUserWithEmailAndPassword(auth2);
+	if (loading) {
 		setSubmitting(true);
+	}
+	if (error) {
+		setSubmitting(false);
+		Swal.fire({
+			title: "Error",
+			text: error.message,
+			icon: "error",
+			confirmButtonText: "Ok",
+		});
+	}
+	const [data, setData] = useState();
+	if (user) {
 		axios
 			.post(
 				`${process.env.REACT_APP_API_PATH}/rider`,
 				{
-					riderName,
-					riderBranch,
-					riderAddress,
-					userEmail,
-					riderContact,
-					riderNID,
-					riderLicense,
-					riderPassword,
-					riderDOB,
+					...data,
 					status: "Active",
 				},
 				{
@@ -88,11 +93,37 @@ const AddRiders = ({ open, setOpen, token, setSubmitting }) => {
 				setSubmitting(false);
 				setOpen(false);
 				Swal.fire("", "Successfully Added!", "success");
+				signOut(auth2);
 			})
 			.catch((error) => {
 				setSubmitting(false);
 				console.log(error);
 			});
+	}
+	const onSubmit = ({
+		riderName,
+		riderBranch,
+		riderAddress,
+		userEmail,
+		riderContact,
+		riderNID,
+		riderLicense,
+		riderPassword,
+		riderDOB,
+	}) => {
+		setData({
+			riderName,
+			riderBranch,
+			riderAddress,
+			userEmail,
+			riderContact,
+			riderNID,
+			riderLicense,
+			riderPassword,
+			riderDOB,
+		});
+		setSubmitting(true);
+		createUserWithEmailAndPassword(userEmail, riderPassword);
 	};
 
 	return (
@@ -247,7 +278,7 @@ const AddRiders = ({ open, setOpen, token, setSubmitting }) => {
 									required
 									label='Confirm Password'
 									helperText={
-										error ? (
+										errors ? (
 											<span style={{ color: "red" }}>
 												Your password didn't matched.
 											</span>
@@ -259,7 +290,7 @@ const AddRiders = ({ open, setOpen, token, setSubmitting }) => {
 										required: true,
 										validate: (val) => {
 											if (watch("password") !== val) {
-												setError(true);
+												setErrors(true);
 												return "false";
 											}
 										},
@@ -281,7 +312,7 @@ const AddRiders = ({ open, setOpen, token, setSubmitting }) => {
 									onClick={() => setOpen(false)}
 									type='reset'
 									variant='contained'
-									color="error"
+									color='error'
 									// className='button'
 									sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
 									<ReplayIcon sx={{ mr: 0.5 }} />

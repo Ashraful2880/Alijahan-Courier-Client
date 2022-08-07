@@ -10,7 +10,7 @@ import {
 	Typography,
 } from "@mui/material";
 import CreateNewFolderIcon from "@mui/icons-material/CreateNewFolder";
-import DoneIcon from '@mui/icons-material/Done';
+import DoneIcon from "@mui/icons-material/Done";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -33,8 +33,8 @@ const MerchantOrder = () => {
 	const [selectWeight, setSelectWeight] = useState();
 	const [serviceAreas, setServiceAreas] = useState();
 	const [selectServiceAreas, setSelectServiceAreas] = useState();
-	const [cashCollection, setCashCollection] = useState(0);
-	const [addDeliveryCharge, setAddDeliveryCharge] = useState(false);
+	const [cashCollection, setCashCollection] = useState();
+	const [addDeliveryCharge, setAddDeliveryCharge] = useState(true);
 	useEffect(() => {
 		axios
 			.get(`${process.env.REACT_APP_API_PATH}/branches`, {
@@ -85,10 +85,50 @@ const MerchantOrder = () => {
 				console.log(error);
 			});
 	}, [token]);
-	console.log("selectServiceAreas", selectServiceAreas);
-	console.log("selectWeight", selectWeight);
-	console.log("cashCollection", cashCollection);
-	console.log("addDeliveryCharge", addDeliveryCharge);
+
+	const cashCollected = parseFloat(cashCollection) || 0;
+	const codPercentage =
+		parseFloat(selectServiceAreas?.serviceAreaCODPercentage) || 0;
+	const deliveryCharge = addDeliveryCharge
+		? parseFloat(selectServiceAreas?.serviceAreaCharge)
+		: 0;
+	const weightCharge = parseFloat(selectWeight?.weightPackageRate) || 0;
+	const totalAmount = deliveryCharge + weightCharge || 0;
+	const codAmount = totalAmount * (codPercentage / 100) || 0;
+	const totalPayment = totalAmount + codAmount || 0;
+	const payment = totalPayment - cashCollected || 0;
+	const onSubmit = ({
+		branchDistrict,
+		cashCollection,
+		instructions,
+		merchantArea,
+		merchantBranchName,
+		productCategory,
+		productType,
+		productWeight,
+		receiverAddress,
+		receiverName,
+		receiverNumber,
+		referenceId,
+	}) => {
+		const data = {
+			fromMarchantData: "",
+			branchDistrict,
+			cashCollection,
+			instructions,
+			merchantArea,
+			merchantBranchName,
+			productCategory,
+			productType,
+			productWeight,
+			receiverAddress,
+			receiverName,
+			receiverNumber,
+			referenceId,
+		};
+		console.log(data);
+	};
+
 	return (
 		<Box
 			sx={{
@@ -117,7 +157,7 @@ const MerchantOrder = () => {
 				(Merchant)
 			</Typography>
 			<Box sx={{ mx: 3 }}>
-				<form>
+				<form onSubmit={handleSubmit(onSubmit)}>
 					{/* Receiver Info Here */}
 					<Typography
 						component='p'
@@ -277,7 +317,7 @@ const MerchantOrder = () => {
 							}}
 							size='small'
 							sx={{ my: 0.5, width: "100% !important" }}
-							options={serviceAreas}
+							options={serviceAreas || []}
 							getOptionLabel={(option) => option.serviceAreaName}
 							style={{ width: 300 }}
 							renderInput={(params) => (
@@ -309,12 +349,11 @@ const MerchantOrder = () => {
 							sx={{ my: 0.5 }}
 							fullWidth
 							required
-							onChange={(event) => {
-								setCashCollection(event.target.value);
-							}}
 							label='Cash Collection'
 							helperText='Cash Collection'
 							{...register("cashCollection", { required: true })}
+							value={cashCollection}
+							onChange={(e) => setCashCollection(e.target.value)}
 						/>
 						<TextField
 							size='small'
@@ -348,9 +387,7 @@ const MerchantOrder = () => {
 						}}>
 						Order Summary
 					</Typography>
-					<TableContainer
-						component={Paper}
-						sx={{ width: { lg: "30%", md: "40%", sn: "100%" } }}>
+					<TableContainer component={Paper}>
 						<Table aria-label='simple table'>
 							<TableBody>
 								<TableRow>
@@ -372,7 +409,7 @@ const MerchantOrder = () => {
 												color: "gray",
 												fontSize: "15px",
 											}}>
-											3000.00 Taka
+											{cashCollected} Taka
 										</Typography>
 									</TableCell>
 								</TableRow>
@@ -394,7 +431,7 @@ const MerchantOrder = () => {
 												color: "gray",
 												fontSize: "15px",
 											}}>
-											3000.00 Taka
+											{weightCharge} Taka
 										</Typography>
 									</TableCell>
 								</TableRow>
@@ -416,7 +453,7 @@ const MerchantOrder = () => {
 												color: "gray",
 												fontSize: "15px",
 											}}>
-											3000.00 Taka
+											{deliveryCharge || 0} Taka
 										</Typography>
 									</TableCell>
 								</TableRow>
@@ -428,7 +465,7 @@ const MerchantOrder = () => {
 												color: "gray",
 												fontSize: "15px",
 											}}>
-											Cash On Delivery
+											Cash On Delivery Charge
 										</Typography>
 									</TableCell>
 									<TableCell align='right'>
@@ -438,7 +475,7 @@ const MerchantOrder = () => {
 												color: "gray",
 												fontSize: "15px",
 											}}>
-											3000.00 Taka
+											{codAmount} Taka
 										</Typography>
 									</TableCell>
 								</TableRow>
@@ -460,7 +497,7 @@ const MerchantOrder = () => {
 												color: "gray",
 												fontSize: "15px",
 											}}>
-											3000.00 Taka
+											{totalPayment} Taka
 										</Typography>
 									</TableCell>
 								</TableRow>
@@ -482,7 +519,7 @@ const MerchantOrder = () => {
 												color: "gray",
 												fontSize: "15px",
 											}}>
-											3000.00 Taka
+											{payment} Taka
 										</Typography>
 									</TableCell>
 								</TableRow>
