@@ -15,9 +15,12 @@ import axios from "axios";
 import CancelIcon from "@mui/icons-material/Cancel";
 import AddTaskIcon from "@mui/icons-material/AddTask";
 import { useForm } from "react-hook-form";
-import DoneIcon from '@mui/icons-material/Done';
+import DoneIcon from "@mui/icons-material/Done";
 import ReplayIcon from "@mui/icons-material/Replay";
 import Swal from "sweetalert2";
+import auth2 from "../../../../FirebaseAuth/firebase.config2";
+import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
+import { signOut } from "firebase/auth";
 const style = {
 	position: "absolute",
 	top: "50%",
@@ -54,34 +57,27 @@ const AddBranches = ({ open, setOpen, token, setSubmitting }) => {
 			});
 	}, [token]);
 	const [value, setValue] = React.useState();
-	const onSubmit = ({
-		branchName,
-		branchAddress,
-		branchDistrict,
-		branchContact,
-		branchEmail,
-		branchPassword,
-		pickupCom,
-		deliveryCom,
-		bookingCom,
-		officeDeliveryCom,
-	}) => {
+	const [createUserWithEmailAndPassword, user, loading, error] =
+		useCreateUserWithEmailAndPassword(auth2);
+	if (loading) {
 		setSubmitting(true);
+	}
+	if (error) {
+		setSubmitting(false);
+		Swal.fire({
+			title: "Error",
+			text: error.message,
+			icon: "error",
+			confirmButtonText: "Ok",
+		});
+	}
+	const [data, setData] = useState();
+	if (user) {
 		axios
 			.post(
 				`${process.env.REACT_APP_API_PATH}/branch`,
 				{
-					branchName,
-					branchAddress,
-					branchDistrict,
-					branchArea: value,
-					branchContact,
-					branchEmail,
-					branchPassword,
-					pickupCom,
-					deliveryCom,
-					bookingCom,
-					officeDeliveryCom,
+					...data,
 					status: "Active",
 				},
 				{
@@ -99,6 +95,34 @@ const AddBranches = ({ open, setOpen, token, setSubmitting }) => {
 				setSubmitting(false);
 				console.log(error);
 			});
+	}
+	const onSubmit = ({
+		branchName,
+		branchAddress,
+		branchDistrict,
+		branchContact,
+		branchEmail,
+		branchPassword,
+		pickupCom,
+		deliveryCom,
+		bookingCom,
+		officeDeliveryCom,
+	}) => {
+		setData({
+			branchName,
+			branchAddress,
+			branchDistrict,
+			branchArea: value,
+			branchContact,
+			branchEmail,
+			branchPassword,
+			pickupCom,
+			deliveryCom,
+			bookingCom,
+			officeDeliveryCom,
+		});
+		setSubmitting(true);
+		createUserWithEmailAndPassword(branchEmail, branchPassword);
 	};
 
 	return (
@@ -149,7 +173,7 @@ const AddBranches = ({ open, setOpen, token, setSubmitting }) => {
 										sx={{ my: 0.5 }}
 										fullWidth
 										required
-										helperText="Branch Name"
+										helperText='Branch Name'
 										label='Branch Name'
 										{...register("branchName", { required: true })}
 									/>
@@ -160,12 +184,11 @@ const AddBranches = ({ open, setOpen, token, setSubmitting }) => {
 										multiline
 										rows={1}
 										label='Branch Address'
-										helperText="Branch Address"
+										helperText='Branch Address'
 										{...register("branchAddress", { required: true })}
 									/>
 								</Box>
 								<Box sx={{ display: "flex", gap: "20px" }}>
-
 									<Autocomplete
 										onChange={(event, newValue) => {
 											setSelectedDistricts(newValue);
@@ -180,7 +203,7 @@ const AddBranches = ({ open, setOpen, token, setSubmitting }) => {
 												{...register("branchDistrict", { required: true })}
 												{...params}
 												label='Districts Name'
-												helperText="Districts Name"
+												helperText='Districts Name'
 												variant='outlined'
 											/>
 										)}
@@ -202,7 +225,7 @@ const AddBranches = ({ open, setOpen, token, setSubmitting }) => {
 											<TextField
 												{...params}
 												label='Areas'
-												helperText="Areas"
+												helperText='Areas'
 												placeholder='Select Areas'
 											/>
 										)}
@@ -214,7 +237,7 @@ const AddBranches = ({ open, setOpen, token, setSubmitting }) => {
 										sx={{ my: 0.5 }}
 										fullWidth
 										label='Pickup Commission (in %)'
-										helperText="Pickup Commission (in %)"
+										helperText='Pickup Commission (in %)'
 										{...register("pickupCom", { required: true })}
 									/>
 									<TextField
@@ -222,7 +245,7 @@ const AddBranches = ({ open, setOpen, token, setSubmitting }) => {
 										sx={{ my: 0.5 }}
 										fullWidth
 										label='Delivery Commission (in %)'
-										helperText="Delivery Commission (in %)"
+										helperText='Delivery Commission (in %)'
 										{...register("deliveryCom", { required: true })}
 									/>
 								</Box>
@@ -232,7 +255,7 @@ const AddBranches = ({ open, setOpen, token, setSubmitting }) => {
 										sx={{ my: 0.5 }}
 										fullWidth
 										label='Booking Commission (in %)'
-										helperText="Booking Commission (in %)"
+										helperText='Booking Commission (in %)'
 										{...register("bookingCom", { required: true })}
 									/>
 									<TextField
@@ -240,7 +263,7 @@ const AddBranches = ({ open, setOpen, token, setSubmitting }) => {
 										sx={{ my: 0.5 }}
 										fullWidth
 										label='Office Delivery Commission (in %)'
-										helperText="Office Delivery Commission (in %)"
+										helperText='Office Delivery Commission (in %)'
 										{...register("officeDeliveryCom", { required: true })}
 									/>
 								</Box>
@@ -250,7 +273,7 @@ const AddBranches = ({ open, setOpen, token, setSubmitting }) => {
 										sx={{ my: 0.5 }}
 										fullWidth
 										label='Branch Contact'
-										helperText="Branch Contact"
+										helperText='Branch Contact'
 										{...register("branchContact", { required: true })}
 									/>
 									<TextField
@@ -258,17 +281,17 @@ const AddBranches = ({ open, setOpen, token, setSubmitting }) => {
 										sx={{ my: 0.5 }}
 										fullWidth
 										label='Branch Email'
-										helperText="Branch Email"
+										helperText='Branch Email'
 										{...register("branchEmail", { required: true })}
 									/>
 								</Box>
-								<Box sx={{ display: "flex", gap: "20px", }}>
+								<Box sx={{ display: "flex", gap: "20px" }}>
 									<TextField
 										size='small'
-										sx={{ my: 0.5, width: "49%", }}
+										sx={{ my: 0.5, width: "49%" }}
 										fullWidth
 										label='Branch Password'
-										helperText="Branch Password"
+										helperText='Branch Password'
 										{...register("branchPassword", { required: true })}
 									/>
 								</Box>
@@ -286,7 +309,7 @@ const AddBranches = ({ open, setOpen, token, setSubmitting }) => {
 										onClick={() => setOpen(false)}
 										type='reset'
 										variant='contained'
-										color="error"
+										color='error'
 										// className='button'
 										sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
 										<ReplayIcon sx={{ mr: 0.5 }} />

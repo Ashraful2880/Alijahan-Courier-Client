@@ -158,9 +158,114 @@ const MerchantOrder = () => {
 			</Typography>
 			<Box sx={{ mx: 3 }}>
 				<form onSubmit={handleSubmit(onSubmit)}>
-					{/* Receiver Info Here */}
-					<Box sx={{ display: { sm: "block", md: "block", lg: "flex" }, justifyContent: "space-between", gap: 4 }}>
+					<Box sx={{ display: { lg: "flex", md: "block", sm: "block" }, justifyContent: "space-between", gap: 4 }}>
 						<Box sx={{ flexGrow: 2 }}>
+							{/* Receiver Info Here */}
+							<Typography
+								component='p'
+								sx={{
+									fontWeight: "bold",
+									textAlign: "left",
+									my: 1,
+									mx: 2,
+									color: "#009688",
+									fontSize: "18px",
+								}}>
+								Receiver Information
+							</Typography>
+							<Box sx={{ display: "flex", gap: "15px", mx: 2 }}>
+								<TextField
+									size='small'
+									sx={{ my: 0.5 }}
+									fullWidth
+									required
+									label='Receiver Name'
+									helperText='Receiver Name'
+									{...register("receiverName", { required: true })}
+								/>
+								<TextField
+									size='small'
+									type='number'
+									sx={{ my: 0.5 }}
+									fullWidth
+									required
+									label='Mobile Number'
+									helperText='Reciever Mobile Number'
+									{...register("receiverNumber", { required: true })}
+								/>
+							</Box>
+							<Box sx={{ display: "flex", gap: "15px", mx: 2 }}>
+								<Autocomplete
+									onChange={(event, newValue) => {
+										setSelectedDistricts(newValue);
+									}}
+									size='small'
+									sx={{ my: 0.5, width: "100% !important" }}
+									options={branch}
+									getOptionLabel={(option) => option?.branchDistrict}
+									style={{ width: 300 }}
+									renderInput={(params) => (
+										<TextField
+											{...register("branchDistrict", { required: true })}
+											{...params}
+											label='Districts Name'
+											variant='outlined'
+										/>
+									)}
+								/>
+								<Autocomplete
+									onChange={(event, newValue) => {
+										setSelectedBranch(newValue);
+									}}
+									size='small'
+									sx={{ my: 0.5, width: "100% !important" }}
+									options={branch?.filter(
+										(item) =>
+											item?.branchDistrict === selectedDistricts?.branchDistrict,
+									)}
+									getOptionLabel={(option) => option.branchName}
+									style={{ width: 300 }}
+									renderInput={(params) => (
+										<TextField
+											{...register("merchantBranchName", { required: true })}
+											{...params}
+											label='Select Branch'
+											variant='outlined'
+											helperText='Branch'
+										/>
+									)}
+								/>
+								<Autocomplete
+									size='small'
+									sx={{ my: 0.5, width: "100% !important" }}
+									options={selectedBranch?.branchArea || []}
+									getOptionLabel={(option) => option.area}
+									style={{ width: 300 }}
+									renderInput={(params) => (
+										<TextField
+											{...register("merchantArea", { required: true })}
+											{...params}
+											label='Select Area'
+											variant='outlined'
+											helperText='Area'
+										/>
+									)}
+								/>
+							</Box>
+							<Box sx={{ display: "flex", gap: "15px", mx: 2 }}>
+
+								<TextField
+									size='small'
+									sx={{ my: 0.5 }}
+									fullWidth
+									required
+									multiline
+									rows={2}
+									label='Address'
+									helperText='Address'
+									{...register("receiverAddress", { required: true })}
+								/>
+							</Box>
 							{/* Order Info Here */}
 							<Typography
 								component='p'
@@ -210,6 +315,7 @@ const MerchantOrder = () => {
 										/>
 									)}
 								/>
+
 								<Autocomplete
 									onChange={(event, newValue) => {
 										setSelectServiceAreas(newValue);
@@ -231,7 +337,6 @@ const MerchantOrder = () => {
 								/>
 							</Box>
 							<Box sx={{ display: "flex", gap: "15px", mx: 2 }}>
-
 								<TextField
 									type='number'
 									size='small'
@@ -253,30 +358,29 @@ const MerchantOrder = () => {
 									helperText='Reference Id'
 									{...register("referenceId", { required: true })}
 								/>
-								<TextField
-									size='small'
-									sx={{ my: 0.5 }}
-									fullWidth
-									label='Instructions'
-									multiline
-									rows={1}
-									helperText='Any Instructions'
-									{...register("instructions", { required: true })}
-								/>
+								<FormGroup sx={{ my: 0.5, minWidth: "230px" }}>
+									<FormControlLabel
+										control={
+											<Checkbox
+												checked={addDeliveryCharge}
+												onChange={(e) => setAddDeliveryCharge(e.target.checked)}
+											/>
+										}
+										label='With Delivery Charge'
+									/>
+								</FormGroup>
 							</Box>
-							<FormGroup sx={{ my: 0.5, minWidth: "230px", mx: 2.5 }}>
-								<FormControlLabel
-									control={
-										<Checkbox
-											checked={addDeliveryCharge}
-											onChange={(e) => setAddDeliveryCharge(e.target.checked)}
-										/>
-									}
-									label='With Delivery Charge'
-								/>
-							</FormGroup>
+							<TextField
+								size='small'
+								sx={{ my: 0.5, width: "97%" }}
+								label='Instructions'
+								multiline
+								rows={3}
+								helperText='Any Instructions'
+								{...register("instructions", { required: true })}
+							/>
 						</Box>
-						<Box>
+						<Box sx={{ flexGrow: 0.5 }}>
 							<Typography
 								component='p'
 								sx={{
@@ -448,9 +552,9 @@ const MerchantOrder = () => {
 							Reset
 						</Button>
 					</Box>
-				</form>
-			</Box>
-		</Box>
+				</form >
+			</Box >
+		</Box >
 	);
 };
 

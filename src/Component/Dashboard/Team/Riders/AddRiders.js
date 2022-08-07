@@ -36,13 +36,7 @@ const style = {
 	backgroundColor: "white",
 };
 
-const AddRiders = ({
-	open,
-	setOpen,
-	token,
-	setSubmitting,
-	sendSignInLinkToEmail,
-}) => {
+const AddRiders = ({ open, setOpen, token, setSubmitting }) => {
 	const { register, handleSubmit, reset, watch } = useForm();
 	const [branch, setBranch] = useState();
 	const [errors, setErrors] = useState(false);

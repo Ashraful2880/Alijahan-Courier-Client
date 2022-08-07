@@ -25,9 +25,7 @@ import EditRiders from "./EditRiders";
 import AddRiders from "./AddRiders";
 
 const Riders = () => {
-	const { user, loading, user2, loading2, token, sendSignInLinkToEmail } =
-		GetAuth();
-	console.log(user2);
+	const { user, loading, token } = GetAuth();
 	const { register, handleSubmit, reset } = useForm();
 	const [submitting, setSubmitting] = useState(false);
 	const [data, setData] = useState();
@@ -237,7 +235,6 @@ const Riders = () => {
 					id={id}
 					token={token}
 					setSubmitting={setSubmitting}
-					user2={user2}
 				/>
 			)}
 			{openEdit && (
