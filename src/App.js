@@ -1,6 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
-import Dashboard from "./Component/Dashboard/Dashboard";
 import Branches from "./Component/Dashboard/Team/Branches/Branches";
 import BranchUsers from "./Component/Dashboard/Team/BranchUsers/BranchUsers";
 import Merchants from "./Component/Dashboard/Team/Merchants/Merchants";
@@ -21,7 +20,6 @@ import ServiceAreaSetting from "./Component/Dashboard/ApplicationSetting/Service
 import District from "./Component/Dashboard/ApplicationSetting/District";
 import Thana from "./Component/Dashboard/ApplicationSetting/Thana";
 import Area from "./Component/Dashboard/ApplicationSetting/Area";
-import BookingParcelList from "./Component/Dashboard/TraditionalParcelBook/BookingParcelList";
 import Unit from "./Component/Dashboard/TraditionalParcelSetting/Unit";
 import Item from "./Component/Dashboard/TraditionalParcelSetting/Item";
 import AdminUser from "./Component/Dashboard/Setting/AdminUser";
@@ -34,6 +32,8 @@ import ServiceArea from "./Component/Dashboard/ApplicationSetting/ServiceAreaPri
 import MerchantOrder from "./Component/Dashboard/ManageOrderBooking/MerchantOrder";
 import OfficeToOffice from "./Component/Dashboard/ManageOrderBooking/OfficeToOffice";
 import OfficeToHome from "./Component/Dashboard/ManageOrderBooking/OfficeToHome";
+import Dashboard from "./Component/Dashboard/DashboardRoot/Dashboard";
+import BookingParcelList from "./Component/Dashboard/ManageOrderBooking/BookingParcelList";
 
 function App() {
 	return (

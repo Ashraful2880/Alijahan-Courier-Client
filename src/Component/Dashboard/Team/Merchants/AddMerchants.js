@@ -71,7 +71,7 @@ const AddMerchants = ({ open, setOpen, token, setSubmitting }) => {
 		});
 	}
 	const [data, setData] = useState();
-	if (user) {
+	if (!loading && user) {
 		axios
 			.post(
 				`${process.env.REACT_APP_API_PATH}/merchant`,
@@ -121,6 +121,7 @@ const AddMerchants = ({ open, setOpen, token, setSubmitting }) => {
 		setSubmitting(true);
 		createUserWithEmailAndPassword(merchantEmail, merchantPassword);
 	};
+	console.log(selectedBranch);
 	return (
 		<div>
 			<Modal
@@ -229,7 +230,7 @@ const AddMerchants = ({ open, setOpen, token, setSubmitting }) => {
 								<Autocomplete
 									size='small'
 									sx={{ my: 0.5, width: "100% !important" }}
-									options={selectedBranch}
+									options={selectedBranch?.branchArea || []}
 									getOptionLabel={(option) => option.area}
 									style={{ width: 300 }}
 									renderInput={(params) => (
@@ -262,7 +263,7 @@ const AddMerchants = ({ open, setOpen, token, setSubmitting }) => {
 									required
 									label='Email'
 									helperText='Email'
-									{...register("merchantCompanyName", { required: true })}
+									{...register("merchantEmail", { required: true })}
 								/>
 							</Box>
 							<Box sx={{ display: "flex", gap: "20px" }}>

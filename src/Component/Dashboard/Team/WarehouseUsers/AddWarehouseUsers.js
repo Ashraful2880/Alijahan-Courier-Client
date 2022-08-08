@@ -14,9 +14,12 @@ import axios from "axios";
 import CancelIcon from "@mui/icons-material/Cancel";
 import { useForm } from "react-hook-form";
 import ReplayIcon from "@mui/icons-material/Replay";
-import DoneIcon from '@mui/icons-material/Done';
+import DoneIcon from "@mui/icons-material/Done";
 import AddTaskIcon from "@mui/icons-material/AddTask";
 import Swal from "sweetalert2";
+import auth2 from "../../../../FirebaseAuth/firebase.config2";
+import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
+import { signOut } from "firebase/auth";
 const style = {
 	position: "absolute",
 	top: "50%",
@@ -51,29 +54,26 @@ const AddWarehouseUsers = ({ open, setOpen, token, setSubmitting }) => {
 				console.log(error);
 			});
 	}, [token]);
-	const onSubmit = ({
-		warehouseUserName,
-		warehouseUserAddress,
-		wareHouseName,
-		warehouseUserContact,
-		warehouseUserEmail,
-		warehouseUserPassword,
-		warehouseUserImage,
-	}) => {
+	const [createUserWithEmailAndPassword, user, loading, error] =
+		useCreateUserWithEmailAndPassword(auth2);
+	if (loading) {
 		setSubmitting(true);
+	}
+	if (error) {
+		setSubmitting(false);
+		Swal.fire({
+			title: "Error",
+			text: error.message,
+			icon: "error",
+			confirmButtonText: "Ok",
+		});
+	}
+	const [data, setData] = useState();
+	if (user) {
 		axios
 			.post(
 				`${process.env.REACT_APP_API_PATH}/warehouseUser`,
-				{
-					warehouseUserName,
-					warehouseUserAddress,
-					wareHouseName,
-					warehouseUserContact,
-					warehouseUserEmail,
-					warehouseUserPassword,
-					warehouseUserImage,
-					status: "Active",
-				},
+				{ ...data, status: "Active" },
 				{
 					headers: {
 						Authorization: `Bearer ${token}`,
@@ -89,6 +89,27 @@ const AddWarehouseUsers = ({ open, setOpen, token, setSubmitting }) => {
 				setSubmitting(false);
 				console.log(error);
 			});
+	}
+	const onSubmit = ({
+		warehouseUserName,
+		warehouseUserAddress,
+		wareHouseName,
+		warehouseUserContact,
+		warehouseUserEmail,
+		warehouseUserPassword,
+		warehouseUserImage,
+	}) => {
+		setData({
+			warehouseUserName,
+			warehouseUserAddress,
+			wareHouseName,
+			warehouseUserContact,
+			warehouseUserEmail,
+			warehouseUserPassword,
+			warehouseUserImage,
+		});
+		setSubmitting(true);
+		createUserWithEmailAndPassword(warehouseUserEmail, warehouseUserPassword);
 	};
 
 	return (
@@ -139,7 +160,7 @@ const AddWarehouseUsers = ({ open, setOpen, token, setSubmitting }) => {
 									fullWidth
 									required
 									label='Warehouse Name'
-									helperText=" Warehouse Name"
+									helperText=' Warehouse Name'
 									{...register("warehouseUserName", { required: true })}
 								/>
 								<TextField
@@ -149,12 +170,11 @@ const AddWarehouseUsers = ({ open, setOpen, token, setSubmitting }) => {
 									multiline
 									rows={1}
 									label='Warehouse Address'
-									helperText=" Warehouse Address"
+									helperText=' Warehouse Address'
 									{...register("warehouseUserAddress", { required: true })}
 								/>
 							</Box>
 							<Box sx={{ display: "flex", gap: "20px" }}>
-
 								<Autocomplete
 									size='small'
 									sx={{ my: 1, width: "100% !important" }}
@@ -166,7 +186,7 @@ const AddWarehouseUsers = ({ open, setOpen, token, setSubmitting }) => {
 											{...register("wareHouseName", { required: true })}
 											{...params}
 											label='Warehouse Name'
-											helperText=" Warehouse Name"
+											helperText=' Warehouse Name'
 											variant='outlined'
 										/>
 									)}
@@ -177,7 +197,7 @@ const AddWarehouseUsers = ({ open, setOpen, token, setSubmitting }) => {
 									sx={{ my: 1 }}
 									fullWidth
 									label='Warehouse Contact'
-									helperText=" Warehouse Contact"
+									helperText=' Warehouse Contact'
 									{...register("warehouseUserContact", { required: true })}
 								/>
 							</Box>
@@ -187,7 +207,7 @@ const AddWarehouseUsers = ({ open, setOpen, token, setSubmitting }) => {
 									sx={{ my: 0.5 }}
 									fullWidth
 									label='Warehouse Email'
-									helperText=" Warehouse Email"
+									helperText=' Warehouse Email'
 									{...register("warehouseUserEmail", { required: true })}
 								/>
 								<TextField
@@ -195,7 +215,7 @@ const AddWarehouseUsers = ({ open, setOpen, token, setSubmitting }) => {
 									sx={{ my: 0.5 }}
 									fullWidth
 									label='Warehouse Password'
-									helperText=" Warehouse Password"
+									helperText=' Warehouse Password'
 									{...register("warehouseUserPassword", { required: true })}
 								/>
 							</Box>
@@ -205,7 +225,7 @@ const AddWarehouseUsers = ({ open, setOpen, token, setSubmitting }) => {
 									sx={{ my: 0.5, width: "49%" }}
 									fullWidth
 									label='Warehouse Image'
-									helperText=" Warehouse Image"
+									helperText=' Warehouse Image'
 									{...register("warehouseUserImage", { required: true })}
 								/>
 							</Box>
@@ -223,7 +243,7 @@ const AddWarehouseUsers = ({ open, setOpen, token, setSubmitting }) => {
 									onClick={() => setOpen(false)}
 									type='reset'
 									variant='contained'
-									color="error"
+									color='error'
 									// className='button'
 									sx={{ my: 0.5, fontWeight: "bold", px: 1.5, mx: 1 }}>
 									<ReplayIcon sx={{ mr: 0.5 }} />
