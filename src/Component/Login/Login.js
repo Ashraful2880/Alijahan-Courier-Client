@@ -54,7 +54,7 @@ export default function Login() {
 					justifyContent='center'
 					alignItems='center'
 					minHeight='100vh'>
-					<Box style={{ marginTop: 3, textAlign: "center" }}>
+					<Box style={{ marginTop: 3, textAlign: "center" }} >
 						<Box>
 							<Avatar sx={{ mx: "auto", my: 1 }} className='bgColor'>
 								<LockOutlinedIcon />
