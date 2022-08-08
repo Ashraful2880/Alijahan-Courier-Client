@@ -41,7 +41,7 @@ const AddBranches = ({ open, setOpen, token, setSubmitting }) => {
 	const { register, handleSubmit, reset } = useForm();
 	const [areas, setAreas] = useState();
 	const [selectedDistricts, setSelectedDistricts] = useState("");
-
+	const [districts, setDistricts] = useState([]);
 	useEffect(() => {
 		axios
 			.get(`${process.env.REACT_APP_API_PATH}/areas`, {
@@ -51,6 +51,18 @@ const AddBranches = ({ open, setOpen, token, setSubmitting }) => {
 			})
 			.then((response) => {
 				setAreas(response.data);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+		axios
+			.get(`${process.env.REACT_APP_API_PATH}/districts`, {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			})
+			.then((response) => {
+				setDistricts(response.data);
 			})
 			.catch((error) => {
 				console.log(error);
@@ -90,6 +102,7 @@ const AddBranches = ({ open, setOpen, token, setSubmitting }) => {
 				setSubmitting(false);
 				setOpen(false);
 				Swal.fire("", "Successfully Added!", "success");
+				signOut(auth2);
 			})
 			.catch((error) => {
 				setSubmitting(false);
@@ -195,7 +208,7 @@ const AddBranches = ({ open, setOpen, token, setSubmitting }) => {
 										}}
 										size='small'
 										sx={{ my: 1, width: "100% !important" }}
-										options={areas}
+										options={districts}
 										getOptionLabel={(option) => option?.district}
 										style={{ width: 300 }}
 										renderInput={(params) => (

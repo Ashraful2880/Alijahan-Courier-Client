@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import {
 	Autocomplete,
+	Backdrop,
 	Box,
 	Button,
 	Checkbox,
+	CircularProgress,
 	FormControlLabel,
 	FormGroup,
+	Grid,
 	TextField,
 	Typography,
 } from "@mui/material";
@@ -21,9 +24,11 @@ import Paper from "@mui/material/Paper";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import GetAuth from "../../../FirebaseAuth/GetAuth";
+import Swal from "sweetalert2";
 
 const MerchantOrder = () => {
 	const { user, loading, token } = GetAuth();
+	const [submitting, setSubmitting] = useState(false);
 	const { register, handleSubmit, reset } = useForm();
 	const [selectedDistricts, setSelectedDistricts] = useState("");
 	const [selectedBranch, setSelectedBranch] = useState("");
@@ -35,7 +40,20 @@ const MerchantOrder = () => {
 	const [selectServiceAreas, setSelectServiceAreas] = useState();
 	const [cashCollection, setCashCollection] = useState();
 	const [addDeliveryCharge, setAddDeliveryCharge] = useState(true);
+	const [districts, setDistricts] = useState();
 	useEffect(() => {
+		axios
+			.get(`${process.env.REACT_APP_API_PATH}/districts`, {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			})
+			.then((response) => {
+				setDistricts(response.data);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
 		axios
 			.get(`${process.env.REACT_APP_API_PATH}/branches`, {
 				headers: {
@@ -95,38 +113,80 @@ const MerchantOrder = () => {
 	const weightCharge = parseFloat(selectWeight?.weightPackageRate) || 0;
 	const totalAmount = deliveryCharge + weightCharge || 0;
 	const codAmount = totalAmount * (codPercentage / 100) || 0;
-	const totalPayment = totalAmount + codAmount || 0;
-	const payment = totalPayment - cashCollected || 0;
+	const total = totalAmount + codAmount || 0;
+	const duePayment = total - cashCollected || 0;
 	const onSubmit = ({
-		branchDistrict,
-		cashCollection,
-		instructions,
-		merchantArea,
-		merchantBranchName,
-		productCategory,
-		productType,
-		productWeight,
-		receiverAddress,
 		receiverName,
 		receiverNumber,
+		receiverBranchDistrict,
+		receiverMerchantBranchName,
+		receiverMerchantArea,
+		receiverAddress,
+		productCategory,
+		productWeight,
+		receiverServiceArea,
+		cashCollection,
 		referenceId,
+		instructions,
 	}) => {
 		const data = {
-			fromMarchantData: "",
-			branchDistrict,
-			cashCollection,
-			instructions,
-			merchantArea,
-			merchantBranchName,
-			productCategory,
-			productType,
-			productWeight,
-			receiverAddress,
-			receiverName,
-			receiverNumber,
+			marchentInfo: {
+				merchantAddress: "BFDC Road, Ichanagar",
+				merchantArea: "Ichanagar",
+				merchantBranchName: "Chattogram",
+				merchantBusinessAddress: "BFDC Road, Ichanagar",
+				merchantCompanyName: "Marchant Ltd",
+				merchantContact: "123456789",
+				merchantEmail: "marchant@gmail.com",
+				merchantName: "Test Marchant ",
+				merchantPassword: "1234567",
+				status: "Active",
+				_id: "62f12660d33d4407225a250b",
+			},
+			orderDetails: { productCategory, productWeight, receiverServiceArea },
+			receiverInfo: {
+				receiverAddress,
+				receiverName,
+				receiverNumber,
+				receiverBranchDistrict,
+				receiverMerchantArea,
+				receiverMerchantBranchName,
+			},
 			referenceId,
+			instructions,
+			orderSummaray: {
+				deliveryCharge,
+				weightCharge,
+				codAmount,
+				total,
+				cashCollection,
+				duePayment,
+			},
+			status: "Pending",
 		};
 		console.log(data);
+		setSubmitting(true);
+		axios
+			.post(
+				`${process.env.REACT_APP_API_PATH}/merchantorder`,
+				{
+					data,
+				},
+				{
+					headers: {
+						Authorization: `Bearer ${token}`,
+					},
+				},
+			)
+			.then((response) => {
+				setSubmitting(false);
+				reset();
+				Swal.fire("", "Successfully Added!", "success");
+			})
+			.catch((error) => {
+				setSubmitting(false);
+				console.log(error);
+			});
 	};
 
 	return (
@@ -158,8 +218,8 @@ const MerchantOrder = () => {
 			</Typography>
 			<Box sx={{ mx: 3 }}>
 				<form onSubmit={handleSubmit(onSubmit)}>
-					<Box sx={{ display: { lg: "flex", md: "block", sm: "block" }, justifyContent: "space-between", gap: 4 }}>
-						<Box sx={{ flexGrow: 2 }}>
+					<Grid container spacing={1} sx={{ justifyContent: "center" }}>
+						<Grid item xs={12} md={8} lg={8}>
 							{/* Receiver Info Here */}
 							<Typography
 								component='p'
@@ -201,12 +261,14 @@ const MerchantOrder = () => {
 									}}
 									size='small'
 									sx={{ my: 0.5, width: "100% !important" }}
-									options={branch}
-									getOptionLabel={(option) => option?.branchDistrict}
+									options={districts}
+									getOptionLabel={(option) => option?.district}
 									style={{ width: 300 }}
 									renderInput={(params) => (
 										<TextField
-											{...register("branchDistrict", { required: true })}
+											{...register("receiverBranchDistrict", {
+												required: true,
+											})}
 											{...params}
 											label='Districts Name'
 											variant='outlined'
@@ -221,13 +283,15 @@ const MerchantOrder = () => {
 									sx={{ my: 0.5, width: "100% !important" }}
 									options={branch?.filter(
 										(item) =>
-											item?.branchDistrict === selectedDistricts?.branchDistrict,
+											item?.branchDistrict === selectedDistricts?.district,
 									)}
 									getOptionLabel={(option) => option.branchName}
 									style={{ width: 300 }}
 									renderInput={(params) => (
 										<TextField
-											{...register("merchantBranchName", { required: true })}
+											{...register("receiverMerchantBranchName", {
+												required: true,
+											})}
 											{...params}
 											label='Select Branch'
 											variant='outlined'
@@ -243,7 +307,7 @@ const MerchantOrder = () => {
 									style={{ width: 300 }}
 									renderInput={(params) => (
 										<TextField
-											{...register("merchantArea", { required: true })}
+											{...register("receiverMerchantArea", { required: true })}
 											{...params}
 											label='Select Area'
 											variant='outlined'
@@ -253,7 +317,6 @@ const MerchantOrder = () => {
 								/>
 							</Box>
 							<Box sx={{ display: "flex", gap: "15px", mx: 2 }}>
-
 								<TextField
 									size='small'
 									sx={{ my: 0.5 }}
@@ -327,7 +390,7 @@ const MerchantOrder = () => {
 									style={{ width: 300 }}
 									renderInput={(params) => (
 										<TextField
-											{...register("productType", { required: true })}
+											{...register("receiverServiceArea", { required: true })}
 											{...params}
 											label='Service Area'
 											variant='outlined'
@@ -379,8 +442,8 @@ const MerchantOrder = () => {
 								helperText='Any Instructions'
 								{...register("instructions", { required: true })}
 							/>
-						</Box>
-						<Box sx={{ flexGrow: 0.5 }}>
+						</Grid>
+						<Grid item xs={12} md={4} lg={4}>
 							<Typography
 								component='p'
 								sx={{
@@ -415,7 +478,7 @@ const MerchantOrder = () => {
 														color: "gray",
 														fontSize: "15px",
 													}}>
-													{cashCollected} Taka
+													{cashCollected} ৳
 												</Typography>
 											</TableCell>
 										</TableRow>
@@ -437,7 +500,7 @@ const MerchantOrder = () => {
 														color: "gray",
 														fontSize: "15px",
 													}}>
-													{weightCharge} Taka
+													{weightCharge} ৳
 												</Typography>
 											</TableCell>
 										</TableRow>
@@ -459,7 +522,7 @@ const MerchantOrder = () => {
 														color: "gray",
 														fontSize: "15px",
 													}}>
-													{deliveryCharge || 0} Taka
+													{deliveryCharge || 0} ৳
 												</Typography>
 											</TableCell>
 										</TableRow>
@@ -481,7 +544,7 @@ const MerchantOrder = () => {
 														color: "gray",
 														fontSize: "15px",
 													}}>
-													{codAmount} Taka
+													{codAmount} ৳
 												</Typography>
 											</TableCell>
 										</TableRow>
@@ -503,7 +566,7 @@ const MerchantOrder = () => {
 														color: "gray",
 														fontSize: "15px",
 													}}>
-													{totalPayment} Taka
+													{total} ৳
 												</Typography>
 											</TableCell>
 										</TableRow>
@@ -525,15 +588,15 @@ const MerchantOrder = () => {
 														color: "gray",
 														fontSize: "15px",
 													}}>
-													{payment} Taka
+													{duePayment} ৳
 												</Typography>
 											</TableCell>
 										</TableRow>
 									</TableBody>
 								</Table>
 							</TableContainer>
-						</Box>
-					</Box>
+						</Grid>
+					</Grid>
 					<Box sx={{ display: "flex", gap: "15px", mx: 1, mt: 2 }}>
 						<Button
 							type='submit'
@@ -552,9 +615,14 @@ const MerchantOrder = () => {
 							Reset
 						</Button>
 					</Box>
-				</form >
-			</Box >
-		</Box >
+				</form>
+			</Box>
+			<Backdrop
+				sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 999 }}
+				open={submitting}>
+				<CircularProgress color='inherit' />
+			</Backdrop>
+		</Box>
 	);
 };
 
