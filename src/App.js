@@ -34,6 +34,14 @@ import OfficeToOffice from "./Component/Dashboard/ManageOrderBooking/OfficeToOff
 import OfficeToHome from "./Component/Dashboard/ManageOrderBooking/OfficeToHome";
 import Dashboard from "./Component/Dashboard/DashboardRoot/Dashboard";
 import BookingParcelList from "./Component/Dashboard/ManageOrderBooking/BookingParcelList";
+import WarehouseDashboard from "./Component/WarehouseDashboard/WarehouseDashboardHome";
+import WarehouseProfile from "./Component/WarehouseDashboard/WarehouseProfile";
+import AddWarehouseParcel from "./Component/WarehouseDashboard/Parcel/AddWarehouseParcel";
+import WarehouseParcelList from "./Component/WarehouseDashboard/Parcel/WarehouseParcelList";
+import RidersParcelList from "./Component/RiderDashboard/Parcel/RidersParcelList";
+import AddRidersParcel from "./Component/RiderDashboard/Parcel/AddRidersParcel";
+import RidersProfile from "./Component/RiderDashboard/RidersProfile";
+import RiderDashboardHome from "./Component/RiderDashboard/RiderDashboardHome";
 
 function App() {
 	return (
@@ -105,6 +113,34 @@ function App() {
 							<Route
 								path='/merchantDashboard/serviceCharge'
 								element={<ServiceCharge />}
+							/>
+							{/* Warehouse Dashboard Code Here */}
+							<Route
+								path='/warehouseDashboard'
+								element={<WarehouseDashboard />}
+							/>
+							<Route path='/warehouseDashboard/profile' element={<WarehouseProfile />} />
+							<Route
+								path='/warehouseDashboard/AddParcel'
+								element={<AddWarehouseParcel />}
+							/>
+							<Route
+								path='/warehouseDashboard/parcelList'
+								element={<WarehouseParcelList />}
+							/>
+							{/* Riders Dashboard Code Here */}
+							<Route
+								path='/ridersDashboard'
+								element={<RiderDashboardHome />}
+							/>
+							<Route path='/ridersDashboard/profile' element={<RidersProfile />} />
+							<Route
+								path='/ridersDashboard/AddParcel'
+								element={<AddRidersParcel />}
+							/>
+							<Route
+								path='/ridersDashboard/parcelList'
+								element={<RidersParcelList />}
 							/>
 						</Route>
 					</Routes>

@@ -17,6 +17,8 @@ import auth from "../../../FirebaseAuth/firebase.config";
 import logo from "../../../Assets/Image/logo.png";
 import AdminDashboard from "./AdminDashboard";
 import MerchantDashboard from "./MerchantDashboard";
+import WarehouseDashboard from "./WarehouseDashboard";
+import RiderDashboard from "./RiderDashboard";
 
 const drawerWidth = 268;
 
@@ -45,6 +47,22 @@ function Dashboard(props) {
 				Merchant Dashboard Here
 			</Typography>
 			<MerchantDashboard />
+			{/* Warehouse Dashboard Code Here */}
+			<Typography
+				variant='h6'
+				className='title'
+				sx={{ color: "gray", marginY: "5px" }}>
+				Warehouse Dashboard Here
+			</Typography>
+			<WarehouseDashboard />
+			{/* Rider Dashboard Code Here */}
+			<Typography
+				variant='h6'
+				className='title'
+				sx={{ color: "gray", marginY: "5px" }}>
+				Rider Dashboard Here
+			</Typography>
+			<RiderDashboard />
 		</Box>
 	);
 
