@@ -42,6 +42,10 @@ import RidersParcelList from "./Component/RiderDashboard/Parcel/RidersParcelList
 import AddRidersParcel from "./Component/RiderDashboard/Parcel/AddRidersParcel";
 import RidersProfile from "./Component/RiderDashboard/RidersProfile";
 import RiderDashboardHome from "./Component/RiderDashboard/RiderDashboardHome";
+import BranchProfile from "./Component/BranchDashboard/BranchProfile";
+import AddBranchParcel from "./Component/BranchDashboard/Parcel/AddBranchParcel";
+import BranchParcelList from "./Component/BranchDashboard/Parcel/BranchParcelList";
+import BranchHome from "./Component/BranchDashboard/BranchHome";
 
 function App() {
 	return (
@@ -80,6 +84,20 @@ function App() {
 							<Route path='/item' element={<Item />} />
 							<Route path='/adminUser' element={<AdminUser />} />
 							<Route path='/application' element={<Application />} />
+							{/* Branch Dashboard Code Here */}
+							<Route
+								path='/branchDashboard'
+								element={<BranchHome />}
+							/>
+							<Route path='/branchDashboard/profile' element={<BranchProfile />} />
+							<Route
+								path='/branchDashboard/AddParcel'
+								element={<AddBranchParcel />}
+							/>
+							<Route
+								path='/branchDashboard/parcelList'
+								element={<BranchParcelList />}
+							/>
 							{/* Merchant Dashboard Code Here */}
 							<Route
 								path='/merchantDashboard'
