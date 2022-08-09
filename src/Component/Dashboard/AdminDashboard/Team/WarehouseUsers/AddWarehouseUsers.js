@@ -39,6 +39,7 @@ const style = {
 const AddWarehouseUsers = ({ open, setOpen, token, setSubmitting }) => {
 	const { register, handleSubmit, reset } = useForm();
 	const [warehouses, setWarehouses] = useState();
+	const [district, setDistrict] = useState();
 
 	useEffect(() => {
 		axios
@@ -53,7 +54,21 @@ const AddWarehouseUsers = ({ open, setOpen, token, setSubmitting }) => {
 			.catch((error) => {
 				console.log(error);
 			});
+		axios
+			.get(`${process.env.REACT_APP_API_PATH}/districts`, {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			})
+			.then((response) => {
+				setDistrict(response.data);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+
 	}, [token]);
+
 	const [createUserWithEmailAndPassword, user, loading, error] =
 		useCreateUserWithEmailAndPassword(auth2);
 	if (loading) {
@@ -111,7 +126,6 @@ const AddWarehouseUsers = ({ open, setOpen, token, setSubmitting }) => {
 		setSubmitting(true);
 		createUserWithEmailAndPassword(warehouseUserEmail, warehouseUserPassword);
 	};
-
 	return (
 		<div>
 			<Modal
@@ -177,31 +191,36 @@ const AddWarehouseUsers = ({ open, setOpen, token, setSubmitting }) => {
 							<Box sx={{ display: "flex", gap: "20px" }}>
 								<Autocomplete
 									size='small'
-									sx={{ my: 1, width: "100% !important" }}
+									sx={{ my: 0.5, width: "100% !important" }}
 									options={warehouses}
-									getOptionLabel={(option) => option.warehouseName}
+									getOptionLabel={(option) => option.warehouseType}
 									style={{ width: 300 }}
 									renderInput={(params) => (
 										<TextField
-											{...register("wareHouseName", { required: true })}
+											{...register("wareHouseType", { required: true })}
 											{...params}
-											label='Warehouse Name'
-											helperText=' Warehouse Name'
+											label='Warehouse Type'
+											helperText=' Warehouse Type'
 											variant='outlined'
 										/>
 									)}
 								/>
-
-								<TextField
+								<Autocomplete
 									size='small'
-									sx={{ my: 1 }}
-									fullWidth
-									label='Warehouse Contact'
-									helperText=' Warehouse Contact'
-									{...register("warehouseUserContact", { required: true })}
+									sx={{ my: 0.5, width: "100% !important" }}
+									options={district}
+									getOptionLabel={(option) => option.district}
+									style={{ width: 300 }}
+									renderInput={(params) => (
+										<TextField
+											{...register("warehouseDistrict", { required: true })}
+											{...params}
+											label='Warehouse District'
+											helperText='Warehouse District'
+											variant='outlined'
+										/>
+									)}
 								/>
-							</Box>
-							<Box sx={{ display: "flex", gap: "20px" }}>
 								<TextField
 									size='small'
 									sx={{ my: 0.5 }}
@@ -210,6 +229,16 @@ const AddWarehouseUsers = ({ open, setOpen, token, setSubmitting }) => {
 									helperText=' Warehouse Email'
 									{...register("warehouseUserEmail", { required: true })}
 								/>
+							</Box>
+							<Box sx={{ display: "flex", gap: "20px" }}>
+								<TextField
+									size='small'
+									sx={{ my: 0.5 }}
+									fullWidth
+									label='Warehouse Contact'
+									helperText=' Warehouse Contact'
+									{...register("warehouseUserContact", { required: true })}
+								/>
 								<TextField
 									size='small'
 									sx={{ my: 0.5 }}
@@ -217,16 +246,6 @@ const AddWarehouseUsers = ({ open, setOpen, token, setSubmitting }) => {
 									label='Warehouse Password'
 									helperText=' Warehouse Password'
 									{...register("warehouseUserPassword", { required: true })}
-								/>
-							</Box>
-							<Box sx={{ display: "flex", gap: "10px" }}>
-								<TextField
-									size='small'
-									sx={{ my: 0.5, width: "49%" }}
-									fullWidth
-									label='Warehouse Image'
-									helperText=' Warehouse Image'
-									{...register("warehouseUserImage", { required: true })}
 								/>
 							</Box>
 							<Box sx={{ mt: 2, mb: 1 }}>
