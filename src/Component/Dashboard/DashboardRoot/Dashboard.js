@@ -19,6 +19,7 @@ import AdminDashboard from "./AdminDashboard";
 import MerchantDashboard from "./MerchantDashboard";
 import WarehouseDashboard from "./WarehouseDashboard";
 import RiderDashboard from "./RiderDashboard";
+import BranchDashboard from "./BranchDashboard";
 
 const drawerWidth = 268;
 
@@ -38,7 +39,22 @@ function Dashboard(props) {
 				}}>
 				<img src={logo} alt='Main Logo' />
 			</Box>
+			{/* Admin Dashboard Code Here */}
+			<Typography
+				variant='h6'
+				className='title'
+				sx={{ color: "gray", marginY: "5px" }}>
+				Admin Dashboard Here
+			</Typography>
 			<AdminDashboard />
+			{/* Branch Dashboard Code Here */}
+			<Typography
+				variant='h6'
+				className='title'
+				sx={{ color: "gray", marginY: "5px" }}>
+				Branch Dashboard Here
+			</Typography>
+			<BranchDashboard />
 			{/* Merchant Dashboard Code Here */}
 			<Typography
 				variant='h6'
@@ -91,7 +107,7 @@ function Dashboard(props) {
 					</IconButton>
 					<Box display='flex' sx={{ flexGrow: 1, alignItems: "center" }}>
 						<DashboardIcon sx={{ mr: 1 }} />
-						<Typography variant='h6'>DASHBOARD</Typography>
+						<Typography variant='h6'>Welcome Admin</Typography>
 					</Box>
 					<Box>
 						<Typography
