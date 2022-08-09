@@ -15,8 +15,20 @@ const OrderTracking = () => {
         alert(JSON.stringify(data));
     };
     return (
-        <Box sx={{ padding: "0px 15px" }}>
-            <Typography variant='h5' sx={{ textAlign: "left", marginY: "15px", fontWeight: "bold" }}>Order Tracking</Typography>
+        <Box sx={{ mx: 4, pt: 2, pb: 5 }}>
+            <Box
+                sx={{
+                    px: 2.5,
+                    pb: 1,
+                    mb: 1,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                }}>
+                <Typography variant='h5' sx={{ fontWeight: "bold", color: "#1E793C" }}>
+                    Order Tracking
+                </Typography>
+            </Box>
             <Box>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <Typography component="p" sx={{ fontSize: "20px", fontWeight: "bold" }}>Track Your Order</Typography>

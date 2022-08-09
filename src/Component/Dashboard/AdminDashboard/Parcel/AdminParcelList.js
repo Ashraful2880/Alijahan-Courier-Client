@@ -1,7 +1,7 @@
 import { Box, Typography } from '@mui/material';
 import React from 'react';
 
-const Application = () => {
+const AdminParcelList = () => {
     return (
         <Box sx={{ mx: 4, pt: 2, pb: 5 }}>
             <Box
@@ -14,7 +14,7 @@ const Application = () => {
                     justifyContent: "space-between",
                 }}>
                 <Typography variant='h5' sx={{ fontWeight: "bold", color: "#1E793C" }}>
-                    Applications
+                    All Parcel List
                 </Typography>
             </Box>
             {/* Others Code Start From Here */}
@@ -22,4 +22,4 @@ const Application = () => {
     );
 };
 
-export default Application;
+export default AdminParcelList;

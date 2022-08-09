@@ -9,7 +9,6 @@ import Merchants from './Component/Dashboard/AdminDashboard/Team/Merchants/Merch
 import Riders from './Component/Dashboard/AdminDashboard/Team/Riders/Riders';
 import Warehouses from './Component/Dashboard/AdminDashboard/Team/Warehouses/Warehouses';
 import WarehouseUsers from './Component/Dashboard/AdminDashboard/Team/WarehouseUsers/WarehouseUsers';
-import ParcelList from './Component/Dashboard/AdminDashboard/Parcel/ParcelList';
 import MerchantProfile from "./Component/Dashboard/MerchantDashboard/MerchantProfile";
 import AddMerchantParcel from "./Component/Dashboard/MerchantDashboard/Parcel/AddMerchantParcel";
 import ServiceAreaSetting from './Component/Dashboard/AdminDashboard/ApplicationSetting/ServiceAreaSetting';
@@ -46,6 +45,8 @@ import RiderDashboardHome from './Component/Dashboard/RiderDashboard/RiderDashbo
 import RidersProfile from './Component/Dashboard/RiderDashboard/RidersProfile';
 import MerchantDashboardHome from "./Component/Dashboard/MerchantDashboard/MerchantDashboardHome";
 import WarehouseDashboardHome from "./Component/Dashboard/WarehouseDashboard/WarehouseDashboardHome";
+import AdminParcelList from "./Component/Dashboard/AdminDashboard/Parcel/AdminParcelList";
+import MerchantParcelList from "./Component/Dashboard/MerchantDashboard/Parcel/MerchantParcelList";
 
 function App() {
 	return (
@@ -61,7 +62,7 @@ function App() {
 							<Route path='/riders' element={<Riders />} />
 							<Route path='/warehouses' element={<Warehouses />} />
 							<Route path='/warehouseusers' element={<WarehouseUsers />} />
-							<Route path='/parcelList' element={<ParcelList />} />
+							<Route path='/parcelList' element={<AdminParcelList />} />
 							<Route path='/officeToOffice' element={<OfficeToOffice />} />
 							<Route path='/officeToHome' element={<OfficeToHome />} />
 							<Route path='/createMerchantOrder' element={<MerchantOrder />} />
@@ -110,7 +111,7 @@ function App() {
 							/>
 							<Route
 								path='/merchantDashboard/parcelList'
-								element={<ParcelList />}
+								element={<MerchantParcelList />}
 							/>
 							<Route
 								path='/merchantDashboard/deliveryPaymentList'
