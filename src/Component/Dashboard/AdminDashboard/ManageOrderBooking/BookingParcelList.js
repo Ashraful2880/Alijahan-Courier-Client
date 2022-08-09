@@ -152,12 +152,13 @@ const BookingParcelList = () => {
 				sx={{
 					px: 2.5,
 					pb: 1,
+					mb: 1,
 					display: "flex",
 					alignItems: "center",
 					justifyContent: "space-between",
 				}}>
 				<Typography variant='h5' sx={{ fontWeight: "bold", color: "#1E793C" }}>
-					Branch
+					Booking Parcel List
 				</Typography>
 			</Box>
 			<Grid container spacing={1} sx={{ justifyContent: "center", px: 2 }}>
