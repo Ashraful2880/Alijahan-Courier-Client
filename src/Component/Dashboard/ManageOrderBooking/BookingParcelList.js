@@ -37,7 +37,7 @@ const BookingParcelList = () => {
 			.catch((error) => {
 				console.log(error);
 			});
-	}, [token]);
+	}, [token, submitting]);
 	const changeStatus = (event, id) => {
 		setStatus(event.target.value);
 		Swal.fire({
@@ -132,16 +132,43 @@ const BookingParcelList = () => {
 	};
 
 	const columns = [
-		{ field: "branchName", headerName: "Branch Name", width: 100 },
-		{ field: "pickupCom", headerName: "Pickup", width: 100 },
-		{ field: "deliveryCom", headerName: "Delivery", width: 100 },
-		{ field: "bookingCom", headerName: "Booking", width: 100 },
-		{ field: "officeDeliveryCom", headerName: "Office Delivery", width: 100 },
-		{ field: "status", headerName: "Status", width: 100 },
+		{
+			field: "merchantName",
+			headerName: "Marchant Name",
+			renderCell: (params) => {
+				return params.row.marchentInfo.merchantName;
+			},
+			flex: 1,
+		},
+		{
+			field: "receiverMerchantArea",
+			headerName: "Pickup Address",
+			renderCell: (params) => {
+				return params.row.receiverInfo.receiverMerchantArea;
+			},
+			flex: 1,
+		},
+		{
+			field: "receiverAddress",
+			headerName: "Full Address",
+			renderCell: (params) => {
+				return params.row.receiverInfo.receiverAddress;
+			},
+			flex: 1,
+		},
+		{
+			field: "receiverNumber",
+			headerName: "Phone Number",
+			renderCell: (params) => {
+				return params.row.receiverInfo.receiverNumber;
+			},
+			flex: 1,
+		},
+		{ field: "status", headerName: "Status", flex: 1 },
 		{
 			field: "_id",
 			headerName: "Action",
-			width: 300,
+			width: 250,
 			renderCell: renderDetailsButton,
 			disableClickEventBubbling: true,
 		},
@@ -157,7 +184,7 @@ const BookingParcelList = () => {
 					justifyContent: "space-between",
 				}}>
 				<Typography variant='h5' sx={{ fontWeight: "bold", color: "#1E793C" }}>
-					Branch
+					All Orders
 				</Typography>
 			</Box>
 			<Grid container spacing={1} sx={{ justifyContent: "center", px: 2 }}>

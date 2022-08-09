@@ -84,7 +84,7 @@ const EditRiders = ({ open, setOpen, id, token, setSubmitting }) => {
 		riderName,
 		riderBranch,
 		riderAddress,
-		userEmail,
+		riderEmail,
 		riderContact,
 		riderNID,
 		riderLicense,
@@ -99,7 +99,7 @@ const EditRiders = ({ open, setOpen, id, token, setSubmitting }) => {
 					riderName,
 					riderBranch,
 					riderAddress,
-					userEmail,
+					riderEmail,
 					riderContact,
 					riderNID,
 					riderLicense,
@@ -203,9 +203,9 @@ const EditRiders = ({ open, setOpen, id, token, setSubmitting }) => {
 											style={{ width: 300 }}
 											defaultValue={
 												branch[
-												branch?.findIndex(
-													(x) => x.branchName === data?.riderBranch,
-												)
+													branch?.findIndex(
+														(x) => x.branchName === data?.riderBranch,
+													)
 												]
 											}
 											renderInput={(params) => (
@@ -228,7 +228,7 @@ const EditRiders = ({ open, setOpen, id, token, setSubmitting }) => {
 											required
 											label='User Email'
 											helperText='User Email'
-											{...register("userEmail", { required: true })}
+											{...register("riderEmail", { required: true })}
 										/>
 										<TextField
 											type='number'
@@ -318,7 +318,7 @@ const EditRiders = ({ open, setOpen, id, token, setSubmitting }) => {
 											onClick={() => setOpen(false)}
 											type='reset'
 											variant='contained'
-											color="error"
+											color='error'
 											sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
 											<ReplayIcon sx={{ mr: 0.5 }} />
 											Close

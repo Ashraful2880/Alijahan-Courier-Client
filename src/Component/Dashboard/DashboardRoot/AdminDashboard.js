@@ -411,16 +411,16 @@ const AdminDashboard = () => {
 				</AccordionSummary>
 				<AccordionDetails>
 					<List>
-						<Link className='link' to='adminUser'>
+						<Link className='link' to='allusers'>
 							<ListItem
 								button
 								className={
-									location?.pathname === "/adminUser" && "activeButton"
+									location?.pathname === "/allusers" && "activeButton"
 								}>
 								<ListItemIcon className='listItemIcon'>
 									<AdminPanelSettingsIcon />
 								</ListItemIcon>
-								<ListItemText primary={"Admin User"} />
+								<ListItemText primary={"All Users"} />
 							</ListItem>
 						</Link>
 						<Link className='link' to='application'>

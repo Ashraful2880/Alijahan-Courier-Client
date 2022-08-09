@@ -69,36 +69,39 @@ const AddRiders = ({ open, setOpen, token, setSubmitting }) => {
 		});
 	}
 	const [data, setData] = useState();
-	if (user) {
-		axios
-			.post(
-				`${process.env.REACT_APP_API_PATH}/rider`,
-				{
-					...data,
-					status: "Active",
-				},
-				{
-					headers: {
-						Authorization: `Bearer ${token}`,
+	useEffect(() => {
+		if (user) {
+			axios
+				.post(
+					`${process.env.REACT_APP_API_PATH}/rider`,
+					{
+						...data,
+						status: "Active",
 					},
-				},
-			)
-			.then((response) => {
-				setSubmitting(false);
-				setOpen(false);
-				Swal.fire("", "Successfully Added!", "success");
-				signOut(auth2);
-			})
-			.catch((error) => {
-				setSubmitting(false);
-				console.log(error);
-			});
-	}
+					{
+						headers: {
+							Authorization: `Bearer ${token}`,
+						},
+					},
+				)
+				.then((response) => {
+					setSubmitting(false);
+					setOpen(false);
+					Swal.fire("", "Successfully Added!", "success");
+					signOut(auth2);
+				})
+				.catch((error) => {
+					setSubmitting(false);
+					console.log(error);
+				});
+		}
+	}, [data, setOpen, setSubmitting, token, user]);
+
 	const onSubmit = ({
 		riderName,
 		riderBranch,
 		riderAddress,
-		userEmail,
+		riderEmail,
 		riderContact,
 		riderNID,
 		riderLicense,
@@ -109,7 +112,7 @@ const AddRiders = ({ open, setOpen, token, setSubmitting }) => {
 			riderName,
 			riderBranch,
 			riderAddress,
-			userEmail,
+			riderEmail,
 			riderContact,
 			riderNID,
 			riderLicense,
@@ -117,7 +120,7 @@ const AddRiders = ({ open, setOpen, token, setSubmitting }) => {
 			riderDOB,
 		});
 		setSubmitting(true);
-		createUserWithEmailAndPassword(userEmail, riderPassword);
+		createUserWithEmailAndPassword(riderEmail, riderPassword);
 	};
 
 	return (
@@ -216,7 +219,7 @@ const AddRiders = ({ open, setOpen, token, setSubmitting }) => {
 									required
 									label='User Email'
 									helperText='User Email'
-									{...register("userEmail", { required: true })}
+									{...register("riderEmail", { required: true })}
 								/>
 								<TextField
 									type='number'

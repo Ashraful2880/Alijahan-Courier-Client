@@ -69,27 +69,30 @@ const AddWarehouseUsers = ({ open, setOpen, token, setSubmitting }) => {
 		});
 	}
 	const [data, setData] = useState();
-	if (user) {
-		axios
-			.post(
-				`${process.env.REACT_APP_API_PATH}/warehouseUser`,
-				{ ...data, status: "Active" },
-				{
-					headers: {
-						Authorization: `Bearer ${token}`,
+	useEffect(() => {
+		if (user) {
+			axios
+				.post(
+					`${process.env.REACT_APP_API_PATH}/warehouseUser`,
+					{ ...data, status: "Active" },
+					{
+						headers: {
+							Authorization: `Bearer ${token}`,
+						},
 					},
-				},
-			)
-			.then((response) => {
-				setSubmitting(false);
-				setOpen(false);
-				Swal.fire("", "Successfully Added!", "success");
-			})
-			.catch((error) => {
-				setSubmitting(false);
-				console.log(error);
-			});
-	}
+				)
+				.then((response) => {
+					setSubmitting(false);
+					setOpen(false);
+					Swal.fire("", "Successfully Added!", "success");
+				})
+				.catch((error) => {
+					setSubmitting(false);
+					console.log(error);
+				});
+		}
+	}, [data, setOpen, setSubmitting, token, user]);
+
 	const onSubmit = ({
 		warehouseUserName,
 		warehouseUserAddress,

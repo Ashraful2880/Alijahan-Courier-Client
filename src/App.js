@@ -22,7 +22,7 @@ import Thana from "./Component/Dashboard/ApplicationSetting/Thana";
 import Area from "./Component/Dashboard/ApplicationSetting/Area";
 import Unit from "./Component/Dashboard/TraditionalParcelSetting/Unit";
 import Item from "./Component/Dashboard/TraditionalParcelSetting/Item";
-import AdminUser from "./Component/Dashboard/Setting/AdminUser";
+import AllUsers from "./Component/Dashboard/Setting/AllUsers";
 import Application from "./Component/Dashboard/Setting/Application";
 import { APIContextProvider } from "./ApiContext";
 import WeightPackage from "./Component/Dashboard/ApplicationSetting/WeightPackage/WeightPackage";
@@ -70,7 +70,7 @@ function App() {
 							<Route path='/itemCategory' element={<ItemCategory />} />
 							<Route path='/unit' element={<Unit />} />
 							<Route path='/item' element={<Item />} />
-							<Route path='/adminUser' element={<AdminUser />} />
+							<Route path='/allusers' element={<AllUsers />} />
 							<Route path='/application' element={<Application />} />
 							{/* Merchant Dashboard Code Here */}
 							<Route
