@@ -13,9 +13,9 @@ import { Box } from "@mui/system";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import ReplayIcon from "@mui/icons-material/Replay";
-import DoneIcon from '@mui/icons-material/Done';
+import DoneIcon from "@mui/icons-material/Done";
 import CancelIcon from "@mui/icons-material/Cancel";
-import BorderColorIcon from '@mui/icons-material/BorderColor';
+import BorderColorIcon from "@mui/icons-material/BorderColor";
 import Swal from "sweetalert2";
 const style = {
 	position: "absolute",
@@ -52,7 +52,21 @@ const EditBranches = ({ open, setOpen, id, token, setSubmitting }) => {
 	const [value, setValue] = React.useState();
 	const [areas, setAreas] = useState();
 	const [selectedDistricts, setSelectedDistricts] = useState("");
+	const [selectWarehouse, setSelectWarehouse] = useState();
+	const [warehouses, setWarehouses] = useState();
 	useEffect(() => {
+		axios
+			.get(`${process.env.REACT_APP_API_PATH}/warehouseUsers`, {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			})
+			.then((response) => {
+				setWarehouses(response.data);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
 		axios
 			.get(`${process.env.REACT_APP_API_PATH}/areas`, {
 				headers: {
@@ -110,6 +124,7 @@ const EditBranches = ({ open, setOpen, id, token, setSubmitting }) => {
 					bookingCom,
 					officeDeliveryCom,
 					branchArea: value || data?.branchArea,
+					warehouseInfo: selectWarehouse || data?.warehouseInfo,
 				},
 				{
 					headers: {
@@ -127,6 +142,7 @@ const EditBranches = ({ open, setOpen, id, token, setSubmitting }) => {
 				console.log(error);
 			});
 	};
+	console.log(selectWarehouse);
 
 	return (
 		<div>
@@ -226,7 +242,8 @@ const EditBranches = ({ open, setOpen, id, token, setSubmitting }) => {
 											multiple
 											id='tags-outlined'
 											options={areas?.filter(
-												(item) => item?.district === selectedDistricts?.district,
+												(item) =>
+													item?.district === selectedDistricts?.district,
 											)}
 											getOptionLabel={(option) => option.area}
 											defaultValue={data?.branchArea}
@@ -237,6 +254,25 @@ const EditBranches = ({ open, setOpen, id, token, setSubmitting }) => {
 													label='Areas'
 													helperText='Areas'
 													placeholder='Select Areas'
+												/>
+											)}
+										/>
+										<Autocomplete
+											sx={{ my: 1, width: "100% !important" }}
+											size='small'
+											onChange={(event, newValue) => {
+												setSelectWarehouse(newValue);
+											}}
+											id='tags-outlined'
+											options={warehouses}
+											getOptionLabel={(option) => option.warehouseDistrict}
+											defaultValue={data?.warehouseInfo}
+											renderInput={(params) => (
+												<TextField
+													{...params}
+													label='Warehouse Name'
+													helperText='Warehouse Name'
+													placeholder='Select Warehouse'
 												/>
 											)}
 										/>

@@ -157,9 +157,9 @@ const AllUsers = () => {
 
 	const columns = [
 		{ field: "name", headerName: "Name", flex: 1 },
-		{ field: "email", headerName: "Email", flex: 1 },
+		{ field: "email", headerName: "Email", flex: 1.5 },
 		{ field: "userRole", headerName: "Role", flex: 1 },
-		{ field: "Joining Time", headerName: "joinTime", flex: 1 },
+		{ field: "joinTime", headerName: "Joining Time", flex: 1.5 },
 		{ field: "status", headerName: "Status", flex: 1 },
 		{
 			field: "_id",

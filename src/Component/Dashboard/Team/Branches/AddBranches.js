@@ -42,7 +42,21 @@ const AddBranches = ({ open, setOpen, token, setSubmitting }) => {
 	const [areas, setAreas] = useState();
 	const [selectedDistricts, setSelectedDistricts] = useState("");
 	const [districts, setDistricts] = useState([]);
+	const [selectWarehouse, setSelectWarehouse] = useState();
+	const [warehouses, setWarehouses] = useState();
 	useEffect(() => {
+		axios
+			.get(`${process.env.REACT_APP_API_PATH}/warehouseUsers`, {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			})
+			.then((response) => {
+				setWarehouses(response.data);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
 		axios
 			.get(`${process.env.REACT_APP_API_PATH}/areas`, {
 				headers: {
@@ -136,6 +150,7 @@ const AddBranches = ({ open, setOpen, token, setSubmitting }) => {
 			deliveryCom,
 			bookingCom,
 			officeDeliveryCom,
+			warehouseInfo: selectWarehouse,
 		});
 		setSubmitting(true);
 		createUserWithEmailAndPassword(branchEmail, branchPassword);
@@ -243,6 +258,26 @@ const AddBranches = ({ open, setOpen, token, setSubmitting }) => {
 												label='Areas'
 												helperText='Areas'
 												placeholder='Select Areas'
+											/>
+										)}
+									/>
+									<Autocomplete
+										sx={{ my: 1, width: "100% !important" }}
+										size='small'
+										onChange={(event, newValue) => {
+											setSelectWarehouse(newValue);
+										}}
+										multiple
+										id='tags-outlined'
+										options={warehouses}
+										getOptionLabel={(option) => option.warehouseDistrict}
+										filterSelectedOptions
+										renderInput={(params) => (
+											<TextField
+												{...params}
+												label='Warehouse Name'
+												helperText='Warehouse Name'
+												placeholder='Select Warehouse'
 											/>
 										)}
 									/>

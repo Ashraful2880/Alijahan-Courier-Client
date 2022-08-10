@@ -46,6 +46,7 @@ import BranchProfile from "./Component/BranchDashboard/BranchProfile";
 import AddBranchParcel from "./Component/BranchDashboard/Parcel/AddBranchParcel";
 import BranchParcelList from "./Component/BranchDashboard/Parcel/BranchParcelList";
 import BranchHome from "./Component/BranchDashboard/BranchHome";
+import BranchReceivedParcelList from "./Component/BranchDashboard/Parcel/BranchReceivedParcelList";
 
 function App() {
 	return (
@@ -85,11 +86,11 @@ function App() {
 							<Route path='/allusers' element={<AllUsers />} />
 							<Route path='/application' element={<Application />} />
 							{/* Branch Dashboard Code Here */}
+							<Route path='/branchDashboard' element={<BranchHome />} />
 							<Route
-								path='/branchDashboard'
-								element={<BranchHome />}
+								path='/branchDashboard/profile'
+								element={<BranchProfile />}
 							/>
-							<Route path='/branchDashboard/profile' element={<BranchProfile />} />
 							<Route
 								path='/branchDashboard/AddParcel'
 								element={<AddBranchParcel />}
@@ -97,6 +98,10 @@ function App() {
 							<Route
 								path='/branchDashboard/parcelList'
 								element={<BranchParcelList />}
+							/>
+							<Route
+								path='/branchDashboard/receivedParcelList'
+								element={<BranchReceivedParcelList />}
 							/>
 							{/* Merchant Dashboard Code Here */}
 							<Route
@@ -137,7 +142,10 @@ function App() {
 								path='/warehouseDashboard'
 								element={<WarehouseDashboard />}
 							/>
-							<Route path='/warehouseDashboard/profile' element={<WarehouseProfile />} />
+							<Route
+								path='/warehouseDashboard/profile'
+								element={<WarehouseProfile />}
+							/>
 							<Route
 								path='/warehouseDashboard/AddParcel'
 								element={<AddWarehouseParcel />}
@@ -147,11 +155,11 @@ function App() {
 								element={<WarehouseParcelList />}
 							/>
 							{/* Riders Dashboard Code Here */}
+							<Route path='/ridersDashboard' element={<RiderDashboardHome />} />
 							<Route
-								path='/ridersDashboard'
-								element={<RiderDashboardHome />}
+								path='/ridersDashboard/profile'
+								element={<RidersProfile />}
 							/>
-							<Route path='/ridersDashboard/profile' element={<RidersProfile />} />
 							<Route
 								path='/ridersDashboard/AddParcel'
 								element={<AddRidersParcel />}
