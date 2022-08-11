@@ -38,22 +38,10 @@ const style = {
 
 const AddWarehouseUsers = ({ open, setOpen, token, setSubmitting }) => {
 	const { register, handleSubmit, reset } = useForm();
-	const [warehouses, setWarehouses] = useState();
-
-	useEffect(() => {
-		axios
-			.get(`${process.env.REACT_APP_API_PATH}/warehouses`, {
-				headers: {
-					Authorization: `Bearer ${token}`,
-				},
-			})
-			.then((response) => {
-				setWarehouses(response.data);
-			})
-			.catch((error) => {
-				console.log(error);
-			});
-	}, [token]);
+	const warehouses = [
+		{ id: 1, warehouseName: "District Warehouse" },
+		{ id: 2, warehouseName: "Central Warehouse" },
+	];
 	const [createUserWithEmailAndPassword, user, loading, error] =
 		useCreateUserWithEmailAndPassword(auth2);
 	if (loading) {

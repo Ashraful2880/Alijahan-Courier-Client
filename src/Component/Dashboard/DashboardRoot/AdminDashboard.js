@@ -145,18 +145,6 @@ const AdminDashboard = () => {
 								<ListItemText primary={"Rider"} />
 							</ListItem>
 						</Link>
-						<Link className='link' to='warehouses'>
-							<ListItem
-								button
-								className={
-									location?.pathname === "/warehouses" && "activeButton"
-								}>
-								<ListItemIcon className='listItemIcon'>
-									<AddBusinessIcon />
-								</ListItemIcon>
-								<ListItemText primary={"Warehouse"} />
-							</ListItem>
-						</Link>
 						<Link className='link' to='warehouseusers'>
 							<ListItem
 								button
@@ -166,7 +154,7 @@ const AdminDashboard = () => {
 								<ListItemIcon className='listItemIcon'>
 									<SupervisedUserCircleIcon />
 								</ListItemIcon>
-								<ListItemText primary={"Warehouse User"} />
+								<ListItemText primary={"Warehouses"} />
 							</ListItem>
 						</Link>
 					</List>
