@@ -13,9 +13,9 @@ import { Box } from "@mui/system";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import ReplayIcon from "@mui/icons-material/Replay";
-import DoneIcon from '@mui/icons-material/Done';
+import DoneIcon from "@mui/icons-material/Done";
 import CancelIcon from "@mui/icons-material/Cancel";
-import BorderColorIcon from '@mui/icons-material/BorderColor';
+import BorderColorIcon from "@mui/icons-material/BorderColor";
 import Swal from "sweetalert2";
 const style = {
 	position: "absolute",
@@ -45,22 +45,10 @@ const EditWarehouseUsers = ({ open, setOpen, id, token, setSubmitting }) => {
 			warehouseUserImage: "",
 		},
 	});
-	const [warehouses, setWarehouses] = useState();
-
-	useEffect(() => {
-		axios
-			.get(`${process.env.REACT_APP_API_PATH}/warehouses`, {
-				headers: {
-					Authorization: `Bearer ${token}`,
-				},
-			})
-			.then((response) => {
-				setWarehouses(response.data);
-			})
-			.catch((error) => {
-				console.log(error);
-			});
-	}, [token]);
+	const warehouses = [
+		{ id: 1, warehouseName: "District Warehouse" },
+		{ id: 2, warehouseName: "Central Warehouse" },
+	];
 	const [data, setData] = React.useState();
 	useEffect(() => {
 		axios
@@ -186,9 +174,9 @@ const EditWarehouseUsers = ({ open, setOpen, id, token, setSubmitting }) => {
 											options={warehouses}
 											defaultValue={
 												warehouses[
-												warehouses?.findIndex(
-													(x) => x.warehouseName === data?.wareHouseName,
-												)
+													warehouses?.findIndex(
+														(x) => x.warehouseName === data?.wareHouseName,
+													)
 												]
 											}
 											getOptionLabel={(option) => option.warehouseName}

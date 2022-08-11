@@ -41,6 +41,10 @@ const MerchantOrder = () => {
 	const [cashCollection, setCashCollection] = useState();
 	const [addDeliveryCharge, setAddDeliveryCharge] = useState(true);
 	const [districts, setDistricts] = useState();
+	const [marchant, setMarchant] = useState();
+	const [receiverArea, setReceiverArea] = useState();
+
+	const email = "marchant@gmail.com";
 	useEffect(() => {
 		axios
 			.get(`${process.env.REACT_APP_API_PATH}/districts`, {
@@ -102,8 +106,22 @@ const MerchantOrder = () => {
 			.catch((error) => {
 				console.log(error);
 			});
+		axios
+			.get(`${process.env.REACT_APP_API_PATH}/merchants/${email}`, {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			})
+			.then((response) => {
+				setMarchant(response.data);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
 	}, [token]);
-
+	const senderBranch = branch?.find(
+		(b) => b.branchName === marchant?.merchantBranchName,
+	);
 	const cashCollected = parseFloat(cashCollection) || 0;
 	const codPercentage =
 		parseFloat(selectServiceAreas?.serviceAreaCODPercentage) || 0;
@@ -111,16 +129,15 @@ const MerchantOrder = () => {
 		? parseFloat(selectServiceAreas?.serviceAreaCharge)
 		: 0;
 	const weightCharge = parseFloat(selectWeight?.weightPackageRate) || 0;
-	const totalAmount = deliveryCharge + weightCharge || 0;
+	const totalAmount = deliveryCharge + weightCharge + cashCollected || 0;
 	const codAmount = totalAmount * (codPercentage / 100) || 0;
 	const total = totalAmount + codAmount || 0;
-	const duePayment = total - cashCollected || 0;
 	const onSubmit = ({
 		receiverName,
 		receiverNumber,
 		receiverBranchDistrict,
-		receiverMerchantBranchName,
-		receiverMerchantArea,
+		receiverBranchName,
+		receiverBranchArea,
 		receiverAddress,
 		productCategory,
 		productWeight,
@@ -130,27 +147,22 @@ const MerchantOrder = () => {
 		instructions,
 	}) => {
 		const data = {
-			marchentInfo: {
-				merchantAddress: "BFDC Road, Ichanagar",
-				merchantArea: "Ichanagar",
-				merchantBranchName: "Chattogram",
-				merchantBusinessAddress: "BFDC Road, Ichanagar",
-				merchantCompanyName: "Marchant Ltd",
-				merchantContact: "123456789",
-				merchantEmail: "marchant@gmail.com",
-				merchantName: "Test Marchant ",
-				merchantPassword: "1234567",
-				status: "Active",
-				_id: "62f12660d33d4407225a250b",
-			},
+			orderId:
+				senderBranch?.branchName.slice(0, 4) +
+				"-" +
+				selectedBranch?.branchName.slice(0, 4) +
+				"-" +
+				Math.floor(Math.random() * 1000000000),
+			marchentInfo: marchant,
+			senderBranchInfo: senderBranch,
 			orderDetails: { productCategory, productWeight, receiverServiceArea },
 			receiverInfo: {
 				receiverAddress,
 				receiverName,
 				receiverNumber,
 				receiverBranchDistrict,
-				receiverMerchantArea,
-				receiverMerchantBranchName,
+				receiverBranchArea,
+				receiverBranchName,
 			},
 			referenceId,
 			instructions,
@@ -160,8 +172,10 @@ const MerchantOrder = () => {
 				codAmount,
 				total,
 				cashCollection,
-				duePayment,
 			},
+			collectRiderInfo: {},
+			deliverRiderInfo: {},
+			warehouseInfo: {},
 			status: "Pending",
 		};
 		console.log(data);
@@ -289,7 +303,7 @@ const MerchantOrder = () => {
 									style={{ width: 300 }}
 									renderInput={(params) => (
 										<TextField
-											{...register("receiverMerchantBranchName", {
+											{...register("receiverBranchName", {
 												required: true,
 											})}
 											{...params}
@@ -300,6 +314,9 @@ const MerchantOrder = () => {
 									)}
 								/>
 								<Autocomplete
+									onChange={(event, newValue) => {
+										setReceiverArea(newValue);
+									}}
 									size='small'
 									sx={{ my: 0.5, width: "100% !important" }}
 									options={selectedBranch?.branchArea || []}
@@ -307,7 +324,7 @@ const MerchantOrder = () => {
 									style={{ width: 300 }}
 									renderInput={(params) => (
 										<TextField
-											{...register("receiverMerchantArea", { required: true })}
+											{...register("receiverBranchArea", { required: true })}
 											{...params}
 											label='Select Area'
 											variant='outlined'
@@ -548,7 +565,8 @@ const MerchantOrder = () => {
 												</Typography>
 											</TableCell>
 										</TableRow>
-										<TableRow>
+
+										<TableRow style={{ background: "#e9e9e9" }}>
 											<TableCell component='th' scope='row'>
 												<Typography
 													sx={{
@@ -556,7 +574,7 @@ const MerchantOrder = () => {
 														color: "gray",
 														fontSize: "15px",
 													}}>
-													Total
+													Total Amount
 												</Typography>
 											</TableCell>
 											<TableCell align='right'>
@@ -567,28 +585,6 @@ const MerchantOrder = () => {
 														fontSize: "15px",
 													}}>
 													{total} ৳
-												</Typography>
-											</TableCell>
-										</TableRow>
-										<TableRow style={{ background: "#e9e9e9" }}>
-											<TableCell component='th' scope='row'>
-												<Typography
-													sx={{
-														fontWeight: "600",
-														color: "gray",
-														fontSize: "15px",
-													}}>
-													Payable Amount
-												</Typography>
-											</TableCell>
-											<TableCell align='right'>
-												<Typography
-													sx={{
-														fontWeight: "600",
-														color: "gray",
-														fontSize: "15px",
-													}}>
-													{duePayment} ৳
 												</Typography>
 											</TableCell>
 										</TableRow>

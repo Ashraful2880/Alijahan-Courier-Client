@@ -17,9 +17,9 @@ import ReplayIcon from "@mui/icons-material/Replay";
 import DoneIcon from "@mui/icons-material/Done";
 import AddTaskIcon from "@mui/icons-material/AddTask";
 import Swal from "sweetalert2";
-import auth2 from "../../../../../FirebaseAuth/firebase.config2";
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { signOut } from "firebase/auth";
+import auth2 from "../../../../../FirebaseAuth/firebase.config2";
 const style = {
 	position: "absolute",
 	top: "50%",
@@ -38,37 +38,10 @@ const style = {
 
 const AddWarehouseUsers = ({ open, setOpen, token, setSubmitting }) => {
 	const { register, handleSubmit, reset } = useForm();
-	const [warehouses, setWarehouses] = useState();
-	const [district, setDistrict] = useState();
-
-	useEffect(() => {
-		axios
-			.get(`${process.env.REACT_APP_API_PATH}/warehouses`, {
-				headers: {
-					Authorization: `Bearer ${token}`,
-				},
-			})
-			.then((response) => {
-				setWarehouses(response.data);
-			})
-			.catch((error) => {
-				console.log(error);
-			});
-		axios
-			.get(`${process.env.REACT_APP_API_PATH}/districts`, {
-				headers: {
-					Authorization: `Bearer ${token}`,
-				},
-			})
-			.then((response) => {
-				setDistrict(response.data);
-			})
-			.catch((error) => {
-				console.log(error);
-			});
-
-	}, [token]);
-
+	const warehouses = [
+		{ id: 1, warehouseName: "District Warehouse" },
+		{ id: 2, warehouseName: "Central Warehouse" },
+	];
 	const [createUserWithEmailAndPassword, user, loading, error] =
 		useCreateUserWithEmailAndPassword(auth2);
 	if (loading) {
@@ -84,27 +57,30 @@ const AddWarehouseUsers = ({ open, setOpen, token, setSubmitting }) => {
 		});
 	}
 	const [data, setData] = useState();
-	if (user) {
-		axios
-			.post(
-				`${process.env.REACT_APP_API_PATH}/warehouseUser`,
-				{ ...data, status: "Active" },
-				{
-					headers: {
-						Authorization: `Bearer ${token}`,
+	useEffect(() => {
+		if (user) {
+			axios
+				.post(
+					`${process.env.REACT_APP_API_PATH}/warehouseUser`,
+					{ ...data, status: "Active" },
+					{
+						headers: {
+							Authorization: `Bearer ${token}`,
+						},
 					},
-				},
-			)
-			.then((response) => {
-				setSubmitting(false);
-				setOpen(false);
-				Swal.fire("", "Successfully Added!", "success");
-			})
-			.catch((error) => {
-				setSubmitting(false);
-				console.log(error);
-			});
-	}
+				)
+				.then((response) => {
+					setSubmitting(false);
+					setOpen(false);
+					Swal.fire("", "Successfully Added!", "success");
+				})
+				.catch((error) => {
+					setSubmitting(false);
+					console.log(error);
+				});
+		}
+	}, [data, setOpen, setSubmitting, token, user]);
+
 	const onSubmit = ({
 		warehouseUserName,
 		warehouseUserAddress,
@@ -126,6 +102,7 @@ const AddWarehouseUsers = ({ open, setOpen, token, setSubmitting }) => {
 		setSubmitting(true);
 		createUserWithEmailAndPassword(warehouseUserEmail, warehouseUserPassword);
 	};
+
 	return (
 		<div>
 			<Modal
@@ -191,36 +168,31 @@ const AddWarehouseUsers = ({ open, setOpen, token, setSubmitting }) => {
 							<Box sx={{ display: "flex", gap: "20px" }}>
 								<Autocomplete
 									size='small'
-									sx={{ my: 0.5, width: "100% !important" }}
+									sx={{ my: 1, width: "100% !important" }}
 									options={warehouses}
-									getOptionLabel={(option) => option.warehouseType}
+									getOptionLabel={(option) => option.warehouseName}
 									style={{ width: 300 }}
 									renderInput={(params) => (
 										<TextField
-											{...register("wareHouseType", { required: true })}
+											{...register("wareHouseName", { required: true })}
 											{...params}
-											label='Warehouse Type'
-											helperText=' Warehouse Type'
+											label='Warehouse Name'
+											helperText=' Warehouse Name'
 											variant='outlined'
 										/>
 									)}
 								/>
-								<Autocomplete
+
+								<TextField
 									size='small'
-									sx={{ my: 0.5, width: "100% !important" }}
-									options={district}
-									getOptionLabel={(option) => option.district}
-									style={{ width: 300 }}
-									renderInput={(params) => (
-										<TextField
-											{...register("warehouseDistrict", { required: true })}
-											{...params}
-											label='Warehouse District'
-											helperText='Warehouse District'
-											variant='outlined'
-										/>
-									)}
+									sx={{ my: 1 }}
+									fullWidth
+									label='Warehouse Contact'
+									helperText=' Warehouse Contact'
+									{...register("warehouseUserContact", { required: true })}
 								/>
+							</Box>
+							<Box sx={{ display: "flex", gap: "20px" }}>
 								<TextField
 									size='small'
 									sx={{ my: 0.5 }}
@@ -229,16 +201,6 @@ const AddWarehouseUsers = ({ open, setOpen, token, setSubmitting }) => {
 									helperText=' Warehouse Email'
 									{...register("warehouseUserEmail", { required: true })}
 								/>
-							</Box>
-							<Box sx={{ display: "flex", gap: "20px" }}>
-								<TextField
-									size='small'
-									sx={{ my: 0.5 }}
-									fullWidth
-									label='Warehouse Contact'
-									helperText=' Warehouse Contact'
-									{...register("warehouseUserContact", { required: true })}
-								/>
 								<TextField
 									size='small'
 									sx={{ my: 0.5 }}
@@ -246,6 +208,16 @@ const AddWarehouseUsers = ({ open, setOpen, token, setSubmitting }) => {
 									label='Warehouse Password'
 									helperText=' Warehouse Password'
 									{...register("warehouseUserPassword", { required: true })}
+								/>
+							</Box>
+							<Box sx={{ display: "flex", gap: "10px" }}>
+								<TextField
+									size='small'
+									sx={{ my: 0.5, width: "49%" }}
+									fullWidth
+									label='Warehouse Image'
+									helperText=' Warehouse Image'
+									{...register("warehouseUserImage", { required: true })}
 								/>
 							</Box>
 							<Box sx={{ mt: 2, mb: 1 }}>

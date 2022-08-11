@@ -8,6 +8,8 @@ import {
 	Select,
 	MenuItem,
 	FormHelperText,
+	Autocomplete,
+	TextField,
 } from "@mui/material";
 import React from "react";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
@@ -16,28 +18,60 @@ import Swal from "sweetalert2";
 import { useEffect } from "react";
 import { useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
-import GetAuth from "../../../../FirebaseAuth/GetAuth";
+import GetAuth from "../../../../FirebaseAuth/GetAuth.js";
 
-const BookingParcelList = () => {
+const BranchReceivedParcelList = () => {
+	const email = "branch2@gmail.com";
 	const { user, loading, token } = GetAuth();
 	const [submitting, setSubmitting] = useState(false);
 	const [data, setData] = useState();
 	const [status, setStatus] = useState("");
+	const [riders, setRiders] = useState();
+	const [branch, setBranch] = useState();
 	useEffect(() => {
 		axios
-			.get(`${process.env.REACT_APP_API_PATH}/merchantorders`, {
+			.get(`${process.env.REACT_APP_API_PATH}/branchbyemail/${email}`, {
 				headers: {
 					Authorization: `Bearer ${token}`,
 				},
 			})
+			.then((response) => {
+				setBranch(response.data);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+		axios
+			.get(
+				`${process.env.REACT_APP_API_PATH}/receiverBranchOrders/${branch?.branchName}`,
+				{
+					headers: {
+						Authorization: `Bearer ${token}`,
+					},
+				},
+			)
 			.then((response) => {
 				setData(response.data);
 			})
 			.catch((error) => {
 				console.log(error);
 			});
-	}, [token, submitting]);
-	console.log(status);
+		axios
+			.get(
+				`${process.env.REACT_APP_API_PATH}/ridersbybranch/${branch?.branchName}`,
+				{
+					headers: {
+						Authorization: `Bearer ${token}`,
+					},
+				},
+			)
+			.then((response) => {
+				setRiders(response.data);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	}, [token, submitting, branch]);
 	const changeStatus = (event, id) => {
 		Swal.fire({
 			title: "Are You Sure?",
@@ -46,6 +80,28 @@ const BookingParcelList = () => {
 		}).then((result) => {
 			if (result.isConfirmed) {
 				setSubmitting(true);
+				if (status === "Deliver To Warehouse") {
+					axios
+						.put(
+							`${process.env.REACT_APP_API_PATH}/merchantorderWarehouse/${id}`,
+							{
+								warehouseInfo: branch?.warehouseInfo,
+							},
+							{
+								headers: {
+									Authorization: `Bearer ${token}`,
+								},
+							},
+						)
+						.then((response) => {
+							setSubmitting(false);
+							Swal.fire("", "Successfully Activated!", "success");
+						})
+						.catch((error) => {
+							setSubmitting(false);
+							console.log(error);
+						});
+				}
 				axios
 					.put(
 						`${process.env.REACT_APP_API_PATH}/merchantorderStatus/${id}`,
@@ -69,6 +125,37 @@ const BookingParcelList = () => {
 			}
 		});
 	};
+	const changeRider = (event, newValue, id) => {
+		Swal.fire({
+			title: "Are You Sure?",
+			showCancelButton: true,
+			confirmButtonText: "Yes",
+		}).then((result) => {
+			if (result.isConfirmed) {
+				setSubmitting(true);
+				axios
+					.put(
+						`${process.env.REACT_APP_API_PATH}/merchantorderRiderDeviler/${id}`,
+						{
+							deliverRiderInfo: newValue,
+						},
+						{
+							headers: {
+								Authorization: `Bearer ${token}`,
+							},
+						},
+					)
+					.then((response) => {
+						setSubmitting(false);
+						Swal.fire("", "Successfully Assigned!", "success");
+					})
+					.catch((error) => {
+						setSubmitting(false);
+						console.log(error);
+					});
+			}
+		});
+	};
 	const renderDetailsButton = (params) => {
 		return (
 			<Box sx={{ display: "flex", alignItems: "center" }}>
@@ -77,7 +164,7 @@ const BookingParcelList = () => {
 						size='small'
 						value={status}
 						onChange={(event) => {
-							changeStatus(params.row?._id);
+							changeStatus(event, params.row?._id);
 							setStatus(event.target.value);
 						}}
 						displayEmpty
@@ -85,18 +172,43 @@ const BookingParcelList = () => {
 						<MenuItem value=''>
 							<em>Change Status</em>
 						</MenuItem>
-						<MenuItem value={"Pending"}>Pending</MenuItem>
-						<MenuItem value={"Accepted"}>Accepted</MenuItem>
-						<MenuItem value={"Assign for Pickup"}>Assign for Pickup</MenuItem>
-						<MenuItem value={"Picked Up"}>Picked Up</MenuItem>
-						<MenuItem value={"Assign For Deliver"}>Assign For Deliver</MenuItem>
-						<MenuItem value={"Delivered"}>Delivered</MenuItem>
-						<MenuItem value={"Hold"}>Hold</MenuItem>
-						<MenuItem value={"Re-scheduled"}>Re-scheduled</MenuItem>
-						<MenuItem value={"Canceled"}>Canceled</MenuItem>
-						<MenuItem value={"Returned"}>Returned</MenuItem>
+
+						{params.row?.status === "Delivered To Receiver Branch" && (
+							<MenuItem value={"Assigned Rider For Delivery"}>
+								Assign Rider For Delivery
+							</MenuItem>
+						)}
+						{params.row?.status === "Delivered To Branch By Rider" && (
+							<MenuItem value={"Received in Branch"}>
+								Received in Branch
+							</MenuItem>
+						)}
+						{params.row?.status === "Received in Branch" && (
+							<MenuItem value={"Delivered To Warehouse"}>
+								Deliver To Warehouse
+							</MenuItem>
+						)}
+						{params.row?.status === "Received in Warehouse" && (
+							<MenuItem value={"Successfully Send"}>Mark As Completed</MenuItem>
+						)}
 					</Select>
 				</FormControl>
+				{params.row?.status === "Assigned Rider For Delivery" && (
+					<Autocomplete
+						onChange={(event, newValue) => {
+							changeRider(event, newValue, params.row?._id);
+						}}
+						size='small'
+						sx={{ my: 0.5, width: "100% !important" }}
+						options={riders}
+						getOptionLabel={(option) => option.riderName}
+						style={{ width: 350 }}
+						renderInput={(params) => (
+							<TextField {...params} label='Select Rider' variant='outlined' />
+						)}
+					/>
+				)}
+
 				<DeleteIcon
 					className='iconBtn'
 					sx={{ color: "#df0f00!important" }}
@@ -140,15 +252,15 @@ const BookingParcelList = () => {
 			renderCell: (params) => {
 				return params.row.marchentInfo.merchantName;
 			},
-			flex: 1,
+			width: 100,
 		},
 		{
 			field: "receiverBranchArea",
 			headerName: "Pickup Address",
 			renderCell: (params) => {
-				return params.row.receiverInfo.receiverBranchArea;
+				return ` ${params.row.receiverInfo.receiverBranchArea}(${params.row.receiverInfo.receiverBranchName})`;
 			},
-			flex: 1,
+			width: 170,
 		},
 		{
 			field: "receiverAddress",
@@ -156,7 +268,7 @@ const BookingParcelList = () => {
 			renderCell: (params) => {
 				return params.row.receiverInfo.receiverAddress;
 			},
-			flex: 1,
+			width: 170,
 		},
 		{
 			field: "receiverNumber",
@@ -164,13 +276,13 @@ const BookingParcelList = () => {
 			renderCell: (params) => {
 				return params.row.receiverInfo.receiverNumber;
 			},
-			flex: 1,
+			width: 150,
 		},
-		{ field: "status", headerName: "Status", flex: 1 },
+		{ field: "status", headerName: "Status", width: 100 },
 		{
 			field: "_id",
 			headerName: "Action",
-			width: 250,
+			width: 300,
 			renderCell: renderDetailsButton,
 			disableClickEventBubbling: true,
 		},
@@ -215,4 +327,4 @@ const BookingParcelList = () => {
 	);
 };
 
-export default BookingParcelList;
+export default BranchReceivedParcelList;
