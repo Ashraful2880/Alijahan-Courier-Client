@@ -7,7 +7,6 @@ import Branches from './Component/Dashboard/AdminDashboard/Team/Branches/Branche
 import BranchUsers from './Component/Dashboard/AdminDashboard/Team/BranchUsers/BranchUsers';
 import Merchants from './Component/Dashboard/AdminDashboard/Team/Merchants/Merchants';
 import Riders from './Component/Dashboard/AdminDashboard/Team/Riders/Riders';
-import Warehouses from './Component/Dashboard/AdminDashboard/Team/Warehouses/Warehouses';
 import WarehouseUsers from './Component/Dashboard/AdminDashboard/Team/WarehouseUsers/WarehouseUsers';
 import MerchantProfile from "./Component/Dashboard/MerchantDashboard/MerchantProfile";
 import AddMerchantParcel from "./Component/Dashboard/MerchantDashboard/Parcel/AddMerchantParcel";
@@ -47,6 +46,7 @@ import MerchantDashboardHome from "./Component/Dashboard/MerchantDashboard/Merch
 import WarehouseDashboardHome from "./Component/Dashboard/WarehouseDashboard/WarehouseDashboardHome";
 import AdminParcelList from "./Component/Dashboard/AdminDashboard/Parcel/AdminParcelList";
 import MerchantParcelList from "./Component/Dashboard/MerchantDashboard/Parcel/MerchantParcelList";
+import BranchReceivedParcelList from './Component/Dashboard/BranchDashboard/Parcel/BranchReceivedParcelList';
 
 function App() {
 	return (
@@ -60,7 +60,6 @@ function App() {
 							<Route path='/branchusers' element={<BranchUsers />} />
 							<Route path='/merchants' element={<Merchants />} />
 							<Route path='/riders' element={<Riders />} />
-							<Route path='/warehouses' element={<Warehouses />} />
 							<Route path='/warehouseusers' element={<WarehouseUsers />} />
 							<Route path='/parcelList' element={<AdminParcelList />} />
 							<Route path='/officeToOffice' element={<OfficeToOffice />} />
@@ -98,6 +97,10 @@ function App() {
 							<Route
 								path='/branchDashboard/parcelList'
 								element={<BranchParcelList />}
+							/>
+							<Route
+								path='/branchDashboard/receivedParcelList'
+								element={<BranchReceivedParcelList />}
 							/>
 							{/* Merchant Dashboard Code Here */}
 							<Route

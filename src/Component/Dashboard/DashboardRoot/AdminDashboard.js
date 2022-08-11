@@ -145,18 +145,6 @@ const AdminDashboard = () => {
 								<ListItemText primary={"Rider"} />
 							</ListItem>
 						</Link>
-						<Link className='link' to='warehouses'>
-							<ListItem
-								button
-								className={
-									location?.pathname === "/warehouses" && "activeButton"
-								}>
-								<ListItemIcon className='listItemIcon'>
-									<AddBusinessIcon />
-								</ListItemIcon>
-								<ListItemText primary={"Warehouse"} />
-							</ListItem>
-						</Link>
 						<Link className='link' to='warehouseusers'>
 							<ListItem
 								button
