@@ -11,7 +11,7 @@ import GroupIcon from "@mui/icons-material/Group";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 import LocalMallIcon from "@mui/icons-material/LocalMall";
 import BluetoothDriveIcon from "@mui/icons-material/BluetoothDrive";
-import AddBusinessIcon from "@mui/icons-material/AddBusiness";
+import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import SupervisedUserCircleIcon from "@mui/icons-material/SupervisedUserCircle";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import FormatListNumberedIcon from "@mui/icons-material/FormatListNumbered";
@@ -30,6 +30,7 @@ import InstallDesktopIcon from "@mui/icons-material/InstallDesktop";
 import NoteAddIcon from "@mui/icons-material/NoteAdd";
 import PlaylistAddCheckIcon from "@mui/icons-material/PlaylistAddCheck";
 import ManageHistoryIcon from "@mui/icons-material/ManageHistory";
+import CreditScoreIcon from "@mui/icons-material/CreditScore";
 import { styled } from "@mui/material/styles";
 import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
 import MuiAccordion from "@mui/material/Accordion";
@@ -88,6 +89,33 @@ const AdminDashboard = () => {
 					<ListItemText primary={"Home"} />
 				</ListItem>
 			</Link>
+			<Accordion
+				expanded={expanded === "panel8"}
+				onChange={handleChange("panel8")}>
+				<AccordionSummary aria-controls='panel8d-content' id='panel8d-header'>
+					<ListItemIcon className='listItemIcon'>
+						<ManageAccountsIcon />
+					</ListItemIcon>
+					<Typography>Account</Typography>
+				</AccordionSummary>
+				<AccordionDetails>
+					<List>
+						<Link className='link' to='/deliveryPaymentList'>
+							<ListItem
+								button
+								className={
+									location?.pathname === "/deliveryPaymentList" &&
+									"activeButton"
+								}>
+								<ListItemIcon className='listItemIcon'>
+									<CreditScoreIcon />
+								</ListItemIcon>
+								<ListItemText primary={"Delivery Payment List"} />
+							</ListItem>
+						</Link>
+					</List>
+				</AccordionDetails>
+			</Accordion>
 			<Accordion
 				expanded={expanded === "panel1"}
 				onChange={handleChange("panel1")}>
