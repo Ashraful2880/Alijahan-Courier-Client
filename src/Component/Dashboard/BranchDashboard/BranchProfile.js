@@ -17,7 +17,37 @@ const BranchProfile = () => {
                     Profile
                 </Typography>
             </Box>
-            {/* Others Code Start From Here */}
+            <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <Box sx={{ width: "40%" }}>
+                    <Typography variant='p' sx={{ fontSize: "19px", fontWeight: "bold" }}>
+                        Branch Information
+                    </Typography>
+                    <Box sx={{ display: "flex", justifyContent: "space-evenly", mt: 2, background: "#fff", py: 5, borderRadius: 1, boxShadow: "0px 0px 5px gray" }}>
+                        <Box sx={{ textAlign: "left" }}>
+                            <Typography sx={{ my: 1 }} varient="p">
+                                Name
+                            </Typography>
+                            <Typography sx={{ my: 1 }} varient="p">
+                                Contact
+                            </Typography>
+                            <Typography sx={{ my: 1 }} varient="p">
+                                Address
+                            </Typography>
+                        </Box>
+                        <Box sx={{ textAlign: "left" }}>
+                            <Typography sx={{ my: 1 }} varient="p">
+                                Dhaka Tejgoan Branch
+                            </Typography>
+                            <Typography sx={{ my: 1 }} varient="p">
+                                01813158551
+                            </Typography>
+                            <Typography sx={{ my: 1 }} varient="p">
+                                Dhaka, Panthapath
+                            </Typography>
+                        </Box>
+                    </Box>
+                </Box>
+            </Box>
         </Box>
     );
 };
