@@ -1,0 +1,404 @@
+import {
+	CircularProgress,
+	Grid,
+	Backdrop,
+	Typography,
+	Box,
+	FormControl,
+	Select,
+	MenuItem,
+	FormHelperText,
+	Autocomplete,
+	TextField,
+	Button,
+} from "@mui/material";
+import React from "react";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import axios from "axios";
+import Swal from "sweetalert2";
+import { useEffect } from "react";
+import { useState } from "react";
+import DeleteIcon from "@mui/icons-material/Delete";
+import GetAuth from "../../../../FirebaseAuth/GetAuth.js";
+import PaymentsIcon from "@mui/icons-material/Payments";
+
+const BranchReceivedParcelList = () => {
+	const email = "branch@gmail.com";
+	const { user, loading, token } = GetAuth();
+	const [submitting, setSubmitting] = useState(false);
+	const [data, setData] = useState();
+	const [status, setStatus] = useState("");
+	const [riders, setRiders] = useState();
+	const [branch, setBranch] = useState();
+	useEffect(() => {
+		axios
+			.get(`${process.env.REACT_APP_API_PATH}/branchbyemail/${email}`, {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			})
+			.then((response) => {
+				setBranch(response.data);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+		axios
+			.get(
+				`${process.env.REACT_APP_API_PATH}/receiverBranchOrders/${branch?.branchName}`,
+				{
+					headers: {
+						Authorization: `Bearer ${token}`,
+					},
+				},
+			)
+			.then((response) => {
+				setData(response.data);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+		axios
+			.get(
+				`${process.env.REACT_APP_API_PATH}/ridersbybranch/${branch?.branchName}`,
+				{
+					headers: {
+						Authorization: `Bearer ${token}`,
+					},
+				},
+			)
+			.then((response) => {
+				setRiders(response.data);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	}, [token, submitting, branch]);
+	const changeStatus = (event, id) => {
+		Swal.fire({
+			title: "Are You Sure?",
+			showCancelButton: true,
+			confirmButtonText: "Yes",
+		}).then((result) => {
+			if (result.isConfirmed) {
+				setSubmitting(true);
+				if (status === "Deliver To Warehouse") {
+					axios
+						.put(
+							`${process.env.REACT_APP_API_PATH}/merchantorderWarehouse/${id}`,
+							{
+								warehouseInfo: branch?.warehouseInfo,
+							},
+							{
+								headers: {
+									Authorization: `Bearer ${token}`,
+								},
+							},
+						)
+						.then((response) => {
+							setSubmitting(false);
+							Swal.fire("", "Successfully Activated!", "success");
+						})
+						.catch((error) => {
+							setSubmitting(false);
+							console.log(error);
+						});
+				}
+				axios
+					.put(
+						`${process.env.REACT_APP_API_PATH}/merchantorderStatus/${id}`,
+						{
+							status: event.target.value,
+						},
+						{
+							headers: {
+								Authorization: `Bearer ${token}`,
+							},
+						},
+					)
+					.then((response) => {
+						setSubmitting(false);
+						Swal.fire("", "Successfully Activated!", "success");
+					})
+					.catch((error) => {
+						setSubmitting(false);
+						console.log(error);
+					});
+			}
+		});
+	};
+	const changeRider = (event, newValue, id) => {
+		Swal.fire({
+			title: "Are You Sure?",
+			showCancelButton: true,
+			confirmButtonText: "Yes",
+		}).then((result) => {
+			if (result.isConfirmed) {
+				setSubmitting(true);
+				axios
+					.put(
+						`${process.env.REACT_APP_API_PATH}/merchantorderRiderDeviler/${id}`,
+						{
+							deliverRiderInfo: newValue,
+						},
+						{
+							headers: {
+								Authorization: `Bearer ${token}`,
+							},
+						},
+					)
+					.then((response) => {
+						setSubmitting(false);
+						Swal.fire("", "Successfully Assigned!", "success");
+					})
+					.catch((error) => {
+						setSubmitting(false);
+						console.log(error);
+					});
+			}
+		});
+	};
+	const receiveAndSendMoney = (id, money, text) => {
+		Swal.fire({
+			title: "Are you sure?",
+			showCancelButton: true,
+			confirmButtonText: "Yes",
+		}).then((result) => {
+			if (result.isConfirmed) {
+				setSubmitting(true);
+				axios
+					.put(
+						`${process.env.REACT_APP_API_PATH}/merchantorderPaymentCollectionStatus/${id}`,
+						{
+							collectionStatus: text,
+							collectionDate: new Date().toLocaleString("en-US", {
+								timeZone: "Asia/Dhaka",
+							}),
+							collectedAmount: money,
+						},
+						{
+							headers: {
+								Authorization: `Bearer ${token}`,
+							},
+						},
+					)
+					.then((response) => {
+						setSubmitting(false);
+						Swal.fire("", "Successfully Done!", "success");
+					})
+					.catch((error) => {
+						setSubmitting(false);
+						console.log(error);
+					});
+			}
+		});
+	};
+	const renderDetailsButton = (params) => {
+		return (
+			<Box sx={{ display: "flex", alignItems: "center" }}>
+				{params.row?.status === "Delivered To Customer By Rider" &&
+					params.row?.paymentCollectionDetails?.collectionStatus ===
+						"Sending Money To Branch" && (
+						<Button
+							onClick={() =>
+								receiveAndSendMoney(
+									params.row?._id,
+									params.row?.orderSummaray?.total,
+									"Money Received In Branch",
+								)
+							}
+							sx={{
+								my: 1,
+								px: 3,
+								fontWeight: "bold",
+								borderRadius: "25px",
+								border: "2px solid ",
+							}}>
+							<PaymentsIcon sx={{ mr: 0.5 }} />
+							Receive {params.row?.orderSummaray?.total} ৳ from Rider
+						</Button>
+					)}
+				{params.row?.status === "Delivered To Customer By Rider" &&
+					params.row?.paymentCollectionDetails?.collectionStatus ===
+						"Money Received In Branch" && (
+						<Button
+							onClick={() =>
+								receiveAndSendMoney(
+									params.row?._id,
+									params.row?.orderSummaray?.total,
+									"Sending Money To Merchant",
+								)
+							}
+							sx={{
+								my: 1,
+								px: 3,
+								fontWeight: "bold",
+								borderRadius: "25px",
+								border: "2px solid ",
+							}}>
+							<PaymentsIcon sx={{ mr: 0.5 }} />
+							Send {params.row?.orderSummaray?.total} ৳ to Merchant
+						</Button>
+					)}
+				<FormControl sx={{ m: 1, minWidth: 120 }}>
+					<Select
+						size='small'
+						value={status}
+						onChange={(event) => {
+							changeStatus(event, params.row?._id);
+							setStatus(event.target.value);
+						}}
+						displayEmpty
+						inputProps={{ "aria-label": "Without label" }}>
+						{params.row?.status === "Delivered To Receiver Branch" && (
+							<MenuItem value={"Assigned Rider For Delivery"}>
+								Assign Rider For Delivery
+							</MenuItem>
+						)}
+						{params.row?.status === "Delivered To Branch By Rider" && (
+							<MenuItem value={"Received in Branch"}>
+								Received in Branch
+							</MenuItem>
+						)}
+						{params.row?.status === "Received in Branch" && (
+							<MenuItem value={"Delivered To Warehouse"}>
+								Deliver To Warehouse
+							</MenuItem>
+						)}
+					</Select>
+				</FormControl>
+				{params.row?.status === "Assigned Rider For Delivery" && (
+					<Autocomplete
+						onChange={(event, newValue) => {
+							changeRider(event, newValue, params.row?._id);
+						}}
+						size='small'
+						sx={{ my: 0.5, width: "100% !important" }}
+						options={riders}
+						getOptionLabel={(option) => option.riderName}
+						style={{ width: 350 }}
+						renderInput={(params) => (
+							<TextField {...params} label='Select Rider' variant='outlined' />
+						)}
+					/>
+				)}
+
+				<DeleteIcon
+					className='iconBtn'
+					sx={{ color: "#df0f00!important" }}
+					onClick={() => {
+						Swal.fire({
+							title: "Do you want to Delete this?",
+							showCancelButton: true,
+							confirmButtonText: "Yes",
+						}).then((result) => {
+							if (result.isConfirmed) {
+								setSubmitting(true);
+								axios
+									.delete(
+										`${process.env.REACT_APP_API_PATH}/merchantorder/${params.row?._id}`,
+										{
+											headers: {
+												Authorization: `Bearer ${token}`,
+											},
+										},
+									)
+									.then((response) => {
+										setSubmitting(false);
+										Swal.fire("", "Successfully Deleted!", "success");
+									})
+									.catch((error) => {
+										setSubmitting(false);
+										console.log(error);
+									});
+							}
+						});
+					}}
+				/>
+			</Box>
+		);
+	};
+
+	const columns = [
+		{
+			field: "merchantName",
+			headerName: "Marchant Name",
+			renderCell: (params) => {
+				return params.row.marchentInfo.merchantName;
+			},
+			width: 100,
+		},
+		{
+			field: "receiverBranchArea",
+			headerName: "Pickup Address",
+			renderCell: (params) => {
+				return ` ${params.row.receiverInfo.receiverBranchArea}(${params.row.receiverInfo.receiverBranchName})`;
+			},
+			width: 170,
+		},
+		{
+			field: "receiverAddress",
+			headerName: "Full Address",
+			renderCell: (params) => {
+				return params.row.receiverInfo.receiverAddress;
+			},
+			width: 170,
+		},
+		{
+			field: "receiverNumber",
+			headerName: "Phone Number",
+			renderCell: (params) => {
+				return params.row.receiverInfo.receiverNumber;
+			},
+			width: 150,
+		},
+		{ field: "status", headerName: "Status", width: 200 },
+		{
+			field: "_id",
+			headerName: "Action",
+			width: 300,
+			renderCell: renderDetailsButton,
+			disableClickEventBubbling: true,
+		},
+	];
+	return (
+		<Box sx={{ mx: 4, pt: 2, pb: 5 }}>
+			<Box
+				sx={{
+					px: 2.5,
+					pb: 1,
+					display: "flex",
+					alignItems: "center",
+					justifyContent: "space-between",
+				}}>
+				<Typography variant='h5' sx={{ fontWeight: "bold", color: "#1E793C" }}>
+					All Parcel List
+				</Typography>
+			</Box>
+			<Grid container spacing={1} sx={{ justifyContent: "center", px: 2 }}>
+				<Grid item xs={12} md={12}>
+					{data && (
+						<div style={{ height: 400, width: "100%" }} className='table'>
+							<DataGrid
+								rows={data}
+								getRowId={(row) => row?._id}
+								columns={columns}
+								pageSize={5}
+								rowsPerPageOptions={[5]}
+								checkboxSelection
+								components={{ Toolbar: GridToolbar }}
+							/>
+						</div>
+					)}
+				</Grid>
+			</Grid>
+			<Backdrop
+				sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 999 }}
+				open={submitting || !data}>
+				<CircularProgress color='inherit' />
+			</Backdrop>
+		</Box>
+	);
+};
+
+export default BranchReceivedParcelList;

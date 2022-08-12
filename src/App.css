@@ -141,7 +141,6 @@ input[type="number"] {
 
 .button {
 	background-color: var(--color1) !important;
-	color: transparent !important;
 	color: white !important;
 }
 

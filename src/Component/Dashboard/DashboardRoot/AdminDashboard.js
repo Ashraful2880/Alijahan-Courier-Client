@@ -154,7 +154,7 @@ const AdminDashboard = () => {
 								<ListItemIcon className='listItemIcon'>
 									<SupervisedUserCircleIcon />
 								</ListItemIcon>
-								<ListItemText primary={"Warehouses"} />
+								<ListItemText primary={"Warehouse User"} />
 							</ListItem>
 						</Link>
 					</List>
@@ -399,16 +399,16 @@ const AdminDashboard = () => {
 				</AccordionSummary>
 				<AccordionDetails>
 					<List>
-						<Link className='link' to='allusers'>
+						<Link className='link' to='adminUser'>
 							<ListItem
 								button
 								className={
-									location?.pathname === "/allusers" && "activeButton"
+									location?.pathname === "/adminUser" && "activeButton"
 								}>
 								<ListItemIcon className='listItemIcon'>
 									<AdminPanelSettingsIcon />
 								</ListItemIcon>
-								<ListItemText primary={"All Users"} />
+								<ListItemText primary={"Admin User"} />
 							</ListItem>
 						</Link>
 						<Link className='link' to='application'>
