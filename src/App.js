@@ -10,13 +10,10 @@ import Riders from "./Component/Dashboard/AdminDashboard/Team/Riders/Riders";
 import WarehouseUsers from "./Component/Dashboard/AdminDashboard/Team/WarehouseUsers/WarehouseUsers";
 import MerchantProfile from "./Component/Dashboard/MerchantDashboard/MerchantProfile";
 import AddMerchantParcel from "./Component/Dashboard/MerchantDashboard/Parcel/AddMerchantParcel";
-import ServiceAreaSetting from "./Component/Dashboard/AdminDashboard/ApplicationSetting/ServiceAreaSetting";
 import District from "./Component/Dashboard/AdminDashboard/ApplicationSetting/District";
-import Thana from "./Component/Dashboard/AdminDashboard/ApplicationSetting/Thana";
 import ServiceCharge from "./Component/Dashboard/MerchantDashboard/ServiceCharge";
 import CoverageArea from "./Component/Dashboard/MerchantDashboard/CoverageArea";
 import OrderTracking from "./Component/Dashboard/MerchantDashboard/OrderTracking";
-import DeliveryParcelList from "./Component/Dashboard/MerchantDashboard/Account/DeliveryParcelList";
 import DeliveryPaymentList from "./Component/Dashboard/MerchantDashboard/Account/DeliveryPaymentList";
 import Area from "./Component/Dashboard/AdminDashboard/ApplicationSetting/Area";
 import Unit from "./Component/Dashboard/AdminDashboard/TraditionalParcelSetting/Unit";
@@ -29,11 +26,8 @@ import ServiceArea from "./Component/Dashboard/AdminDashboard/ApplicationSetting
 import BookingParcelList from "./Component/Dashboard/AdminDashboard/ManageOrderBooking/BookingParcelList";
 import Vehicles from "./Component/Dashboard/AdminDashboard/TraditionalParcelSetting/Vehicles/Vehicles";
 import ItemCategory from "./Component/Dashboard/AdminDashboard/TraditionalParcelSetting/ItemCategory/ItemCategory";
-import Application from "./Component/Dashboard/AdminDashboard/Setting/Application";
 import RidersParcelList from "./Component/Dashboard/RiderDashboard/Parcel/RidersParcelList";
-import AddRidersParcel from "./Component/Dashboard/RiderDashboard/Parcel/AddRidersParcel";
 import WarehouseParcelList from "./Component/Dashboard/WarehouseDashboard/Parcel/WarehouseParcelList";
-import AddWarehouseParcel from "./Component/Dashboard/WarehouseDashboard/Parcel/AddWarehouseParcel";
 import WarehouseProfile from "./Component/Dashboard/WarehouseDashboard/WarehouseProfile";
 import BranchHome from "./Component/Dashboard/BranchDashboard/BranchHome";
 import BranchProfile from "./Component/Dashboard/BranchDashboard/BranchProfile";
@@ -70,12 +64,8 @@ function App() {
 							<Route path='/createMerchantOrder' element={<MerchantOrder />} />
 							<Route path='/weightPackage' element={<WeightPackage />} />
 							<Route path='/serviceArea' element={<ServiceArea />} />
-							<Route
-								path='/serviceAreaSetting'
-								element={<ServiceAreaSetting />}
-							/>
+
 							<Route path='/district' element={<District />} />
-							<Route path='/upazila' element={<Thana />} />
 							<Route path='/area' element={<Area />} />
 							<Route
 								path='/bookingParcelList'
@@ -85,8 +75,7 @@ function App() {
 							<Route path='/itemCategory' element={<ItemCategory />} />
 							<Route path='/unit' element={<Unit />} />
 							<Route path='/item' element={<Item />} />
-							<Route path='/adminUser' element={<AllUsers />} />
-							<Route path='/application' element={<Application />} />
+							<Route path='/allUsers' element={<AllUsers />} />
 							{/* Branch Dashboard Code Here */}
 							<Route path='/branchDashboard' element={<BranchHome />} />
 							<Route
@@ -127,10 +116,6 @@ function App() {
 								element={<DeliveryPaymentList />}
 							/>
 							<Route
-								path='/merchantDashboard/deliveryParcelList'
-								element={<DeliveryParcelList />}
-							/>
-							<Route
 								path='/merchantDashboard/orderTracking'
 								element={<OrderTracking />}
 							/>
@@ -152,10 +137,6 @@ function App() {
 								element={<WarehouseProfile />}
 							/>
 							<Route
-								path='/warehouseDashboard/AddParcel'
-								element={<AddWarehouseParcel />}
-							/>
-							<Route
 								path='/warehouseDashboard/parcelList'
 								element={<WarehouseParcelList />}
 							/>
@@ -164,10 +145,6 @@ function App() {
 							<Route
 								path='/ridersDashboard/profile'
 								element={<RidersProfile />}
-							/>
-							<Route
-								path='/ridersDashboard/AddParcel'
-								element={<AddRidersParcel />}
 							/>
 							<Route
 								path='/ridersDashboard/parcelList'

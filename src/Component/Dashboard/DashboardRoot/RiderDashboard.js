@@ -90,19 +90,6 @@ const RiderDashboard = () => {
 				</AccordionSummary>
 				<AccordionDetails>
 					<List>
-						<Link className='link' to='ridersDashboard/addParcel'>
-							<ListItem
-								button
-								className={
-									location?.pathname === "ridersDashboard/addParcel" &&
-									"activeButton"
-								}>
-								<ListItemIcon className='listItemIcon'>
-									<AddTaskIcon />
-								</ListItemIcon>
-								<ListItemText primary={"Add Parcel"} />
-							</ListItem>
-						</Link>
 						<Link className='link' to='ridersDashboard/parcelList'>
 							<ListItem
 								button
