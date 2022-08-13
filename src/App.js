@@ -4,7 +4,6 @@ import Login from "./Component/Login/Login";
 import { APIContextProvider } from "./ApiContext";
 import Dashboard from "./Component/Dashboard/DashboardRoot/Dashboard";
 import Branches from "./Component/Dashboard/AdminDashboard/Team/Branches/Branches";
-import BranchUsers from "./Component/Dashboard/AdminDashboard/Team/BranchUsers/BranchUsers";
 import Merchants from "./Component/Dashboard/AdminDashboard/Team/Merchants/Merchants";
 import Riders from "./Component/Dashboard/AdminDashboard/Team/Riders/Riders";
 import WarehouseUsers from "./Component/Dashboard/AdminDashboard/Team/WarehouseUsers/WarehouseUsers";
@@ -54,7 +53,6 @@ function App() {
 						<Route path='/' element={<Dashboard />}>
 							<Route path='/branches' element={<Branches />} />
 							<Route path='/deliveryPaymentList' element={<Accounts />} />
-							<Route path='/branchusers' element={<BranchUsers />} />
 							<Route path='/merchants' element={<Merchants />} />
 							<Route path='/riders' element={<Riders />} />
 							<Route path='/warehouseusers' element={<WarehouseUsers />} />
