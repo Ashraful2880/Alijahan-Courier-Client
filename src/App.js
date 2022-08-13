@@ -47,6 +47,7 @@ import AdminParcelList from "./Component/Dashboard/AdminDashboard/Parcel/AdminPa
 import MerchantParcelList from "./Component/Dashboard/MerchantDashboard/Parcel/MerchantParcelList";
 import BranchReceivedParcelList from './Component/Dashboard/BranchDashboard/Parcel/BranchReceivedParcelList';
 import AllUsers from "./Component/Dashboard/AdminDashboard/Setting/Allusers";
+import AdminDeliveryPaymentList from './Component/Dashboard/AdminDashboard/Account/AdminDeliveryPaymentList';
 
 function App() {
 	return (
@@ -57,6 +58,7 @@ function App() {
 						<Route path='/login' element={<Login />} />
 						<Route path='/' element={<Dashboard />}>
 							<Route path='/branches' element={<Branches />} />
+							<Route path='/deliveryPaymentList' element={<AdminDeliveryPaymentList />} />
 							<Route path='/branchusers' element={<BranchUsers />} />
 							<Route path='/merchants' element={<Merchants />} />
 							<Route path='/riders' element={<Riders />} />
