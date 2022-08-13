@@ -23,7 +23,7 @@ import GetAuth from "../../../../FirebaseAuth/GetAuth.js";
 import PaymentsIcon from "@mui/icons-material/Payments";
 
 const BranchReceivedParcelList = () => {
-	const email = "branch@gmail.com";
+	const email = "branch2@gmail.com";
 	const { user, loading, token } = GetAuth();
 	const [submitting, setSubmitting] = useState(false);
 	const [data, setData] = useState();
@@ -82,28 +82,6 @@ const BranchReceivedParcelList = () => {
 		}).then((result) => {
 			if (result.isConfirmed) {
 				setSubmitting(true);
-				if (status === "Deliver To Warehouse") {
-					axios
-						.put(
-							`${process.env.REACT_APP_API_PATH}/merchantorderWarehouse/${id}`,
-							{
-								warehouseInfo: branch?.warehouseInfo,
-							},
-							{
-								headers: {
-									Authorization: `Bearer ${token}`,
-								},
-							},
-						)
-						.then((response) => {
-							setSubmitting(false);
-							Swal.fire("", "Successfully Activated!", "success");
-						})
-						.catch((error) => {
-							setSubmitting(false);
-							console.log(error);
-						});
-				}
 				axios
 					.put(
 						`${process.env.REACT_APP_API_PATH}/merchantorderStatus/${id}`,
@@ -140,6 +118,7 @@ const BranchReceivedParcelList = () => {
 						`${process.env.REACT_APP_API_PATH}/merchantorderRiderDeviler/${id}`,
 						{
 							deliverRiderInfo: newValue,
+							status: "Assigned Rider For Delivery",
 						},
 						{
 							headers: {
@@ -158,7 +137,7 @@ const BranchReceivedParcelList = () => {
 			}
 		});
 	};
-	const receiveAndSendMoney = (id, money, text) => {
+	const receiveAndSendMoney = (id, paymentCollectionDetails, text) => {
 		Swal.fire({
 			title: "Are you sure?",
 			showCancelButton: true,
@@ -168,14 +147,18 @@ const BranchReceivedParcelList = () => {
 				setSubmitting(true);
 				if (text === "Money Received In Branch") {
 					axios
-						.patch(
-							`${process.env.REACT_APP_API_PATH}/merchantorderPaymentCollectionStatus/${id}`,
+						.put(
+							`${process.env.REACT_APP_API_PATH}/merchantorderPaymentCollection/${id}`,
 							{
 								collectionStatus: text,
-								moneyReceivedInBranch: new Date().toLocaleString("en-US", {
+								moneyReceivedInBranchDate: new Date().toLocaleString("en-US", {
 									timeZone: "Asia/Dhaka",
 								}),
-								collectedAmount: money,
+								branchMoneyStatus: "Received",
+								collectedFromCustomerDate:
+									paymentCollectionDetails?.collectedFromCustomerDate,
+								riderMoneyStatus: paymentCollectionDetails?.riderMoneyStatus,
+								collectedAmount: paymentCollectionDetails?.collectedAmount,
 							},
 							{
 								headers: {
@@ -194,10 +177,17 @@ const BranchReceivedParcelList = () => {
 				}
 				if (text === "Sending Money To Accounts") {
 					axios
-						.patch(
-							`${process.env.REACT_APP_API_PATH}/merchantorderPaymentCollectionStatus/${id}`,
+						.put(
+							`${process.env.REACT_APP_API_PATH}/merchantorderPaymentCollection/${id}`,
 							{
 								collectionStatus: text,
+								moneyReceivedInBranchDate:
+									paymentCollectionDetails?.moneyReceivedInBranchDate,
+								branchMoneyStatus: paymentCollectionDetails?.branchMoneyStatus,
+								collectedFromCustomerDate:
+									paymentCollectionDetails?.collectedFromCustomerDate,
+								riderMoneyStatus: paymentCollectionDetails?.riderMoneyStatus,
+								collectedAmount: paymentCollectionDetails?.collectedAmount,
 							},
 							{
 								headers: {
@@ -220,6 +210,27 @@ const BranchReceivedParcelList = () => {
 	const renderDetailsButton = (params) => {
 		return (
 			<Box sx={{ display: "flex", alignItems: "center" }}>
+				{(params.row?.status === "Assigned Rider For Delivery" &&
+					!params.row?.deliverRiderInfo?.riderName) ||
+					(params.row?.status === "Cancelled By Delivery Rider" && (
+						<Autocomplete
+							onChange={(event, newValue) => {
+								changeRider(event, newValue, params.row?._id);
+							}}
+							size='small'
+							sx={{ my: 0.5 }}
+							options={riders}
+							getOptionLabel={(option) => option.riderName}
+							style={{ width: 150 }}
+							renderInput={(params) => (
+								<TextField
+									{...params}
+									label='Select Rider'
+									variant='outlined'
+								/>
+							)}
+						/>
+					))}
 				{params.row?.status === "Delivered To Customer By Rider" &&
 					params.row?.paymentCollectionDetails?.collectionStatus ===
 						"Sending Money To Branch" && (
@@ -227,7 +238,7 @@ const BranchReceivedParcelList = () => {
 							onClick={() =>
 								receiveAndSendMoney(
 									params.row?._id,
-									params.row?.orderSummaray?.total,
+									params.row?.paymentCollectionDetails,
 									"Money Received In Branch",
 								)
 							}
@@ -239,7 +250,8 @@ const BranchReceivedParcelList = () => {
 								border: "2px solid ",
 							}}>
 							<PaymentsIcon sx={{ mr: 0.5 }} />
-							Receive {params.row?.orderSummaray?.total} ৳ from Rider
+							Receive {params.row?.paymentCollectionDetails?.collectedAmount} ৳
+							from Rider
 						</Button>
 					)}
 				{params.row?.status === "Delivered To Customer By Rider" &&
@@ -249,7 +261,7 @@ const BranchReceivedParcelList = () => {
 							onClick={() =>
 								receiveAndSendMoney(
 									params.row?._id,
-									params.row?.orderSummaray?.total,
+									params.row?.paymentCollectionDetails,
 									"Sending Money To Accounts",
 								)
 							}
@@ -261,7 +273,8 @@ const BranchReceivedParcelList = () => {
 								border: "2px solid ",
 							}}>
 							<PaymentsIcon sx={{ mr: 0.5 }} />
-							Send {params.row?.orderSummaray?.total} ৳ to Accounts
+							Send {params.row?.paymentCollectionDetails?.collectedAmount} ৳ to
+							Accounts
 						</Button>
 					)}
 				<FormControl sx={{ m: 1, minWidth: 120 }}>
@@ -284,28 +297,8 @@ const BranchReceivedParcelList = () => {
 								Received in Branch
 							</MenuItem>
 						)}
-						{params.row?.status === "Received in Branch" && (
-							<MenuItem value={"Delivered To Warehouse"}>
-								Deliver To Warehouse
-							</MenuItem>
-						)}
 					</Select>
 				</FormControl>
-				{params.row?.status === "Assigned Rider For Delivery" && (
-					<Autocomplete
-						onChange={(event, newValue) => {
-							changeRider(event, newValue, params.row?._id);
-						}}
-						size='small'
-						sx={{ my: 0.5, width: "100% !important" }}
-						options={riders}
-						getOptionLabel={(option) => option.riderName}
-						style={{ width: 350 }}
-						renderInput={(params) => (
-							<TextField {...params} label='Select Rider' variant='outlined' />
-						)}
-					/>
-				)}
 
 				<DeleteIcon
 					className='iconBtn'

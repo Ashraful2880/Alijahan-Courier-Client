@@ -19,7 +19,7 @@ import GetAuth from "../../../../FirebaseAuth/GetAuth";
 import PaymentsIcon from "@mui/icons-material/Payments";
 
 const RidersParcelList = () => {
-	const email = "rider@gmail.com";
+	const email = "rider2@gmail.com";
 	const { user, loading, token } = GetAuth();
 	const [submitting, setSubmitting] = useState(false);
 	const [data, setData] = useState();
@@ -78,11 +78,12 @@ const RidersParcelList = () => {
 			if (result.isConfirmed) {
 				setSubmitting(true);
 				axios
-					.patch(
-						`${process.env.REACT_APP_API_PATH}/merchantorderPaymentCollectionStatus/${id}`,
+					.put(
+						`${process.env.REACT_APP_API_PATH}/merchantorderPaymentCollection/${id}`,
 						{
 							collectionStatus: "Collected From Customer",
-							collectedByRiderDate: new Date().toLocaleString("en-US", {
+							riderMoneyStatus: "Received",
+							collectedFromCustomerDate: new Date().toLocaleString("en-US", {
 								timeZone: "Asia/Dhaka",
 							}),
 							collectedAmount: money,
@@ -104,7 +105,7 @@ const RidersParcelList = () => {
 			}
 		});
 	};
-	const sendMoneyToBranch = (id, money) => {
+	const sendMoneyToBranch = (id, paymentCollectionDetails) => {
 		Swal.fire({
 			title: "Are you sure?",
 			showCancelButton: true,
@@ -113,9 +114,13 @@ const RidersParcelList = () => {
 			if (result.isConfirmed) {
 				setSubmitting(true);
 				axios
-					.patch(
-						`${process.env.REACT_APP_API_PATH}/merchantorderPaymentCollectionStatus/${id}`,
+					.put(
+						`${process.env.REACT_APP_API_PATH}/merchantorderPaymentCollection/${id}`,
 						{
+							collectedFromCustomerDate:
+								paymentCollectionDetails?.collectedFromCustomerDate,
+							riderMoneyStatus: paymentCollectionDetails?.riderMoneyStatus,
+							collectedAmount: paymentCollectionDetails?.collectedAmount,
 							collectionStatus: "Sending Money To Branch",
 						},
 						{
@@ -146,7 +151,7 @@ const RidersParcelList = () => {
 							onClick={() =>
 								sendMoneyToBranch(
 									params.row?._id,
-									params.row?.orderSummaray?.totalAmountWithCharges,
+									params.row?.paymentCollectionDetails,
 								)
 							}
 							sx={{
@@ -193,6 +198,12 @@ const RidersParcelList = () => {
 						displayEmpty
 						inputProps={{ "aria-label": "Without label" }}>
 						{params.row?.status === "Assigned Rider For Delivery" && (
+							<MenuItem value={"Accepted By Delivery Rider"}>Accept</MenuItem>
+						)}
+						{params.row?.status === "Assigned Rider For Delivery" && (
+							<MenuItem value={"Cancelled By Delivery Rider"}>Cancel</MenuItem>
+						)}
+						{params.row?.status === "Accepted By Delivery Rider" && (
 							<MenuItem value={"Parcel Received By Delivery Rider"}>
 								Parcel Received
 							</MenuItem>
@@ -203,13 +214,19 @@ const RidersParcelList = () => {
 							</MenuItem>
 						)}
 						{params.row?.status === "Assigned for Pickup" && (
-							<MenuItem value={"Parcel Received By Rider"}>
-								Parcel Received
+							<MenuItem value={"Cancelled by Pickup Rider"}>Cancel</MenuItem>
+						)}
+						{params.row?.status === "Assigned for Pickup" && (
+							<MenuItem value={"Accepted by Pickup Rider"}>Accept</MenuItem>
+						)}
+						{params.row?.status === "Accepted by Pickup Rider" && (
+							<MenuItem value={"Parcel Received By Pickup Rider"}>
+								Parcel Received From Marchant
 							</MenuItem>
 						)}
-						{params.row?.status === "Parcel Received By Rider" && (
-							<MenuItem value={"Delivered To Branch By Rider"}>
-								Deliver To Branch
+						{params.row?.status === "Parcel Received By Pickup Rider" && (
+							<MenuItem value={"Delivered To Branch By Pickup Rider"}>
+								Deliver To Pickup Branch
 							</MenuItem>
 						)}
 					</Select>

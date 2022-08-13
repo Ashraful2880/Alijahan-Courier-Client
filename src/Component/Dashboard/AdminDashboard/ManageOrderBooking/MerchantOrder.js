@@ -41,7 +41,6 @@ const MerchantOrder = () => {
 	const [cashCollection, setCashCollection] = useState();
 	const [districts, setDistricts] = useState();
 	const [marchant, setMarchant] = useState();
-	const [receiverArea, setReceiverArea] = useState();
 
 	const email = "marchant@gmail.com";
 	useEffect(() => {
@@ -129,7 +128,7 @@ const MerchantOrder = () => {
 	const totalAmount = deliveryCharge + weightCharge + cashCollected || 0;
 	const codAmount = totalAmount * (codPercentage / 100) || 0;
 	const totalCharges = deliveryCharge + weightCharge + codAmount || 0;
-	const totalAmountWithCharges = totalAmount + totalCharges || 0;
+	const totalAmountWithCharges = cashCollected + totalCharges || 0;
 	const totalReceive = cashCollected - totalCharges || 0;
 	const onSubmit = ({
 		receiverName,
@@ -321,9 +320,6 @@ const MerchantOrder = () => {
 									)}
 								/>
 								<Autocomplete
-									onChange={(event, newValue) => {
-										setReceiverArea(newValue);
-									}}
 									size='small'
 									sx={{ my: 0.5, width: "100% !important" }}
 									options={selectedBranch?.branchArea || []}
