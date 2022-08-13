@@ -91,6 +91,7 @@ const AddWarehouseUsers = ({ open, setOpen, token, setSubmitting }) => {
 		warehouseUserImage,
 	}) => {
 		setData({
+			id: "warehouse-" + Math.floor(Math.random() * 1000000000),
 			warehouseUserName,
 			warehouseUserAddress,
 			wareHouseName,

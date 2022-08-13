@@ -108,6 +108,7 @@ const AddMerchants = ({ open, setOpen, token, setSubmitting }) => {
 		merchantPassword,
 	}) => {
 		setData({
+			id: "merchant-" + Math.floor(Math.random() * 1000000000),
 			merchantName,
 			merchantCompanyName,
 			merchantAddress,

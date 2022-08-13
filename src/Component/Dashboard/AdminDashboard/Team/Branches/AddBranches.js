@@ -122,6 +122,7 @@ const AddBranches = ({ open, setOpen, token, setSubmitting }) => {
 		officeDeliveryCom,
 	}) => {
 		setData({
+			id: "branch-" + Math.floor(Math.random() * 1000000000),
 			branchName,
 			branchAddress,
 			branchDistrict,

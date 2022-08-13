@@ -148,18 +148,7 @@ const MerchantDashboard = () => {
 								<ListItemText primary={"Delivery Payment List"} />
 							</ListItem>
 						</Link>
-						<Link className='link' to='merchantDashboard/deliveryParcelList'>
-							<ListItem
-								button
-								className={
-									location?.pathname === "/deliveryParcelList" && "activeButton"
-								}>
-								<ListItemIcon className='listItemIcon'>
-									<FormatListNumberedIcon />
-								</ListItemIcon>
-								<ListItemText primary={"Delivery Parcel List"} />
-							</ListItem>
-						</Link>
+						
 					</List>
 				</AccordionDetails>
 			</Accordion>

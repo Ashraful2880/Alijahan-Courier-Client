@@ -106,6 +106,7 @@ const AddRiders = ({ open, setOpen, token, setSubmitting }) => {
 		riderDOB,
 	}) => {
 		setData({
+			id: "rider-" + Math.floor(Math.random() * 1000000000),
 			riderName,
 			riderBranch,
 			riderAddress,

@@ -6,9 +6,8 @@ import {
 	TextField,
 	Backdrop,
 	Typography,
-	Autocomplete,
+	Box,
 } from "@mui/material";
-import SendIcon from "@mui/icons-material/Send";
 import React from "react";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { useForm } from "react-hook-form";
@@ -16,20 +15,22 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { useEffect } from "react";
 import { useState } from "react";
+import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import RemoveDoneIcon from "@mui/icons-material/RemoveDone";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
-import { useAPI } from "../../../../ApiContext";
+import AddIcon from "@mui/icons-material/Add";
+import GetAuth from "../../../../FirebaseAuth/GetAuth";
 
-const Thana = () => {
-	const { user, loading, token } = useAPI();
+const AllUsers = () => {
+	const { user, loading, token } = GetAuth();
 	const { register, handleSubmit, reset } = useForm();
 	const [submitting, setSubmitting] = useState(false);
 	const [data, setData] = useState();
-	const [districts, setDistricts] = useState([]);
+
 	useEffect(() => {
 		axios
-			.get(`${process.env.REACT_APP_API_PATH}/thanas`, {
+			.get(`${process.env.REACT_APP_API_PATH}/users`, {
 				headers: {
 					Authorization: `Bearer ${token}`,
 				},
@@ -40,51 +41,15 @@ const Thana = () => {
 			.catch((error) => {
 				console.log(error);
 			});
-		axios
-			.get(`${process.env.REACT_APP_API_PATH}/districts`, {
-				headers: {
-					Authorization: `Bearer ${token}`,
-				},
-			})
-			.then((response) => {
-				setDistricts(response.data);
-			})
-			.catch((error) => {
-				console.log(error);
-			});
 	}, [token, submitting]);
-	const onSubmit = ({ thana, district }) => {
-		setSubmitting(true);
-		axios
-			.post(
-				`${process.env.REACT_APP_API_PATH}/thana`,
-				{
-					district,
-					thana,
-					status: "Active",
-				},
-				{
-					headers: {
-						Authorization: `Bearer ${token}`,
-					},
-				},
-			)
-			.then((response) => {
-				setSubmitting(false);
-				reset();
-				Swal.fire("", "Successfully Added!", "success");
-			})
-			.catch((error) => {
-				setSubmitting(false);
-				console.log(error);
-			});
-	};
+
 	const renderDetailsButton = (params) => {
 		return (
 			<strong>
 				{params.row?.status === "Active" ? (
 					<RemoveDoneIcon
 						className='iconBtn'
+						sx={{ color: "#1565C0!important" }}
 						onClick={() => {
 							Swal.fire({
 								title: "Do you want to Deactive this?",
@@ -95,7 +60,7 @@ const Thana = () => {
 									setSubmitting(true);
 									axios
 										.put(
-											`${process.env.REACT_APP_API_PATH}/thanaStatus/${params.row?._id}`,
+											`${process.env.REACT_APP_API_PATH}/userStatus/${params.row?._id}`,
 											{
 												status: "Inactive",
 											},
@@ -130,7 +95,7 @@ const Thana = () => {
 									setSubmitting(true);
 									axios
 										.put(
-											`${process.env.REACT_APP_API_PATH}/thanaStatus/${params.row?._id}`,
+											`${process.env.REACT_APP_API_PATH}/userStatus/${params.row?._id}`,
 											{
 												status: "Active",
 											},
@@ -153,8 +118,10 @@ const Thana = () => {
 						}}
 					/>
 				)}
+
 				<DeleteIcon
 					className='iconBtn'
+					sx={{ color: "#df0f00!important" }}
 					onClick={() => {
 						Swal.fire({
 							title: "Do you want to Delete this?",
@@ -165,7 +132,7 @@ const Thana = () => {
 								setSubmitting(true);
 								axios
 									.delete(
-										`${process.env.REACT_APP_API_PATH}/thana/${params.row?._id}`,
+										`${process.env.REACT_APP_API_PATH}/user/${params.row?._id}`,
 										{
 											headers: {
 												Authorization: `Bearer ${token}`,
@@ -189,8 +156,10 @@ const Thana = () => {
 	};
 
 	const columns = [
-		{ field: "district", headerName: "District Name", flex: 1 },
-		{ field: "thana", headerName: "Thana Name", flex: 1 },
+		{ field: "name", headerName: "Name", flex: 1 },
+		{ field: "email", headerName: "Email", flex: 1.5 },
+		{ field: "userRole", headerName: "Role", flex: 1 },
+		{ field: "joinTime", headerName: "Joining Time", flex: 1.5 },
 		{ field: "status", headerName: "Status", flex: 1 },
 		{
 			field: "_id",
@@ -201,45 +170,20 @@ const Thana = () => {
 		},
 	];
 	return (
-		<Container sx={{ py: 1 }}>
-			<Typography variant='h5' sx={{ fontWeight: "bold" }}>
-				Manage Thana
-			</Typography>
-			<Grid container spacing={1} sx={{ justifyContent: "center" }}>
-				<Grid item xs={12} md={6}>
-					<form onSubmit={handleSubmit(onSubmit)}>
-						<Autocomplete
-							size='small'
-							sx={{ my: 1, width: "100% !important" }}
-							options={districts}
-							getOptionLabel={(option) => option.district}
-							style={{ width: 300 }}
-							renderInput={(params) => (
-								<TextField
-									{...register("district", { required: true })}
-									{...params}
-									label='Districts Name'
-									variant='outlined'
-								/>
-							)}
-						/>
-						<TextField
-							size='small'
-							sx={{ my: 0.7 }}
-							fullWidth
-							required
-							label='Thana Name'
-							{...register("thana", { required: true })}
-						/>
-						<Button
-							type='submit'
-							variant='contained'
-							className='button'
-							sx={{ my: 0.7, fontWeight: "bold", px: 2.5 }}>
-							Submit <SendIcon sx={{ ml: 1.5 }} />
-						</Button>
-					</form>
-				</Grid>
+		<Box sx={{ mx: 4, pt: 2, pb: 5 }}>
+			<Box
+				sx={{
+					px: 2.5,
+					pb: 1,
+					display: "flex",
+					alignItems: "center",
+					justifyContent: "space-between",
+				}}>
+				<Typography variant='h5' sx={{ fontWeight: "bold", color: "#1E793C" }}>
+					All Users
+				</Typography>
+			</Box>
+			<Grid container spacing={1} sx={{ justifyContent: "center", px: 2 }}>
 				<Grid item xs={12} md={12}>
 					{data && (
 						<div style={{ height: 400, width: "100%" }} className='table'>
@@ -261,8 +205,8 @@ const Thana = () => {
 				open={submitting || !data}>
 				<CircularProgress color='inherit' />
 			</Backdrop>
-		</Container>
+		</Box>
 	);
 };
 
-export default Thana;
+export default AllUsers;

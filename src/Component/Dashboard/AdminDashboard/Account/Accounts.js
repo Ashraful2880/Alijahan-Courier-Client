@@ -20,14 +20,14 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import PaymentsIcon from "@mui/icons-material/Payments";
 import GetAuth from "../../../../FirebaseAuth/GetAuth";
 
-const DeliveryPaymentList = () => {
-	const email = "marchant@gmail.com";
+const Accounts = () => {
 	const { user, loading, token } = GetAuth();
 	const [submitting, setSubmitting] = useState(false);
 	const [data, setData] = useState();
+	const [status, setStatus] = useState("");
 	useEffect(() => {
 		axios
-			.get(`${process.env.REACT_APP_API_PATH}/merchantordersbyemail/${email}`, {
+			.get(`${process.env.REACT_APP_API_PATH}/merchantorders`, {
 				headers: {
 					Authorization: `Bearer ${token}`,
 				},
@@ -39,8 +39,13 @@ const DeliveryPaymentList = () => {
 				console.log(error);
 			});
 	}, [token, submitting]);
-
-	const receiveAndSendMoney = (id, paymentCollectionDetails, text) => {
+	
+	const receiveAndSendMoney = (
+		id,
+		paymentCollectionDetails,
+		totalRec,
+		text,
+	) => {
 		Swal.fire({
 			title: "Are you sure?",
 			showCancelButton: true,
@@ -48,21 +53,50 @@ const DeliveryPaymentList = () => {
 		}).then((result) => {
 			if (result.isConfirmed) {
 				setSubmitting(true);
-				if (text === "Money Received in Marchant") {
+				if (text === "Money Received in Accounts") {
 					axios
 						.put(
 							`${process.env.REACT_APP_API_PATH}/merchantorderPaymentCollection/${id}`,
 							{
 								collectionStatus: text,
-								marchantMoneyStatus: "Received",
-								moneyReceivedInMarchantDate: new Date().toLocaleString(
+								accountsMoneyStatus: "Received",
+								moneyReceivedInAccountsDate: new Date().toLocaleString(
 									"en-US",
 									{
 										timeZone: "Asia/Dhaka",
 									},
 								),
-								marchantRecAmount: paymentCollectionDetails.marchantRecAmount,
-								companyRecAmount: paymentCollectionDetails.companyRecAmount,
+								moneyReceivedInBranchDate:
+									paymentCollectionDetails?.moneyReceivedInBranchDate,
+								branchMoneyStatus: paymentCollectionDetails?.branchMoneyStatus,
+								collectedFromCustomerDate:
+									paymentCollectionDetails?.collectedFromCustomerDate,
+								riderMoneyStatus: paymentCollectionDetails?.riderMoneyStatus,
+								collectedAmount: paymentCollectionDetails?.collectedAmount,
+							},
+							{
+								headers: {
+									Authorization: `Bearer ${token}`,
+								},
+							},
+						)
+						.then((response) => {
+							setSubmitting(false);
+							Swal.fire("", "Successfully Done!", "success");
+						})
+						.catch((error) => {
+							setSubmitting(false);
+							console.log(error);
+						});
+				}
+				if (text === "Sending Money to Marchant") {
+					axios
+						.put(
+							`${process.env.REACT_APP_API_PATH}/merchantorderPaymentCollection/${id}`,
+							{
+								collectionStatus: text,
+								marchantRecAmount: totalRec.totalReceive,
+								companyRecAmount: totalRec.totalCharges,
 								accountsMoneyStatus:
 									paymentCollectionDetails?.accountsMoneyStatus,
 								moneyReceivedInAccountsDate:
@@ -97,13 +131,14 @@ const DeliveryPaymentList = () => {
 		return (
 			<Box sx={{ display: "flex", alignItems: "center" }}>
 				{params.row?.paymentCollectionDetails?.collectionStatus ===
-					"Sending Money to Marchant" && (
+					"Money Received in Accounts" && (
 					<Button
 						onClick={() =>
 							receiveAndSendMoney(
 								params.row?._id,
 								params.row?.paymentCollectionDetails,
-								"Money Received in Marchant",
+								params.row?.orderSummaray,
+								"Sending Money to Marchant",
 							)
 						}
 						sx={{
@@ -114,8 +149,30 @@ const DeliveryPaymentList = () => {
 							border: "2px solid ",
 						}}>
 						<PaymentsIcon sx={{ mr: 0.5 }} />
-						Receive {params.row?.paymentCollectionDetails?.marchantRecAmount} ৳
-						from Accounts
+						Send {params.row?.orderSummaray.totalReceive} ৳ to Marchant
+					</Button>
+				)}
+				{params.row?.paymentCollectionDetails?.collectionStatus ===
+					"Sending Money To Accounts" && (
+					<Button
+						onClick={() =>
+							receiveAndSendMoney(
+								params.row?._id,
+								params.row?.paymentCollectionDetails,
+								params.row?.orderSummaray,
+								"Money Received in Accounts",
+							)
+						}
+						sx={{
+							my: 1,
+							px: 3,
+							fontWeight: "bold",
+							borderRadius: "25px",
+							border: "2px solid ",
+						}}>
+						<PaymentsIcon sx={{ mr: 0.5 }} />
+						Receive {params.row?.paymentCollectionDetails?.collectedAmount} ৳
+						from Branch
 					</Button>
 				)}
 				<DeleteIcon
@@ -160,6 +217,14 @@ const DeliveryPaymentList = () => {
 			headerName: "Order ID",
 			renderCell: (params) => {
 				return params.row.orderId;
+			},
+			flex: 1,
+		},
+		{
+			field: "merchantName",
+			headerName: "Merchant",
+			renderCell: (params) => {
+				return params.row.marchentInfo.merchantName;
 			},
 			flex: 1,
 		},
@@ -244,4 +309,4 @@ const DeliveryPaymentList = () => {
 	);
 };
 
-export default DeliveryPaymentList;
+export default Accounts;
