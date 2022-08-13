@@ -10,7 +10,7 @@ import {
 	MenuItem,
 	Box,
 } from "@mui/material";
-import DownloadDoneIcon from '@mui/icons-material/DownloadDone';
+import DownloadDoneIcon from "@mui/icons-material/DownloadDone";
 import React from "react";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { useForm } from "react-hook-form";
@@ -74,7 +74,7 @@ const Unit = () => {
 				{params.row?.status === "Active" ? (
 					<RemoveDoneIcon
 						className='iconBtn'
-						sx={{ color: "#1565C0!important", }}
+						sx={{ color: "#1565C0!important" }}
 						onClick={() => {
 							Swal.fire({
 								title: "Do you want to Deactive this?",
@@ -132,7 +132,7 @@ const Unit = () => {
 										)
 										.then((response) => {
 											setSubmitting(false);
-											Swal.fire("", "Successfully Activated!", "success");
+											Swal.fire("", "Successfully Done!", "success");
 										})
 										.catch((error) => {
 											setSubmitting(false);
@@ -145,7 +145,7 @@ const Unit = () => {
 				)}
 				<DeleteIcon
 					className='iconBtn'
-					sx={{ color: "#df0f00!important", }}
+					sx={{ color: "#df0f00!important" }}
 					onClick={() => {
 						Swal.fire({
 							title: "Do you want to Delete this?",
@@ -192,7 +192,14 @@ const Unit = () => {
 	];
 	return (
 		<Box sx={{ mx: 4, pt: 2, pb: 5 }}>
-			<Box sx={{ px: 0.5, pb: 1, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+			<Box
+				sx={{
+					px: 0.5,
+					pb: 1,
+					display: "flex",
+					alignItems: "center",
+					justifyContent: "space-between",
+				}}>
 				<Typography variant='h5' sx={{ fontWeight: "bold", color: "#1E793C" }}>
 					Manage Units
 				</Typography>

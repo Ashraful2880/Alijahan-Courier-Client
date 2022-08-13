@@ -42,6 +42,7 @@ import BranchReceivedParcelList from "./Component/Dashboard/BranchDashboard/Parc
 import AllUsers from "./Component/Dashboard/AdminDashboard/Setting/Allusers";
 import Accounts from "./Component/Dashboard/AdminDashboard/Account/Accounts";
 import RidersRecParcelList from "./Component/Dashboard/RiderDashboard/Parcel/RidersRecParcelList";
+import RiderAccounts from "./Component/Dashboard/RiderDashboard/Account/RiderAccounts";
 
 function App() {
 	return (
@@ -151,6 +152,10 @@ function App() {
 							<Route
 								path='/ridersDashboard/parceReclList'
 								element={<RidersRecParcelList />}
+							/>
+							<Route
+								path='/ridersDashboard/accounts'
+								element={<RiderAccounts />}
 							/>
 						</Route>
 					</Routes>

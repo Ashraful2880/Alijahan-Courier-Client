@@ -8,7 +8,7 @@ import {
 	Typography,
 	Box,
 } from "@mui/material";
-import DownloadDoneIcon from '@mui/icons-material/DownloadDone';
+import DownloadDoneIcon from "@mui/icons-material/DownloadDone";
 import React from "react";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { useForm } from "react-hook-form";
@@ -72,7 +72,7 @@ const District = () => {
 				{params.row?.status === "Active" ? (
 					<RemoveDoneIcon
 						className='iconBtn'
-						sx={{ color: "#1565C0!important", }}
+						sx={{ color: "#1565C0!important" }}
 						onClick={() => {
 							Swal.fire({
 								title: "Do you want to Deactive this?",
@@ -130,7 +130,7 @@ const District = () => {
 										)
 										.then((response) => {
 											setSubmitting(false);
-											Swal.fire("", "Successfully Activated!", "success");
+											Swal.fire("", "Successfully Done!", "success");
 										})
 										.catch((error) => {
 											setSubmitting(false);
@@ -143,7 +143,7 @@ const District = () => {
 				)}
 				<DeleteIcon
 					className='iconBtn'
-					sx={{ color: "#df0f00!important", }}
+					sx={{ color: "#df0f00!important" }}
 					onClick={() => {
 						Swal.fire({
 							title: "Do you want to Delete this?",
@@ -190,13 +190,20 @@ const District = () => {
 	];
 	return (
 		<Box sx={{ mx: 4, pt: 2, pb: 5 }}>
-			<Box sx={{ px: 0.5, pb: 1, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+			<Box
+				sx={{
+					px: 0.5,
+					pb: 1,
+					display: "flex",
+					alignItems: "center",
+					justifyContent: "space-between",
+				}}>
 				<Typography variant='h5' sx={{ fontWeight: "bold", color: "#1E793C" }}>
 					Manage District
 				</Typography>
 				<form
 					onSubmit={handleSubmit(onSubmit)}
-					style={{ display: "flex", flexDirection: "row", }}>
+					style={{ display: "flex", flexDirection: "row" }}>
 					<TextField
 						size='small'
 						sx={{ my: 0.7 }}
@@ -208,7 +215,7 @@ const District = () => {
 					<Button
 						type='submit'
 						variant='contained'
-						color="success"
+						color='success'
 						sx={{ my: 0.7, fontWeight: "bold", px: 2.5, width: "50%", ml: 2 }}>
 						<DownloadDoneIcon sx={{ mr: 1.5 }} /> Submit
 					</Button>
