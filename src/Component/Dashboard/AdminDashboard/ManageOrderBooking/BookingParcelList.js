@@ -72,7 +72,7 @@ const BookingParcelList = () => {
 	const renderDetailsButton = (params) => {
 		return (
 			<Box sx={{ display: "flex", alignItems: "center" }}>
-				<FormControl sx={{ m: 1, minWidth: 120 }}>
+				{/* <FormControl sx={{ m: 1, minWidth: 120 }}>
 					<Select
 						size='small'
 						value={status}
@@ -93,7 +93,7 @@ const BookingParcelList = () => {
 						<MenuItem value={"Canceled"}>Canceled</MenuItem>
 						<MenuItem value={"Returned"}>Returned</MenuItem>
 					</Select>
-				</FormControl>
+				</FormControl> */}
 				<DeleteIcon
 					className='iconBtn'
 					sx={{ color: "#df0f00!important" }}
