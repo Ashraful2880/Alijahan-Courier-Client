@@ -146,7 +146,7 @@ const RidersRecParcelList = () => {
 			<Box sx={{ display: "flex", alignItems: "center" }}>
 				{params.row?.status === "Delivered To Customer By Rider" &&
 					params.row?.paymentCollectionDetails?.collectionStatus ===
-						"Collected From Customer" && (
+					"Collected From Customer" && (
 						<Button
 							onClick={() =>
 								sendMoneyToBranch(
@@ -168,7 +168,7 @@ const RidersRecParcelList = () => {
 					)}
 				{params.row?.status === "Parcel Received By Delivery Rider" &&
 					params.row?.paymentCollectionDetails?.collectionStatus ===
-						"Pending" && (
+					"Pending" && (
 						<Button
 							onClick={() =>
 								changePaymentStatus(
@@ -242,7 +242,7 @@ const RidersRecParcelList = () => {
 			renderCell: (params) => {
 				return params.row.marchentInfo.merchantName;
 			},
-			width: 100,
+			width: 150,
 		},
 		{
 			field: "receiverBranchArea",
@@ -250,7 +250,7 @@ const RidersRecParcelList = () => {
 			renderCell: (params) => {
 				return ` ${params.row.receiverInfo.receiverBranchArea}(${params.row.receiverInfo.receiverBranchName})`;
 			},
-			width: 170,
+			width: 180,
 		},
 		{
 			field: "receiverAddress",
@@ -258,7 +258,7 @@ const RidersRecParcelList = () => {
 			renderCell: (params) => {
 				return params.row.receiverInfo.receiverAddress;
 			},
-			width: 170,
+			width: 180,
 		},
 		{
 			field: "receiverNumber",
@@ -266,13 +266,13 @@ const RidersRecParcelList = () => {
 			renderCell: (params) => {
 				return params.row.receiverInfo.receiverNumber;
 			},
-			width: 150,
+			width: 180,
 		},
-		{ field: "status", headerName: "Status", width: 100 },
+		{ field: "status", headerName: "Status", width: 250 },
 		{
 			field: "_id",
 			headerName: "Action",
-			width: 400,
+			width: 500,
 			renderCell: renderDetailsButton,
 			disableClickEventBubbling: true,
 		},
@@ -288,7 +288,7 @@ const RidersRecParcelList = () => {
 					justifyContent: "space-between",
 				}}>
 				<Typography variant='h5' sx={{ fontWeight: "bold", color: "#1E793C" }}>
-					All Parcel List
+					Received Parcel List
 				</Typography>
 			</Box>
 			<Grid container spacing={1} sx={{ justifyContent: "center", px: 2 }}>

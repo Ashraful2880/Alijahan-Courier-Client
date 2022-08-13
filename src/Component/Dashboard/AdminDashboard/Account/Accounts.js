@@ -4,10 +4,6 @@ import {
 	Backdrop,
 	Typography,
 	Box,
-	FormControl,
-	Select,
-	MenuItem,
-	FormHelperText,
 	Button,
 } from "@mui/material";
 import React from "react";
@@ -17,6 +13,7 @@ import Swal from "sweetalert2";
 import { useEffect } from "react";
 import { useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import PaymentsIcon from "@mui/icons-material/Payments";
 import GetAuth from "../../../../FirebaseAuth/GetAuth";
 
@@ -24,7 +21,6 @@ const Accounts = () => {
 	const { user, loading, token } = GetAuth();
 	const [submitting, setSubmitting] = useState(false);
 	const [data, setData] = useState();
-	const [status, setStatus] = useState("");
 	useEffect(() => {
 		axios
 			.get(`${process.env.REACT_APP_API_PATH}/merchantorders`, {
@@ -39,7 +35,7 @@ const Accounts = () => {
 				console.log(error);
 			});
 	}, [token, submitting]);
-	
+
 	const receiveAndSendMoney = (
 		id,
 		paymentCollectionDetails,
@@ -129,53 +125,53 @@ const Accounts = () => {
 	};
 	const renderDetailsButton = (params) => {
 		return (
-			<Box sx={{ display: "flex", alignItems: "center" }}>
+			<Box sx={{ display: "flex", flexGrow: 1, alignItems: "center", width: "100%" }}>
 				{params.row?.paymentCollectionDetails?.collectionStatus ===
 					"Money Received in Accounts" && (
-					<Button
-						onClick={() =>
-							receiveAndSendMoney(
-								params.row?._id,
-								params.row?.paymentCollectionDetails,
-								params.row?.orderSummaray,
-								"Sending Money to Marchant",
-							)
-						}
-						sx={{
-							my: 1,
-							px: 3,
-							fontWeight: "bold",
-							borderRadius: "25px",
-							border: "2px solid ",
-						}}>
-						<PaymentsIcon sx={{ mr: 0.5 }} />
-						Send {params.row?.orderSummaray.totalReceive} ৳ to Marchant
-					</Button>
-				)}
+						<Button
+							onClick={() =>
+								receiveAndSendMoney(
+									params.row?._id,
+									params.row?.paymentCollectionDetails,
+									params.row?.orderSummaray,
+									"Sending Money to Marchant",
+								)
+							}
+							sx={{
+								my: 1,
+								px: 3,
+								fontWeight: "bold",
+								borderRadius: "25px",
+								border: "2px solid ",
+							}}>
+							<PaymentsIcon sx={{ mr: 0.5 }} />
+							Send {params.row?.orderSummaray.totalReceive} ৳ to Marchant
+						</Button>
+					)}
 				{params.row?.paymentCollectionDetails?.collectionStatus ===
 					"Sending Money To Accounts" && (
-					<Button
-						onClick={() =>
-							receiveAndSendMoney(
-								params.row?._id,
-								params.row?.paymentCollectionDetails,
-								params.row?.orderSummaray,
-								"Money Received in Accounts",
-							)
-						}
-						sx={{
-							my: 1,
-							px: 3,
-							fontWeight: "bold",
-							borderRadius: "25px",
-							border: "2px solid ",
-						}}>
-						<PaymentsIcon sx={{ mr: 0.5 }} />
-						Receive {params.row?.paymentCollectionDetails?.collectedAmount} ৳
-						from Branch
-					</Button>
-				)}
-				<DeleteIcon
+						<Button
+							onClick={() =>
+								receiveAndSendMoney(
+									params.row?._id,
+									params.row?.paymentCollectionDetails,
+									params.row?.orderSummaray,
+									"Money Received in Accounts",
+								)
+							}
+							sx={{
+								my: 1,
+								px: 3,
+								fontWeight: "bold",
+								borderRadius: "25px",
+								border: "2px solid ",
+							}}>
+							<PaymentsIcon sx={{ mr: 0.5 }} />
+							Receive {params.row?.paymentCollectionDetails?.collectedAmount} ৳
+							from Branch
+						</Button>
+					)}
+				{/* <DeleteIcon
 					className='iconBtn'
 					sx={{ color: "#df0f00!important" }}
 					onClick={() => {
@@ -206,7 +202,8 @@ const Accounts = () => {
 							}
 						});
 					}}
-				/>
+				/> */}
+				<RemoveRedEyeIcon sx={{ ml: 1.5, color: "green" }} />
 			</Box>
 		);
 	};
@@ -280,7 +277,7 @@ const Accounts = () => {
 					justifyContent: "space-between",
 				}}>
 				<Typography variant='h5' sx={{ fontWeight: "bold", color: "#1E793C" }}>
-					All Parcel List
+					All Delivery Payment List
 				</Typography>
 			</Box>
 			<Grid container spacing={1} sx={{ justifyContent: "center", px: 2 }}>

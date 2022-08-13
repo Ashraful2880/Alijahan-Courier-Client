@@ -16,6 +16,7 @@ import Swal from "sweetalert2";
 import { useEffect } from "react";
 import { useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import GetAuth from "../../../../FirebaseAuth/GetAuth";
 
 const BookingParcelList = () => {
@@ -94,7 +95,7 @@ const BookingParcelList = () => {
 						<MenuItem value={"Returned"}>Returned</MenuItem>
 					</Select>
 				</FormControl> */}
-				<DeleteIcon
+				{/* <DeleteIcon
 					className='iconBtn'
 					sx={{ color: "#df0f00!important" }}
 					onClick={() => {
@@ -125,7 +126,8 @@ const BookingParcelList = () => {
 							}
 						});
 					}}
-				/>
+				/> */}
+				<RemoveRedEyeIcon sx={{ ml: 1.5, color: "green" }} />
 			</Box>
 		);
 	};

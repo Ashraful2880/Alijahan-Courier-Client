@@ -233,7 +233,7 @@ const BranchReceivedParcelList = () => {
 					))}
 				{params.row?.status === "Delivered To Customer By Rider" &&
 					params.row?.paymentCollectionDetails?.collectionStatus ===
-						"Sending Money To Branch" && (
+					"Sending Money To Branch" && (
 						<Button
 							onClick={() =>
 								receiveAndSendMoney(
@@ -256,7 +256,7 @@ const BranchReceivedParcelList = () => {
 					)}
 				{params.row?.status === "Delivered To Customer By Rider" &&
 					params.row?.paymentCollectionDetails?.collectionStatus ===
-						"Money Received In Branch" && (
+					"Money Received In Branch" && (
 						<Button
 							onClick={() =>
 								receiveAndSendMoney(
@@ -343,7 +343,7 @@ const BranchReceivedParcelList = () => {
 			renderCell: (params) => {
 				return params.row.marchentInfo.merchantName;
 			},
-			width: 100,
+			width: 150,
 		},
 		{
 			field: "receiverBranchArea",
@@ -351,7 +351,7 @@ const BranchReceivedParcelList = () => {
 			renderCell: (params) => {
 				return ` ${params.row.receiverInfo.receiverBranchArea}(${params.row.receiverInfo.receiverBranchName})`;
 			},
-			width: 170,
+			width: 180,
 		},
 		{
 			field: "receiverAddress",
@@ -359,7 +359,7 @@ const BranchReceivedParcelList = () => {
 			renderCell: (params) => {
 				return params.row.receiverInfo.receiverAddress;
 			},
-			width: 170,
+			width: 180,
 		},
 		{
 			field: "receiverNumber",
@@ -367,9 +367,9 @@ const BranchReceivedParcelList = () => {
 			renderCell: (params) => {
 				return params.row.receiverInfo.receiverNumber;
 			},
-			width: 150,
+			width: 180,
 		},
-		{ field: "status", headerName: "Status", width: 200 },
+		{ field: "status", headerName: "Status", width: 250 },
 		{
 			field: "_id",
 			headerName: "Action",
@@ -389,7 +389,7 @@ const BranchReceivedParcelList = () => {
 					justifyContent: "space-between",
 				}}>
 				<Typography variant='h5' sx={{ fontWeight: "bold", color: "#1E793C" }}>
-					All Parcel List
+					Received Parcel List
 				</Typography>
 			</Box>
 			<Grid container spacing={1} sx={{ justifyContent: "center", px: 2 }}>

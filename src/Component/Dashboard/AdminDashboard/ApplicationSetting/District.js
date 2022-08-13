@@ -203,7 +203,7 @@ const District = () => {
 				</Typography>
 				<form
 					onSubmit={handleSubmit(onSubmit)}
-					style={{ display: "flex", flexDirection: "row" }}>
+					style={{ display: "flex", flexDirection: "row", }}>
 					<TextField
 						size='small'
 						sx={{ my: 0.7 }}
@@ -221,7 +221,7 @@ const District = () => {
 					</Button>
 				</form>
 			</Box>
-			<Grid container spacing={1} sx={{ justifyContent: "center" }}>
+			<Grid container spacing={1} sx={{ justifyContent: "center", width: "100%" }}>
 				<Grid item xs={12} md={12}>
 					{data && (
 						<div style={{ height: 400, width: "100%" }} className='table'>
