@@ -46,7 +46,6 @@ const RidersParcelList = () => {
 		}).then((result) => {
 			if (result.isConfirmed) {
 				setSubmitting(true);
-
 				axios
 					.put(
 						`${process.env.REACT_APP_API_PATH}/merchantorderStatus/${id}`,
@@ -79,11 +78,11 @@ const RidersParcelList = () => {
 			if (result.isConfirmed) {
 				setSubmitting(true);
 				axios
-					.put(
+					.patch(
 						`${process.env.REACT_APP_API_PATH}/merchantorderPaymentCollectionStatus/${id}`,
 						{
 							collectionStatus: "Collected From Customer",
-							collectionDate: new Date().toLocaleString("en-US", {
+							collectedByRiderDate: new Date().toLocaleString("en-US", {
 								timeZone: "Asia/Dhaka",
 							}),
 							collectedAmount: money,
@@ -114,14 +113,10 @@ const RidersParcelList = () => {
 			if (result.isConfirmed) {
 				setSubmitting(true);
 				axios
-					.put(
+					.patch(
 						`${process.env.REACT_APP_API_PATH}/merchantorderPaymentCollectionStatus/${id}`,
 						{
 							collectionStatus: "Sending Money To Branch",
-							collectionDate: new Date().toLocaleString("en-US", {
-								timeZone: "Asia/Dhaka",
-							}),
-							collectedAmount: money,
 						},
 						{
 							headers: {
@@ -151,7 +146,7 @@ const RidersParcelList = () => {
 							onClick={() =>
 								sendMoneyToBranch(
 									params.row?._id,
-									params.row?.orderSummaray?.total,
+									params.row?.orderSummaray?.totalAmountWithCharges,
 								)
 							}
 							sx={{
@@ -162,7 +157,8 @@ const RidersParcelList = () => {
 								border: "2px solid ",
 							}}>
 							<PaymentsIcon sx={{ mr: 0.5 }} />
-							Send {params.row?.orderSummaray?.total} ৳ To Branch
+							Send {params.row?.orderSummaray?.totalAmountWithCharges} ৳ To
+							Branch
 						</Button>
 					)}
 				{params.row?.status === "Parcel Received By Delivery Rider" &&
@@ -172,7 +168,7 @@ const RidersParcelList = () => {
 							onClick={() =>
 								changePaymentStatus(
 									params.row?._id,
-									params.row?.orderSummaray?.total,
+									params.row?.orderSummaray?.totalAmountWithCharges,
 								)
 							}
 							sx={{
@@ -183,7 +179,7 @@ const RidersParcelList = () => {
 								border: "2px solid ",
 							}}>
 							<PaymentsIcon sx={{ mr: 0.5 }} />
-							Collect {params.row?.orderSummaray?.total} ৳
+							Collect {params.row?.orderSummaray?.totalAmountWithCharges} ৳
 						</Button>
 					)}
 				<FormControl sx={{ m: 1, minWidth: 120 }}>

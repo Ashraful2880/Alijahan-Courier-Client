@@ -166,30 +166,54 @@ const BranchReceivedParcelList = () => {
 		}).then((result) => {
 			if (result.isConfirmed) {
 				setSubmitting(true);
-				axios
-					.put(
-						`${process.env.REACT_APP_API_PATH}/merchantorderPaymentCollectionStatus/${id}`,
-						{
-							collectionStatus: text,
-							collectionDate: new Date().toLocaleString("en-US", {
-								timeZone: "Asia/Dhaka",
-							}),
-							collectedAmount: money,
-						},
-						{
-							headers: {
-								Authorization: `Bearer ${token}`,
+				if (text === "Money Received In Branch") {
+					axios
+						.patch(
+							`${process.env.REACT_APP_API_PATH}/merchantorderPaymentCollectionStatus/${id}`,
+							{
+								collectionStatus: text,
+								moneyReceivedInBranch: new Date().toLocaleString("en-US", {
+									timeZone: "Asia/Dhaka",
+								}),
+								collectedAmount: money,
 							},
-						},
-					)
-					.then((response) => {
-						setSubmitting(false);
-						Swal.fire("", "Successfully Done!", "success");
-					})
-					.catch((error) => {
-						setSubmitting(false);
-						console.log(error);
-					});
+							{
+								headers: {
+									Authorization: `Bearer ${token}`,
+								},
+							},
+						)
+						.then((response) => {
+							setSubmitting(false);
+							Swal.fire("", "Successfully Done!", "success");
+						})
+						.catch((error) => {
+							setSubmitting(false);
+							console.log(error);
+						});
+				}
+				if (text === "Sending Money To Accounts") {
+					axios
+						.patch(
+							`${process.env.REACT_APP_API_PATH}/merchantorderPaymentCollectionStatus/${id}`,
+							{
+								collectionStatus: text,
+							},
+							{
+								headers: {
+									Authorization: `Bearer ${token}`,
+								},
+							},
+						)
+						.then((response) => {
+							setSubmitting(false);
+							Swal.fire("", "Successfully Done!", "success");
+						})
+						.catch((error) => {
+							setSubmitting(false);
+							console.log(error);
+						});
+				}
 			}
 		});
 	};
@@ -226,7 +250,7 @@ const BranchReceivedParcelList = () => {
 								receiveAndSendMoney(
 									params.row?._id,
 									params.row?.orderSummaray?.total,
-									"Sending Money To Merchant",
+									"Sending Money To Accounts",
 								)
 							}
 							sx={{
@@ -237,7 +261,7 @@ const BranchReceivedParcelList = () => {
 								border: "2px solid ",
 							}}>
 							<PaymentsIcon sx={{ mr: 0.5 }} />
-							Send {params.row?.orderSummaray?.total} ৳ to Merchant
+							Send {params.row?.orderSummaray?.total} ৳ to Accounts
 						</Button>
 					)}
 				<FormControl sx={{ m: 1, minWidth: 120 }}>

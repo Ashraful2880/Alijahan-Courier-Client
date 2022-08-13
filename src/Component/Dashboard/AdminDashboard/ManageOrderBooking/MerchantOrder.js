@@ -39,7 +39,6 @@ const MerchantOrder = () => {
 	const [serviceAreas, setServiceAreas] = useState();
 	const [selectServiceAreas, setSelectServiceAreas] = useState();
 	const [cashCollection, setCashCollection] = useState();
-	const [addDeliveryCharge, setAddDeliveryCharge] = useState(true);
 	const [districts, setDistricts] = useState();
 	const [marchant, setMarchant] = useState();
 	const [receiverArea, setReceiverArea] = useState();
@@ -123,15 +122,15 @@ const MerchantOrder = () => {
 		(b) => b.branchName === marchant?.merchantBranchName,
 	);
 	const cashCollected = parseFloat(cashCollection) || 0;
+	const deliveryCharge = parseFloat(selectServiceAreas?.serviceAreaCharge);
 	const codPercentage =
 		parseFloat(selectServiceAreas?.serviceAreaCODPercentage) || 0;
-	const deliveryCharge = addDeliveryCharge
-		? parseFloat(selectServiceAreas?.serviceAreaCharge)
-		: 0;
 	const weightCharge = parseFloat(selectWeight?.weightPackageRate) || 0;
 	const totalAmount = deliveryCharge + weightCharge + cashCollected || 0;
 	const codAmount = totalAmount * (codPercentage / 100) || 0;
-	const total = totalAmount + codAmount || 0;
+	const totalCharges = deliveryCharge + weightCharge + codAmount || 0;
+	const totalAmountWithCharges = totalAmount + totalCharges || 0;
+	const totalReceive = cashCollected - totalCharges || 0;
 	const onSubmit = ({
 		receiverName,
 		receiverNumber,
@@ -142,7 +141,6 @@ const MerchantOrder = () => {
 		productCategory,
 		productWeight,
 		receiverServiceArea,
-		cashCollection,
 		referenceId,
 		instructions,
 	}) => {
@@ -170,8 +168,9 @@ const MerchantOrder = () => {
 				deliveryCharge,
 				weightCharge,
 				codAmount,
-				total,
-				cashCollection,
+				totalCharges,
+				totalAmountWithCharges,
+				totalReceive,
 			},
 			paymentCollectionDetails: {
 				collectionStatus: "Pending",
@@ -446,17 +445,6 @@ const MerchantOrder = () => {
 									helperText='Reference Id'
 									{...register("referenceId", { required: true })}
 								/>
-								<FormGroup sx={{ my: 0.5, minWidth: "230px" }}>
-									<FormControlLabel
-										control={
-											<Checkbox
-												checked={addDeliveryCharge}
-												onChange={(e) => setAddDeliveryCharge(e.target.checked)}
-											/>
-										}
-										label='With Delivery Charge'
-									/>
-								</FormGroup>
 							</Box>
 							<TextField
 								size='small'
@@ -574,7 +562,7 @@ const MerchantOrder = () => {
 											</TableCell>
 										</TableRow>
 
-										<TableRow style={{ background: "#e9e9e9" }}>
+										<TableRow style={{ background: "rgb(233 233 224 / 43%)" }}>
 											<TableCell component='th' scope='row'>
 												<Typography
 													sx={{
@@ -582,7 +570,7 @@ const MerchantOrder = () => {
 														color: "gray",
 														fontSize: "15px",
 													}}>
-													Total Amount
+													Total Charges
 												</Typography>
 											</TableCell>
 											<TableCell align='right'>
@@ -592,7 +580,29 @@ const MerchantOrder = () => {
 														color: "gray",
 														fontSize: "15px",
 													}}>
-													{total} ৳
+													{totalCharges} ৳
+												</Typography>
+											</TableCell>
+										</TableRow>
+										<TableRow style={{ background: "#e9e9e9" }}>
+											<TableCell component='th' scope='row'>
+												<Typography
+													sx={{
+														fontWeight: "600",
+														color: "gray",
+														fontSize: "15px",
+													}}>
+													Total Receive
+												</Typography>
+											</TableCell>
+											<TableCell align='right'>
+												<Typography
+													sx={{
+														fontWeight: "600",
+														color: "gray",
+														fontSize: "15px",
+													}}>
+													{totalReceive} ৳
 												</Typography>
 											</TableCell>
 										</TableRow>
