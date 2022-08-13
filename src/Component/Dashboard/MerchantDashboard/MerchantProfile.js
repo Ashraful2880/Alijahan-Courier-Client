@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Typography } from "@mui/material";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -7,6 +7,8 @@ import TableContainer from "@mui/material/TableContainer";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import "../../../App.css";
+import GetAuth from "../../../FirebaseAuth/GetAuth";
+import axios from "axios";
 
 const style = {
 	backgroundImage:
@@ -17,6 +19,26 @@ const style = {
 	backgroundAttachment: "fixed",
 };
 const MerchantProfile = () => {
+	const email = "marchant@gmail.com";
+	const { user, loading, token } = GetAuth();
+	const [merchant, setMerchant] = useState();
+
+	useEffect(() => {
+		axios
+			.get(`${process.env.REACT_APP_API_PATH}/merchants/${email}`, {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			})
+			.then((response) => {
+				setMerchant(response.data);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	}, [token]);
+
+
 	return (
 		<Box
 			sx={{ px: 4, pt: 2, pb: 5, background: "#f8f8f8", height: "93vh" }}
@@ -62,7 +84,7 @@ const MerchantProfile = () => {
 								<TableCell
 									sx={{ fontSize: "15px", letterSpacing: "0.2px" }}
 									align='right'>
-									M-0014
+									{merchant?.id}
 								</TableCell>
 							</TableRow>
 							<TableRow>
@@ -75,7 +97,7 @@ const MerchantProfile = () => {
 								<TableCell
 									sx={{ fontSize: "15px", letterSpacing: "0.2px" }}
 									align='right'>
-									Jahidul Islam Nahid
+									{merchant?.merchantName}
 								</TableCell>
 							</TableRow>
 							<TableRow>
@@ -88,7 +110,7 @@ const MerchantProfile = () => {
 								<TableCell
 									sx={{ fontSize: "15px", letterSpacing: "0.2px" }}
 									align='right'>
-									dhamaka@mettroexpress.com
+									{merchant?.merchantEmail}
 								</TableCell>
 							</TableRow>
 							<TableRow>
@@ -101,7 +123,7 @@ const MerchantProfile = () => {
 								<TableCell
 									sx={{ fontSize: "15px", letterSpacing: "0.2px" }}
 									align='right'>
-									01709815688
+									{merchant?.merchantContact}
 								</TableCell>
 							</TableRow>
 							<TableRow>
@@ -114,7 +136,7 @@ const MerchantProfile = () => {
 								<TableCell
 									sx={{ fontSize: "15px", letterSpacing: "0.2px" }}
 									align='right'>
-									50, Mohakhali, Dhaka-1212
+									{merchant?.merchantAddress}
 								</TableCell>
 							</TableRow>
 							<TableRow>
@@ -122,12 +144,12 @@ const MerchantProfile = () => {
 									sx={{ fontSize: "15px", letterSpacing: "0.2px" }}
 									component='th'
 									scope='row'>
-									Merchant District
+									Merchant Business Address
 								</TableCell>
 								<TableCell
 									sx={{ fontSize: "15px", letterSpacing: "0.2px" }}
 									align='right'>
-									Dhaka
+									{merchant?.merchantBusinessAddress}
 								</TableCell>
 							</TableRow>
 							<TableRow>
@@ -135,12 +157,25 @@ const MerchantProfile = () => {
 									sx={{ fontSize: "15px", letterSpacing: "0.2px" }}
 									component='th'
 									scope='row'>
-									Merchant Thana/Upazila
+									Merchant Branch Name
 								</TableCell>
 								<TableCell
 									sx={{ fontSize: "15px", letterSpacing: "0.2px" }}
 									align='right'>
-									Mohakhali
+									{merchant?.merchantBranchName}
+								</TableCell>
+							</TableRow>
+							<TableRow>
+								<TableCell
+									sx={{ fontSize: "15px", letterSpacing: "0.2px" }}
+									component='th'
+									scope='row'>
+									Merchant Company Name
+								</TableCell>
+								<TableCell
+									sx={{ fontSize: "15px", letterSpacing: "0.2px" }}
+									align='right'>
+									{merchant?.merchantCompanyName}
 								</TableCell>
 							</TableRow>
 							<TableRow>
@@ -153,7 +188,7 @@ const MerchantProfile = () => {
 								<TableCell
 									sx={{ fontSize: "15px", letterSpacing: "0.2px" }}
 									align='right'>
-									Mohakhali
+									{merchant?.merchantArea}
 								</TableCell>
 							</TableRow>
 							<TableRow>
@@ -161,12 +196,12 @@ const MerchantProfile = () => {
 									sx={{ fontSize: "15px", letterSpacing: "0.2px" }}
 									component='th'
 									scope='row'>
-									Cash On Delivery
+									Merchant Status
 								</TableCell>
 								<TableCell
 									sx={{ fontSize: "15px", letterSpacing: "0.2px" }}
 									align='right'>
-									0%
+									{merchant?.status}
 								</TableCell>
 							</TableRow>
 						</TableBody>
