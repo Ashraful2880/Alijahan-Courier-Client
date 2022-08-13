@@ -66,7 +66,7 @@ const MerchantProfile = () => {
 				}}>
 				<Typography
 					variant='h5'
-					sx={{ fontWeight: "bold", marginBottom: "15px" }}>
+					sx={{ fontWeight: "bold", marginBottom: "15px", color: "#fff" }}>
 					Welcome Back! <span style={{ color: "green" }}>Mr John</span>
 				</Typography>
 				<TableContainer
