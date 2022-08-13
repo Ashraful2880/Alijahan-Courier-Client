@@ -125,7 +125,7 @@ const Accounts = () => {
 	};
 	const renderDetailsButton = (params) => {
 		return (
-			<Box sx={{ display: "flex", flexGrow: 1, alignItems: "center", width: "100%" }}>
+			<Box sx={{ display: "flex", alignItems: "center", width: "100%" }}>
 				{params.row?.paymentCollectionDetails?.collectionStatus ===
 					"Money Received in Accounts" && (
 						<Button
@@ -215,7 +215,7 @@ const Accounts = () => {
 			renderCell: (params) => {
 				return params.row.orderId;
 			},
-			flex: 1,
+			width: 180,
 		},
 		{
 			field: "merchantName",
@@ -223,7 +223,7 @@ const Accounts = () => {
 			renderCell: (params) => {
 				return params.row.marchentInfo.merchantName;
 			},
-			flex: 1,
+			width: 180,
 		},
 		{
 			field: "collectedAmount",
@@ -231,7 +231,7 @@ const Accounts = () => {
 			renderCell: (params) => {
 				return params.row.paymentCollectionDetails.collectedAmount;
 			},
-			flex: 1,
+			width: 150,
 		},
 		{
 			field: "totalCharges",
@@ -239,7 +239,7 @@ const Accounts = () => {
 			renderCell: (params) => {
 				return params.row.orderSummaray.totalCharges;
 			},
-			flex: 1,
+			width: 150,
 		},
 		{
 			field: "totalReceive",
@@ -247,7 +247,7 @@ const Accounts = () => {
 			renderCell: (params) => {
 				return params.row.orderSummaray.totalReceive;
 			},
-			flex: 1,
+			width: 180,
 		},
 		{
 			field: "collectionStatus",
@@ -255,9 +255,9 @@ const Accounts = () => {
 			renderCell: (params) => {
 				return params.row.paymentCollectionDetails.collectionStatus;
 			},
-			flex: 1,
+			width: 200,
 		},
-		{ field: "status", headerName: "Order Status", flex: 1 },
+		{ field: "status", headerName: "Order Status", width: 200, },
 		{
 			field: "_id",
 			headerName: "Action",
@@ -283,7 +283,7 @@ const Accounts = () => {
 			<Grid container spacing={1} sx={{ justifyContent: "center", px: 2 }}>
 				<Grid item xs={12} md={12}>
 					{data && (
-						<div style={{ height: 400, width: "100%" }} className='table'>
+						<div style={{ height: 480, width: "100%" }} className='table'>
 							<DataGrid
 								rows={data}
 								getRowId={(row) => row?._id}

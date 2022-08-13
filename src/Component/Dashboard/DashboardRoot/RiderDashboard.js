@@ -10,6 +10,9 @@ import HomeIcon from "@mui/icons-material/Home";
 import FormatListNumberedIcon from "@mui/icons-material/FormatListNumbered";
 import RedeemIcon from "@mui/icons-material/Redeem";
 import AddTaskIcon from "@mui/icons-material/AddTask";
+import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
+import LocalShippingIcon from '@mui/icons-material/LocalShipping';
+import PlaylistAddCheckIcon from '@mui/icons-material/PlaylistAddCheck';
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { styled } from "@mui/material/styles";
 import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
@@ -97,9 +100,9 @@ const RiderDashboard = () => {
 									location?.pathname === "ridersDashboard/ParcelList" &&
 									"activeButton"
 								}>
-								<ListItemIcon className='listItemIcon'>
+								<PlaylistAddCheckIcon className='listItemIcon'>
 									<FormatListNumberedIcon />
-								</ListItemIcon>
+								</PlaylistAddCheckIcon>
 								<ListItemText primary={"Collect Parcel List"} />
 							</ListItem>
 						</Link>
@@ -110,9 +113,9 @@ const RiderDashboard = () => {
 									location?.pathname === "ridersDashboard/parceReclList" &&
 									"activeButton"
 								}>
-								<ListItemIcon className='listItemIcon'>
+								<LocalShippingIcon className='listItemIcon'>
 									<FormatListNumberedIcon />
-								</ListItemIcon>
+								</LocalShippingIcon>
 								<ListItemText primary={"Deliver Parcel List"} />
 							</ListItem>
 						</Link>
@@ -123,9 +126,9 @@ const RiderDashboard = () => {
 									location?.pathname === "ridersDashboard/accounts" &&
 									"activeButton"
 								}>
-								<ListItemIcon className='listItemIcon'>
+								<AccountBalanceWalletIcon className='listItemIcon'>
 									<FormatListNumberedIcon />
-								</ListItemIcon>
+								</AccountBalanceWalletIcon>
 								<ListItemText primary={"Accounts"} />
 							</ListItem>
 						</Link>

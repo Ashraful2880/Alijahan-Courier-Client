@@ -96,7 +96,7 @@ const AdminDashboard = () => {
 					<ListItemIcon className='listItemIcon'>
 						<ManageAccountsIcon />
 					</ListItemIcon>
-					<Typography>Account</Typography>
+					<Typography>Accounts</Typography>
 				</AccordionSummary>
 				<AccordionDetails>
 					<List>
