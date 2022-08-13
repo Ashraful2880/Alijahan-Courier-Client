@@ -18,15 +18,15 @@ import { useState } from "react";
 import GetAuth from "../../../../FirebaseAuth/GetAuth";
 import PaymentsIcon from "@mui/icons-material/Payments";
 
-const RidersParcelList = () => {
-	const email = "rider@gmail.com";
+const RidersRecParcelList = () => {
+	const email = "rider2@gmail.com";
 	const { user, loading, token } = GetAuth();
 	const [submitting, setSubmitting] = useState(false);
 	const [data, setData] = useState();
 	const [status, setStatus] = useState("");
 	useEffect(() => {
 		axios
-			.get(`${process.env.REACT_APP_API_PATH}/riderCollectOrders/${email}`, {
+			.get(`${process.env.REACT_APP_API_PATH}/riderDeliverOrders/${email}`, {
 				headers: {
 					Authorization: `Bearer ${token}`,
 				},
@@ -317,4 +317,4 @@ const RidersParcelList = () => {
 	);
 };
 
-export default RidersParcelList;
+export default RidersRecParcelList;

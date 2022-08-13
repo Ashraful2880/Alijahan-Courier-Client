@@ -312,18 +312,6 @@ const AdminDashboard = () => {
 								<ListItemText primary={"Service Area"} />
 							</ListItem>
 						</Link>
-						{/* <Link className='link' to='serviceAreaSetting'>
-							<ListItem
-								button
-								className={
-									location?.pathname === "/serviceAreaSetting" && "activeButton"
-								}>
-								<ListItemIcon className='listItemIcon'>
-									<RoomPreferencesIcon />
-								</ListItemIcon>
-								<ListItemText primary={"Service Area Setting"} />
-							</ListItem>
-						</Link> */}
 						<Link className='link' to='district'>
 							<ListItem
 								button
@@ -336,16 +324,6 @@ const AdminDashboard = () => {
 								<ListItemText primary={"District"} />
 							</ListItem>
 						</Link>
-						{/* <Link className='link' to='upazila'>
-							<ListItem
-								button
-								className={location?.pathname === "/upazila" && "activeButton"}>
-								<ListItemIcon className='listItemIcon'>
-									<FlagIcon />
-								</ListItemIcon>
-								<ListItemText primary={"Thana/Upazila"} />
-							</ListItem>
-						</Link> */}
 						<Link className='link' to='area'>
 							<ListItem
 								button
@@ -427,28 +405,16 @@ const AdminDashboard = () => {
 				</AccordionSummary>
 				<AccordionDetails>
 					<List>
-						<Link className='link' to='adminUser'>
+						<Link className='link' to='allUsers'>
 							<ListItem
 								button
 								className={
-									location?.pathname === "/adminUser" && "activeButton"
+									location?.pathname === "/allUsers" && "activeButton"
 								}>
 								<ListItemIcon className='listItemIcon'>
 									<AdminPanelSettingsIcon />
 								</ListItemIcon>
-								<ListItemText primary={"Admin User"} />
-							</ListItem>
-						</Link>
-						<Link className='link' to='application'>
-							<ListItem
-								button
-								className={
-									location?.pathname === "/application" && "activeButton"
-								}>
-								<ListItemIcon className='listItemIcon'>
-									<ComputerIcon />
-								</ListItemIcon>
-								<ListItemText primary={"Application"} />
+								<ListItemText primary={"All Users"} />
 							</ListItem>
 						</Link>
 					</List>

@@ -57,7 +57,7 @@ const WeightPackage = () => {
 				{params.row?.status === "Active" ? (
 					<RemoveDoneIcon
 						className='iconBtn'
-						sx={{ color: "#1565C0!important", }}
+						sx={{ color: "#1565C0!important" }}
 						onClick={() => {
 							Swal.fire({
 								title: "Do you want to Deactive this?",
@@ -115,7 +115,7 @@ const WeightPackage = () => {
 										)
 										.then((response) => {
 											setSubmitting(false);
-											Swal.fire("", "Successfully Activated!", "success");
+											Swal.fire("", "Successfully Done!", "success");
 										})
 										.catch((error) => {
 											setSubmitting(false);
@@ -128,14 +128,14 @@ const WeightPackage = () => {
 				)}
 				<EditIcon
 					className='iconBtn'
-					sx={{ color: "green!important", }}
+					sx={{ color: "green!important" }}
 					onClick={() => {
 						handleOpen(params.row?._id);
 					}}
 				/>
 				<DeleteIcon
 					className='iconBtn'
-					sx={{ color: "#df0f00!important", }}
+					sx={{ color: "#df0f00!important" }}
 					onClick={() => {
 						Swal.fire({
 							title: "Do you want to Delete this?",
@@ -203,7 +203,14 @@ const WeightPackage = () => {
 	];
 	return (
 		<Box sx={{ mx: 4, pt: 2, pb: 5 }}>
-			<Box sx={{ px: 0.5, pb: 1, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+			<Box
+				sx={{
+					px: 0.5,
+					pb: 1,
+					display: "flex",
+					alignItems: "center",
+					justifyContent: "space-between",
+				}}>
 				<Typography variant='h5' sx={{ fontWeight: "bold", color: "#1E793C" }}>
 					Weight Package
 				</Typography>

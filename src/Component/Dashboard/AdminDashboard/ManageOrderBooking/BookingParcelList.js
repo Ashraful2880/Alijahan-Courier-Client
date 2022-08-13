@@ -60,7 +60,7 @@ const BookingParcelList = () => {
 					)
 					.then((response) => {
 						setSubmitting(false);
-						Swal.fire("", "Successfully Activated!", "success");
+						Swal.fire("", "Successfully Done!", "success");
 					})
 					.catch((error) => {
 						setSubmitting(false);
@@ -72,7 +72,7 @@ const BookingParcelList = () => {
 	const renderDetailsButton = (params) => {
 		return (
 			<Box sx={{ display: "flex", alignItems: "center" }}>
-				<FormControl sx={{ m: 1, minWidth: 120 }}>
+				{/* <FormControl sx={{ m: 1, minWidth: 120 }}>
 					<Select
 						size='small'
 						value={status}
@@ -82,9 +82,6 @@ const BookingParcelList = () => {
 						}}
 						displayEmpty
 						inputProps={{ "aria-label": "Without label" }}>
-						<MenuItem value=''>
-							<em>Change Status</em>
-						</MenuItem>
 						<MenuItem value={"Pending"}>Pending</MenuItem>
 						<MenuItem value={"Accepted"}>Accepted</MenuItem>
 						<MenuItem value={"Assign for Pickup"}>Assign for Pickup</MenuItem>
@@ -96,7 +93,7 @@ const BookingParcelList = () => {
 						<MenuItem value={"Canceled"}>Canceled</MenuItem>
 						<MenuItem value={"Returned"}>Returned</MenuItem>
 					</Select>
-				</FormControl>
+				</FormControl> */}
 				<DeleteIcon
 					className='iconBtn'
 					sx={{ color: "#df0f00!important" }}

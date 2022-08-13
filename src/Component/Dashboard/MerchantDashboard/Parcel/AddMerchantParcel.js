@@ -1,384 +1,639 @@
-import React from 'react';
-import { Box, Button, Card, Grid, MenuItem, TextareaAutosize, TextField, Typography } from '@mui/material';
-import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
-import DoneIcon from '@mui/icons-material/Done';
-import RestartAltIcon from '@mui/icons-material/RestartAlt';
-import { useForm } from 'react-hook-form';
-import "../MerchantDashboard.css";
+import React, { useEffect, useState } from "react";
+import {
+	Autocomplete,
+	Backdrop,
+	Box,
+	Button,
+	Checkbox,
+	CircularProgress,
+	FormControlLabel,
+	FormGroup,
+	Grid,
+	TextField,
+	Typography,
+} from "@mui/material";
+import CreateNewFolderIcon from "@mui/icons-material/CreateNewFolder";
+import DoneIcon from "@mui/icons-material/Done";
+import RestartAltIcon from "@mui/icons-material/RestartAlt";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import { useForm } from "react-hook-form";
+import axios from "axios";
+import Swal from "sweetalert2";
+import GetAuth from "../../../../FirebaseAuth/GetAuth";
 
 const AddMerchantParcel = () => {
-    const [district, setDistrict] = React.useState('Select District');
+	const { user, loading, token } = GetAuth();
+	const [submitting, setSubmitting] = useState(false);
+	const { register, handleSubmit, reset } = useForm();
+	const [selectedDistricts, setSelectedDistricts] = useState("");
+	const [selectedBranch, setSelectedBranch] = useState("");
+	const [branch, setBranch] = useState();
+	const [productCategory, setProductCategory] = useState();
+	const [weight, setWeight] = useState();
+	const [selectWeight, setSelectWeight] = useState();
+	const [serviceAreas, setServiceAreas] = useState();
+	const [selectServiceAreas, setSelectServiceAreas] = useState();
+	const [cashCollection, setCashCollection] = useState();
+	const [districts, setDistricts] = useState();
+	const [marchant, setMarchant] = useState();
 
-    const handleChange = (event) => {
-        setDistrict(event.target.value);
-    };
+	const email = "marchant@gmail.com";
+	useEffect(() => {
+		axios
+			.get(`${process.env.REACT_APP_API_PATH}/districts`, {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			})
+			.then((response) => {
+				setDistricts(response.data);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+		axios
+			.get(`${process.env.REACT_APP_API_PATH}/branches`, {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			})
+			.then((response) => {
+				setBranch(response.data);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+		axios
+			.get(`${process.env.REACT_APP_API_PATH}/itemCategories`, {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			})
+			.then((response) => {
+				setProductCategory(response.data);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+		axios
+			.get(`${process.env.REACT_APP_API_PATH}/weightPackages`, {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			})
+			.then((response) => {
+				setWeight(response.data);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+		axios
+			.get(`${process.env.REACT_APP_API_PATH}/serviceAreas`, {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			})
+			.then((response) => {
+				setServiceAreas(response.data);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+		axios
+			.get(`${process.env.REACT_APP_API_PATH}/merchants/${email}`, {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			})
+			.then((response) => {
+				setMarchant(response.data);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	}, [token]);
+	const senderBranch = branch?.find(
+		(b) => b.branchName === marchant?.merchantBranchName,
+	);
+	const cashCollected = parseFloat(cashCollection) || 0;
+	const deliveryCharge = parseFloat(selectServiceAreas?.serviceAreaCharge);
+	const codPercentage =
+		parseFloat(selectServiceAreas?.serviceAreaCODPercentage) || 0;
+	const weightCharge = parseFloat(selectWeight?.weightPackageRate) || 0;
+	const totalAmount = deliveryCharge + weightCharge + cashCollected || 0;
+	const codAmount = totalAmount * (codPercentage / 100) || 0;
+	const totalCharges = deliveryCharge + weightCharge + codAmount || 0;
+	const totalAmountWithCharges = cashCollected + totalCharges || 0;
+	const totalReceive = cashCollected - totalCharges || 0;
+	const onSubmit = ({
+		receiverName,
+		receiverNumber,
+		receiverBranchDistrict,
+		receiverBranchName,
+		receiverBranchArea,
+		receiverAddress,
+		productCategory,
+		productWeight,
+		receiverServiceArea,
+		referenceId,
+		instructions,
+	}) => {
+		const data = {
+			orderId:
+				senderBranch?.branchName.slice(0, 4) +
+				"-" +
+				selectedBranch?.branchName.slice(0, 4) +
+				"-" +
+				Math.floor(Math.random() * 1000000000),
+			marchentInfo: marchant,
+			senderBranchInfo: senderBranch,
+			orderDetails: { productCategory, productWeight, receiverServiceArea },
+			receiverInfo: {
+				receiverAddress,
+				receiverName,
+				receiverNumber,
+				receiverBranchDistrict,
+				receiverBranchArea,
+				receiverBranchName,
+			},
+			referenceId,
+			instructions,
+			orderSummaray: {
+				deliveryCharge,
+				weightCharge,
+				codAmount,
+				totalCharges,
+				totalAmountWithCharges,
+				totalReceive,
+			},
+			paymentCollectionDetails: {
+				collectionStatus: "Pending",
+				collectionDate: "",
+				collectedAmount: 0,
+			},
+			collectRiderInfo: {},
+			deliverRiderInfo: {},
+			warehouseInfo: {},
+			bookingDate: new Date().toLocaleString("en-US", {
+				timeZone: "Asia/Dhaka",
+			}),
+			status: "Pending",
+		};
+		console.log(data);
+		setSubmitting(true);
+		axios
+			.post(
+				`${process.env.REACT_APP_API_PATH}/merchantorder`,
+				{
+					data,
+				},
+				{
+					headers: {
+						Authorization: `Bearer ${token}`,
+					},
+				},
+			)
+			.then((response) => {
+				setSubmitting(false);
+				reset();
+				Swal.fire("", "Successfully Added!", "success");
+			})
+			.catch((error) => {
+				setSubmitting(false);
+				console.log(error);
+			});
+	};
 
-    const districts = [
-        { "value": "Select District", "label": "Select District" },
-        { "value": "Bagerhat", "label": "Bagerhat" },
-        { "value": "Bandarban", "label": "Bandarban" },
-    ]
+	return (
+		<Box
+			sx={{
+				mt: 2.5,
+				mx: 2.5,
+				border: "1px solid gray",
+				borderRadius: 2,
+				boxShadow: "0px 0px 10px gray",
+				pt: 2,
+				pb: 5,
+			}}>
+			<Typography
+				variant='h6'
+				sx={{
+					mb: 3,
+					textAlign: "left",
+					background: "#1E793C",
+					padding: "8px 20px",
+					color: "#fff",
+					borderRadius: "5px",
+					display: "flex",
+					alignItems: "center",
+					mx: 2,
+				}}>
+				<CreateNewFolderIcon sx={{ mr: 2 }} /> Create a New Parcel Order
+				(Merchant)
+			</Typography>
+			<Box sx={{ mx: 3 }}>
+				<form onSubmit={handleSubmit(onSubmit)}>
+					<Grid container spacing={1} sx={{ justifyContent: "center" }}>
+						<Grid item xs={12} md={8} lg={8}>
+							{/* Receiver Info Here */}
+							<Typography
+								component='p'
+								sx={{
+									fontWeight: "bold",
+									textAlign: "left",
+									my: 1,
+									mx: 2,
+									color: "#009688",
+									fontSize: "18px",
+								}}>
+								Receiver Information
+							</Typography>
+							<Box sx={{ display: "flex", gap: "15px", mx: 2 }}>
+								<TextField
+									size='small'
+									sx={{ my: 0.5 }}
+									fullWidth
+									required
+									label='Receiver Name'
+									helperText='Receiver Name'
+									{...register("receiverName", { required: true })}
+								/>
+								<TextField
+									size='small'
+									type='number'
+									sx={{ my: 0.5 }}
+									fullWidth
+									required
+									label='Mobile Number'
+									helperText='Reciever Mobile Number'
+									{...register("receiverNumber", { required: true })}
+								/>
+							</Box>
+							<Box sx={{ display: "flex", gap: "15px", mx: 2 }}>
+								<Autocomplete
+									onChange={(event, newValue) => {
+										setSelectedDistricts(newValue);
+									}}
+									size='small'
+									sx={{ my: 0.5, width: "100% !important" }}
+									options={districts}
+									getOptionLabel={(option) => option?.district}
+									style={{ width: 300 }}
+									renderInput={(params) => (
+										<TextField
+											{...register("receiverBranchDistrict", {
+												required: true,
+											})}
+											{...params}
+											label='Districts Name'
+											variant='outlined'
+										/>
+									)}
+								/>
+								<Autocomplete
+									onChange={(event, newValue) => {
+										setSelectedBranch(newValue);
+									}}
+									size='small'
+									sx={{ my: 0.5, width: "100% !important" }}
+									options={branch?.filter(
+										(item) =>
+											item?.branchDistrict === selectedDistricts?.district,
+									)}
+									getOptionLabel={(option) => option.branchName}
+									style={{ width: 300 }}
+									renderInput={(params) => (
+										<TextField
+											{...register("receiverBranchName", {
+												required: true,
+											})}
+											{...params}
+											label='Select Branch'
+											variant='outlined'
+											helperText='Branch'
+										/>
+									)}
+								/>
+								<Autocomplete
+									size='small'
+									sx={{ my: 0.5, width: "100% !important" }}
+									options={selectedBranch?.branchArea || []}
+									getOptionLabel={(option) => option.area}
+									style={{ width: 300 }}
+									renderInput={(params) => (
+										<TextField
+											{...register("receiverBranchArea", { required: true })}
+											{...params}
+											label='Select Area'
+											variant='outlined'
+											helperText='Area'
+										/>
+									)}
+								/>
+							</Box>
+							<Box sx={{ display: "flex", gap: "15px", mx: 2 }}>
+								<TextField
+									size='small'
+									sx={{ my: 0.5 }}
+									fullWidth
+									required
+									multiline
+									rows={2}
+									label='Address'
+									helperText='Address'
+									{...register("receiverAddress", { required: true })}
+								/>
+							</Box>
+							{/* Order Info Here */}
+							<Typography
+								component='p'
+								sx={{
+									fontWeight: "bold",
+									textAlign: "left",
+									my: 1,
+									mx: 2,
+									color: "#009688",
+									fontSize: "18px",
+								}}>
+								Order Information
+							</Typography>
+							<Box sx={{ display: "flex", gap: "15px", mx: 2 }}>
+								<Autocomplete
+									size='small'
+									sx={{ my: 0.5, width: "100% !important" }}
+									options={productCategory}
+									getOptionLabel={(option) => option.itemCategoryName}
+									style={{ width: 300 }}
+									renderInput={(params) => (
+										<TextField
+											{...register("productCategory", { required: true })}
+											{...params}
+											label='Product Category'
+											variant='outlined'
+											helperText='Select Product category'
+										/>
+									)}
+								/>
+								<Autocomplete
+									onChange={(event, newValue) => {
+										setSelectWeight(newValue);
+									}}
+									size='small'
+									sx={{ my: 0.5, width: "100% !important" }}
+									options={weight}
+									getOptionLabel={(option) => option.weightPackageName}
+									style={{ width: 300 }}
+									renderInput={(params) => (
+										<TextField
+											{...register("productWeight", { required: true })}
+											{...params}
+											label='Product Weight'
+											variant='outlined'
+											helperText='Select Product Weight'
+										/>
+									)}
+								/>
 
-    const {
-        register,
-        handleSubmit,
-        formState: { errors }
-    } = useForm();
+								<Autocomplete
+									onChange={(event, newValue) => {
+										setSelectServiceAreas(newValue);
+									}}
+									size='small'
+									sx={{ my: 0.5, width: "100% !important" }}
+									options={serviceAreas || []}
+									getOptionLabel={(option) => option.serviceAreaName}
+									style={{ width: 300 }}
+									renderInput={(params) => (
+										<TextField
+											{...register("receiverServiceArea", { required: true })}
+											{...params}
+											label='Service Area'
+											variant='outlined'
+											helperText='Select Service Area'
+										/>
+									)}
+								/>
+							</Box>
+							<Box sx={{ display: "flex", gap: "15px", mx: 2 }}>
+								<TextField
+									type='number'
+									size='small'
+									sx={{ my: 0.5 }}
+									fullWidth
+									required
+									label='Cash Collection'
+									helperText='Cash Collection'
+									{...register("cashCollection", { required: true })}
+									value={cashCollection}
+									onChange={(e) => setCashCollection(e.target.value)}
+								/>
+								<TextField
+									size='small'
+									sx={{ my: 0.5 }}
+									fullWidth
+									required
+									label='Reference Id'
+									helperText='Reference Id'
+									{...register("referenceId", { required: true })}
+								/>
+							</Box>
+							<TextField
+								size='small'
+								sx={{ my: 0.5, width: "97%" }}
+								label='Instructions'
+								multiline
+								rows={3}
+								helperText='Any Instructions'
+								{...register("instructions", { required: true })}
+							/>
+						</Grid>
+						<Grid item xs={12} md={4} lg={4}>
+							<Typography
+								component='p'
+								sx={{
+									fontWeight: "bold",
+									textAlign: "left",
+									my: 1,
+									mx: 2,
+									color: "#009688",
+									fontSize: "18px",
+								}}>
+								Order Summary
+							</Typography>
+							<TableContainer component={Paper}>
+								<Table aria-label='simple table'>
+									<TableBody>
+										<TableRow>
+											<TableCell component='th' scope='row'>
+												<Typography
+													component='p'
+													sx={{
+														fontWeight: "600",
+														color: "gray",
+														fontSize: "15px",
+													}}>
+													Cash Collection
+												</Typography>
+											</TableCell>
+											<TableCell align='right'>
+												<Typography
+													sx={{
+														fontWeight: "600",
+														color: "gray",
+														fontSize: "15px",
+													}}>
+													{cashCollected} ৳
+												</Typography>
+											</TableCell>
+										</TableRow>
+										<TableRow>
+											<TableCell component='th' scope='row'>
+												<Typography
+													sx={{
+														fontWeight: "600",
+														color: "gray",
+														fontSize: "15px",
+													}}>
+													Weight Charge
+												</Typography>
+											</TableCell>
+											<TableCell align='right'>
+												<Typography
+													sx={{
+														fontWeight: "600",
+														color: "gray",
+														fontSize: "15px",
+													}}>
+													{weightCharge} ৳
+												</Typography>
+											</TableCell>
+										</TableRow>
+										<TableRow>
+											<TableCell component='th' scope='row'>
+												<Typography
+													sx={{
+														fontWeight: "600",
+														color: "gray",
+														fontSize: "15px",
+													}}>
+													Delivery Charge
+												</Typography>
+											</TableCell>
+											<TableCell align='right'>
+												<Typography
+													sx={{
+														fontWeight: "600",
+														color: "gray",
+														fontSize: "15px",
+													}}>
+													{deliveryCharge || 0} ৳
+												</Typography>
+											</TableCell>
+										</TableRow>
+										<TableRow>
+											<TableCell component='th' scope='row'>
+												<Typography
+													sx={{
+														fontWeight: "600",
+														color: "gray",
+														fontSize: "15px",
+													}}>
+													Cash On Delivery Charge
+												</Typography>
+											</TableCell>
+											<TableCell align='right'>
+												<Typography
+													sx={{
+														fontWeight: "600",
+														color: "gray",
+														fontSize: "15px",
+													}}>
+													{codAmount} ৳
+												</Typography>
+											</TableCell>
+										</TableRow>
 
-    const onSubmit = (data) => {
-        alert(JSON.stringify(data));
-    };
-    return (
-        <Box sx={{ padding: "0px 15px" }}>
-            <Box>
-                <Typography variant='h5' sx={{ textAlign: "left", marginY: "15px" }}>Add New Parcel</Typography>
-                <Typography variant='h6' sx={{ textAlign: "left", background: "#1E793C", padding: "10px 15px", borderRadius: "6px", fontSize: "19px", color: "#fff", display: "flex", alignItems: "center" }}>
-                    <CreateNewFolderIcon sx={{ mr: 2 }} /> Add New Parcel
-                </Typography>
-            </Box>
-            <Box sx={{ width: '100%' }}>
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                        <Grid item xs={12} md={6} lg={6} style={{ position: "relative" }}>
-                            <Typography className="divider" component='p' sx={{ textAlign: "left", marginY: "15px", fontWeight: "bold", fontSize: "18px" }}>Customer Information</Typography>
-                            <Card sx={{ minWidth: 275 }}>
-                                <Box sx={{ display: "flex", justifyContent: "space-between", margin: "20px 30px" }}>
-                                    <Box sx={{ width: "48%" }}>
-                                        <TextField
-                                            sx={{ width: "100%" }}
-                                            helperText="Customer Name"
-                                            label="Enter Customer Name"
-                                            {...register("customerName", {
-                                                required: true,
-                                            })}
-                                        />
-                                        {errors?.customerName?.type === "required" && <p style={{ color: "red", fontSize: "14px", marginTop: "-10px" }}>This field is required</p>}
-                                    </Box>
-                                    <Box sx={{ width: "48%" }}>
-                                        <TextField
-                                            sx={{ width: "100%" }}
-                                            helperText="Customer Contact Number"
-                                            label="Customer Number"
-                                            {...register("customerNumber", {
-                                                required: true,
-                                            })} />
-                                        {errors?.customerNumber?.type === "required" && <p style={{ color: "red", fontSize: "14px", marginTop: "-10px" }}>This field is required</p>}
-                                    </Box>
-                                </Box>
-                                <Box sx={{ display: "flex", justifyContent: "space-between", margin: "20px 30px" }}>
-                                    <Box sx={{ width: "48%" }}>
-                                        <TextField
-                                            sx={{ width: "100%" }}
-                                            helperText="Customer Address"
-                                            label="Customer Address"
-                                            {...register("address", {
-                                                required: true,
-                                            })} />
-                                        {errors?.address?.type === "required" && <p style={{ color: "red", fontSize: "14px", marginTop: "-10px" }}>This field is required</p>}
-                                    </Box>
-                                    <Box sx={{ width: "48%" }}>
-                                        <TextField
-                                            sx={{ width: "100%" }}
-                                            select
-                                            label="Select District"
-                                            value={district}
-                                            onChange={handleChange}
-                                            helperText="Select District"
-                                            {...register("district")}>
-                                            {districts.map((option) => (
-                                                <MenuItem key={option.value} value={option.value}>
-                                                    {option.label}
-                                                </MenuItem>
-                                            ))}
-                                        </TextField>
-                                        {errors?.district?.type === "required" && <p style={{ color: "red", fontSize: "14px", marginTop: "-10px" }}>This field is required</p>}
-                                    </Box>
-                                </Box>
-                                <Box sx={{ display: "flex", justifyContent: "space-between", margin: "20px 30px" }}>
-                                    <Box sx={{ width: "48%" }}>
-                                        <TextField
-                                            sx={{ width: "100%" }}
-                                            select
-                                            label="Select Thana/Upazila"
-                                            value={district}
-                                            onChange={handleChange}
-                                            helperText="Select Thana/Upazila"
-                                            {...register("upazila")}>
-                                            {districts.map((option) => (
-                                                <MenuItem key={option.value} value={option.value}>
-                                                    {option.label}
-                                                </MenuItem>
-                                            ))}
-                                        </TextField>
-                                        {errors?.upazila?.type === "required" && <p style={{ color: "red", fontSize: "14px", marginTop: "-10px" }}>This field is required</p>}
-                                    </Box>
-                                    <Box sx={{ width: "48%" }}>
-                                        <TextField
-                                            sx={{ width: "100%" }}
-                                            select
-                                            label="Select Area"
-                                            value={district}
-                                            onChange={handleChange}
-                                            helperText="Select Area"
-                                            {...register("area")}>
-                                            {districts.map((option) => (
-                                                <MenuItem key={option.value} value={option.value}>
-                                                    {option.label}
-                                                </MenuItem>
-                                            ))}
-                                        </TextField>
-                                        {errors?.area?.type === "required" && <p style={{ color: "red", fontSize: "14px", marginTop: "-10px" }}>This field is required</p>}
-                                    </Box>
-                                </Box>
-                            </Card>
-                        </Grid>
-                        <Grid item xs={12} md={6} lg={6} style={{ position: "relative" }}>
-                            <Typography component='p' sx={{ textAlign: "left", marginY: "15px", fontWeight: "bold", fontSize: "18px" }} className="divider">Parcel Information</Typography>
-                            <Card sx={{ minWidth: 275 }}>
-                                <Box sx={{ display: "flex", justifyContent: "space-between", margin: "20px 30px" }}>
-                                    <Box sx={{ width: "48%" }}>
-                                        <TextField
-                                            sx={{ width: "100%" }}
-                                            helperText="Merchant Order ID"
-                                            label="Merchant Order ID"
-                                            {...register("merchantOrderID", {
-                                                required: true,
-                                            })}
-                                        />
-                                        {errors?.merchantOrderID?.type === "required" && <p style={{ color: "red", fontSize: "14px", marginTop: "-10px" }}>This field is required</p>}
-                                    </Box>
-                                    <Box sx={{ width: "48%" }}>
-                                        <TextField
-                                            sx={{ width: "100%" }}
-                                            select
-                                            label="Weight Package"
-                                            value={district}
-                                            onChange={handleChange}
-                                            helperText="Weight Package"
-                                            {...register("weight")}>
-                                            {districts.map((option) => (
-                                                <MenuItem key={option.value} value={option.value}>
-                                                    {option.label}
-                                                </MenuItem>
-                                            ))}
-                                        </TextField>
-                                        {errors?.weight?.type === "required" && <p style={{ color: "red", fontSize: "14px", marginTop: "-10px" }}>This field is required</p>}
-                                    </Box>
-                                </Box>
-                                <Box sx={{ display: "flex", justifyContent: "space-between", margin: "20px 30px" }}>
-                                    <Box sx={{ width: "48%" }}>
-                                        <TextField
-                                            sx={{ width: "100%" }}
-                                            select
-                                            label="Delivery option"
-                                            value={district}
-                                            onChange={handleChange}
-                                            helperText="Delivery Option"
-                                            {...register("deliveryOption")}>
-                                            {districts.map((option) => (
-                                                <MenuItem key={option.value} value={option.value}>
-                                                    {option.label}
-                                                </MenuItem>
-                                            ))}
-                                        </TextField>
-                                        {errors?.deliveryOption?.type === "required" && <p style={{ color: "red", fontSize: "14px", marginTop: "-10px" }}>This field is required</p>}
-                                    </Box>
-                                    <Box sx={{ width: "48%" }}>
-                                        <TextField
-                                            sx={{ width: "100%" }}
-                                            helperText="Product(s) Brief"
-                                            label="Product(s) Brief"
-                                            {...register("productsDetails", {
-                                                required: true,
-                                            })} />
-                                        {errors?.productsDetails?.type === "required" && <p style={{ color: "red", fontSize: "14px", marginTop: "-10px" }}>This field is required</p>}
-                                    </Box>
-                                </Box>
-                                <Box sx={{ display: "flex", justifyContent: "space-between", margin: "20px 30px" }}>
-                                    <Box sx={{ width: "48%" }}>
-                                        <TextField
-                                            sx={{ width: "100%" }}
-                                            helperText="Total Collection Amount"
-                                            label="Total Collection Amount"
-                                            {...register("collectionAmount", {
-                                                required: true,
-                                            })} />
-                                        {errors?.collectionAmount?.type === "required" && <p style={{ color: "red", fontSize: "14px", marginTop: "-10px" }}>This field is required</p>}
-                                    </Box>
-                                    <TextareaAutosize
-                                        onChange={handleChange}
-                                        minRows={2.2}
-                                        placeholder="Parcel Remark"
-                                        style={{ width: "48%", padding: "10px" }}
-                                        {...register("remark", {
-                                            required: true,
-                                        })}
-                                    />
-                                    {errors?.remark?.type === "required" && <p style={{ color: "red", fontSize: "14px", marginTop: "-10px" }}>This field is required</p>}
-                                </Box>
-                            </Card>
-                        </Grid>
-                        <Grid item xs={12} md={6} lg={6} style={{ position: "relative" }}>
-                            <Typography component='p' sx={{ textAlign: "left", marginY: "15px", fontWeight: "bold", fontSize: "18px" }} className="divider">Merchant Information</Typography>
-                            <Card sx={{ minWidth: 275 }}>
-                                <Box sx={{ display: "grid", gridTemplateColumns: "2fr 1fr 2fr", marginBottom: "20px", marginTop: "20px" }}>
-                                    <Typography component='p' sx={{ fontWeight: "bold", fontSize: "14px" }}>
-                                        Merchant Name
-                                    </Typography>
-                                    <Typography component='p' sx={{ fontWeight: "bold", fontSize: "14px" }}>
-                                        --
-                                    </Typography>
-                                    <Typography component='p' sx={{ fontSize: "14px" }}>
-                                        Jahidul Islam Nahid
-                                    </Typography>
-                                </Box>
-                                <Box sx={{ display: "grid", gridTemplateColumns: "2fr 1fr 2fr", marginBottom: "20px" }}>
-                                    <Typography component='p' sx={{ fontWeight: "bold", fontSize: "14px" }}>
-                                        Merchant Contact
-                                    </Typography>
-                                    <Typography component='p' sx={{ fontWeight: "bold", fontSize: "14px" }}>
-                                        --
-                                    </Typography>
-                                    <Typography component='p' sx={{ fontSize: "14px" }}>
-                                        01709815688
-                                    </Typography>
-                                </Box>
-                                <Box sx={{ display: "grid", gridTemplateColumns: "2fr 1fr 2fr", marginBottom: "20px" }}>
-                                    <Typography component='p' sx={{ fontWeight: "bold", fontSize: "14px" }}>
-                                        Branch
-                                    </Typography>
-                                    <Typography component='p' sx={{ fontWeight: "bold", fontSize: "14px" }}>
-                                        --
-                                    </Typography>
-                                    <Typography component='p' sx={{ fontSize: "14px" }}>
-                                        Dhaka Tejgoan Branch
-                                    </Typography>
-                                </Box>
-                                <Box sx={{ display: "grid", gridTemplateColumns: "2fr 1fr 2fr", marginBottom: "20px" }}>
-                                    <Typography component='p' sx={{ fontWeight: "bold", fontSize: "14px" }}>
-                                        Branch Contact Number
-                                    </Typography>
-                                    <Typography component='p' sx={{ fontWeight: "bold", fontSize: "14px" }}>
-                                        --
-                                    </Typography>
-                                    <Typography component='p' sx={{ fontSize: "14px" }}>
-                                        01813158551
-                                    </Typography>
-                                </Box>
-                                <Box sx={{ display: "grid", gridTemplateColumns: "2fr 1fr 2fr", marginBottom: "60px" }}>
-                                    <Typography component='p' sx={{ fontWeight: "bold", fontSize: "14px" }}>
-                                        Branch Address
-                                    </Typography>
-                                    <Typography component='p' sx={{ fontWeight: "bold", fontSize: "14px" }}>
-                                        --
-                                    </Typography>
-                                    <Typography component='p' sx={{ fontSize: "14px" }}>
-                                        Dhaka, Panthapath
-                                    </Typography>
-                                </Box>
-                            </Card>
-                        </Grid>
-                        <Grid item xs={12} md={6} lg={6} style={{ position: "relative" }}>
-                            <Typography component='p' sx={{ textAlign: "left", fontWeight: "bold", marginY: "15px", fontSize: "18px" }} className="divider">Parcel Charge</Typography>
-                            <Card sx={{ minWidth: 275, padding: "0px 15px" }}>
-                                <Box sx={{ display: "grid", gridTemplateColumns: "2fr 1fr 2fr", marginBottom: "20px", marginTop: "20px" }}>
-                                    <Typography component='p' sx={{ fontWeight: "bold", fontSize: "14px" }}>
-                                        Weight Package
-                                    </Typography>
-                                    <Typography component='p' sx={{ fontWeight: "bold", fontSize: "14px" }}>
-                                        --
-                                    </Typography>
-
-                                    <Typography component='p' sx={{ fontSize: "14px" }}>
-                                        Not Confirm
-                                    </Typography>
-                                </Box>
-                                <Box sx={{ display: "grid", gridTemplateColumns: "2fr 1fr 2fr", marginBottom: "20px" }}>
-                                    <Typography component='p' sx={{ fontWeight: "bold", fontSize: "14px" }}>
-                                        Cod Percent
-                                    </Typography>
-                                    <Typography component='p' sx={{ fontWeight: "bold", fontSize: "14px" }}>
-                                        --
-                                    </Typography>
-
-                                    <Typography component='p' sx={{ fontSize: "14px" }}>
-                                        0%
-                                    </Typography>
-                                </Box>
-                                <Box sx={{ display: "grid", gridTemplateColumns: "2fr 1fr 2fr", marginBottom: "20px" }}>
-                                    <Typography component='p' sx={{ fontWeight: "bold", fontSize: "14px" }}>
-                                        Weight Charge
-                                    </Typography>
-                                    <Typography component='p' sx={{ fontWeight: "bold", fontSize: "14px" }}>
-                                        --
-                                    </Typography>
-
-                                    <Typography component='p' sx={{ fontSize: "14px" }}>
-                                        0.00
-                                    </Typography>
-                                </Box>
-                                <Box sx={{ display: "grid", gridTemplateColumns: "2fr 1fr 2fr", marginBottom: "20px" }}>
-                                    <Typography component='p' sx={{ fontWeight: "bold", fontSize: "14px" }}>
-                                        COD Charge
-                                    </Typography>
-                                    <Typography component='p' sx={{ fontWeight: "bold", fontSize: "14px" }}>
-                                        --
-                                    </Typography>
-
-                                    <Typography component='p' sx={{ fontSize: "14px" }}>
-                                        0.00
-                                    </Typography>
-                                </Box>
-                                <Box sx={{ display: "grid", gridTemplateColumns: "2fr 1fr 2fr", marginBottom: "20px" }}>
-                                    <Typography component='p' sx={{ fontWeight: "bold", fontSize: "14px" }}>
-                                        Delivery Charge
-                                    </Typography>
-                                    <Typography component='p' sx={{ fontWeight: "bold", fontSize: "14px" }}>
-                                        --
-                                    </Typography>
-
-                                    <Typography component='p' sx={{ fontSize: "14px" }}>
-                                        0.00
-                                    </Typography>
-                                </Box>
-                                <Box sx={{ display: "grid", gridTemplateColumns: "2fr 1fr 2fr", marginBottom: "20px" }}>
-                                    <Typography component='p' sx={{ fontWeight: "bold", fontSize: "14px" }}>
-                                        Total Charge
-                                    </Typography>
-                                    <Typography component='p' sx={{ fontWeight: "bold", fontSize: "14px" }}>
-                                        --
-                                    </Typography>
-
-                                    <Typography component='p' sx={{ fontSize: "14px" }}>
-                                        0.00
-                                    </Typography>
-                                </Box>
-                            </Card>
-                        </Grid>
-                        {/* <Box sx={{ marginY: "20px", padding: "0px 26px" }}>
-            
-                        </Box> */}
-                        <Box sx={{ display: "flex", gap: "15px", mx: 1, mt: 1, mb: 5, padding: "0px 26px" }}>
-                            <Button
-                                type='submit'
-                                variant='contained'
-                                color="success"
-                                sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1, }}>
-                                <DoneIcon sx={{ mr: 0.5 }} />Submit
-                            </Button>
-                            <Button
-                                type='reset'
-                                variant='contained'
-                                color="error"
-                                sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1, }}>
-                                <RestartAltIcon sx={{ mr: 0.5 }} />Reset
-                            </Button>
-                        </Box>
-                    </Grid>
-                </form>
-            </Box>
-        </Box>
-    );
+										<TableRow style={{ background: "rgb(233 233 224 / 43%)" }}>
+											<TableCell component='th' scope='row'>
+												<Typography
+													sx={{
+														fontWeight: "600",
+														color: "gray",
+														fontSize: "15px",
+													}}>
+													Total Charges
+												</Typography>
+											</TableCell>
+											<TableCell align='right'>
+												<Typography
+													sx={{
+														fontWeight: "600",
+														color: "gray",
+														fontSize: "15px",
+													}}>
+													{totalCharges} ৳
+												</Typography>
+											</TableCell>
+										</TableRow>
+										<TableRow style={{ background: "#e9e9e9" }}>
+											<TableCell component='th' scope='row'>
+												<Typography
+													sx={{
+														fontWeight: "600",
+														color: "gray",
+														fontSize: "15px",
+													}}>
+													Total Receive
+												</Typography>
+											</TableCell>
+											<TableCell align='right'>
+												<Typography
+													sx={{
+														fontWeight: "600",
+														color: "gray",
+														fontSize: "15px",
+													}}>
+													{totalReceive} ৳
+												</Typography>
+											</TableCell>
+										</TableRow>
+									</TableBody>
+								</Table>
+							</TableContainer>
+						</Grid>
+					</Grid>
+					<Box sx={{ display: "flex", gap: "15px", mx: 1, mt: 2 }}>
+						<Button
+							type='submit'
+							variant='contained'
+							color='success'
+							sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+							<DoneIcon sx={{ mr: 0.5 }} />
+							Place
+						</Button>
+						<Button
+							type='reset'
+							variant='contained'
+							color='error'
+							sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+							<RestartAltIcon sx={{ mr: 0.5 }} />
+							Reset
+						</Button>
+					</Box>
+				</form>
+			</Box>
+			<Backdrop
+				sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 999 }}
+				open={submitting}>
+				<CircularProgress color='inherit' />
+			</Backdrop>
+		</Box>
+	);
 };
 
 export default AddMerchantParcel;
