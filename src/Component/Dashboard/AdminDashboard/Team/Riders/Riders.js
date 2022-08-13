@@ -115,7 +115,7 @@ const Riders = () => {
 										)
 										.then((response) => {
 											setSubmitting(false);
-											Swal.fire("", "Successfully Activated!", "success");
+											Swal.fire("", "Successfully Done!", "success");
 										})
 										.catch((error) => {
 											setSubmitting(false);

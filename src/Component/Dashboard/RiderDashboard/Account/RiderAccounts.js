@@ -8,6 +8,7 @@ import {
 	Select,
 	MenuItem,
 	FormHelperText,
+	Button,
 } from "@mui/material";
 import React from "react";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
@@ -16,16 +17,18 @@ import Swal from "sweetalert2";
 import { useEffect } from "react";
 import { useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
+import PaymentsIcon from "@mui/icons-material/Payments";
 import GetAuth from "../../../../FirebaseAuth/GetAuth";
 
-const AdminParcelList = () => {
+const RiderAccounts = () => {
+	const email = "rider2@gmail.com";
 	const { user, loading, token } = GetAuth();
 	const [submitting, setSubmitting] = useState(false);
 	const [data, setData] = useState();
 	const [status, setStatus] = useState("");
 	useEffect(() => {
 		axios
-			.get(`${process.env.REACT_APP_API_PATH}/merchantorders`, {
+			.get(`${process.env.REACT_APP_API_PATH}/riderOrders/${email}`, {
 				headers: {
 					Authorization: `Bearer ${token}`,
 				},
@@ -37,10 +40,10 @@ const AdminParcelList = () => {
 				console.log(error);
 			});
 	}, [token, submitting]);
-	console.log(status);
-	const changeStatus = (event, id) => {
+
+	const changePaymentStatus = (id, money) => {
 		Swal.fire({
-			title: "Are You Sure?",
+			title: "Did you collected the money?",
 			showCancelButton: true,
 			confirmButtonText: "Yes",
 		}).then((result) => {
@@ -48,9 +51,14 @@ const AdminParcelList = () => {
 				setSubmitting(true);
 				axios
 					.put(
-						`${process.env.REACT_APP_API_PATH}/merchantorderStatus/${id}`,
+						`${process.env.REACT_APP_API_PATH}/merchantorderPaymentCollection/${id}`,
 						{
-							status: event.target.value,
+							collectionStatus: "Collected From Customer",
+							riderMoneyStatus: "Received",
+							collectedFromCustomerDate: new Date().toLocaleString("en-US", {
+								timeZone: "Asia/Dhaka",
+							}),
+							collectedAmount: money,
 						},
 						{
 							headers: {
@@ -69,31 +77,88 @@ const AdminParcelList = () => {
 			}
 		});
 	};
+	const sendMoneyToBranch = (id, paymentCollectionDetails) => {
+		Swal.fire({
+			title: "Are you sure?",
+			showCancelButton: true,
+			confirmButtonText: "Yes",
+		}).then((result) => {
+			if (result.isConfirmed) {
+				setSubmitting(true);
+				axios
+					.put(
+						`${process.env.REACT_APP_API_PATH}/merchantorderPaymentCollection/${id}`,
+						{
+							collectedFromCustomerDate:
+								paymentCollectionDetails?.collectedFromCustomerDate,
+							riderMoneyStatus: paymentCollectionDetails?.riderMoneyStatus,
+							collectedAmount: paymentCollectionDetails?.collectedAmount,
+							collectionStatus: "Sending Money To Branch",
+						},
+						{
+							headers: {
+								Authorization: `Bearer ${token}`,
+							},
+						},
+					)
+					.then((response) => {
+						setSubmitting(false);
+						Swal.fire("", "Successfully Done!", "success");
+					})
+					.catch((error) => {
+						setSubmitting(false);
+						console.log(error);
+					});
+			}
+		});
+	};
+
 	const renderDetailsButton = (params) => {
 		return (
 			<Box sx={{ display: "flex", alignItems: "center" }}>
-				{/* <FormControl sx={{ m: 1, minWidth: 120 }}>
-					<Select
-						size='small'
-						value={status}
-						onChange={(event) => {
-							changeStatus(params.row?._id);
-							setStatus(event.target.value);
-						}}
-						displayEmpty
-						inputProps={{ "aria-label": "Without label" }}>
-						<MenuItem value={"Pending"}>Pending</MenuItem>
-						<MenuItem value={"Accepted"}>Accepted</MenuItem>
-						<MenuItem value={"Assign for Pickup"}>Assign for Pickup</MenuItem>
-						<MenuItem value={"Picked Up"}>Picked Up</MenuItem>
-						<MenuItem value={"Assign For Deliver"}>Assign For Deliver</MenuItem>
-						<MenuItem value={"Delivered"}>Delivered</MenuItem>
-						<MenuItem value={"Hold"}>Hold</MenuItem>
-						<MenuItem value={"Re-scheduled"}>Re-scheduled</MenuItem>
-						<MenuItem value={"Canceled"}>Canceled</MenuItem>
-						<MenuItem value={"Returned"}>Returned</MenuItem>
-					</Select>
-				</FormControl> */}
+				{params.row?.status === "Delivered To Customer By Rider" &&
+					params.row?.paymentCollectionDetails?.collectionStatus ===
+						"Collected From Customer" && (
+						<Button
+							onClick={() =>
+								sendMoneyToBranch(
+									params.row?._id,
+									params.row?.paymentCollectionDetails,
+								)
+							}
+							sx={{
+								my: 1,
+								px: 3,
+								fontWeight: "bold",
+								borderRadius: "25px",
+								border: "2px solid ",
+							}}>
+							<PaymentsIcon sx={{ mr: 0.5 }} />
+							Send {params.row?.orderSummaray?.totalAmountWithCharges} ৳ To
+							Branch
+						</Button>
+					)}
+				{params.row?.status === "Parcel Received By Delivery Rider" &&
+					params.row?.paymentCollectionDetails?.collectionStatus ===
+						"Pending" && (
+						<Button
+							onClick={() =>
+								changePaymentStatus(
+									params.row?._id,
+									params.row?.orderSummaray?.totalAmountWithCharges,
+								)
+							}
+							sx={{
+								my: 1,
+								px: 3,
+								fontWeight: "bold",
+								borderRadius: "25px",
+								border: "2px solid ",
+							}}>
+							<PaymentsIcon sx={{ mr: 0.5 }} />
+							Collect {params.row?.orderSummaray?.totalAmountWithCharges} ৳
+						</Button>
+					)}
 				<DeleteIcon
 					className='iconBtn'
 					sx={{ color: "#df0f00!important" }}
@@ -132,38 +197,47 @@ const AdminParcelList = () => {
 
 	const columns = [
 		{
+			field: "orderId",
+			headerName: "Order ID",
+			renderCell: (params) => {
+				return params.row.orderId;
+			},
+			flex: 1,
+		},
+		{
 			field: "merchantName",
-			headerName: "Marchant Name",
+			headerName: "Merchant",
 			renderCell: (params) => {
 				return params.row.marchentInfo.merchantName;
 			},
 			flex: 1,
 		},
 		{
-			field: "receiverBranchArea",
-			headerName: "Pickup Address",
+			field: "collectedAmount",
+			headerName: "Collected Amount",
 			renderCell: (params) => {
-				return params.row.receiverInfo.receiverBranchArea;
+				return params.row.paymentCollectionDetails.collectedAmount;
 			},
 			flex: 1,
 		},
 		{
-			field: "receiverAddress",
-			headerName: "Full Address",
+			field: "branchMoneyStatus",
+			headerName: "Branch Money Received?",
 			renderCell: (params) => {
-				return params.row.receiverInfo.receiverAddress;
+				return params.row.paymentCollectionDetails.branchMoneyStatus || "N/A";
 			},
 			flex: 1,
 		},
+
 		{
-			field: "receiverNumber",
-			headerName: "Phone Number",
+			field: "collectionStatus",
+			headerName: "Collection Status",
 			renderCell: (params) => {
-				return params.row.receiverInfo.receiverNumber;
+				return params.row.paymentCollectionDetails.collectionStatus;
 			},
 			flex: 1,
 		},
-		{ field: "status", headerName: "Status", flex: 1 },
+		{ field: "status", headerName: "Order Status", flex: 1 },
 		{
 			field: "_id",
 			headerName: "Action",
@@ -212,4 +286,4 @@ const AdminParcelList = () => {
 	);
 };
 
-export default AdminParcelList;
+export default RiderAccounts;

@@ -116,6 +116,19 @@ const RiderDashboard = () => {
 								<ListItemText primary={"Deliver Parcel List"} />
 							</ListItem>
 						</Link>
+						<Link className='link' to='ridersDashboard/accounts'>
+							<ListItem
+								button
+								className={
+									location?.pathname === "ridersDashboard/accounts" &&
+									"activeButton"
+								}>
+								<ListItemIcon className='listItemIcon'>
+									<FormatListNumberedIcon />
+								</ListItemIcon>
+								<ListItemText primary={"Accounts"} />
+							</ListItem>
+						</Link>
 					</List>
 				</AccordionDetails>
 			</Accordion>
