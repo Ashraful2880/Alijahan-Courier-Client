@@ -4,10 +4,6 @@ import {
 	Backdrop,
 	Typography,
 	Box,
-	FormControl,
-	Select,
-	MenuItem,
-	FormHelperText,
 	Button,
 } from "@mui/material";
 import React from "react";
@@ -17,6 +13,7 @@ import Swal from "sweetalert2";
 import { useEffect } from "react";
 import { useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import PaymentsIcon from "@mui/icons-material/Payments";
 import GetAuth from "../../../../FirebaseAuth/GetAuth";
 
@@ -24,7 +21,6 @@ const Accounts = () => {
 	const { user, loading, token } = GetAuth();
 	const [submitting, setSubmitting] = useState(false);
 	const [data, setData] = useState();
-	const [status, setStatus] = useState("");
 	useEffect(() => {
 		axios
 			.get(`${process.env.REACT_APP_API_PATH}/merchantorders`, {
@@ -39,7 +35,7 @@ const Accounts = () => {
 				console.log(error);
 			});
 	}, [token, submitting]);
-	
+
 	const receiveAndSendMoney = (
 		id,
 		paymentCollectionDetails,
@@ -129,53 +125,53 @@ const Accounts = () => {
 	};
 	const renderDetailsButton = (params) => {
 		return (
-			<Box sx={{ display: "flex", alignItems: "center" }}>
+			<Box sx={{ display: "flex", alignItems: "center", width: "100%" }}>
 				{params.row?.paymentCollectionDetails?.collectionStatus ===
 					"Money Received in Accounts" && (
-					<Button
-						onClick={() =>
-							receiveAndSendMoney(
-								params.row?._id,
-								params.row?.paymentCollectionDetails,
-								params.row?.orderSummaray,
-								"Sending Money to Marchant",
-							)
-						}
-						sx={{
-							my: 1,
-							px: 3,
-							fontWeight: "bold",
-							borderRadius: "25px",
-							border: "2px solid ",
-						}}>
-						<PaymentsIcon sx={{ mr: 0.5 }} />
-						Send {params.row?.orderSummaray.totalReceive} ৳ to Marchant
-					</Button>
-				)}
+						<Button
+							onClick={() =>
+								receiveAndSendMoney(
+									params.row?._id,
+									params.row?.paymentCollectionDetails,
+									params.row?.orderSummaray,
+									"Sending Money to Marchant",
+								)
+							}
+							sx={{
+								my: 1,
+								px: 3,
+								fontWeight: "bold",
+								borderRadius: "25px",
+								border: "2px solid ",
+							}}>
+							<PaymentsIcon sx={{ mr: 0.5 }} />
+							Send {params.row?.orderSummaray.totalReceive} ৳ to Marchant
+						</Button>
+					)}
 				{params.row?.paymentCollectionDetails?.collectionStatus ===
 					"Sending Money To Accounts" && (
-					<Button
-						onClick={() =>
-							receiveAndSendMoney(
-								params.row?._id,
-								params.row?.paymentCollectionDetails,
-								params.row?.orderSummaray,
-								"Money Received in Accounts",
-							)
-						}
-						sx={{
-							my: 1,
-							px: 3,
-							fontWeight: "bold",
-							borderRadius: "25px",
-							border: "2px solid ",
-						}}>
-						<PaymentsIcon sx={{ mr: 0.5 }} />
-						Receive {params.row?.paymentCollectionDetails?.collectedAmount} ৳
-						from Branch
-					</Button>
-				)}
-				<DeleteIcon
+						<Button
+							onClick={() =>
+								receiveAndSendMoney(
+									params.row?._id,
+									params.row?.paymentCollectionDetails,
+									params.row?.orderSummaray,
+									"Money Received in Accounts",
+								)
+							}
+							sx={{
+								my: 1,
+								px: 3,
+								fontWeight: "bold",
+								borderRadius: "25px",
+								border: "2px solid ",
+							}}>
+							<PaymentsIcon sx={{ mr: 0.5 }} />
+							Receive {params.row?.paymentCollectionDetails?.collectedAmount} ৳
+							from Branch
+						</Button>
+					)}
+				{/* <DeleteIcon
 					className='iconBtn'
 					sx={{ color: "#df0f00!important" }}
 					onClick={() => {
@@ -206,7 +202,8 @@ const Accounts = () => {
 							}
 						});
 					}}
-				/>
+				/> */}
+				<RemoveRedEyeIcon sx={{ ml: 1.5, color: "green" }} />
 			</Box>
 		);
 	};
@@ -218,7 +215,7 @@ const Accounts = () => {
 			renderCell: (params) => {
 				return params.row.orderId;
 			},
-			flex: 1,
+			width: 180,
 		},
 		{
 			field: "merchantName",
@@ -226,7 +223,7 @@ const Accounts = () => {
 			renderCell: (params) => {
 				return params.row.marchentInfo.merchantName;
 			},
-			flex: 1,
+			width: 180,
 		},
 		{
 			field: "collectedAmount",
@@ -234,7 +231,7 @@ const Accounts = () => {
 			renderCell: (params) => {
 				return params.row.paymentCollectionDetails.collectedAmount;
 			},
-			flex: 1,
+			width: 150,
 		},
 		{
 			field: "totalCharges",
@@ -242,7 +239,7 @@ const Accounts = () => {
 			renderCell: (params) => {
 				return params.row.orderSummaray.totalCharges;
 			},
-			flex: 1,
+			width: 150,
 		},
 		{
 			field: "totalReceive",
@@ -250,7 +247,7 @@ const Accounts = () => {
 			renderCell: (params) => {
 				return params.row.orderSummaray.totalReceive;
 			},
-			flex: 1,
+			width: 180,
 		},
 		{
 			field: "collectionStatus",
@@ -258,9 +255,9 @@ const Accounts = () => {
 			renderCell: (params) => {
 				return params.row.paymentCollectionDetails.collectionStatus;
 			},
-			flex: 1,
+			width: 200,
 		},
-		{ field: "status", headerName: "Order Status", flex: 1 },
+		{ field: "status", headerName: "Order Status", width: 200, },
 		{
 			field: "_id",
 			headerName: "Action",
@@ -280,13 +277,13 @@ const Accounts = () => {
 					justifyContent: "space-between",
 				}}>
 				<Typography variant='h5' sx={{ fontWeight: "bold", color: "#1E793C" }}>
-					All Parcel List
+					All Delivery Payment List
 				</Typography>
 			</Box>
 			<Grid container spacing={1} sx={{ justifyContent: "center", px: 2 }}>
 				<Grid item xs={12} md={12}>
 					{data && (
-						<div style={{ height: 400, width: "100%" }} className='table'>
+						<div style={{ height: 480, width: "100%" }} className='table'>
 							<DataGrid
 								rows={data}
 								getRowId={(row) => row?._id}

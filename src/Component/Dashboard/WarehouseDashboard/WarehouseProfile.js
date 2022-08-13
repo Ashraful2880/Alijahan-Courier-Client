@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Typography } from "@mui/material";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -6,8 +6,29 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import GetAuth from "../../../FirebaseAuth/GetAuth";
+import axios from "axios";
 
 const WarehouseProfile = () => {
+	const email = "Warehouse@gmail.com";
+	const { user, loading, token } = GetAuth();
+	const [warehouse, setwarehouse] = useState();
+
+	useEffect(() => {
+		axios
+			.get(`${process.env.REACT_APP_API_PATH}/warehouseUserByEmail/${email}`, {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			})
+			.then((response) => {
+				setwarehouse(response.data);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	}, [token]);
+
 	return (
 		<Box sx={{ mx: 4, pt: 2, pb: 5 }}>
 			<Box
@@ -52,7 +73,7 @@ const WarehouseProfile = () => {
 								<TableCell
 									sx={{ fontSize: "15px", letterSpacing: "0.2px" }}
 									align='right'>
-									M-0014
+									{warehouse?.id}
 								</TableCell>
 							</TableRow>
 							<TableRow>
@@ -60,12 +81,12 @@ const WarehouseProfile = () => {
 									sx={{ fontSize: "15px", letterSpacing: "0.2px" }}
 									component='th'
 									scope='row'>
-									Merchant Name
+									Warehouse Name
 								</TableCell>
 								<TableCell
 									sx={{ fontSize: "15px", letterSpacing: "0.2px" }}
 									align='right'>
-									Jahidul Islam Nahid
+									{warehouse?.wareHouseName}
 								</TableCell>
 							</TableRow>
 							<TableRow>
@@ -73,12 +94,12 @@ const WarehouseProfile = () => {
 									sx={{ fontSize: "15px", letterSpacing: "0.2px" }}
 									component='th'
 									scope='row'>
-									Merchant Email
+									Warehouse District
 								</TableCell>
 								<TableCell
 									sx={{ fontSize: "15px", letterSpacing: "0.2px" }}
 									align='right'>
-									dhamaka@mettroexpress.com
+									{warehouse?.warehouseDistrict}
 								</TableCell>
 							</TableRow>
 							<TableRow>
@@ -86,12 +107,12 @@ const WarehouseProfile = () => {
 									sx={{ fontSize: "15px", letterSpacing: "0.2px" }}
 									component='th'
 									scope='row'>
-									Merchant Number
+									Warehouse User Name
 								</TableCell>
 								<TableCell
 									sx={{ fontSize: "15px", letterSpacing: "0.2px" }}
 									align='right'>
-									01709815688
+									{warehouse?.warehouseUserName}
 								</TableCell>
 							</TableRow>
 							<TableRow>
@@ -99,12 +120,12 @@ const WarehouseProfile = () => {
 									sx={{ fontSize: "15px", letterSpacing: "0.2px" }}
 									component='th'
 									scope='row'>
-									Merchant Address
+									Warehouse User Email
 								</TableCell>
 								<TableCell
 									sx={{ fontSize: "15px", letterSpacing: "0.2px" }}
 									align='right'>
-									50, Mohakhali, Dhaka-1212
+									{warehouse?.warehouseUserEmail}
 								</TableCell>
 							</TableRow>
 							<TableRow>
@@ -112,12 +133,12 @@ const WarehouseProfile = () => {
 									sx={{ fontSize: "15px", letterSpacing: "0.2px" }}
 									component='th'
 									scope='row'>
-									Merchant District
+									Warehouse User Contact
 								</TableCell>
 								<TableCell
 									sx={{ fontSize: "15px", letterSpacing: "0.2px" }}
 									align='right'>
-									Dhaka
+									{warehouse?.warehouseUserContact}
 								</TableCell>
 							</TableRow>
 							<TableRow>
@@ -125,12 +146,12 @@ const WarehouseProfile = () => {
 									sx={{ fontSize: "15px", letterSpacing: "0.2px" }}
 									component='th'
 									scope='row'>
-									Merchant Thana/Upazila
+									Warehouse User Address
 								</TableCell>
 								<TableCell
 									sx={{ fontSize: "15px", letterSpacing: "0.2px" }}
 									align='right'>
-									Mohakhali
+									{warehouse?.warehouseUserAddress}
 								</TableCell>
 							</TableRow>
 							<TableRow>
@@ -138,25 +159,12 @@ const WarehouseProfile = () => {
 									sx={{ fontSize: "15px", letterSpacing: "0.2px" }}
 									component='th'
 									scope='row'>
-									Merchant Area
+									Warehouse Status
 								</TableCell>
 								<TableCell
 									sx={{ fontSize: "15px", letterSpacing: "0.2px" }}
 									align='right'>
-									Mohakhali
-								</TableCell>
-							</TableRow>
-							<TableRow>
-								<TableCell
-									sx={{ fontSize: "15px", letterSpacing: "0.2px" }}
-									component='th'
-									scope='row'>
-									Cash On Delivery
-								</TableCell>
-								<TableCell
-									sx={{ fontSize: "15px", letterSpacing: "0.2px" }}
-									align='right'>
-									0%
+									{warehouse?.status}
 								</TableCell>
 							</TableRow>
 						</TableBody>

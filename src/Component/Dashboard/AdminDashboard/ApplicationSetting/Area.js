@@ -256,7 +256,7 @@ const Area = () => {
 			<Grid container spacing={1} sx={{ justifyContent: "center" }}>
 				<Grid item xs={12} md={12}>
 					{data && (
-						<div style={{ height: 400, width: "100%" }} className='table'>
+						<div style={{ height: 500, width: "100%" }} className='table'>
 							<DataGrid
 								rows={data}
 								getRowId={(row) => row?._id}

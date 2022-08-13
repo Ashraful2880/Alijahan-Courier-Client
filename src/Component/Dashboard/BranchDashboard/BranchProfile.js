@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Typography } from "@mui/material";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -6,8 +6,28 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import GetAuth from "../../../FirebaseAuth/GetAuth";
+import axios from "axios";
 
 const BranchProfile = () => {
+	const email = "branch@gmail.com";
+	const { user, loading, token } = GetAuth();
+	const [branch, setBranch] = useState();
+	useEffect(() => {
+		axios
+			.get(`${process.env.REACT_APP_API_PATH}/branchbyemail/${email}`, {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			})
+			.then((response) => {
+				setBranch(response.data);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	}, [token]);
+
 	return (
 		<Box sx={{ mx: 4, pt: 2, pb: 5 }}>
 			<Box
@@ -52,7 +72,7 @@ const BranchProfile = () => {
 								<TableCell
 									sx={{ fontSize: "15px", letterSpacing: "0.2px" }}
 									align='right'>
-									M-0014
+									{branch?.id}
 								</TableCell>
 							</TableRow>
 							<TableRow>
@@ -60,12 +80,12 @@ const BranchProfile = () => {
 									sx={{ fontSize: "15px", letterSpacing: "0.2px" }}
 									component='th'
 									scope='row'>
-									Merchant Name
+									Branch Name
 								</TableCell>
 								<TableCell
 									sx={{ fontSize: "15px", letterSpacing: "0.2px" }}
 									align='right'>
-									Jahidul Islam Nahid
+									{branch?.branchName}
 								</TableCell>
 							</TableRow>
 							<TableRow>
@@ -73,12 +93,12 @@ const BranchProfile = () => {
 									sx={{ fontSize: "15px", letterSpacing: "0.2px" }}
 									component='th'
 									scope='row'>
-									Merchant Email
+									Branch Email
 								</TableCell>
 								<TableCell
 									sx={{ fontSize: "15px", letterSpacing: "0.2px" }}
 									align='right'>
-									dhamaka@mettroexpress.com
+									{branch?.branchEmail}
 								</TableCell>
 							</TableRow>
 							<TableRow>
@@ -86,12 +106,12 @@ const BranchProfile = () => {
 									sx={{ fontSize: "15px", letterSpacing: "0.2px" }}
 									component='th'
 									scope='row'>
-									Merchant Number
+									Branch Number
 								</TableCell>
 								<TableCell
 									sx={{ fontSize: "15px", letterSpacing: "0.2px" }}
 									align='right'>
-									01709815688
+									{branch?.branchContact}
 								</TableCell>
 							</TableRow>
 							<TableRow>
@@ -99,12 +119,12 @@ const BranchProfile = () => {
 									sx={{ fontSize: "15px", letterSpacing: "0.2px" }}
 									component='th'
 									scope='row'>
-									Merchant Address
+									Branch Address
 								</TableCell>
 								<TableCell
 									sx={{ fontSize: "15px", letterSpacing: "0.2px" }}
 									align='right'>
-									50, Mohakhali, Dhaka-1212
+									{branch?.branchAddress}
 								</TableCell>
 							</TableRow>
 							<TableRow>
@@ -112,12 +132,12 @@ const BranchProfile = () => {
 									sx={{ fontSize: "15px", letterSpacing: "0.2px" }}
 									component='th'
 									scope='row'>
-									Merchant District
+									Branch District
 								</TableCell>
 								<TableCell
 									sx={{ fontSize: "15px", letterSpacing: "0.2px" }}
 									align='right'>
-									Dhaka
+									{branch?.branchDistrict}
 								</TableCell>
 							</TableRow>
 							<TableRow>
@@ -125,12 +145,12 @@ const BranchProfile = () => {
 									sx={{ fontSize: "15px", letterSpacing: "0.2px" }}
 									component='th'
 									scope='row'>
-									Merchant Thana/Upazila
+									Branch Area
 								</TableCell>
 								<TableCell
 									sx={{ fontSize: "15px", letterSpacing: "0.2px" }}
 									align='right'>
-									Mohakhali
+									{branch?.branchArea.map(area => area?.area + "," + " ")}
 								</TableCell>
 							</TableRow>
 							<TableRow>
@@ -138,12 +158,12 @@ const BranchProfile = () => {
 									sx={{ fontSize: "15px", letterSpacing: "0.2px" }}
 									component='th'
 									scope='row'>
-									Merchant Area
+									Delivery Commision
 								</TableCell>
 								<TableCell
 									sx={{ fontSize: "15px", letterSpacing: "0.2px" }}
 									align='right'>
-									Mohakhali
+									{branch?.deliveryCom} Taka
 								</TableCell>
 							</TableRow>
 							<TableRow>
@@ -151,12 +171,12 @@ const BranchProfile = () => {
 									sx={{ fontSize: "15px", letterSpacing: "0.2px" }}
 									component='th'
 									scope='row'>
-									Cash On Delivery
+									Pickup Commision
 								</TableCell>
 								<TableCell
 									sx={{ fontSize: "15px", letterSpacing: "0.2px" }}
 									align='right'>
-									0%
+									{branch?.pickupCom} Taka
 								</TableCell>
 							</TableRow>
 						</TableBody>

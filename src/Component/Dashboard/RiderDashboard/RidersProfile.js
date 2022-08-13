@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Typography } from "@mui/material";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -6,8 +6,29 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import GetAuth from "../../../FirebaseAuth/GetAuth";
+import axios from "axios";
 
 const RidersProfile = () => {
+	const email = "rider@gmail.com";
+	const { user, loading, token } = GetAuth();
+	const [riders, setRiders] = useState();
+
+	useEffect(() => {
+		axios
+			.get(`${process.env.REACT_APP_API_PATH}/riderByEmail/${email}`, {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			})
+			.then((response) => {
+				setRiders(response.data);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	}, [token]);
+
 	return (
 		<Box sx={{ mx: 4, pt: 2, pb: 5 }}>
 			<Box
@@ -35,7 +56,7 @@ const RidersProfile = () => {
 				<Typography
 					variant='h5'
 					sx={{ fontWeight: "bold", marginBottom: "15px" }}>
-					Branch Information
+					Riders Information
 				</Typography>
 				<TableContainer
 					component={Paper}
@@ -52,7 +73,7 @@ const RidersProfile = () => {
 								<TableCell
 									sx={{ fontSize: "15px", letterSpacing: "0.2px" }}
 									align='right'>
-									M-0014
+									{riders?.id}
 								</TableCell>
 							</TableRow>
 							<TableRow>
@@ -60,12 +81,12 @@ const RidersProfile = () => {
 									sx={{ fontSize: "15px", letterSpacing: "0.2px" }}
 									component='th'
 									scope='row'>
-									Merchant Name
+									Rider Name
 								</TableCell>
 								<TableCell
 									sx={{ fontSize: "15px", letterSpacing: "0.2px" }}
 									align='right'>
-									Jahidul Islam Nahid
+									{riders?.riderName}
 								</TableCell>
 							</TableRow>
 							<TableRow>
@@ -73,12 +94,12 @@ const RidersProfile = () => {
 									sx={{ fontSize: "15px", letterSpacing: "0.2px" }}
 									component='th'
 									scope='row'>
-									Merchant Email
+									Rider Email
 								</TableCell>
 								<TableCell
 									sx={{ fontSize: "15px", letterSpacing: "0.2px" }}
 									align='right'>
-									dhamaka@mettroexpress.com
+									{riders?.riderEmail}
 								</TableCell>
 							</TableRow>
 							<TableRow>
@@ -86,12 +107,12 @@ const RidersProfile = () => {
 									sx={{ fontSize: "15px", letterSpacing: "0.2px" }}
 									component='th'
 									scope='row'>
-									Merchant Number
+									Rider Number
 								</TableCell>
 								<TableCell
 									sx={{ fontSize: "15px", letterSpacing: "0.2px" }}
 									align='right'>
-									01709815688
+									{riders?.riderContact}
 								</TableCell>
 							</TableRow>
 							<TableRow>
@@ -99,12 +120,12 @@ const RidersProfile = () => {
 									sx={{ fontSize: "15px", letterSpacing: "0.2px" }}
 									component='th'
 									scope='row'>
-									Merchant Address
+									Rider Address
 								</TableCell>
 								<TableCell
 									sx={{ fontSize: "15px", letterSpacing: "0.2px" }}
 									align='right'>
-									50, Mohakhali, Dhaka-1212
+									{riders?.riderAddress}
 								</TableCell>
 							</TableRow>
 							<TableRow>
@@ -112,12 +133,12 @@ const RidersProfile = () => {
 									sx={{ fontSize: "15px", letterSpacing: "0.2px" }}
 									component='th'
 									scope='row'>
-									Merchant District
+									Rider Date Of Birth
 								</TableCell>
 								<TableCell
 									sx={{ fontSize: "15px", letterSpacing: "0.2px" }}
 									align='right'>
-									Dhaka
+									{riders?.riderDOB}
 								</TableCell>
 							</TableRow>
 							<TableRow>
@@ -125,12 +146,12 @@ const RidersProfile = () => {
 									sx={{ fontSize: "15px", letterSpacing: "0.2px" }}
 									component='th'
 									scope='row'>
-									Merchant Thana/Upazila
+									Rider NID
 								</TableCell>
 								<TableCell
 									sx={{ fontSize: "15px", letterSpacing: "0.2px" }}
 									align='right'>
-									Mohakhali
+									{riders?.riderNID}
 								</TableCell>
 							</TableRow>
 							<TableRow>
@@ -138,12 +159,12 @@ const RidersProfile = () => {
 									sx={{ fontSize: "15px", letterSpacing: "0.2px" }}
 									component='th'
 									scope='row'>
-									Merchant Area
+									Rider License Number
 								</TableCell>
 								<TableCell
 									sx={{ fontSize: "15px", letterSpacing: "0.2px" }}
 									align='right'>
-									Mohakhali
+									{riders?.riderLicense}
 								</TableCell>
 							</TableRow>
 							<TableRow>
@@ -151,12 +172,12 @@ const RidersProfile = () => {
 									sx={{ fontSize: "15px", letterSpacing: "0.2px" }}
 									component='th'
 									scope='row'>
-									Cash On Delivery
+									Rider Status
 								</TableCell>
 								<TableCell
 									sx={{ fontSize: "15px", letterSpacing: "0.2px" }}
 									align='right'>
-									0%
+									{riders?.status}
 								</TableCell>
 							</TableRow>
 						</TableBody>

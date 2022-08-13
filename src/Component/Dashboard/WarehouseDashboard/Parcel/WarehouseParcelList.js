@@ -105,7 +105,7 @@ const WarehouseParcelList = () => {
 			renderCell: (params) => {
 				return params.row.marchentInfo.merchantName;
 			},
-			width: 100,
+			width: 190,
 		},
 		{
 			field: "receiverBranchArea",
@@ -113,7 +113,7 @@ const WarehouseParcelList = () => {
 			renderCell: (params) => {
 				return ` ${params.row.receiverInfo.receiverBranchArea}(${params.row.receiverInfo.receiverBranchName})`;
 			},
-			width: 170,
+			width: 190,
 		},
 		{
 			field: "receiverAddress",
@@ -121,7 +121,7 @@ const WarehouseParcelList = () => {
 			renderCell: (params) => {
 				return params.row.receiverInfo.receiverAddress;
 			},
-			width: 170,
+			width: 190,
 		},
 		{
 			field: "receiverNumber",
@@ -129,9 +129,9 @@ const WarehouseParcelList = () => {
 			renderCell: (params) => {
 				return params.row.receiverInfo.receiverNumber;
 			},
-			width: 150,
+			width: 190,
 		},
-		{ field: "status", headerName: "Status", width: 100 },
+		{ field: "status", headerName: "Status", width: 250 },
 		{
 			field: "_id",
 			headerName: "Action",

@@ -98,26 +98,26 @@ const DeliveryPaymentList = () => {
 			<Box sx={{ display: "flex", alignItems: "center" }}>
 				{params.row?.paymentCollectionDetails?.collectionStatus ===
 					"Sending Money to Marchant" && (
-					<Button
-						onClick={() =>
-							receiveAndSendMoney(
-								params.row?._id,
-								params.row?.paymentCollectionDetails,
-								"Money Received in Marchant",
-							)
-						}
-						sx={{
-							my: 1,
-							px: 3,
-							fontWeight: "bold",
-							borderRadius: "25px",
-							border: "2px solid ",
-						}}>
-						<PaymentsIcon sx={{ mr: 0.5 }} />
-						Receive {params.row?.paymentCollectionDetails?.marchantRecAmount} ৳
-						from Accounts
-					</Button>
-				)}
+						<Button
+							onClick={() =>
+								receiveAndSendMoney(
+									params.row?._id,
+									params.row?.paymentCollectionDetails,
+									"Money Received in Marchant",
+								)
+							}
+							sx={{
+								my: 1,
+								px: 3,
+								fontWeight: "bold",
+								borderRadius: "25px",
+								border: "2px solid ",
+							}}>
+							<PaymentsIcon sx={{ mr: 0.5 }} />
+							Receive {params.row?.paymentCollectionDetails?.marchantRecAmount} ৳
+							from Accounts
+						</Button>
+					)}
 				<DeleteIcon
 					className='iconBtn'
 					sx={{ color: "#df0f00!important" }}

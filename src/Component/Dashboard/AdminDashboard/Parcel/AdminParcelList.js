@@ -4,10 +4,6 @@ import {
 	Backdrop,
 	Typography,
 	Box,
-	FormControl,
-	Select,
-	MenuItem,
-	FormHelperText,
 } from "@mui/material";
 import React from "react";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
@@ -16,6 +12,7 @@ import Swal from "sweetalert2";
 import { useEffect } from "react";
 import { useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import GetAuth from "../../../../FirebaseAuth/GetAuth";
 
 const AdminParcelList = () => {
@@ -71,7 +68,7 @@ const AdminParcelList = () => {
 	};
 	const renderDetailsButton = (params) => {
 		return (
-			<Box sx={{ display: "flex", alignItems: "center" }}>
+			<Box sx={{ display: "flex", alignItems: "center", }}>
 				{/* <FormControl sx={{ m: 1, minWidth: 120 }}>
 					<Select
 						size='small'
@@ -94,7 +91,7 @@ const AdminParcelList = () => {
 						<MenuItem value={"Returned"}>Returned</MenuItem>
 					</Select>
 				</FormControl> */}
-				<DeleteIcon
+				{/* <DeleteIcon
 					className='iconBtn'
 					sx={{ color: "#df0f00!important" }}
 					onClick={() => {
@@ -125,7 +122,8 @@ const AdminParcelList = () => {
 							}
 						});
 					}}
-				/>
+				/> */}
+				<RemoveRedEyeIcon sx={{ ml: 1.5, color: "green" }} />
 			</Box>
 		);
 	};
@@ -186,7 +184,7 @@ const AdminParcelList = () => {
 					All Parcel List
 				</Typography>
 			</Box>
-			<Grid container spacing={1} sx={{ justifyContent: "center", px: 2 }}>
+			<Grid container spacing={1} sx={{ justifyContent: "center", px: 2, }}>
 				<Grid item xs={12} md={12}>
 					{data && (
 						<div style={{ height: 400, width: "100%" }} className='table'>
