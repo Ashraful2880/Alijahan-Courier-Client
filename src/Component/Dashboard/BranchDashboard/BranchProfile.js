@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, Typography } from '@mui/material';
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -6,8 +6,31 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import GetAuth from '../../../FirebaseAuth/GetAuth';
+import axios from 'axios';
 
 const BranchProfile = () => {
+    const email = "branch@gmail.com";
+    const { user, loading, token } = GetAuth();
+    const [branch, setBranch] = useState();
+    console.log(branch);
+    useEffect(() => {
+        axios
+            .get(`${process.env.REACT_APP_API_PATH}/branchbyemail/${email}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            })
+            .then((response) => {
+                setBranch(response.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, [token]);
+
+
+
     return (
         <Box sx={{ mx: 4, pt: 2, pb: 5 }}>
             <Box

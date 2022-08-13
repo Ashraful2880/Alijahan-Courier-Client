@@ -29,7 +29,7 @@ const BranchParcelList = () => {
     const [riders, setRiders] = useState();
     const [branch, setBranch] = useState();
     const [Warehouse, setWarehouse] = useState();
-    console.log(Warehouse);
+
     useEffect(() => {
         axios
             .get(`${process.env.REACT_APP_API_PATH}/branchbyemail/${email}`, {
