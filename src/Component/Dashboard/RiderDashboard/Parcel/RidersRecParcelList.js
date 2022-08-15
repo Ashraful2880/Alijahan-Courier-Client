@@ -146,7 +146,7 @@ const RidersRecParcelList = () => {
 			<Box sx={{ display: "flex", alignItems: "center" }}>
 				{params.row?.status === "Delivered To Customer By Rider" &&
 					params.row?.paymentCollectionDetails?.collectionStatus ===
-					"Collected From Customer" && (
+						"Collected From Customer" && (
 						<Button
 							onClick={() =>
 								sendMoneyToBranch(
@@ -168,7 +168,7 @@ const RidersRecParcelList = () => {
 					)}
 				{params.row?.status === "Parcel Received By Delivery Rider" &&
 					params.row?.paymentCollectionDetails?.collectionStatus ===
-					"Pending" && (
+						"Pending" && (
 						<Button
 							onClick={() =>
 								changePaymentStatus(
@@ -213,7 +213,7 @@ const RidersRecParcelList = () => {
 								Deliver To Customer
 							</MenuItem>
 						)}
-						{params.row?.status === "Assigned for Pickup" && (
+						{/* {params.row?.status === "Assigned for Pickup" && (
 							<MenuItem value={"Cancelled by Pickup Rider"}>Cancel</MenuItem>
 						)}
 						{params.row?.status === "Assigned for Pickup" && (
@@ -228,7 +228,7 @@ const RidersRecParcelList = () => {
 							<MenuItem value={"Delivered To Branch By Pickup Rider"}>
 								Deliver To Pickup Branch
 							</MenuItem>
-						)}
+						)} */}
 					</Select>
 				</FormControl>
 			</Box>
@@ -277,6 +277,8 @@ const RidersRecParcelList = () => {
 			disableClickEventBubbling: true,
 		},
 	];
+	const [selectedStatus, setSelectedStatus] = useState();
+	const filterData = data?.filter((item) => item?.status === selectedStatus);
 	return (
 		<Box sx={{ mx: 4, pt: 2, pb: 5 }}>
 			<Box
@@ -291,12 +293,64 @@ const RidersRecParcelList = () => {
 					Received Parcel List
 				</Typography>
 			</Box>
+			<Box sx={{ display: "flex" }}>
+				<Button
+					className={selectedStatus === "All" ? "active" : ""}
+					onClick={() => setSelectedStatus("All")}
+					variant='contained'
+					color='success'
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+					All
+				</Button>
+				<Button
+					className={
+						selectedStatus === "Assigned Rider For Delivery" ? "active" : ""
+					}
+					onClick={() => setSelectedStatus("Assigned Rider For Delivery")}
+					variant='contained'
+					color='success'
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+					Assigned Rider For Delivery
+				</Button>
+				<Button
+					className={
+						selectedStatus === "Accepted By Delivery Rider" ? "active" : ""
+					}
+					onClick={() => setSelectedStatus("Accepted By Delivery Rider")}
+					variant='contained'
+					color='success'
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+					Accepted By Delivery Rider
+				</Button>
+				<Button
+					className={
+						selectedStatus === "Parcel Received By Delivery Rider"
+							? "active"
+							: ""
+					}
+					onClick={() => setSelectedStatus("Parcel Received By Delivery Rider")}
+					variant='contained'
+					color='success'
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+					Parcel Received By Delivery Rider
+				</Button>
+				<Button
+					className={
+						selectedStatus === "Delivered To Customer By Rider" ? "active" : ""
+					}
+					onClick={() => setSelectedStatus("Delivered To Customer By Rider")}
+					variant='contained'
+					color='success'
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+					Delivered To Customer By Rider
+				</Button>
+			</Box>
 			<Grid container spacing={1} sx={{ justifyContent: "center", px: 2 }}>
 				<Grid item xs={12} md={12}>
-					{data && (
+					{filterData && (
 						<div style={{ height: 400, width: "100%" }} className='table'>
 							<DataGrid
-								rows={data}
+								rows={selectedStatus === "All" ? data : filterData}
 								getRowId={(row) => row?._id}
 								columns={columns}
 								pageSize={5}

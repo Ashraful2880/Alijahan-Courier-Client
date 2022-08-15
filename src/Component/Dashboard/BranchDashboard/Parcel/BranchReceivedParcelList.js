@@ -23,7 +23,7 @@ import GetAuth from "../../../../FirebaseAuth/GetAuth.js";
 import PaymentsIcon from "@mui/icons-material/Payments";
 
 const BranchReceivedParcelList = () => {
-	const email = "branch2@gmail.com";
+	const email = "branch@gmail.com";
 	const { user, loading, token } = GetAuth();
 	const [submitting, setSubmitting] = useState(false);
 	const [data, setData] = useState();
@@ -210,30 +210,26 @@ const BranchReceivedParcelList = () => {
 	const renderDetailsButton = (params) => {
 		return (
 			<Box sx={{ display: "flex", alignItems: "center" }}>
-				{(params.row?.status === "Assigned Rider For Delivery" &&
+				{((params.row?.status === "Assigned Rider For Delivery" &&
 					!params.row?.deliverRiderInfo?.riderName) ||
-					(params.row?.status === "Cancelled By Delivery Rider" && (
-						<Autocomplete
-							onChange={(event, newValue) => {
-								changeRider(event, newValue, params.row?._id);
-							}}
-							size='small'
-							sx={{ my: 0.5 }}
-							options={riders}
-							getOptionLabel={(option) => option.riderName}
-							style={{ width: 150 }}
-							renderInput={(params) => (
-								<TextField
-									{...params}
-									label='Select Rider'
-									variant='outlined'
-								/>
-							)}
-						/>
-					))}
+					params.row?.status === "Cancelled By Delivery Rider") && (
+					<Autocomplete
+						onChange={(event, newValue) => {
+							changeRider(event, newValue, params.row?._id);
+						}}
+						size='small'
+						sx={{ my: 0.5 }}
+						options={riders}
+						getOptionLabel={(option) => option.riderName}
+						style={{ width: 150 }}
+						renderInput={(params) => (
+							<TextField {...params} label='Select Rider' variant='outlined' />
+						)}
+					/>
+				)}
 				{params.row?.status === "Delivered To Customer By Rider" &&
 					params.row?.paymentCollectionDetails?.collectionStatus ===
-					"Sending Money To Branch" && (
+						"Sending Money To Branch" && (
 						<Button
 							onClick={() =>
 								receiveAndSendMoney(
@@ -256,7 +252,7 @@ const BranchReceivedParcelList = () => {
 					)}
 				{params.row?.status === "Delivered To Customer By Rider" &&
 					params.row?.paymentCollectionDetails?.collectionStatus ===
-					"Money Received In Branch" && (
+						"Money Received In Branch" && (
 						<Button
 							onClick={() =>
 								receiveAndSendMoney(
@@ -300,7 +296,7 @@ const BranchReceivedParcelList = () => {
 					</Select>
 				</FormControl>
 
-				<DeleteIcon
+				{/* 	<DeleteIcon
 					className='iconBtn'
 					sx={{ color: "#df0f00!important" }}
 					onClick={() => {
@@ -331,7 +327,7 @@ const BranchReceivedParcelList = () => {
 							}
 						});
 					}}
-				/>
+				/> */}
 			</Box>
 		);
 	};
@@ -378,6 +374,10 @@ const BranchReceivedParcelList = () => {
 			disableClickEventBubbling: true,
 		},
 	];
+
+	const [selectedStatus, setSelectedStatus] = useState();
+	const filterData = data?.filter((item) => item?.status === selectedStatus);
+
 	return (
 		<Box sx={{ mx: 4, pt: 2, pb: 5 }}>
 			<Box
@@ -392,12 +392,60 @@ const BranchReceivedParcelList = () => {
 					Received Parcel List
 				</Typography>
 			</Box>
+			<Box sx={{ display: "flex" }}>
+				<Button
+					className={selectedStatus === "All" ? "active" : ""}
+					onClick={() => setSelectedStatus("All")}
+					variant='contained'
+					color='success'
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+					All
+				</Button>
+				<Button
+					className={
+						selectedStatus === "Delivered To Receiver Branch" ? "active" : ""
+					}
+					onClick={() => setSelectedStatus("Delivered To Receiver Branch")}
+					variant='contained'
+					color='success'
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+					Delivered To Receiver Branch
+				</Button>
+				<Button
+					className={
+						selectedStatus === "Assigned Rider For Delivery" ? "active" : ""
+					}
+					onClick={() => setSelectedStatus("Assigned Rider For Delivery")}
+					variant='contained'
+					color='success'
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+					Assigned Rider For Delivery
+				</Button>
+				<Button
+					className={
+						selectedStatus === "Delivered To Branch By Rider" ? "active" : ""
+					}
+					onClick={() => setSelectedStatus("Delivered To Branch By Rider")}
+					variant='contained'
+					color='success'
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+					Delivered To Branch By Rider
+				</Button>
+				<Button
+					className={selectedStatus === "Received in Branch" ? "active" : ""}
+					onClick={() => setSelectedStatus("Received in Branch")}
+					variant='contained'
+					color='success'
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+					Received in Branch
+				</Button>
+			</Box>
 			<Grid container spacing={1} sx={{ justifyContent: "center", px: 2 }}>
 				<Grid item xs={12} md={12}>
-					{data && (
+					{filterData && (
 						<div style={{ height: 400, width: "100%" }} className='table'>
 							<DataGrid
-								rows={data}
+								rows={selectedStatus === "All" ? data : filterData}
 								getRowId={(row) => row?._id}
 								columns={columns}
 								pageSize={5}

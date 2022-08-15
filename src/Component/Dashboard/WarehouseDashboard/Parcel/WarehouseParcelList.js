@@ -7,6 +7,7 @@ import {
 	FormControl,
 	Select,
 	MenuItem,
+	Button,
 } from "@mui/material";
 import React from "react";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
@@ -140,6 +141,8 @@ const WarehouseParcelList = () => {
 			disableClickEventBubbling: true,
 		},
 	];
+	const [selectedStatus, setSelectedStatus] = useState();
+	const filterData = data?.filter((item) => item?.status === selectedStatus);
 	return (
 		<Box sx={{ mx: 4, pt: 2, pb: 5 }}>
 			<Box
@@ -154,12 +157,52 @@ const WarehouseParcelList = () => {
 					All Parcel List
 				</Typography>
 			</Box>
+			<Box sx={{ display: "flex" }}>
+				<Button
+					className={selectedStatus === "All" ? "active" : ""}
+					onClick={() => setSelectedStatus("All")}
+					variant='contained'
+					color='success'
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+					All
+				</Button>
+				<Button
+					className={
+						selectedStatus === "Delivered To Warehouse" ? "active" : ""
+					}
+					onClick={() => setSelectedStatus("Delivered To Warehouse")}
+					variant='contained'
+					color='success'
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+					Delivered To Warehouse
+				</Button>
+				<Button
+					className={
+						selectedStatus === "Parcel Received On Warehouse" ? "active" : ""
+					}
+					onClick={() => setSelectedStatus("Parcel Received On Warehouse")}
+					variant='contained'
+					color='success'
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+					Parcel Received On Warehouse
+				</Button>
+				<Button
+					className={
+						selectedStatus === "Delivered To Receiver Branch" ? "active" : ""
+					}
+					onClick={() => setSelectedStatus("Delivered To Receiver Branch")}
+					variant='contained'
+					color='success'
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+					Delivered To Receiver Branch
+				</Button>
+			</Box>
 			<Grid container spacing={1} sx={{ justifyContent: "center", px: 2 }}>
 				<Grid item xs={12} md={12}>
-					{data && (
+					{filterData && (
 						<div style={{ height: 400, width: "100%" }} className='table'>
 							<DataGrid
-								rows={data}
+								rows={selectedStatus === "All" ? data : filterData}
 								getRowId={(row) => row?._id}
 								columns={columns}
 								pageSize={5}
