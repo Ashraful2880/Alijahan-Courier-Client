@@ -26,7 +26,6 @@ const ParcelList = () => {
 	const { user, loading, token } = GetAuth();
 	const [submitting, setSubmitting] = useState(false);
 	const [data, setData] = useState();
-	const [status, setStatus] = useState("");
 	useEffect(() => {
 		axios
 			.get(`${process.env.REACT_APP_API_PATH}/merchantordersbyemail/${email}`, {
@@ -41,7 +40,7 @@ const ParcelList = () => {
 				console.log(error);
 			});
 	}, [token, submitting]);
-	const changeStatus = (event, id) => {
+	const changeStatus = (id) => {
 		Swal.fire({
 			title: "Are You Sure?",
 			showCancelButton: true,
@@ -53,7 +52,7 @@ const ParcelList = () => {
 					.put(
 						`${process.env.REACT_APP_API_PATH}/merchantorderStatus/${id}`,
 						{
-							status: event.target.value,
+							status: "Successfully Completed",
 						},
 						{
 							headers: {
@@ -132,26 +131,26 @@ const ParcelList = () => {
 							Confirm {params.row?.orderSummaray?.total} ৳ Received
 						</Button>
 					)}
-				<FormControl sx={{ m: 1, minWidth: 120 }}>
-					<Select
-						size='small'
-						value={status}
-						onChange={(event) => {
-							changeStatus(event, params.row?._id);
-							setStatus(event.target.value);
-						}}
-						displayEmpty
-						inputProps={{ "aria-label": "Without label" }}>
-						{params.row?.status === "Delivered To Customer By Rider" &&
-							params.row?.paymentCollectionDetails?.collectionStatus ===
-								"Merchant Received Money" && (
-								<MenuItem value={"Successfully Completed"}>
-									Mark As Completed
-								</MenuItem>
-							)}
-					</Select>
-				</FormControl>
-				<DeleteIcon
+
+				{params.row?.status === "Delivered To Customer By Rider" &&
+					params.row?.paymentCollectionDetails?.marchantMoneyStatus ===
+						"Received" && (
+						<Button
+							onClick={() => {
+								changeStatus(params.row?._id);
+							}}
+							sx={{
+								my: 1,
+								px: 3,
+								fontWeight: "bold",
+								borderRadius: "25px",
+								border: "2px solid ",
+							}}>
+							<DoneAllIcon sx={{ mr: 0.5 }} />
+							Mark As Completed
+						</Button>
+					)}
+				{/* 	<DeleteIcon
 					className='iconBtn'
 					sx={{ color: "#df0f00!important" }}
 					onClick={() => {
@@ -182,7 +181,7 @@ const ParcelList = () => {
 							}
 						});
 					}}
-				/>
+				/> */}
 			</Box>
 		);
 	};
@@ -194,7 +193,7 @@ const ParcelList = () => {
 			renderCell: (params) => {
 				return params.row.marchentInfo.merchantName;
 			},
-			flex: 1,
+			width: 150,
 		},
 		{
 			field: "receiverBranchArea",
@@ -202,7 +201,7 @@ const ParcelList = () => {
 			renderCell: (params) => {
 				return params.row.receiverInfo.receiverBranchArea;
 			},
-			flex: 1,
+			width: 150,
 		},
 		{
 			field: "receiverAddress",
@@ -210,7 +209,7 @@ const ParcelList = () => {
 			renderCell: (params) => {
 				return params.row.receiverInfo.receiverAddress;
 			},
-			flex: 1,
+			width: 220,
 		},
 		{
 			field: "receiverNumber",
@@ -218,9 +217,9 @@ const ParcelList = () => {
 			renderCell: (params) => {
 				return params.row.receiverInfo.receiverNumber;
 			},
-			flex: 1,
+			width: 150,
 		},
-		{ field: "status", headerName: "Status", flex: 1 },
+		{ field: "status", headerName: "Status", width: 250 },
 		{
 			field: "_id",
 			headerName: "Action",
@@ -229,6 +228,9 @@ const ParcelList = () => {
 			disableClickEventBubbling: true,
 		},
 	];
+
+	const [selectedStatus, setSelectedStatus] = useState("All");
+	const filterData = data?.filter((item) => item?.status === selectedStatus);
 	return (
 		<Box sx={{ mx: 4, pt: 2, pb: 5 }}>
 			<Box
@@ -243,12 +245,42 @@ const ParcelList = () => {
 					All Parcel List
 				</Typography>
 			</Box>
+			<Box sx={{ display: "flex" }}>
+				<Button
+					className={selectedStatus === "All" ? "active" : ""}
+					onClick={() => setSelectedStatus("All")}
+					variant='contained'
+					color='success'
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+					All
+				</Button>
+				<Button
+					className={
+						selectedStatus === "Successfully Completed" ? "active" : ""
+					}
+					onClick={() => setSelectedStatus("Successfully Completed")}
+					variant='contained'
+					color='success'
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+					Successfully Completed
+				</Button>
+				<Button
+					className={
+						selectedStatus === "Merchant Received Money" ? "active" : ""
+					}
+					onClick={() => setSelectedStatus("Merchant Received Money")}
+					variant='contained'
+					color='success'
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+					Merchant Received Money
+				</Button>
+			</Box>
 			<Grid container spacing={1} sx={{ justifyContent: "center", px: 2 }}>
 				<Grid item xs={12} md={12}>
-					{data && (
+					{filterData && (
 						<div style={{ height: 400, width: "100%" }} className='table'>
 							<DataGrid
-								rows={data}
+								rows={selectedStatus === "All" ? data : filterData}
 								getRowId={(row) => row?._id}
 								columns={columns}
 								pageSize={5}

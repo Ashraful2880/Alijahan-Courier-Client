@@ -146,7 +146,7 @@ const RidersParcelList = () => {
 			<Box sx={{ display: "flex", alignItems: "center" }}>
 				{params.row?.status === "Delivered To Customer By Rider" &&
 					params.row?.paymentCollectionDetails?.collectionStatus ===
-					"Collected From Customer" && (
+						"Collected From Customer" && (
 						<Button
 							onClick={() =>
 								sendMoneyToBranch(
@@ -168,7 +168,7 @@ const RidersParcelList = () => {
 					)}
 				{params.row?.status === "Parcel Received By Delivery Rider" &&
 					params.row?.paymentCollectionDetails?.collectionStatus ===
-					"Pending" && (
+						"Pending" && (
 						<Button
 							onClick={() =>
 								changePaymentStatus(
@@ -187,7 +187,7 @@ const RidersParcelList = () => {
 							Collect {params.row?.orderSummaray?.totalAmountWithCharges} ৳
 						</Button>
 					)}
-				<FormControl sx={{ m: 1, minWidth: 120 }}>
+				<FormControl sx={{ m: 1 }}>
 					<Select
 						size='small'
 						value={status}
@@ -197,7 +197,7 @@ const RidersParcelList = () => {
 						}}
 						displayEmpty
 						inputProps={{ "aria-label": "Without label" }}>
-						{params.row?.status === "Assigned Rider For Delivery" && (
+						{/* {params.row?.status === "Assigned Rider For Delivery" && (
 							<MenuItem value={"Accepted By Delivery Rider"}>Accept</MenuItem>
 						)}
 						{params.row?.status === "Assigned Rider For Delivery" && (
@@ -212,7 +212,7 @@ const RidersParcelList = () => {
 							<MenuItem value={"Delivered To Customer By Rider"}>
 								Deliver To Customer
 							</MenuItem>
-						)}
+						)} */}
 						{params.row?.status === "Assigned for Pickup" && (
 							<MenuItem value={"Cancelled by Pickup Rider"}>Cancel</MenuItem>
 						)}
@@ -277,6 +277,9 @@ const RidersParcelList = () => {
 			disableClickEventBubbling: true,
 		},
 	];
+
+	const [selectedStatus, setSelectedStatus] = useState("All");
+	const filterData = data?.filter((item) => item?.status === selectedStatus);
 	return (
 		<Box sx={{ mx: 4, pt: 2, pb: 5 }}>
 			<Box
@@ -291,12 +294,74 @@ const RidersParcelList = () => {
 					Collected Parcel List
 				</Typography>
 			</Box>
+			<Box sx={{ display: "flex" }}>
+				<Button
+					className={selectedStatus === "All" ? "active" : ""}
+					onClick={() => setSelectedStatus("All")}
+					variant='contained'
+					color='success'
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+					All
+				</Button>
+				<Button
+					className={selectedStatus === "Assigned for Pickup" ? "active" : ""}
+					onClick={() => setSelectedStatus("Assigned for Pickup")}
+					variant='contained'
+					color='success'
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+					Assigned for Pickup
+				</Button>
+				<Button
+					className={
+						selectedStatus === "Accepted by Pickup Rider" ? "active" : ""
+					}
+					onClick={() => setSelectedStatus("Accepted by Pickup Rider")}
+					variant='contained'
+					color='success'
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+					Accepted by Pickup Rider
+				</Button>
+				<Button
+					className={
+						selectedStatus === "Cancelled by Pickup Rider" ? "active" : ""
+					}
+					onClick={() => setSelectedStatus("Cancelled by Pickup Rider")}
+					variant='contained'
+					color='success'
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+					Cancelled by Pickup Rider
+				</Button>
+				<Button
+					className={
+						selectedStatus === "Parcel Received By Pickup Rider" ? "active" : ""
+					}
+					onClick={() => setSelectedStatus("Parcel Received By Pickup Rider")}
+					variant='contained'
+					color='success'
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+					Parcel Received By Pickup Rider
+				</Button>
+				<Button
+					className={
+						selectedStatus === "Delivered To Branch By Pickup Rider"
+							? "active"
+							: ""
+					}
+					onClick={() =>
+						setSelectedStatus("Delivered To Branch By Pickup Rider")
+					}
+					variant='contained'
+					color='success'
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+					Delivered To Branch By Pickup Rider
+				</Button>
+			</Box>
 			<Grid container spacing={1} sx={{ justifyContent: "center", px: 2 }}>
 				<Grid item xs={12} md={12}>
-					{data && (
+					{filterData && (
 						<div style={{ height: 400, width: "100%" }} className='table'>
 							<DataGrid
-								rows={data}
+								rows={selectedStatus === "All" ? data : filterData}
 								getRowId={(row) => row?._id}
 								columns={columns}
 								pageSize={5}

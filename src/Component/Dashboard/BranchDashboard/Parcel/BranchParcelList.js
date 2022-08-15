@@ -10,6 +10,7 @@ import {
 	FormHelperText,
 	Autocomplete,
 	TextField,
+	Button,
 } from "@mui/material";
 import React from "react";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
@@ -168,27 +169,23 @@ const BranchParcelList = () => {
 	const renderDetailsButton = (params) => {
 		return (
 			<Box sx={{ display: "flex", alignItems: "center" }}>
-				{(params.row?.status === "Assigned for Pickup" &&
+				{((params.row?.status === "Assigned for Pickup" &&
 					!params.row?.collectRiderInfo?.riderName) ||
-					(params.row?.status === "Cancelled by Pickup Rider" && (
-						<Autocomplete
-							onChange={(event, newValue) => {
-								changeRider(event, newValue, params.row?._id);
-							}}
-							size='small'
-							sx={{ my: 0.5, width: 100 }}
-							options={riders}
-							getOptionLabel={(option) => option.riderName}
-							renderInput={(params) => (
-								<TextField
-									{...params}
-									label='Select Rider'
-									variant='outlined'
-								/>
-							)}
-						/>
-					))}
-				<FormControl sx={{ m: 1, minWidth: 120 }}>
+					params.row?.status === "Cancelled by Pickup Rider") && (
+					<Autocomplete
+						onChange={(event, newValue) => {
+							changeRider(event, newValue, params.row?._id);
+						}}
+						size='small'
+						sx={{ my: 0.5, width: 200 }}
+						options={riders}
+						getOptionLabel={(option) => option.riderName}
+						renderInput={(params) => (
+							<TextField {...params} label='Select Rider' variant='outlined' />
+						)}
+					/>
+				)}
+				<FormControl sx={{ m: 1 }}>
 					<Select
 						size='small'
 						value={status}
@@ -219,7 +216,7 @@ const BranchParcelList = () => {
 					</Select>
 				</FormControl>
 
-				<DeleteIcon
+				{/* 	<DeleteIcon
 					className='iconBtn'
 					sx={{ color: "#df0f00!important" }}
 					onClick={() => {
@@ -250,7 +247,7 @@ const BranchParcelList = () => {
 							}
 						});
 					}}
-				/>
+				/> */}
 			</Box>
 		);
 	};
@@ -297,6 +294,10 @@ const BranchParcelList = () => {
 			disableClickEventBubbling: true,
 		},
 	];
+
+	const [selectedStatus, setSelectedStatus] = useState("All");
+	const filterData = data?.filter((item) => item?.status === selectedStatus);
+
 	return (
 		<Box sx={{ mx: 4, pt: 2, pb: 5 }}>
 			<Box
@@ -311,12 +312,80 @@ const BranchParcelList = () => {
 					All Parcel List
 				</Typography>
 			</Box>
+			<Box sx={{ display: "flex" }}>
+				<Button
+					className={selectedStatus === "All" ? "active" : ""}
+					onClick={() => setSelectedStatus("All")}
+					variant='contained'
+					color='success'
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+					All
+				</Button>
+				<Button
+					className={selectedStatus === "Pending" ? "active" : ""}
+					onClick={() => setSelectedStatus("Pending")}
+					variant='contained'
+					color='success'
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+					Pending
+				</Button>
+				<Button
+					className={selectedStatus === "Accepted" ? "active" : ""}
+					onClick={() => setSelectedStatus("Accepted")}
+					variant='contained'
+					color='success'
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+					Accepted
+				</Button>
+				<Button
+					className={selectedStatus === "Assigned for Pickup" ? "active" : ""}
+					onClick={() => setSelectedStatus("Assigned for Pickup")}
+					variant='contained'
+					color='success'
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+					Assigned for Pickup
+				</Button>
+				<Button
+					className={
+						selectedStatus === "Delivered To Branch By Pickup Rider"
+							? "active"
+							: ""
+					}
+					onClick={() =>
+						setSelectedStatus("Delivered To Branch By Pickup Rider")
+					}
+					variant='contained'
+					color='success'
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+					Delivered To Branch By Pickup Rider
+				</Button>
+				<Button
+					className={
+						selectedStatus === "Received in Pickup Branch" ? "active" : ""
+					}
+					onClick={() => setSelectedStatus("Received in Pickup Branch")}
+					variant='contained'
+					color='success'
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+					Received in Pickup Branch
+				</Button>
+				<Button
+					className={
+						selectedStatus === "Delivered To Warehouse" ? "active" : ""
+					}
+					onClick={() => setSelectedStatus("Delivered To Warehouse")}
+					variant='contained'
+					color='success'
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+					Delivered To Warehouse
+				</Button>
+			</Box>
 			<Grid container spacing={1} sx={{ justifyContent: "center", px: 2 }}>
 				<Grid item xs={12} md={12}>
-					{data && (
+					{filterData && (
 						<div style={{ height: 400, width: "100%" }} className='table'>
 							<DataGrid
-								rows={data}
+								rows={selectedStatus === "All" ? data : filterData}
 								getRowId={(row) => row?._id}
 								columns={columns}
 								pageSize={5}
