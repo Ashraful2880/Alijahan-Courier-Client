@@ -177,7 +177,7 @@ const BranchParcelList = () => {
 							changeRider(event, newValue, params.row?._id);
 						}}
 						size='small'
-						sx={{ my: 0.5, width: 100 }}
+						sx={{ my: 0.5, width: 200 }}
 						options={riders}
 						getOptionLabel={(option) => option.riderName}
 						renderInput={(params) => (
@@ -185,7 +185,7 @@ const BranchParcelList = () => {
 						)}
 					/>
 				)}
-				<FormControl sx={{ m: 1, minWidth: 120 }}>
+				<FormControl sx={{ m: 1 }}>
 					<Select
 						size='small'
 						value={status}
@@ -295,7 +295,7 @@ const BranchParcelList = () => {
 		},
 	];
 
-	const [selectedStatus, setSelectedStatus] = useState();
+	const [selectedStatus, setSelectedStatus] = useState("All");
 	const filterData = data?.filter((item) => item?.status === selectedStatus);
 
 	return (

@@ -73,7 +73,7 @@ const WarehouseParcelList = () => {
 	const renderDetailsButton = (params) => {
 		return (
 			<Box sx={{ display: "flex", alignItems: "center" }}>
-				<FormControl sx={{ m: 1, minWidth: 120 }}>
+				<FormControl sx={{ m: 1 }}>
 					<Select
 						size='small'
 						value={status}
@@ -141,7 +141,7 @@ const WarehouseParcelList = () => {
 			disableClickEventBubbling: true,
 		},
 	];
-	const [selectedStatus, setSelectedStatus] = useState();
+	const [selectedStatus, setSelectedStatus] = useState("All");
 	const filterData = data?.filter((item) => item?.status === selectedStatus);
 	return (
 		<Box sx={{ mx: 4, pt: 2, pb: 5 }}>

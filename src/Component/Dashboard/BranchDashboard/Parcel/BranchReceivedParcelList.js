@@ -221,7 +221,7 @@ const BranchReceivedParcelList = () => {
 						sx={{ my: 0.5 }}
 						options={riders}
 						getOptionLabel={(option) => option.riderName}
-						style={{ width: 150 }}
+						style={{ width: 250 }}
 						renderInput={(params) => (
 							<TextField {...params} label='Select Rider' variant='outlined' />
 						)}
@@ -273,7 +273,7 @@ const BranchReceivedParcelList = () => {
 							Accounts
 						</Button>
 					)}
-				<FormControl sx={{ m: 1, minWidth: 120 }}>
+				<FormControl sx={{ m: 1 }}>
 					<Select
 						size='small'
 						value={status}
@@ -375,7 +375,7 @@ const BranchReceivedParcelList = () => {
 		},
 	];
 
-	const [selectedStatus, setSelectedStatus] = useState();
+	const [selectedStatus, setSelectedStatus] = useState("All");
 	const filterData = data?.filter((item) => item?.status === selectedStatus);
 
 	return (

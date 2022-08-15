@@ -187,7 +187,7 @@ const RidersParcelList = () => {
 							Collect {params.row?.orderSummaray?.totalAmountWithCharges} ৳
 						</Button>
 					)}
-				<FormControl sx={{ m: 1, minWidth: 120 }}>
+				<FormControl sx={{ m: 1 }}>
 					<Select
 						size='small'
 						value={status}
@@ -278,7 +278,7 @@ const RidersParcelList = () => {
 		},
 	];
 
-	const [selectedStatus, setSelectedStatus] = useState();
+	const [selectedStatus, setSelectedStatus] = useState("All");
 	const filterData = data?.filter((item) => item?.status === selectedStatus);
 	return (
 		<Box sx={{ mx: 4, pt: 2, pb: 5 }}>

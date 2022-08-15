@@ -16,7 +16,7 @@ import Swal from "sweetalert2";
 import { useEffect } from "react";
 import { useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
-import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import GetAuth from "../../../../FirebaseAuth/GetAuth";
 
 const BookingParcelList = () => {
@@ -73,7 +73,7 @@ const BookingParcelList = () => {
 	const renderDetailsButton = (params) => {
 		return (
 			<Box sx={{ display: "flex", alignItems: "center" }}>
-				{/* <FormControl sx={{ m: 1, minWidth: 120 }}>
+				{/* <FormControl sx={{ m: 1, }}>
 					<Select
 						size='small'
 						value={status}

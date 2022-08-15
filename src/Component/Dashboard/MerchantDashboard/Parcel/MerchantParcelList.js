@@ -132,7 +132,7 @@ const ParcelList = () => {
 							Confirm {params.row?.orderSummaray?.total} ৳ Received
 						</Button>
 					)}
-				<FormControl sx={{ m: 1, minWidth: 120 }}>
+				<FormControl sx={{ m: 1 }}>
 					<Select
 						size='small'
 						value={status}
@@ -151,7 +151,7 @@ const ParcelList = () => {
 							)}
 					</Select>
 				</FormControl>
-				<DeleteIcon
+				{/* 	<DeleteIcon
 					className='iconBtn'
 					sx={{ color: "#df0f00!important" }}
 					onClick={() => {
@@ -182,7 +182,7 @@ const ParcelList = () => {
 							}
 						});
 					}}
-				/>
+				/> */}
 			</Box>
 		);
 	};
@@ -229,6 +229,9 @@ const ParcelList = () => {
 			disableClickEventBubbling: true,
 		},
 	];
+
+	const [selectedStatus, setSelectedStatus] = useState("All");
+	const filterData = data?.filter((item) => item?.status === selectedStatus);
 	return (
 		<Box sx={{ mx: 4, pt: 2, pb: 5 }}>
 			<Box
@@ -243,12 +246,42 @@ const ParcelList = () => {
 					All Parcel List
 				</Typography>
 			</Box>
+			<Box sx={{ display: "flex" }}>
+				<Button
+					className={selectedStatus === "All" ? "active" : ""}
+					onClick={() => setSelectedStatus("All")}
+					variant='contained'
+					color='success'
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+					All
+				</Button>
+				<Button
+					className={
+						selectedStatus === "Successfully Completed" ? "active" : ""
+					}
+					onClick={() => setSelectedStatus("Successfully Completed")}
+					variant='contained'
+					color='success'
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+					Successfully Completed
+				</Button>
+				<Button
+					className={
+						selectedStatus === "Merchant Received Money" ? "active" : ""
+					}
+					onClick={() => setSelectedStatus("Merchant Received Money")}
+					variant='contained'
+					color='success'
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+					Merchant Received Money
+				</Button>
+			</Box>
 			<Grid container spacing={1} sx={{ justifyContent: "center", px: 2 }}>
 				<Grid item xs={12} md={12}>
-					{data && (
+					{filterData && (
 						<div style={{ height: 400, width: "100%" }} className='table'>
 							<DataGrid
-								rows={data}
+								rows={selectedStatus === "All" ? data : filterData}
 								getRowId={(row) => row?._id}
 								columns={columns}
 								pageSize={5}

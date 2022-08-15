@@ -12,7 +12,7 @@ import Swal from "sweetalert2";
 import { useEffect } from "react";
 import { useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
-import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import GetAuth from "../../../../FirebaseAuth/GetAuth";
 
 const AdminParcelList = () => {
@@ -68,8 +68,8 @@ const AdminParcelList = () => {
 	};
 	const renderDetailsButton = (params) => {
 		return (
-			<Box sx={{ display: "flex", alignItems: "center", }}>
-				{/* <FormControl sx={{ m: 1, minWidth: 120 }}>
+			<Box sx={{ display: "flex", alignItems: "center" }}>
+				{/* <FormControl sx={{ m: 1, }}>
 					<Select
 						size='small'
 						value={status}
@@ -184,7 +184,7 @@ const AdminParcelList = () => {
 					All Parcel List
 				</Typography>
 			</Box>
-			<Grid container spacing={1} sx={{ justifyContent: "center", px: 2, }}>
+			<Grid container spacing={1} sx={{ justifyContent: "center", px: 2 }}>
 				<Grid item xs={12} md={12}>
 					{data && (
 						<div style={{ height: 400, width: "100%" }} className='table'>
