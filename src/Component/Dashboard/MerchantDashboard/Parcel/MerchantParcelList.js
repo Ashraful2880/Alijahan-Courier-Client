@@ -264,16 +264,6 @@ const ParcelList = () => {
 					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
 					Successfully Completed
 				</Button>
-				<Button
-					className={
-						selectedStatus === "Merchant Received Money" ? "active" : ""
-					}
-					onClick={() => setSelectedStatus("Merchant Received Money")}
-					variant='contained'
-					color='success'
-					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
-					Merchant Received Money
-				</Button>
 			</Box>
 			<Grid container spacing={1} sx={{ justifyContent: "center", px: 2 }}>
 				<Grid item xs={12} md={12}>

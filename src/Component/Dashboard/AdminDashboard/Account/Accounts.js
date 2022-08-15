@@ -13,7 +13,7 @@ import Swal from "sweetalert2";
 import { useEffect } from "react";
 import { useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
-import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import PaymentsIcon from "@mui/icons-material/Payments";
 import GetAuth from "../../../../FirebaseAuth/GetAuth";
 
@@ -128,50 +128,50 @@ const Accounts = () => {
 			<Box sx={{ display: "flex", alignItems: "center", width: "100%" }}>
 				{params.row?.paymentCollectionDetails?.collectionStatus ===
 					"Money Received in Accounts" && (
-						<Button
-							onClick={() =>
-								receiveAndSendMoney(
-									params.row?._id,
-									params.row?.paymentCollectionDetails,
-									params.row?.orderSummaray,
-									"Sending Money to Marchant",
-								)
-							}
-							sx={{
-								my: 1,
-								px: 3,
-								fontWeight: "bold",
-								borderRadius: "25px",
-								border: "2px solid ",
-							}}>
-							<PaymentsIcon sx={{ mr: 0.5 }} />
-							Send {params.row?.orderSummaray.totalReceive} ৳ to Marchant
-						</Button>
-					)}
+					<Button
+						onClick={() =>
+							receiveAndSendMoney(
+								params.row?._id,
+								params.row?.paymentCollectionDetails,
+								params.row?.orderSummaray,
+								"Sending Money to Marchant",
+							)
+						}
+						sx={{
+							my: 1,
+							px: 3,
+							fontWeight: "bold",
+							borderRadius: "25px",
+							border: "2px solid ",
+						}}>
+						<PaymentsIcon sx={{ mr: 0.5 }} />
+						Send {params.row?.orderSummaray.totalReceive} ৳ to Marchant
+					</Button>
+				)}
 				{params.row?.paymentCollectionDetails?.collectionStatus ===
 					"Sending Money To Accounts" && (
-						<Button
-							onClick={() =>
-								receiveAndSendMoney(
-									params.row?._id,
-									params.row?.paymentCollectionDetails,
-									params.row?.orderSummaray,
-									"Money Received in Accounts",
-								)
-							}
-							sx={{
-								my: 1,
-								px: 3,
-								fontWeight: "bold",
-								borderRadius: "25px",
-								border: "2px solid ",
-							}}>
-							<PaymentsIcon sx={{ mr: 0.5 }} />
-							Receive {params.row?.paymentCollectionDetails?.collectedAmount} ৳
-							from Branch
-						</Button>
-					)}
-				{/* <DeleteIcon
+					<Button
+						onClick={() =>
+							receiveAndSendMoney(
+								params.row?._id,
+								params.row?.paymentCollectionDetails,
+								params.row?.orderSummaray,
+								"Money Received in Accounts",
+							)
+						}
+						sx={{
+							my: 1,
+							px: 3,
+							fontWeight: "bold",
+							borderRadius: "25px",
+							border: "2px solid ",
+						}}>
+						<PaymentsIcon sx={{ mr: 0.5 }} />
+						Receive {params.row?.paymentCollectionDetails?.collectedAmount} ৳
+						from Branch
+					</Button>
+				)}
+				{/* 		<DeleteIcon
 					className='iconBtn'
 					sx={{ color: "#df0f00!important" }}
 					onClick={() => {
@@ -257,7 +257,7 @@ const Accounts = () => {
 			},
 			width: 200,
 		},
-		{ field: "status", headerName: "Order Status", width: 200, },
+		{ field: "status", headerName: "Order Status", width: 200 },
 		{
 			field: "_id",
 			headerName: "Action",
@@ -266,6 +266,10 @@ const Accounts = () => {
 			disableClickEventBubbling: true,
 		},
 	];
+
+	const [selectedStatus, setSelectedStatus] = useState("All");
+	const filterData = data?.filter((item) => item?.status === selectedStatus);
+
 	return (
 		<Box sx={{ mx: 4, pt: 2, pb: 5 }}>
 			<Box
@@ -280,12 +284,52 @@ const Accounts = () => {
 					All Delivery Payment List
 				</Typography>
 			</Box>
+			<Box sx={{ display: "flex" }}>
+				<Button
+					className={selectedStatus === "All" ? "active" : ""}
+					onClick={() => setSelectedStatus("All")}
+					variant='contained'
+					color='success'
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+					All
+				</Button>
+				<Button
+					className={
+						selectedStatus === "Sending Money To Accounts" ? "active" : ""
+					}
+					onClick={() => setSelectedStatus("Sending Money To Accounts")}
+					variant='contained'
+					color='success'
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+					Sending Money To Accounts
+				</Button>
+				<Button
+					className={
+						selectedStatus === "Money Received in Accounts" ? "active" : ""
+					}
+					onClick={() => setSelectedStatus("Money Received in Accounts")}
+					variant='contained'
+					color='success'
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+					Money Received in Accounts
+				</Button>
+				<Button
+					className={
+						selectedStatus === "Sending Money to Marchant" ? "active" : ""
+					}
+					onClick={() => setSelectedStatus("Sending Money to Marchant")}
+					variant='contained'
+					color='success'
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+					Sending Money to Marchant
+				</Button>
+			</Box>
 			<Grid container spacing={1} sx={{ justifyContent: "center", px: 2 }}>
 				<Grid item xs={12} md={12}>
-					{data && (
-						<div style={{ height: 480, width: "100%" }} className='table'>
+					{filterData && (
+						<div style={{ height: 400, width: "100%" }} className='table'>
 							<DataGrid
-								rows={data}
+								rows={selectedStatus === "All" ? data : filterData}
 								getRowId={(row) => row?._id}
 								columns={columns}
 								pageSize={5}
