@@ -30,7 +30,7 @@ const BranchParcelList = () => {
 	const [riders, setRiders] = useState();
 	const [branch, setBranch] = useState();
 	const [Warehouse, setWarehouse] = useState();
-	console.log(Warehouse);
+
 	useEffect(() => {
 		axios
 			.get(`${process.env.REACT_APP_API_PATH}/branchbyemail/${email}`, {
@@ -172,19 +172,19 @@ const BranchParcelList = () => {
 				{((params.row?.status === "Assigned for Pickup" &&
 					!params.row?.collectRiderInfo?.riderName) ||
 					params.row?.status === "Cancelled by Pickup Rider") && (
-					<Autocomplete
-						onChange={(event, newValue) => {
-							changeRider(event, newValue, params.row?._id);
-						}}
-						size='small'
-						sx={{ my: 0.5, width: 200 }}
-						options={riders}
-						getOptionLabel={(option) => option.riderName}
-						renderInput={(params) => (
-							<TextField {...params} label='Select Rider' variant='outlined' />
-						)}
-					/>
-				)}
+						<Autocomplete
+							onChange={(event, newValue) => {
+								changeRider(event, newValue, params.row?._id);
+							}}
+							size='small'
+							sx={{ my: 0.5, width: 200 }}
+							options={riders}
+							getOptionLabel={(option) => option.riderName}
+							renderInput={(params) => (
+								<TextField {...params} label='Select Rider' variant='outlined' />
+							)}
+						/>
+					)}
 				<FormControl sx={{ m: 1 }}>
 					<Select
 						size='small'
@@ -312,38 +312,30 @@ const BranchParcelList = () => {
 					All Parcel List
 				</Typography>
 			</Box>
-			<Box sx={{ display: "flex" }}>
+			<Box sx={{ display: "flex", }}>
 				<Button
 					className={selectedStatus === "All" ? "active" : ""}
 					onClick={() => setSelectedStatus("All")}
-					variant='contained'
-					color='success'
-					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+					sx={{ my: 0.7, fontWeight: "bold", mx: 1, color: "gray" }}>
 					All
 				</Button>
 				<Button
 					className={selectedStatus === "Pending" ? "active" : ""}
 					onClick={() => setSelectedStatus("Pending")}
-					variant='contained'
-					color='success'
-					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+					sx={{ my: 0.7, fontWeight: "bold", mx: 1, color: "gray" }}>
 					Pending
 				</Button>
 				<Button
 					className={selectedStatus === "Accepted" ? "active" : ""}
 					onClick={() => setSelectedStatus("Accepted")}
-					variant='contained'
-					color='success'
-					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+					sx={{ my: 0.7, fontWeight: "bold", mx: 1, color: "gray" }}>
 					Accepted
 				</Button>
 				<Button
 					className={selectedStatus === "Assigned for Pickup" ? "active" : ""}
 					onClick={() => setSelectedStatus("Assigned for Pickup")}
-					variant='contained'
-					color='success'
-					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
-					Assigned for Pickup
+					sx={{ my: 0.7, fontWeight: "bold", mx: 1, color: "gray" }}>
+					Assigned
 				</Button>
 				<Button
 					className={
@@ -354,29 +346,23 @@ const BranchParcelList = () => {
 					onClick={() =>
 						setSelectedStatus("Delivered To Branch By Pickup Rider")
 					}
-					variant='contained'
-					color='success'
-					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
-					Delivered To Branch By Pickup Rider
+					sx={{ my: 0.7, fontWeight: "bold", mx: 1, color: "gray" }}>
+					Delivered
 				</Button>
 				<Button
 					className={
 						selectedStatus === "Received in Pickup Branch" ? "active" : ""
 					}
 					onClick={() => setSelectedStatus("Received in Pickup Branch")}
-					variant='contained'
-					color='success'
-					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
-					Received in Pickup Branch
+					sx={{ my: 0.7, fontWeight: "bold", mx: 1, color: "gray" }}>
+					Received
 				</Button>
 				<Button
 					className={
 						selectedStatus === "Delivered To Warehouse" ? "active" : ""
 					}
 					onClick={() => setSelectedStatus("Delivered To Warehouse")}
-					variant='contained'
-					color='success'
-					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+					sx={{ my: 0.7, fontWeight: "bold", mx: 1, color: "gray" }}>
 					Delivered To Warehouse
 				</Button>
 			</Box>
@@ -402,7 +388,7 @@ const BranchParcelList = () => {
 				open={submitting || !data}>
 				<CircularProgress color='inherit' />
 			</Backdrop>
-		</Box>
+		</Box >
 	);
 };
 
