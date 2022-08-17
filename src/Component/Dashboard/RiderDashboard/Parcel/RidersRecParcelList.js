@@ -306,7 +306,7 @@ const RidersRecParcelList = () => {
 					}
 					onClick={() => setSelectedStatus("Assigned Rider For Delivery")}
 					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, color: "gray" }}>
-					Assigned For Delivery
+					Assigned
 				</Button>
 				<Button
 					className={
@@ -324,7 +324,7 @@ const RidersRecParcelList = () => {
 					}
 					onClick={() => setSelectedStatus("Parcel Received By Delivery Rider")}
 					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, color: "gray" }}>
-					Received For Delivery
+					Received
 				</Button>
 				<Button
 					className={

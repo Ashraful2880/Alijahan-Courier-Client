@@ -259,7 +259,7 @@ const BranchParcelList = () => {
 			renderCell: (params) => {
 				return params.row.marchentInfo.merchantName;
 			},
-			width: 100,
+			width: 150,
 		},
 		{
 			field: "receiverBranchArea",
@@ -267,7 +267,7 @@ const BranchParcelList = () => {
 			renderCell: (params) => {
 				return ` ${params.row.receiverInfo.receiverBranchArea}(${params.row.receiverInfo.receiverBranchName})`;
 			},
-			width: 170,
+			width: 180,
 		},
 		{
 			field: "receiverAddress",
@@ -275,7 +275,7 @@ const BranchParcelList = () => {
 			renderCell: (params) => {
 				return params.row.receiverInfo.receiverAddress;
 			},
-			width: 170,
+			width: 180,
 		},
 		{
 			field: "receiverNumber",
@@ -283,7 +283,7 @@ const BranchParcelList = () => {
 			renderCell: (params) => {
 				return params.row.receiverInfo.receiverNumber;
 			},
-			width: 150,
+			width: 180,
 		},
 		{ field: "status", headerName: "Status", width: 250 },
 		{

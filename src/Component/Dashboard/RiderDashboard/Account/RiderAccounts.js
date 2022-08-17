@@ -17,8 +17,10 @@ import Swal from "sweetalert2";
 import { useEffect } from "react";
 import { useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import PaymentsIcon from "@mui/icons-material/Payments";
 import GetAuth from "../../../../FirebaseAuth/GetAuth";
+import ParcelModal from "../../AdminDashboard/Account/ParcelModal";
 
 const RiderAccounts = () => {
 	const email = "rider2@gmail.com";
@@ -26,6 +28,11 @@ const RiderAccounts = () => {
 	const [submitting, setSubmitting] = useState(false);
 	const [data, setData] = useState();
 	const [status, setStatus] = useState("");
+	const [modalData, setModalData] = useState();
+	const [open, setOpen] = React.useState(false);
+	const handleOpen = () => setOpen(true);
+	const handleClose = () => setOpen(false);
+
 	useEffect(() => {
 		axios
 			.get(`${process.env.REACT_APP_API_PATH}/riderOrders/${email}`, {
@@ -159,7 +166,7 @@ const RiderAccounts = () => {
 							Collect {params.row?.orderSummaray?.totalAmountWithCharges} ৳
 						</Button>
 					)}
-				<DeleteIcon
+				{/* <DeleteIcon
 					className='iconBtn'
 					sx={{ color: "#df0f00!important" }}
 					onClick={() => {
@@ -190,7 +197,8 @@ const RiderAccounts = () => {
 							}
 						});
 					}}
-				/>
+				/> */}
+				<RemoveRedEyeIcon onClick={() => handleOpen(setModalData(params.row))} sx={{ ml: 1.5, color: "green", cursor: "pointer" }} />
 			</Box>
 		);
 	};
@@ -282,6 +290,7 @@ const RiderAccounts = () => {
 				open={submitting || !data}>
 				<CircularProgress color='inherit' />
 			</Backdrop>
+			<ParcelModal open={open} handleOpen={handleOpen} handleClose={handleClose} modalData={modalData} />
 		</Box>
 	);
 };
