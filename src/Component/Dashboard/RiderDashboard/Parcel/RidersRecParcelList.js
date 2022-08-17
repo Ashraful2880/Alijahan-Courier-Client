@@ -146,7 +146,7 @@ const RidersRecParcelList = () => {
 			<Box sx={{ display: "flex", alignItems: "center" }}>
 				{params.row?.status === "Delivered To Customer By Rider" &&
 					params.row?.paymentCollectionDetails?.collectionStatus ===
-						"Collected From Customer" && (
+					"Collected From Customer" && (
 						<Button
 							onClick={() =>
 								sendMoneyToBranch(
@@ -168,7 +168,7 @@ const RidersRecParcelList = () => {
 					)}
 				{params.row?.status === "Parcel Received By Delivery Rider" &&
 					params.row?.paymentCollectionDetails?.collectionStatus ===
-						"Pending" && (
+					"Pending" && (
 						<Button
 							onClick={() =>
 								changePaymentStatus(
@@ -297,9 +297,7 @@ const RidersRecParcelList = () => {
 				<Button
 					className={selectedStatus === "All" ? "active" : ""}
 					onClick={() => setSelectedStatus("All")}
-					variant='contained'
-					color='success'
-					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, color: "gray" }}>
 					All
 				</Button>
 				<Button
@@ -307,20 +305,16 @@ const RidersRecParcelList = () => {
 						selectedStatus === "Assigned Rider For Delivery" ? "active" : ""
 					}
 					onClick={() => setSelectedStatus("Assigned Rider For Delivery")}
-					variant='contained'
-					color='success'
-					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
-					Assigned Rider For Delivery
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, color: "gray" }}>
+					Assigned For Delivery
 				</Button>
 				<Button
 					className={
 						selectedStatus === "Accepted By Delivery Rider" ? "active" : ""
 					}
 					onClick={() => setSelectedStatus("Accepted By Delivery Rider")}
-					variant='contained'
-					color='success'
-					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
-					Accepted By Delivery Rider
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, color: "gray" }}>
+					Accepted
 				</Button>
 				<Button
 					className={
@@ -329,20 +323,16 @@ const RidersRecParcelList = () => {
 							: ""
 					}
 					onClick={() => setSelectedStatus("Parcel Received By Delivery Rider")}
-					variant='contained'
-					color='success'
-					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
-					Parcel Received By Delivery Rider
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, color: "gray" }}>
+					Received For Delivery
 				</Button>
 				<Button
 					className={
 						selectedStatus === "Delivered To Customer By Rider" ? "active" : ""
 					}
 					onClick={() => setSelectedStatus("Delivered To Customer By Rider")}
-					variant='contained'
-					color='success'
-					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
-					Delivered To Customer By Rider
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, color: "gray" }}>
+					Delivered
 				</Button>
 			</Box>
 			<Grid container spacing={1} sx={{ justifyContent: "center", px: 2 }}>

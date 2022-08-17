@@ -111,7 +111,7 @@ const ParcelList = () => {
 			<Box sx={{ display: "flex", alignItems: "center" }}>
 				{params.row?.status === "Delivered To Customer By Rider" &&
 					params.row?.paymentCollectionDetails?.collectionStatus ===
-						"Sending Money To Merchant" && (
+					"Sending Money To Merchant" && (
 						<Button
 							onClick={() =>
 								confirmReceive(
@@ -134,7 +134,7 @@ const ParcelList = () => {
 
 				{params.row?.status === "Delivered To Customer By Rider" &&
 					params.row?.paymentCollectionDetails?.marchantMoneyStatus ===
-						"Received" && (
+					"Received" && (
 						<Button
 							onClick={() => {
 								changeStatus(params.row?._id);
@@ -249,9 +249,7 @@ const ParcelList = () => {
 				<Button
 					className={selectedStatus === "All" ? "active" : ""}
 					onClick={() => setSelectedStatus("All")}
-					variant='contained'
-					color='success'
-					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, color: "gray" }}>
 					All
 				</Button>
 				<Button
@@ -259,10 +257,8 @@ const ParcelList = () => {
 						selectedStatus === "Successfully Completed" ? "active" : ""
 					}
 					onClick={() => setSelectedStatus("Successfully Completed")}
-					variant='contained'
-					color='success'
-					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
-					Successfully Completed
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, color: "gray" }}>
+					Completed
 				</Button>
 			</Box>
 			<Grid container spacing={1} sx={{ justifyContent: "center", px: 2 }}>
