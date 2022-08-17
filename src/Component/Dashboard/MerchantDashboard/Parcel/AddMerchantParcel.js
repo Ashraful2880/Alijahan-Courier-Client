@@ -182,7 +182,7 @@ const AddMerchantParcel = () => {
 				receiverNumber,
 				receiverBranchDistrict,
 				receiverBranchArea,
-				receiverBranchName: receiverBranchName,
+				receiverBranchName: receiverBranch?.branchName,
 			},
 			referenceId,
 			instructions,
