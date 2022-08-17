@@ -42,19 +42,19 @@ const MerchantOrder = () => {
 	const [selectedArea, setSelectedArea] = useState();
 	const [serviceAreas, setServiceAreas] = useState();
 	const email = "marchant@gmail.com";
-	const serviceArea = serviceAreas?.find(
-		(s) =>
-			s.serviceAreaName ===
-			(marchant?.merchantArea === selectedArea?.area
-				? "Inside Same City"
-				: `City to ${selectedArea?.areaType}`),
-	);
 
 	const senderBranch = branch?.find(
 		(b) => b.branchName === marchant?.merchantBranchName,
 	);
-	const receiverBranch = branch?.find((b) =>
-		b?.branchArea?.map((a) => a.areaName === selectedArea?.area),
+	const receiverBranch = branch?.find((d) =>
+		d.branchArea.find((c) => c?.area === selectedArea?.area),
+	);
+	const serviceArea = serviceAreas?.find(
+		(s) =>
+			s.serviceAreaName ===
+			(marchant?.merchantBranchName === receiverBranch?.branchName
+				? "Inside Same City"
+				: `City to ${selectedArea?.areaType}`),
 	);
 	useEffect(() => {
 		axios
@@ -157,7 +157,6 @@ const MerchantOrder = () => {
 		receiverName,
 		receiverNumber,
 		receiverBranchDistrict,
-		receiverBranchName,
 		receiverBranchArea,
 		receiverAddress,
 		productCategory,
