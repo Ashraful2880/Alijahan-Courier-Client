@@ -213,23 +213,23 @@ const BranchReceivedParcelList = () => {
 				{((params.row?.status === "Assigned Rider For Delivery" &&
 					!params.row?.deliverRiderInfo?.riderName) ||
 					params.row?.status === "Cancelled By Delivery Rider") && (
-					<Autocomplete
-						onChange={(event, newValue) => {
-							changeRider(event, newValue, params.row?._id);
-						}}
-						size='small'
-						sx={{ my: 0.5 }}
-						options={riders}
-						getOptionLabel={(option) => option.riderName}
-						style={{ width: 250 }}
-						renderInput={(params) => (
-							<TextField {...params} label='Select Rider' variant='outlined' />
-						)}
-					/>
-				)}
+						<Autocomplete
+							onChange={(event, newValue) => {
+								changeRider(event, newValue, params.row?._id);
+							}}
+							size='small'
+							sx={{ my: 0.5 }}
+							options={riders}
+							getOptionLabel={(option) => option.riderName}
+							style={{ width: 250 }}
+							renderInput={(params) => (
+								<TextField {...params} label='Select Rider' variant='outlined' />
+							)}
+						/>
+					)}
 				{params.row?.status === "Delivered To Customer By Rider" &&
 					params.row?.paymentCollectionDetails?.collectionStatus ===
-						"Sending Money To Branch" && (
+					"Sending Money To Branch" && (
 						<Button
 							onClick={() =>
 								receiveAndSendMoney(
@@ -252,7 +252,7 @@ const BranchReceivedParcelList = () => {
 					)}
 				{params.row?.status === "Delivered To Customer By Rider" &&
 					params.row?.paymentCollectionDetails?.collectionStatus ===
-						"Money Received In Branch" && (
+					"Money Received In Branch" && (
 						<Button
 							onClick={() =>
 								receiveAndSendMoney(
@@ -396,9 +396,7 @@ const BranchReceivedParcelList = () => {
 				<Button
 					className={selectedStatus === "All" ? "active" : ""}
 					onClick={() => setSelectedStatus("All")}
-					variant='contained'
-					color='success'
-					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, color: "gray" }}>
 					All
 				</Button>
 				<Button
@@ -406,9 +404,7 @@ const BranchReceivedParcelList = () => {
 						selectedStatus === "Delivered To Receiver Branch" ? "active" : ""
 					}
 					onClick={() => setSelectedStatus("Delivered To Receiver Branch")}
-					variant='contained'
-					color='success'
-					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, color: "gray" }}>
 					Delivered To Receiver Branch
 				</Button>
 				<Button
@@ -416,28 +412,22 @@ const BranchReceivedParcelList = () => {
 						selectedStatus === "Assigned Rider For Delivery" ? "active" : ""
 					}
 					onClick={() => setSelectedStatus("Assigned Rider For Delivery")}
-					variant='contained'
-					color='success'
-					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
-					Assigned Rider For Delivery
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, color: "gray" }}>
+					Assigned
 				</Button>
 				<Button
 					className={
 						selectedStatus === "Delivered To Branch By Rider" ? "active" : ""
 					}
 					onClick={() => setSelectedStatus("Delivered To Branch By Rider")}
-					variant='contained'
-					color='success'
-					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
-					Delivered To Branch By Rider
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, color: "gray" }}>
+					Delivered
 				</Button>
 				<Button
 					className={selectedStatus === "Received in Branch" ? "active" : ""}
 					onClick={() => setSelectedStatus("Received in Branch")}
-					variant='contained'
-					color='success'
-					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
-					Received in Branch
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, color: "gray" }}>
+					Received
 				</Button>
 			</Box>
 			<Grid container spacing={1} sx={{ justifyContent: "center", px: 2 }}>

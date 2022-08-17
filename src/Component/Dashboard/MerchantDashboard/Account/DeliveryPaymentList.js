@@ -17,14 +17,21 @@ import Swal from "sweetalert2";
 import { useEffect } from "react";
 import { useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import PaymentsIcon from "@mui/icons-material/Payments";
 import GetAuth from "../../../../FirebaseAuth/GetAuth";
+import ParcelModal from "../../AdminDashboard/Account/ParcelModal";
 
 const DeliveryPaymentList = () => {
 	const email = "marchant@gmail.com";
 	const { user, loading, token } = GetAuth();
 	const [submitting, setSubmitting] = useState(false);
 	const [data, setData] = useState();
+	const [modalData, setModalData] = useState();
+	const [open, setOpen] = React.useState(false);
+	const handleOpen = () => setOpen(true);
+	const handleClose = () => setOpen(false);
+
 	useEffect(() => {
 		axios
 			.get(`${process.env.REACT_APP_API_PATH}/merchantordersbyemail/${email}`, {
@@ -118,7 +125,7 @@ const DeliveryPaymentList = () => {
 							from Accounts
 						</Button>
 					)}
-				<DeleteIcon
+				{/* <DeleteIcon
 					className='iconBtn'
 					sx={{ color: "#df0f00!important" }}
 					onClick={() => {
@@ -149,7 +156,8 @@ const DeliveryPaymentList = () => {
 							}
 						});
 					}}
-				/>
+				/> */}
+				<RemoveRedEyeIcon onClick={() => handleOpen(setModalData(params.row))} sx={{ ml: 1.5, color: "green", cursor: "pointer" }} />
 			</Box>
 		);
 	};
@@ -240,6 +248,7 @@ const DeliveryPaymentList = () => {
 				open={submitting || !data}>
 				<CircularProgress color='inherit' />
 			</Backdrop>
+			<ParcelModal open={open} handleOpen={handleOpen} handleClose={handleClose} modalData={modalData} />
 		</Box>
 	);
 };
