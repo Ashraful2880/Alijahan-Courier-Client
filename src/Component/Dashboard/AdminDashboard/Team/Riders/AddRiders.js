@@ -69,31 +69,34 @@ const AddRiders = ({ open, setOpen, token, setSubmitting }) => {
 		});
 	}
 	const [data, setData] = useState();
-	if (user) {
-		axios
-			.post(
-				`${process.env.REACT_APP_API_PATH}/rider`,
-				{
-					...data,
-					status: "Active",
-				},
-				{
-					headers: {
-						Authorization: `Bearer ${token}`,
+	useEffect(() => {
+		if (user) {
+			axios
+				.post(
+					`${process.env.REACT_APP_API_PATH}/rider`,
+					{
+						...data,
+						status: "Active",
 					},
-				},
-			)
-			.then((response) => {
-				setSubmitting(false);
-				setOpen(false);
-				Swal.fire("", "Successfully Added!", "success");
-				signOut(auth2);
-			})
-			.catch((error) => {
-				setSubmitting(false);
-				console.log(error);
-			});
-	}
+					{
+						headers: {
+							Authorization: `Bearer ${token}`,
+						},
+					},
+				)
+				.then((response) => {
+					setSubmitting(false);
+					setOpen(false);
+					Swal.fire("", "Successfully Added!", "success");
+					signOut(auth2);
+				})
+				.catch((error) => {
+					setSubmitting(false);
+					console.log(error);
+				});
+		}
+	}, [data, setOpen, setSubmitting, token, user]);
+
 	const onSubmit = ({
 		riderName,
 		riderBranch,

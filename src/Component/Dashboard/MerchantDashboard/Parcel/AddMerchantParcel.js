@@ -31,18 +31,31 @@ const AddMerchantParcel = () => {
 	const [submitting, setSubmitting] = useState(false);
 	const { register, handleSubmit, reset } = useForm();
 	const [selectedDistricts, setSelectedDistricts] = useState("");
-	const [selectedBranch, setSelectedBranch] = useState("");
 	const [branch, setBranch] = useState();
 	const [productCategory, setProductCategory] = useState();
 	const [weight, setWeight] = useState();
 	const [selectWeight, setSelectWeight] = useState();
-	const [serviceAreas, setServiceAreas] = useState();
-	const [selectServiceAreas, setSelectServiceAreas] = useState();
 	const [cashCollection, setCashCollection] = useState();
 	const [districts, setDistricts] = useState();
 	const [marchant, setMarchant] = useState();
-
+	const [areas, setAreas] = useState();
+	const [selectedArea, setSelectedArea] = useState();
+	const [serviceAreas, setServiceAreas] = useState();
 	const email = "marchant@gmail.com";
+	const serviceArea = serviceAreas?.find(
+		(s) =>
+			s.serviceAreaName ===
+			(marchant?.merchantArea === selectedArea?.area
+				? "Inside Same City"
+				: `City to ${selectedArea?.areaType}`),
+	);
+
+	const senderBranch = branch?.find(
+		(b) => b.branchName === marchant?.merchantBranchName,
+	);
+	const receiverBranch = branch?.find((b) =>
+		b?.branchArea?.map((a) => a.areaName === selectedArea?.area),
+	);
 	useEffect(() => {
 		axios
 			.get(`${process.env.REACT_APP_API_PATH}/districts`, {
@@ -52,6 +65,30 @@ const AddMerchantParcel = () => {
 			})
 			.then((response) => {
 				setDistricts(response.data);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+		axios
+			.get(`${process.env.REACT_APP_API_PATH}/serviceAreas`, {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			})
+			.then((response) => {
+				setServiceAreas(response.data);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+		axios
+			.get(`${process.env.REACT_APP_API_PATH}/areas`, {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			})
+			.then((response) => {
+				setAreas(response.data);
 			})
 			.catch((error) => {
 				console.log(error);
@@ -92,18 +129,7 @@ const AddMerchantParcel = () => {
 			.catch((error) => {
 				console.log(error);
 			});
-		axios
-			.get(`${process.env.REACT_APP_API_PATH}/serviceAreas`, {
-				headers: {
-					Authorization: `Bearer ${token}`,
-				},
-			})
-			.then((response) => {
-				setServiceAreas(response.data);
-			})
-			.catch((error) => {
-				console.log(error);
-			});
+
 		axios
 			.get(`${process.env.REACT_APP_API_PATH}/merchants/${email}`, {
 				headers: {
@@ -117,13 +143,10 @@ const AddMerchantParcel = () => {
 				console.log(error);
 			});
 	}, [token]);
-	const senderBranch = branch?.find(
-		(b) => b.branchName === marchant?.merchantBranchName,
-	);
+
 	const cashCollected = parseFloat(cashCollection) || 0;
-	const deliveryCharge = parseFloat(selectServiceAreas?.serviceAreaCharge);
-	const codPercentage =
-		parseFloat(selectServiceAreas?.serviceAreaCODPercentage) || 0;
+	const deliveryCharge = parseFloat(serviceArea?.serviceAreaCharge);
+	const codPercentage = parseFloat(serviceArea?.serviceAreaCODPercentage) || 0;
 	const weightCharge = parseFloat(selectWeight?.weightPackageRate) || 0;
 	const totalAmount = deliveryCharge + weightCharge + cashCollected || 0;
 	const codAmount = totalAmount * (codPercentage / 100) || 0;
@@ -147,7 +170,7 @@ const AddMerchantParcel = () => {
 			orderId:
 				senderBranch?.branchName.slice(0, 4) +
 				"-" +
-				selectedBranch?.branchName.slice(0, 4) +
+				receiverBranch?.branchName.slice(0, 4) +
 				"-" +
 				Math.floor(Math.random() * 1000000000),
 			marchentInfo: marchant,
@@ -159,7 +182,7 @@ const AddMerchantParcel = () => {
 				receiverNumber,
 				receiverBranchDistrict,
 				receiverBranchArea,
-				receiverBranchName,
+				receiverBranchName: receiverBranchName,
 			},
 			referenceId,
 			instructions,
@@ -297,32 +320,13 @@ const AddMerchantParcel = () => {
 								/>
 								<Autocomplete
 									onChange={(event, newValue) => {
-										setSelectedBranch(newValue);
+										setSelectedArea(newValue);
 									}}
 									size='small'
 									sx={{ my: 0.5, width: "100% !important" }}
-									options={branch?.filter(
-										(item) =>
-											item?.branchDistrict === selectedDistricts?.district,
+									options={areas?.filter(
+										(area) => area.district === selectedDistricts?.district,
 									)}
-									getOptionLabel={(option) => option.branchName}
-									style={{ width: 300 }}
-									renderInput={(params) => (
-										<TextField
-											{...register("receiverBranchName", {
-												required: true,
-											})}
-											{...params}
-											label='Select Branch'
-											variant='outlined'
-											helperText='Branch'
-										/>
-									)}
-								/>
-								<Autocomplete
-									size='small'
-									sx={{ my: 0.5, width: "100% !important" }}
-									options={selectedBranch?.branchArea || []}
 									getOptionLabel={(option) => option.area}
 									style={{ width: 300 }}
 									renderInput={(params) => (
@@ -399,24 +403,13 @@ const AddMerchantParcel = () => {
 									)}
 								/>
 
-								<Autocomplete
-									onChange={(event, newValue) => {
-										setSelectServiceAreas(newValue);
-									}}
+								<TextField
 									size='small'
 									sx={{ my: 0.5, width: "100% !important" }}
-									options={serviceAreas || []}
-									getOptionLabel={(option) => option.serviceAreaName}
-									style={{ width: 300 }}
-									renderInput={(params) => (
-										<TextField
-											{...register("receiverServiceArea", { required: true })}
-											{...params}
-											label='Service Area'
-											variant='outlined'
-											helperText='Select Service Area'
-										/>
-									)}
+									value={serviceArea?.serviceAreaName}
+									{...register("receiverServiceArea", { required: true })}
+									variant='outlined'
+									helperText='Service Area'
 								/>
 							</Box>
 							<Box sx={{ display: "flex", gap: "15px", mx: 2 }}>
@@ -436,10 +429,9 @@ const AddMerchantParcel = () => {
 									size='small'
 									sx={{ my: 0.5 }}
 									fullWidth
-									required
 									label='Reference Id'
 									helperText='Reference Id'
-									{...register("referenceId", { required: true })}
+									{...register("referenceId")}
 								/>
 							</Box>
 							<TextField
@@ -449,7 +441,7 @@ const AddMerchantParcel = () => {
 								multiline
 								rows={3}
 								helperText='Any Instructions'
-								{...register("instructions", { required: true })}
+								{...register("instructions")}
 							/>
 						</Grid>
 						<Grid item xs={12} md={4} lg={4}>
