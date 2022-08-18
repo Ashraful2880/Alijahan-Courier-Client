@@ -138,9 +138,13 @@ input[type="number"] {
 	background-color: var(--color1) !important;
 	border-left: 4px solid var(--color3) !important;
 }
+
 .active {
-	background-color: var(--color1) !important;
+	background-color: white !important;
+	color: green !important;
+	box-shadow: none !important;
 }
+
 .button {
 	background-color: var(--color1) !important;
 	color: white !important;

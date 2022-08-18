@@ -17,15 +17,22 @@ import Swal from "sweetalert2";
 import { useEffect } from "react";
 import { useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
 import GetAuth from "../../../../FirebaseAuth/GetAuth";
 import PaymentsIcon from "@mui/icons-material/Payments";
+import ParcelModal from "../../AdminDashboard/Account/ParcelModal";
 
 const ParcelList = () => {
 	const email = "marchant@gmail.com";
 	const { user, loading, token } = GetAuth();
 	const [submitting, setSubmitting] = useState(false);
 	const [data, setData] = useState();
+	const [modalData, setModalData] = useState();
+	const [open, setOpen] = React.useState(false);
+	const handleOpen = () => setOpen(true);
+	const handleClose = () => setOpen(false);
+
 	useEffect(() => {
 		axios
 			.get(`${process.env.REACT_APP_API_PATH}/merchantordersbyemail/${email}`, {
@@ -111,7 +118,7 @@ const ParcelList = () => {
 			<Box sx={{ display: "flex", alignItems: "center" }}>
 				{params.row?.status === "Delivered To Customer By Rider" &&
 					params.row?.paymentCollectionDetails?.collectionStatus ===
-						"Sending Money To Merchant" && (
+					"Sending Money To Merchant" && (
 						<Button
 							onClick={() =>
 								confirmReceive(
@@ -134,7 +141,7 @@ const ParcelList = () => {
 
 				{params.row?.status === "Delivered To Customer By Rider" &&
 					params.row?.paymentCollectionDetails?.marchantMoneyStatus ===
-						"Received" && (
+					"Received" && (
 						<Button
 							onClick={() => {
 								changeStatus(params.row?._id);
@@ -182,6 +189,7 @@ const ParcelList = () => {
 						});
 					}}
 				/> */}
+				<RemoveRedEyeIcon onClick={() => handleOpen(setModalData(params.row))} sx={{ ml: 1.5, color: "green", cursor: "pointer" }} />
 			</Box>
 		);
 	};
@@ -193,7 +201,7 @@ const ParcelList = () => {
 			renderCell: (params) => {
 				return params.row.marchentInfo.merchantName;
 			},
-			width: 150,
+			width: 180,
 		},
 		{
 			field: "receiverBranchArea",
@@ -201,7 +209,7 @@ const ParcelList = () => {
 			renderCell: (params) => {
 				return params.row.receiverInfo.receiverBranchArea;
 			},
-			width: 150,
+			width: 180,
 		},
 		{
 			field: "receiverAddress",
@@ -209,7 +217,7 @@ const ParcelList = () => {
 			renderCell: (params) => {
 				return params.row.receiverInfo.receiverAddress;
 			},
-			width: 220,
+			width: 200,
 		},
 		{
 			field: "receiverNumber",
@@ -217,7 +225,7 @@ const ParcelList = () => {
 			renderCell: (params) => {
 				return params.row.receiverInfo.receiverNumber;
 			},
-			width: 150,
+			width: 180,
 		},
 		{ field: "status", headerName: "Status", width: 250 },
 		{
@@ -249,9 +257,7 @@ const ParcelList = () => {
 				<Button
 					className={selectedStatus === "All" ? "active" : ""}
 					onClick={() => setSelectedStatus("All")}
-					variant='contained'
-					color='success'
-					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, color: "gray" }}>
 					All
 				</Button>
 				<Button
@@ -259,10 +265,8 @@ const ParcelList = () => {
 						selectedStatus === "Successfully Completed" ? "active" : ""
 					}
 					onClick={() => setSelectedStatus("Successfully Completed")}
-					variant='contained'
-					color='success'
-					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
-					Successfully Completed
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, color: "gray" }}>
+					Completed
 				</Button>
 			</Box>
 			<Grid container spacing={1} sx={{ justifyContent: "center", px: 2 }}>
@@ -287,6 +291,7 @@ const ParcelList = () => {
 				open={submitting || !data}>
 				<CircularProgress color='inherit' />
 			</Backdrop>
+			<ParcelModal open={open} handleOpen={handleOpen} handleClose={handleClose} modalData={modalData} />
 		</Box>
 	);
 };

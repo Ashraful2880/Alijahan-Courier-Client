@@ -16,11 +16,17 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import PaymentsIcon from "@mui/icons-material/Payments";
 import GetAuth from "../../../../FirebaseAuth/GetAuth";
+import ParcelModal from "./ParcelModal";
 
 const Accounts = () => {
 	const { user, loading, token } = GetAuth();
 	const [submitting, setSubmitting] = useState(false);
 	const [data, setData] = useState();
+	const [modalData, setModalData] = useState();
+	const [open, setOpen] = React.useState(false);
+	const handleOpen = () => setOpen(true);
+	const handleClose = () => setOpen(false);
+
 	useEffect(() => {
 		axios
 			.get(`${process.env.REACT_APP_API_PATH}/merchantorders`, {
@@ -128,49 +134,49 @@ const Accounts = () => {
 			<Box sx={{ display: "flex", alignItems: "center", width: "100%" }}>
 				{params.row?.paymentCollectionDetails?.collectionStatus ===
 					"Money Received in Accounts" && (
-					<Button
-						onClick={() =>
-							receiveAndSendMoney(
-								params.row?._id,
-								params.row?.paymentCollectionDetails,
-								params.row?.orderSummaray,
-								"Sending Money to Marchant",
-							)
-						}
-						sx={{
-							my: 1,
-							px: 3,
-							fontWeight: "bold",
-							borderRadius: "25px",
-							border: "2px solid ",
-						}}>
-						<PaymentsIcon sx={{ mr: 0.5 }} />
-						Send {params.row?.orderSummaray.totalReceive} ৳ to Marchant
-					</Button>
-				)}
+						<Button
+							onClick={() =>
+								receiveAndSendMoney(
+									params.row?._id,
+									params.row?.paymentCollectionDetails,
+									params.row?.orderSummaray,
+									"Sending Money to Marchant",
+								)
+							}
+							sx={{
+								my: 1,
+								px: 3,
+								fontWeight: "bold",
+								borderRadius: "25px",
+								border: "2px solid ",
+							}}>
+							<PaymentsIcon sx={{ mr: 0.5 }} />
+							Send {params.row?.orderSummaray.totalReceive} ৳ to Marchant
+						</Button>
+					)}
 				{params.row?.paymentCollectionDetails?.collectionStatus ===
 					"Sending Money To Accounts" && (
-					<Button
-						onClick={() =>
-							receiveAndSendMoney(
-								params.row?._id,
-								params.row?.paymentCollectionDetails,
-								params.row?.orderSummaray,
-								"Money Received in Accounts",
-							)
-						}
-						sx={{
-							my: 1,
-							px: 3,
-							fontWeight: "bold",
-							borderRadius: "25px",
-							border: "2px solid ",
-						}}>
-						<PaymentsIcon sx={{ mr: 0.5 }} />
-						Receive {params.row?.paymentCollectionDetails?.collectedAmount} ৳
-						from Branch
-					</Button>
-				)}
+						<Button
+							onClick={() =>
+								receiveAndSendMoney(
+									params.row?._id,
+									params.row?.paymentCollectionDetails,
+									params.row?.orderSummaray,
+									"Money Received in Accounts",
+								)
+							}
+							sx={{
+								my: 1,
+								px: 3,
+								fontWeight: "bold",
+								borderRadius: "25px",
+								border: "2px solid ",
+							}}>
+							<PaymentsIcon sx={{ mr: 0.5 }} />
+							Receive {params.row?.paymentCollectionDetails?.collectedAmount} ৳
+							from Branch
+						</Button>
+					)}
 				{/* 		<DeleteIcon
 					className='iconBtn'
 					sx={{ color: "#df0f00!important" }}
@@ -203,7 +209,7 @@ const Accounts = () => {
 						});
 					}}
 				/> */}
-				<RemoveRedEyeIcon sx={{ ml: 1.5, color: "green" }} />
+				<RemoveRedEyeIcon onClick={() => handleOpen(setModalData(params.row))} sx={{ ml: 1.5, color: "green", cursor: "pointer" }} />
 			</Box>
 		);
 	};
@@ -288,9 +294,7 @@ const Accounts = () => {
 				<Button
 					className={selectedStatus === "All" ? "active" : ""}
 					onClick={() => setSelectedStatus("All")}
-					variant='contained'
-					color='success'
-					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, color: "gray" }}>
 					All
 				</Button>
 				<Button
@@ -298,30 +302,24 @@ const Accounts = () => {
 						selectedStatus === "Sending Money To Accounts" ? "active" : ""
 					}
 					onClick={() => setSelectedStatus("Sending Money To Accounts")}
-					variant='contained'
-					color='success'
-					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
-					Sending Money To Accounts
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, color: "gray" }}>
+					Send To Accounts
 				</Button>
 				<Button
 					className={
 						selectedStatus === "Money Received in Accounts" ? "active" : ""
 					}
 					onClick={() => setSelectedStatus("Money Received in Accounts")}
-					variant='contained'
-					color='success'
-					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
-					Money Received in Accounts
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, color: "gray" }}>
+					Received
 				</Button>
 				<Button
 					className={
 						selectedStatus === "Sending Money to Marchant" ? "active" : ""
 					}
 					onClick={() => setSelectedStatus("Sending Money to Marchant")}
-					variant='contained'
-					color='success'
-					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
-					Sending Money to Marchant
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, color: "gray" }}>
+					Send to Marchant
 				</Button>
 			</Box>
 			<Grid container spacing={1} sx={{ justifyContent: "center", px: 2 }}>
@@ -346,6 +344,8 @@ const Accounts = () => {
 				open={submitting || !data}>
 				<CircularProgress color='inherit' />
 			</Backdrop>
+
+			<ParcelModal open={open} handleOpen={handleOpen} handleClose={handleClose} modalData={modalData} />
 		</Box>
 	);
 };

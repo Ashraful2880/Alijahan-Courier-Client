@@ -19,12 +19,17 @@ import { useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import GetAuth from "../../../../FirebaseAuth/GetAuth";
+import ParcelModal from "../Account/ParcelModal";
 
 const BookingParcelList = () => {
 	const { user, loading, token } = GetAuth();
 	const [submitting, setSubmitting] = useState(false);
 	const [data, setData] = useState();
 	const [status, setStatus] = useState("");
+	const [parcelData, setParcelData] = useState();
+	const [open, setOpen] = React.useState(false);
+	const handleOpen = () => setOpen(true);
+	const handleClose = () => setOpen(false);
 	useEffect(() => {
 		axios
 			.get(`${process.env.REACT_APP_API_PATH}/merchantorders`, {
@@ -39,7 +44,7 @@ const BookingParcelList = () => {
 				console.log(error);
 			});
 	}, [token, submitting]);
-	console.log(status);
+
 	const changeStatus = (event, id) => {
 		Swal.fire({
 			title: "Are You Sure?",
@@ -128,7 +133,7 @@ const BookingParcelList = () => {
 						});
 					}}
 				/> */}
-				<RemoveRedEyeIcon sx={{ ml: 1.5, color: "green" }} />
+				<RemoveRedEyeIcon onClick={() => handleOpen(setParcelData(params.row))} sx={{ ml: 1.5, color: "green", cursor: "pointer" }} />
 			</Box>
 		);
 	};
@@ -280,6 +285,7 @@ const BookingParcelList = () => {
 				open={submitting || !data}>
 				<CircularProgress color='inherit' />
 			</Backdrop>
+			<ParcelModal open={open} handleOpen={handleOpen} handleClose={handleClose} modalData={parcelData} />
 		</Box>
 	);
 };
