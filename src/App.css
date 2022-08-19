@@ -140,8 +140,8 @@ input[type="number"] {
 }
 
 .active {
-	background-color: white !important;
-	color: green !important;
+	background-color: var(--color1) !important;
+	color: white !important;
 	box-shadow: none !important;
 }
 

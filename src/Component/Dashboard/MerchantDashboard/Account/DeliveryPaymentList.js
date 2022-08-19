@@ -207,7 +207,7 @@ const DeliveryPaymentList = () => {
 		{
 			field: "_id",
 			headerName: "Action",
-			width: 250,
+			width: 400,
 			renderCell: renderDetailsButton,
 			disableClickEventBubbling: true,
 		},

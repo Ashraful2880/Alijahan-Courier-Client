@@ -42,6 +42,8 @@ const AddBranches = ({ open, setOpen, token, setSubmitting }) => {
 	const [areas, setAreas] = useState();
 	const [selectedDistricts, setSelectedDistricts] = useState("");
 	const [districts, setDistricts] = useState([]);
+	const [warehouses, setWarehouses] = useState([]);
+	const [warehouse, setWarehouse] = useState();
 	useEffect(() => {
 		axios
 			.get(`${process.env.REACT_APP_API_PATH}/areas`, {
@@ -51,6 +53,18 @@ const AddBranches = ({ open, setOpen, token, setSubmitting }) => {
 			})
 			.then((response) => {
 				setAreas(response.data);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+		axios
+			.get(`${process.env.REACT_APP_API_PATH}/warehouseUsers`, {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			})
+			.then((response) => {
+				setWarehouses(response.data);
 			})
 			.catch((error) => {
 				console.log(error);
@@ -137,6 +151,7 @@ const AddBranches = ({ open, setOpen, token, setSubmitting }) => {
 			deliveryCom,
 			bookingCom,
 			officeDeliveryCom,
+			warehouseInfo: warehouse,
 		});
 		setSubmitting(true);
 		createUserWithEmailAndPassword(branchEmail, branchPassword);
@@ -248,6 +263,24 @@ const AddBranches = ({ open, setOpen, token, setSubmitting }) => {
 										)}
 									/>
 								</Box>
+								<Autocomplete
+									onChange={(event, newValue) => {
+										setWarehouse(newValue);
+									}}
+									size='small'
+									sx={{ my: 1, width: "100% !important" }}
+									options={warehouses}
+									getOptionLabel={(option) => option?.warehouseUserName}
+									style={{ width: 300 }}
+									renderInput={(params) => (
+										<TextField
+											{...params}
+											label='Warehouse'
+											helperText='Warehouse'
+											variant='outlined'
+										/>
+									)}
+								/>
 								<Box sx={{ display: "flex", gap: "20px" }}>
 									<TextField
 										size='small'

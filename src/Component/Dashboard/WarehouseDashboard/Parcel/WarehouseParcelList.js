@@ -18,7 +18,7 @@ import { useState } from "react";
 import GetAuth from "./../../../../FirebaseAuth/GetAuth";
 
 const WarehouseParcelList = () => {
-	const email = "Warehouse@gmail.com";
+	const email = "warehouse2@gmail.com";
 	const { user, loading, token } = GetAuth();
 	const [submitting, setSubmitting] = useState(false);
 	const [data, setData] = useState();
@@ -170,7 +170,7 @@ const WarehouseParcelList = () => {
 					}
 					onClick={() => setSelectedStatus("Delivered To Warehouse")}
 					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, color: "gray" }}>
-					Delivered
+					Pending
 				</Button>
 				<Button
 					className={
