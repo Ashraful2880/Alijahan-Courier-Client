@@ -134,49 +134,49 @@ const Accounts = () => {
 			<Box sx={{ display: "flex", alignItems: "center", width: "100%" }}>
 				{params.row?.paymentCollectionDetails?.collectionStatus ===
 					"Money Received in Accounts" && (
-						<Button
-							onClick={() =>
-								receiveAndSendMoney(
-									params.row?._id,
-									params.row?.paymentCollectionDetails,
-									params.row?.orderSummaray,
-									"Sending Money to Marchant",
-								)
-							}
-							sx={{
-								my: 1,
-								px: 3,
-								fontWeight: "bold",
-								borderRadius: "25px",
-								border: "2px solid ",
-							}}>
-							<PaymentsIcon sx={{ mr: 0.5 }} />
-							Send {params.row?.orderSummaray.totalReceive} ৳ to Marchant
-						</Button>
-					)}
+					<Button
+						onClick={() =>
+							receiveAndSendMoney(
+								params.row?._id,
+								params.row?.paymentCollectionDetails,
+								params.row?.orderSummaray,
+								"Sending Money to Marchant",
+							)
+						}
+						sx={{
+							my: 1,
+							px: 3,
+							fontWeight: "bold",
+							borderRadius: "25px",
+							border: "2px solid ",
+						}}>
+						<PaymentsIcon sx={{ mr: 0.5 }} />
+						Send {params.row?.orderSummaray.totalReceive} ৳ to Marchant
+					</Button>
+				)}
 				{params.row?.paymentCollectionDetails?.collectionStatus ===
 					"Sending Money To Accounts" && (
-						<Button
-							onClick={() =>
-								receiveAndSendMoney(
-									params.row?._id,
-									params.row?.paymentCollectionDetails,
-									params.row?.orderSummaray,
-									"Money Received in Accounts",
-								)
-							}
-							sx={{
-								my: 1,
-								px: 3,
-								fontWeight: "bold",
-								borderRadius: "25px",
-								border: "2px solid ",
-							}}>
-							<PaymentsIcon sx={{ mr: 0.5 }} />
-							Receive {params.row?.paymentCollectionDetails?.collectedAmount} ৳
-							from Branch
-						</Button>
-					)}
+					<Button
+						onClick={() =>
+							receiveAndSendMoney(
+								params.row?._id,
+								params.row?.paymentCollectionDetails,
+								params.row?.orderSummaray,
+								"Money Received in Accounts",
+							)
+						}
+						sx={{
+							my: 1,
+							px: 3,
+							fontWeight: "bold",
+							borderRadius: "25px",
+							border: "2px solid ",
+						}}>
+						<PaymentsIcon sx={{ mr: 0.5 }} />
+						Receive {params.row?.paymentCollectionDetails?.collectedAmount} ৳
+						from Branch
+					</Button>
+				)}
 				{/* 		<DeleteIcon
 					className='iconBtn'
 					sx={{ color: "#df0f00!important" }}
@@ -209,7 +209,10 @@ const Accounts = () => {
 						});
 					}}
 				/> */}
-				<RemoveRedEyeIcon onClick={() => handleOpen(setModalData(params.row))} sx={{ ml: 1.5, color: "green", cursor: "pointer" }} />
+				<RemoveRedEyeIcon
+					onClick={() => handleOpen(setModalData(params.row))}
+					sx={{ ml: 1.5, color: "green", cursor: "pointer" }}
+				/>
 			</Box>
 		);
 	};
@@ -267,14 +270,17 @@ const Accounts = () => {
 		{
 			field: "_id",
 			headerName: "Action",
-			width: 250,
+			width: 350,
 			renderCell: renderDetailsButton,
 			disableClickEventBubbling: true,
 		},
 	];
 
 	const [selectedStatus, setSelectedStatus] = useState("All");
-	const filterData = data?.filter((item) => item?.status === selectedStatus);
+	const filterData = data?.filter(
+		(item) =>
+			item?.paymentCollectionDetails?.collectionStatus === selectedStatus,
+	);
 
 	return (
 		<Box sx={{ mx: 4, pt: 2, pb: 5 }}>
@@ -303,7 +309,7 @@ const Accounts = () => {
 					}
 					onClick={() => setSelectedStatus("Sending Money To Accounts")}
 					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, color: "gray" }}>
-					Send To Accounts
+					Waiting To Rec
 				</Button>
 				<Button
 					className={
@@ -345,7 +351,12 @@ const Accounts = () => {
 				<CircularProgress color='inherit' />
 			</Backdrop>
 
-			<ParcelModal open={open} handleOpen={handleOpen} handleClose={handleClose} modalData={modalData} />
+			<ParcelModal
+				open={open}
+				handleOpen={handleOpen}
+				handleClose={handleClose}
+				modalData={modalData}
+			/>
 		</Box>
 	);
 };

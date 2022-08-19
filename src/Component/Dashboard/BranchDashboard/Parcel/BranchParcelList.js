@@ -134,6 +134,8 @@ const BranchParcelList = () => {
 			}
 		});
 	};
+
+	const [selectionModel, setSelectionModel] = React.useState();
 	const changeRider = (event, newValue, id) => {
 		Swal.fire({
 			title: "Are You Sure?",
@@ -142,27 +144,29 @@ const BranchParcelList = () => {
 		}).then((result) => {
 			if (result.isConfirmed) {
 				setSubmitting(true);
-				axios
-					.put(
-						`${process.env.REACT_APP_API_PATH}/merchantorderRiderCollect/${id}`,
-						{
-							collectRiderInfo: newValue,
-							status: "Assigned for Pickup",
-						},
-						{
-							headers: {
-								Authorization: `Bearer ${token}`,
+				selectionModel.map((item) =>
+					axios
+						.put(
+							`${process.env.REACT_APP_API_PATH}/merchantorderRiderCollect/${item}`,
+							{
+								collectRiderInfo: newValue,
+								status: "Assigned for Pickup",
 							},
-						},
-					)
-					.then((response) => {
-						setSubmitting(false);
-						Swal.fire("", "Successfully Assigned!", "success");
-					})
-					.catch((error) => {
-						setSubmitting(false);
-						console.log(error);
-					});
+							{
+								headers: {
+									Authorization: `Bearer ${token}`,
+								},
+							},
+						)
+						.then((response) => {
+							setSubmitting(false);
+							Swal.fire("", "Successfully Assigned!", "success");
+						})
+						.catch((error) => {
+							setSubmitting(false);
+							console.log(error);
+						}),
+				);
 			}
 		});
 	};
@@ -172,19 +176,19 @@ const BranchParcelList = () => {
 				{((params.row?.status === "Assigned for Pickup" &&
 					!params.row?.collectRiderInfo?.riderName) ||
 					params.row?.status === "Cancelled by Pickup Rider") && (
-						<Autocomplete
-							onChange={(event, newValue) => {
-								changeRider(event, newValue, params.row?._id);
-							}}
-							size='small'
-							sx={{ my: 0.5, width: 200 }}
-							options={riders}
-							getOptionLabel={(option) => option.riderName}
-							renderInput={(params) => (
-								<TextField {...params} label='Select Rider' variant='outlined' />
-							)}
-						/>
-					)}
+					<Autocomplete
+						onChange={(event, newValue) => {
+							changeRider(event, newValue, params.row?._id);
+						}}
+						size='small'
+						sx={{ my: 0.5, width: 200 }}
+						options={riders}
+						getOptionLabel={(option) => option.riderName}
+						renderInput={(params) => (
+							<TextField {...params} label='Select Rider' variant='outlined' />
+						)}
+					/>
+				)}
 				<FormControl sx={{ m: 1 }}>
 					<Select
 						size='small'
@@ -298,6 +302,8 @@ const BranchParcelList = () => {
 	const [selectedStatus, setSelectedStatus] = useState("All");
 	const filterData = data?.filter((item) => item?.status === selectedStatus);
 
+	console.log(selectedStatus === "All" ? data : filterData);
+	console.log(selectionModel);
 	return (
 		<Box sx={{ mx: 4, pt: 2, pb: 5 }}>
 			<Box
@@ -312,7 +318,7 @@ const BranchParcelList = () => {
 					All Parcel List
 				</Typography>
 			</Box>
-			<Box sx={{ display: "flex", }}>
+			<Box sx={{ display: "flex" }}>
 				<Button
 					className={selectedStatus === "All" ? "active" : ""}
 					onClick={() => setSelectedStatus("All")}
@@ -339,6 +345,14 @@ const BranchParcelList = () => {
 				</Button>
 				<Button
 					className={
+						selectedStatus === "Cancelled by Pickup Rider" ? "active" : ""
+					}
+					onClick={() => setSelectedStatus("Cancelled by Pickup Rider")}
+					sx={{ my: 0.7, fontWeight: "bold", mx: 1, color: "gray" }}>
+					Cancelled by Rider
+				</Button>
+				<Button
+					className={
 						selectedStatus === "Delivered To Branch By Pickup Rider"
 							? "active"
 							: ""
@@ -347,7 +361,7 @@ const BranchParcelList = () => {
 						setSelectedStatus("Delivered To Branch By Pickup Rider")
 					}
 					sx={{ my: 0.7, fontWeight: "bold", mx: 1, color: "gray" }}>
-					Delivered
+					Receive From Rider
 				</Button>
 				<Button
 					className={
@@ -355,23 +369,38 @@ const BranchParcelList = () => {
 					}
 					onClick={() => setSelectedStatus("Received in Pickup Branch")}
 					sx={{ my: 0.7, fontWeight: "bold", mx: 1, color: "gray" }}>
-					Received
-				</Button>
-				<Button
-					className={
-						selectedStatus === "Delivered To Warehouse" ? "active" : ""
-					}
-					onClick={() => setSelectedStatus("Delivered To Warehouse")}
-					sx={{ my: 0.7, fontWeight: "bold", mx: 1, color: "gray" }}>
-					Delivered To Warehouse
+					Received From Rider
 				</Button>
 			</Box>
 			<Grid container spacing={1} sx={{ justifyContent: "center", px: 2 }}>
+				<Grid item xs={12} md={12}>
+					{selectedStatus === "Assigned for Pickup" ||
+						(selectedStatus === "Cancelled by Pickup Rider" && (
+							<Autocomplete
+								onChange={(event, newValue) => {
+									changeRider(event, newValue);
+								}}
+								size='small'
+								sx={{ my: 0.5, width: 200 }}
+								options={riders}
+								getOptionLabel={(option) => option.riderName}
+								renderInput={(params) => (
+									<TextField
+										{...params}
+										label='Select Rider'
+										variant='outlined'
+									/>
+								)}
+							/>
+						))}
+				</Grid>
 				<Grid item xs={12} md={12}>
 					{filterData && (
 						<div style={{ height: 400, width: "100%" }} className='table'>
 							<DataGrid
 								rows={selectedStatus === "All" ? data : filterData}
+								selectionModel={selectionModel}
+								onSelectionModelChange={setSelectionModel}
 								getRowId={(row) => row?._id}
 								columns={columns}
 								pageSize={5}
@@ -388,7 +417,7 @@ const BranchParcelList = () => {
 				open={submitting || !data}>
 				<CircularProgress color='inherit' />
 			</Backdrop>
-		</Box >
+		</Box>
 	);
 };
 

@@ -10,13 +10,16 @@ import {
 	Autocomplete,
 	MenuItem,
 	Select,
+	FormControl,
+	FormHelperText,
+	InputLabel,
 } from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
 import CancelIcon from "@mui/icons-material/Cancel";
 import AddTaskIcon from "@mui/icons-material/AddTask";
 import { useForm } from "react-hook-form";
-import DoneIcon from '@mui/icons-material/Done';
+import DoneIcon from "@mui/icons-material/Done";
 import ReplayIcon from "@mui/icons-material/Replay";
 import Swal from "sweetalert2";
 const style = {
@@ -36,10 +39,7 @@ const style = {
 };
 
 const AddServiceArea = ({ open, setOpen, token, setSubmitting }) => {
-	const [type, setType] = React.useState("");
-	const handleChange = (event) => {
-		setType(event.target.value);
-	};
+	const [type, setType] = React.useState();
 	const { register, handleSubmit, reset } = useForm();
 	const onSubmit = ({
 		serviceAreaName,
@@ -114,14 +114,26 @@ const AddServiceArea = ({ open, setOpen, token, setSubmitting }) => {
 						</Typography>
 						<form onSubmit={handleSubmit(onSubmit)}>
 							<Box sx={{ display: "flex", gap: "20px" }}>
-								<TextField
-									size='small'
-									sx={{ my: 0.7 }}
-									fullWidth
-									required
-									label='Service Area Name'
-									{...register("serviceAreaName", { required: true })}
-								/>
+								<FormControl sx={{ my: 0.5, textAlign: "left" }} fullWidth>
+									<InputLabel>Service Area Name</InputLabel>
+									<Select
+										size='small'
+										value={type}
+										label='Service Area Name'
+										onChange={(e) => setType(e.target.value)}
+										{...register("serviceAreaName", { required: true })}>
+										<MenuItem value={"Inside Same City"}>
+											Inside Same City
+										</MenuItem>
+										<MenuItem value={"City to City"}>City to City</MenuItem>
+										<MenuItem value={"City to Sub City"}>
+											City to Sub City
+										</MenuItem>
+										<MenuItem value={"City to Union Level"}>
+											City to Union Level
+										</MenuItem>
+									</Select>
+								</FormControl>
 								<TextField
 									size='small'
 									sx={{ my: 0.7 }}
@@ -156,7 +168,7 @@ const AddServiceArea = ({ open, setOpen, token, setSubmitting }) => {
 									onClick={() => setOpen(false)}
 									type='reset'
 									variant='contained'
-									color="error"
+									color='error'
 									// className='button'
 									sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
 									<ReplayIcon sx={{ mr: 0.5 }} />

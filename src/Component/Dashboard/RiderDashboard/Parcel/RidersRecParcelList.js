@@ -19,7 +19,7 @@ import GetAuth from "../../../../FirebaseAuth/GetAuth";
 import PaymentsIcon from "@mui/icons-material/Payments";
 
 const RidersRecParcelList = () => {
-	const email = "rider2@gmail.com";
+	const email = "rider@gmail.com";
 	const { user, loading, token } = GetAuth();
 	const [submitting, setSubmitting] = useState(false);
 	const [data, setData] = useState();

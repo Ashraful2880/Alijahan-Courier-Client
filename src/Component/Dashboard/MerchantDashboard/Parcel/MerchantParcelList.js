@@ -118,7 +118,7 @@ const ParcelList = () => {
 			<Box sx={{ display: "flex", alignItems: "center" }}>
 				{params.row?.status === "Delivered To Customer By Rider" &&
 					params.row?.paymentCollectionDetails?.collectionStatus ===
-					"Sending Money To Merchant" && (
+						"Sending Money To Merchant" && (
 						<Button
 							onClick={() =>
 								confirmReceive(
@@ -141,7 +141,7 @@ const ParcelList = () => {
 
 				{params.row?.status === "Delivered To Customer By Rider" &&
 					params.row?.paymentCollectionDetails?.marchantMoneyStatus ===
-					"Received" && (
+						"Received" && (
 						<Button
 							onClick={() => {
 								changeStatus(params.row?._id);
@@ -189,7 +189,10 @@ const ParcelList = () => {
 						});
 					}}
 				/> */}
-				<RemoveRedEyeIcon onClick={() => handleOpen(setModalData(params.row))} sx={{ ml: 1.5, color: "green", cursor: "pointer" }} />
+				<RemoveRedEyeIcon
+					onClick={() => handleOpen(setModalData(params.row))}
+					sx={{ ml: 1.5, color: "green", cursor: "pointer" }}
+				/>
 			</Box>
 		);
 	};
@@ -262,6 +265,14 @@ const ParcelList = () => {
 				</Button>
 				<Button
 					className={
+						selectedStatus === "Delivered To Customer By Rider" ? "active" : ""
+					}
+					onClick={() => setSelectedStatus("Delivered To Customer By Rider")}
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, color: "gray" }}>
+					Delivered
+				</Button>
+				<Button
+					className={
 						selectedStatus === "Successfully Completed" ? "active" : ""
 					}
 					onClick={() => setSelectedStatus("Successfully Completed")}
@@ -291,7 +302,12 @@ const ParcelList = () => {
 				open={submitting || !data}>
 				<CircularProgress color='inherit' />
 			</Backdrop>
-			<ParcelModal open={open} handleOpen={handleOpen} handleClose={handleClose} modalData={modalData} />
+			<ParcelModal
+				open={open}
+				handleOpen={handleOpen}
+				handleClose={handleClose}
+				modalData={modalData}
+			/>
 		</Box>
 	);
 };

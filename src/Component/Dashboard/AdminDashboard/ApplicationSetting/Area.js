@@ -28,6 +28,8 @@ const Area = () => {
 	const [submitting, setSubmitting] = useState(false);
 	const [data, setData] = useState();
 	const [districts, setDistricts] = useState([]);
+	const [cities, setCities] = useState([]);
+	const [district, setDistrict] = useState();
 	useEffect(() => {
 		axios
 			.get(`${process.env.REACT_APP_API_PATH}/areas`, {
@@ -37,6 +39,18 @@ const Area = () => {
 			})
 			.then((response) => {
 				setData(response.data);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+		axios
+			.get(`${process.env.REACT_APP_API_PATH}/cities`, {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			})
+			.then((response) => {
+				setCities(response.data);
 			})
 			.catch((error) => {
 				console.log(error);
@@ -55,7 +69,7 @@ const Area = () => {
 				console.log(error);
 			});
 	}, [token, submitting]);
-	const onSubmit = ({ area, district }) => {
+	const onSubmit = ({ area, district, areaType }) => {
 		setSubmitting(true);
 		axios
 			.post(
@@ -63,6 +77,7 @@ const Area = () => {
 				{
 					district,
 					area,
+					areaType,
 					status: "Active",
 				},
 				{
@@ -195,6 +210,7 @@ const Area = () => {
 
 	const columns = [
 		{ field: "district", headerName: "District Name", flex: 1 },
+		{ field: "areaType", headerName: "Area Type", flex: 1 },
 		{ field: "area", headerName: "Area Name", flex: 1 },
 		{ field: "status", headerName: "Status", flex: 1 },
 		{
@@ -222,6 +238,9 @@ const Area = () => {
 					onSubmit={handleSubmit(onSubmit)}
 					style={{ display: "flex", flexGrow: "0.5", mx: 4 }}>
 					<Autocomplete
+						onChange={(event, value) => {
+							setDistrict(value);
+						}}
 						size='small'
 						sx={{ my: 1, width: "100% !important" }}
 						options={districts}
@@ -232,6 +251,25 @@ const Area = () => {
 								{...register("district", { required: true })}
 								{...params}
 								label='Districts Name'
+								variant='outlined'
+							/>
+						)}
+					/>
+					<Autocomplete
+						size='small'
+						sx={{ my: 1, ml: 2, width: "100% !important" }}
+						options={[
+							{ areaType: "City" },
+							{ areaType: "Sub City" },
+							{ areaType: "Union Level" },
+						]}
+						getOptionLabel={(option) => option.areaType}
+						style={{ width: 300 }}
+						renderInput={(params) => (
+							<TextField
+								{...register("areaType", { required: true })}
+								{...params}
+								label='Area Type'
 								variant='outlined'
 							/>
 						)}
