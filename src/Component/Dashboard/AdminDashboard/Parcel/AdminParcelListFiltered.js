@@ -23,6 +23,7 @@ import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import GetAuth from "../../../../FirebaseAuth/GetAuth";
 import CancelIcon from "@mui/icons-material/Cancel";
 import ParcelModal from "../Account/ParcelModal";
+import PrintIcon from "@mui/icons-material/Print";
 
 const style = {
 	position: "absolute",
@@ -51,6 +52,11 @@ const AdminParcelListFiltered = ({
 	const [data, setData] = useState();
 	const [parcelData, setParcelData] = useState();
 	const [open, setOpen] = React.useState(false);
+	const [selectionModel, setSelectionModel] = React.useState();
+	const [selected, setSelected] = React.useState([]);
+	const printData = () => {
+		setSelected(data.filter((e) => selectionModel.find((n) => n === e._id)));
+	};
 	const handleOpen = () => setOpen(true);
 	const handleClose = () => setOpen(false);
 	useEffect(() => {
@@ -245,6 +251,7 @@ const AdminParcelListFiltered = ({
 							All Parcel List
 						</Typography>
 					</Box>{" "}
+					<PrintIcon onClick={() => printData()} />
 					<Grid container spacing={1} sx={{ justifyContent: "center", px: 2 }}>
 						<Grid item xs={12} md={12}>
 							{data && (
@@ -253,6 +260,8 @@ const AdminParcelListFiltered = ({
 										rows={allParcels?.filter(
 											(item) => item.marchentInfo.merchantName === marchantName,
 										)}
+										selectionModel={selectionModel}
+										onSelectionModelChange={setSelectionModel}
 										getRowId={(row) => row?._id}
 										columns={columns}
 										pageSize={5}

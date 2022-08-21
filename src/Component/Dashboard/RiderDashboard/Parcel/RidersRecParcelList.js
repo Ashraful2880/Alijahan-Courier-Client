@@ -65,9 +65,9 @@ const RidersRecParcelList = () => {
 		},
 		{
 			field: "merchantBusinessAddress",
-			headerName: "Pickup Address",
+			headerName: "Marchant Address",
 			renderCell: (params) => {
-				return params.row.marchentInfo.merchantBusinessAddress;
+				return `${params.row.marchentInfo.merchantBusinessAddress}(${params.row.marchentInfo.merchantArea})`;
 			},
 			flex: 1,
 		},
@@ -82,7 +82,7 @@ const RidersRecParcelList = () => {
 		{
 			field: "_id",
 			headerName: "Action",
-			width: 50,
+			flex: 1,
 			renderCell: renderDetailsButton,
 			disableClickEventBubbling: true,
 		},
