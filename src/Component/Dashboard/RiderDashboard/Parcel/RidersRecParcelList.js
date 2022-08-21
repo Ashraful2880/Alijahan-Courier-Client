@@ -17,13 +17,15 @@ import { useEffect } from "react";
 import { useState } from "react";
 import GetAuth from "../../../../FirebaseAuth/GetAuth";
 import PaymentsIcon from "@mui/icons-material/Payments";
+import AspectRatioIcon from "@mui/icons-material/AspectRatio";
+import RiderRecParcelListFiltered from "./RiderRecParcelListFiltered";
 
 const RidersRecParcelList = () => {
 	const email = "rider@gmail.com";
 	const { user, loading, token } = GetAuth();
-	const [submitting, setSubmitting] = useState(false);
 	const [data, setData] = useState();
-	const [status, setStatus] = useState("");
+	const [opens, setOpens] = React.useState(false);
+	const [parcelData, setParcelData] = useState();
 	useEffect(() => {
 		axios
 			.get(`${process.env.REACT_APP_API_PATH}/riderDeliverOrders/${email}`, {
@@ -37,200 +39,17 @@ const RidersRecParcelList = () => {
 			.catch((error) => {
 				console.log(error);
 			});
-	}, [token, submitting]);
-	const changeStatus = (event, id) => {
-		Swal.fire({
-			title: "Are You Sure?",
-			showCancelButton: true,
-			confirmButtonText: "Yes",
-		}).then((result) => {
-			if (result.isConfirmed) {
-				setSubmitting(true);
-				axios
-					.put(
-						`${process.env.REACT_APP_API_PATH}/merchantorderStatus/${id}`,
-						{
-							status: event.target.value,
-						},
-						{
-							headers: {
-								Authorization: `Bearer ${token}`,
-							},
-						},
-					)
-					.then((response) => {
-						setSubmitting(false);
-						Swal.fire("", "Successfully Done!", "success");
-					})
-					.catch((error) => {
-						setSubmitting(false);
-						console.log(error);
-					});
-			}
-		});
-	};
-	const changePaymentStatus = (id, money) => {
-		Swal.fire({
-			title: "Did you collected the money?",
-			showCancelButton: true,
-			confirmButtonText: "Yes",
-		}).then((result) => {
-			if (result.isConfirmed) {
-				setSubmitting(true);
-				axios
-					.put(
-						`${process.env.REACT_APP_API_PATH}/merchantorderPaymentCollection/${id}`,
-						{
-							collectionStatus: "Collected From Customer",
-							riderMoneyStatus: "Received",
-							collectedFromCustomerDate: new Date().toLocaleString("en-US", {
-								timeZone: "Asia/Dhaka",
-							}),
-							collectedAmount: money,
-						},
-						{
-							headers: {
-								Authorization: `Bearer ${token}`,
-							},
-						},
-					)
-					.then((response) => {
-						setSubmitting(false);
-						Swal.fire("", "Successfully Done!", "success");
-					})
-					.catch((error) => {
-						setSubmitting(false);
-						console.log(error);
-					});
-			}
-		});
-	};
-	const sendMoneyToBranch = (id, paymentCollectionDetails) => {
-		Swal.fire({
-			title: "Are you sure?",
-			showCancelButton: true,
-			confirmButtonText: "Yes",
-		}).then((result) => {
-			if (result.isConfirmed) {
-				setSubmitting(true);
-				axios
-					.put(
-						`${process.env.REACT_APP_API_PATH}/merchantorderPaymentCollection/${id}`,
-						{
-							collectedFromCustomerDate:
-								paymentCollectionDetails?.collectedFromCustomerDate,
-							riderMoneyStatus: paymentCollectionDetails?.riderMoneyStatus,
-							collectedAmount: paymentCollectionDetails?.collectedAmount,
-							collectionStatus: "Sending Money To Branch",
-						},
-						{
-							headers: {
-								Authorization: `Bearer ${token}`,
-							},
-						},
-					)
-					.then((response) => {
-						setSubmitting(false);
-						Swal.fire("", "Successfully Done!", "success");
-					})
-					.catch((error) => {
-						setSubmitting(false);
-						console.log(error);
-					});
-			}
-		});
-	};
-
+	}, [token]);
 	const renderDetailsButton = (params) => {
 		return (
 			<Box sx={{ display: "flex", alignItems: "center" }}>
-				{params.row?.status === "Delivered To Customer By Rider" &&
-					params.row?.paymentCollectionDetails?.collectionStatus ===
-					"Collected From Customer" && (
-						<Button
-							onClick={() =>
-								sendMoneyToBranch(
-									params.row?._id,
-									params.row?.paymentCollectionDetails,
-								)
-							}
-							sx={{
-								my: 1,
-								px: 3,
-								fontWeight: "bold",
-								borderRadius: "25px",
-								border: "2px solid ",
-							}}>
-							<PaymentsIcon sx={{ mr: 0.5 }} />
-							Send {params.row?.orderSummaray?.totalAmountWithCharges} ৳ To
-							Branch
-						</Button>
-					)}
-				{params.row?.status === "Parcel Received By Delivery Rider" &&
-					params.row?.paymentCollectionDetails?.collectionStatus ===
-					"Pending" && (
-						<Button
-							onClick={() =>
-								changePaymentStatus(
-									params.row?._id,
-									params.row?.orderSummaray?.totalAmountWithCharges,
-								)
-							}
-							sx={{
-								my: 1,
-								px: 3,
-								fontWeight: "bold",
-								borderRadius: "25px",
-								border: "2px solid ",
-							}}>
-							<PaymentsIcon sx={{ mr: 0.5 }} />
-							Collect {params.row?.orderSummaray?.totalAmountWithCharges} ৳
-						</Button>
-					)}
-				<FormControl sx={{ m: 1 }}>
-					<Select
-						size='small'
-						value={status}
-						onChange={(event) => {
-							changeStatus(event, params.row?._id);
-							setStatus(event.target.value);
-						}}
-						displayEmpty
-						inputProps={{ "aria-label": "Without label" }}>
-						{params.row?.status === "Assigned Rider For Delivery" && (
-							<MenuItem value={"Accepted By Delivery Rider"}>Accept</MenuItem>
-						)}
-						{params.row?.status === "Assigned Rider For Delivery" && (
-							<MenuItem value={"Cancelled By Delivery Rider"}>Cancel</MenuItem>
-						)}
-						{params.row?.status === "Accepted By Delivery Rider" && (
-							<MenuItem value={"Parcel Received By Delivery Rider"}>
-								Parcel Received
-							</MenuItem>
-						)}
-						{params.row?.status === "Parcel Received By Delivery Rider" && (
-							<MenuItem value={"Delivered To Customer By Rider"}>
-								Deliver To Customer
-							</MenuItem>
-						)}
-						{/* {params.row?.status === "Assigned for Pickup" && (
-							<MenuItem value={"Cancelled by Pickup Rider"}>Cancel</MenuItem>
-						)}
-						{params.row?.status === "Assigned for Pickup" && (
-							<MenuItem value={"Accepted by Pickup Rider"}>Accept</MenuItem>
-						)}
-						{params.row?.status === "Accepted by Pickup Rider" && (
-							<MenuItem value={"Parcel Received By Pickup Rider"}>
-								Parcel Received From Marchant
-							</MenuItem>
-						)}
-						{params.row?.status === "Parcel Received By Pickup Rider" && (
-							<MenuItem value={"Delivered To Branch By Pickup Rider"}>
-								Deliver To Pickup Branch
-							</MenuItem>
-						)} */}
-					</Select>
-				</FormControl>
+				<AspectRatioIcon
+					onClick={() => {
+						setOpens(true);
+						setParcelData(params.row?.marchentInfo.merchantName);
+					}}
+					sx={{ ml: 1.5, color: "green", cursor: "pointer" }}
+				/>
 			</Box>
 		);
 	};
@@ -242,43 +61,43 @@ const RidersRecParcelList = () => {
 			renderCell: (params) => {
 				return params.row.marchentInfo.merchantName;
 			},
-			width: 150,
+			flex: 1,
 		},
 		{
-			field: "receiverBranchArea",
+			field: "merchantBusinessAddress",
 			headerName: "Pickup Address",
 			renderCell: (params) => {
-				return ` ${params.row.receiverInfo.receiverBranchArea}(${params.row.receiverInfo.receiverBranchName})`;
+				return params.row.marchentInfo.merchantBusinessAddress;
 			},
-			width: 180,
+			flex: 1,
 		},
 		{
-			field: "receiverAddress",
-			headerName: "Full Address",
-			renderCell: (params) => {
-				return params.row.receiverInfo.receiverAddress;
-			},
-			width: 180,
-		},
-		{
-			field: "receiverNumber",
+			field: "merchantContact",
 			headerName: "Phone Number",
 			renderCell: (params) => {
-				return params.row.receiverInfo.receiverNumber;
+				return params.row.marchentInfo.merchantContact;
 			},
-			width: 180,
+			flex: 1,
 		},
-		{ field: "status", headerName: "Status", width: 250 },
 		{
 			field: "_id",
 			headerName: "Action",
-			width: 500,
+			width: 50,
 			renderCell: renderDetailsButton,
 			disableClickEventBubbling: true,
 		},
 	];
+
 	const [selectedStatus, setSelectedStatus] = useState("All");
 	const filterData = data?.filter((item) => item?.status === selectedStatus);
+	const filteredByMarchant = (
+		selectedStatus === "All" ? data : filterData
+	)?.filter(
+		(v, i, a) =>
+			a.findIndex(
+				(t) => t.marchentInfo.merchantName === v.marchentInfo.merchantName,
+			) === i,
+	);
 	return (
 		<Box sx={{ mx: 4, pt: 2, pb: 5 }}>
 			<Box
@@ -340,7 +159,7 @@ const RidersRecParcelList = () => {
 					{filterData && (
 						<div style={{ height: 400, width: "100%" }} className='table'>
 							<DataGrid
-								rows={selectedStatus === "All" ? data : filterData}
+								rows={filteredByMarchant}
 								getRowId={(row) => row?._id}
 								columns={columns}
 								pageSize={5}
@@ -352,9 +171,16 @@ const RidersRecParcelList = () => {
 					)}
 				</Grid>
 			</Grid>
+			<RiderRecParcelListFiltered
+				opens={opens}
+				setOpens={setOpens}
+				marchantName={parcelData}
+				allParcels={selectedStatus === "All" ? data : filterData}
+				selectedStatus={selectedStatus}
+			/>
 			<Backdrop
 				sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 999 }}
-				open={submitting || !data}>
+				open={!data}>
 				<CircularProgress color='inherit' />
 			</Backdrop>
 		</Box>

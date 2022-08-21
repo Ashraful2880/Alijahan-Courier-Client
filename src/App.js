@@ -22,7 +22,6 @@ import OfficeToHome from "./Component/Dashboard/AdminDashboard/ManageOrderBookin
 import MerchantOrder from "./Component/Dashboard/AdminDashboard/ManageOrderBooking/MerchantOrder";
 import WeightPackage from "./Component/Dashboard/AdminDashboard/ApplicationSetting/WeightPackage/WeightPackage";
 import ServiceArea from "./Component/Dashboard/AdminDashboard/ApplicationSetting/ServiceAreaPricing/ServiceArea";
-import BookingParcelList from "./Component/Dashboard/AdminDashboard/ManageOrderBooking/BookingParcelList";
 import Vehicles from "./Component/Dashboard/AdminDashboard/TraditionalParcelSetting/Vehicles/Vehicles";
 import ItemCategory from "./Component/Dashboard/AdminDashboard/TraditionalParcelSetting/ItemCategory/ItemCategory";
 import RidersParcelList from "./Component/Dashboard/RiderDashboard/Parcel/RidersParcelList";
@@ -66,10 +65,6 @@ function App() {
 
 							<Route path='/district' element={<District />} />
 							<Route path='/area' element={<Area />} />
-							<Route
-								path='/bookingParcelList'
-								element={<BookingParcelList />}
-							/>
 							<Route path='/vehicle' element={<Vehicles />} />
 							<Route path='/itemCategory' element={<ItemCategory />} />
 							<Route path='/unit' element={<Unit />} />

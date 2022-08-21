@@ -9,6 +9,8 @@ import {
 	MenuItem,
 	FormHelperText,
 	Button,
+	Fade,
+	Modal,
 } from "@mui/material";
 import React from "react";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
@@ -19,13 +21,34 @@ import { useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import GetAuth from "../../../../FirebaseAuth/GetAuth";
+import CancelIcon from "@mui/icons-material/Cancel";
 import ParcelModal from "../Account/ParcelModal";
 
-const BookingParcelList = () => {
+const style = {
+	position: "absolute",
+	top: "50%",
+	left: "50%",
+	transform: "translate(-50%, -50%)",
+	boxShadow: 24,
+	p: 2,
+	width: "90vw",
+	maxHeight: "90vh",
+	overflowX: "hidden",
+	overflowY: "scroll",
+	borderRadius: 3,
+	textAlign: "center",
+	backgroundColor: "white",
+};
+
+const AdminParcelListFiltered = ({
+	opens,
+	setOpens,
+	marchantName,
+	allParcels,
+}) => {
 	const { user, loading, token } = GetAuth();
 	const [submitting, setSubmitting] = useState(false);
 	const [data, setData] = useState();
-	const [status, setStatus] = useState("");
 	const [parcelData, setParcelData] = useState();
 	const [open, setOpen] = React.useState(false);
 	const handleOpen = () => setOpen(true);
@@ -133,7 +156,10 @@ const BookingParcelList = () => {
 						});
 					}}
 				/> */}
-				<RemoveRedEyeIcon onClick={() => handleOpen(setParcelData(params.row))} sx={{ ml: 1.5, color: "green", cursor: "pointer" }} />
+				<RemoveRedEyeIcon
+					onClick={() => handleOpen(setParcelData(params.row))}
+					sx={{ ml: 1.5, color: "green", cursor: "pointer" }}
+				/>
 			</Box>
 		);
 	};
@@ -181,113 +207,78 @@ const BookingParcelList = () => {
 		},
 	];
 
-	const [selectedStatus, setSelectedStatus] = useState("All");
-	const filterData = data?.filter((item) => item?.status === selectedStatus);
 	return (
-		<Box sx={{ mx: 4, pt: 2, pb: 5 }}>
-			<Box
-				sx={{
-					px: 2.5,
-					pb: 1,
-					display: "flex",
-					alignItems: "center",
-					justifyContent: "space-between",
-				}}>
-				<Typography variant='h5' sx={{ fontWeight: "bold", color: "#1E793C" }}>
-					All Parcel List
-				</Typography>
-			</Box>{" "}
-			<Box sx={{ display: "flex" }}>
-				<Button
-					className={selectedStatus === "All" ? "active" : ""}
-					onClick={() => setSelectedStatus("All")}
-					variant='contained'
-					color='success'
-					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
-					All
-				</Button>
-				<Button
-					className={selectedStatus === "Pending" ? "active" : ""}
-					onClick={() => setSelectedStatus("Pending")}
-					variant='contained'
-					color='success'
-					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
-					Pending
-				</Button>
-				<Button
-					className={
-						selectedStatus === "Received in Pickup Branch" ? "active" : ""
-					}
-					onClick={() => setSelectedStatus("Received in Pickup Branch")}
-					variant='contained'
-					color='success'
-					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
-					Received in Pickup Branch
-				</Button>
-				<Button
-					className={
-						selectedStatus === "Parcel Received On Warehouse" ? "active" : ""
-					}
-					onClick={() => setSelectedStatus("Parcel Received On Warehouse")}
-					variant='contained'
-					color='success'
-					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
-					Received On Warehouse
-				</Button>
-				<Button
-					className={selectedStatus === "Received in Branch" ? "active" : ""}
-					onClick={() => setSelectedStatus("Received in Branch")}
-					variant='contained'
-					color='success'
-					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
-					Received in Receiver Branch
-				</Button>
-				<Button
-					className={
-						selectedStatus === "Delivered To Customer By Rider" ? "active" : ""
-					}
-					onClick={() => setSelectedStatus("Delivered To Customer By Rider")}
-					variant='contained'
-					color='success'
-					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
-					Delivered To Customer
-				</Button>
-				<Button
-					className={
-						selectedStatus === "Successfully Completed" ? "active" : ""
-					}
-					onClick={() => setSelectedStatus("Successfully Completed")}
-					variant='contained'
-					color='success'
-					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
-					Successfully Completed
-				</Button>
-			</Box>
-			<Grid container spacing={1} sx={{ justifyContent: "center", px: 2 }}>
-				<Grid item xs={12} md={12}>
-					{filterData && (
-						<div style={{ height: 400, width: "100%" }} className='table'>
-							<DataGrid
-								rows={selectedStatus === "All" ? data : filterData}
-								getRowId={(row) => row?._id}
-								columns={columns}
-								pageSize={5}
-								rowsPerPageOptions={[5]}
-								checkboxSelection
-								components={{ Toolbar: GridToolbar }}
-							/>
-						</div>
-					)}
-				</Grid>
-			</Grid>
-			<Backdrop
-				sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 999 }}
-				open={submitting || !data}>
-				<CircularProgress color='inherit' />
-			</Backdrop>
-			<ParcelModal open={open} handleOpen={handleOpen} handleClose={handleClose} modalData={parcelData} />
-		</Box>
+		<Modal
+			aria-labelledby='transition-modal-title'
+			aria-describedby='transition-modal-description'
+			open={opens}
+			closeAfterTransition
+			BackdropComponent={Backdrop}
+			BackdropProps={{
+				timeout: 500,
+			}}>
+			<Fade in={opens}>
+				<Box sx={style}>
+					<CancelIcon
+						onClick={() => setOpens(false)}
+						className='textColor'
+						sx={{
+							position: "fixed",
+							top: "30px",
+							right: "30px",
+							cursor: "pointer",
+							background: "White",
+							borderRadius: "50%",
+						}}
+					/>
+					<Box
+						sx={{
+							px: 2.5,
+							pb: 1,
+							display: "flex",
+							alignItems: "center",
+							justifyContent: "space-between",
+						}}>
+						<Typography
+							variant='h5'
+							sx={{ fontWeight: "bold", color: "#1E793C" }}>
+							All Parcel List
+						</Typography>
+					</Box>{" "}
+					<Grid container spacing={1} sx={{ justifyContent: "center", px: 2 }}>
+						<Grid item xs={12} md={12}>
+							{data && (
+								<div style={{ height: 400, width: "100%" }} className='table'>
+									<DataGrid
+										rows={allParcels?.filter(
+											(item) => item.marchentInfo.merchantName === marchantName,
+										)}
+										getRowId={(row) => row?._id}
+										columns={columns}
+										pageSize={5}
+										rowsPerPageOptions={[5]}
+										checkboxSelection
+										components={{ Toolbar: GridToolbar }}
+									/>
+								</div>
+							)}
+						</Grid>
+					</Grid>
+					<Backdrop
+						sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 999 }}
+						open={submitting || !data}>
+						<CircularProgress color='inherit' />
+					</Backdrop>
+					<ParcelModal
+						open={open}
+						handleOpen={handleOpen}
+						handleClose={handleClose}
+						modalData={parcelData}
+					/>
+				</Box>
+			</Fade>
+		</Modal>
 	);
 };
 
-export default BookingParcelList;
+export default AdminParcelListFiltered;
