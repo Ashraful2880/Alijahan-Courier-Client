@@ -262,18 +262,6 @@ const AdminDashboard = () => {
 								<ListItemText primary={"Create Merchant Order"} />
 							</ListItem>
 						</Link>
-						<Link className='link' to='bookingParcelList'>
-							<ListItem
-								button
-								className={
-									location?.pathname === "/bookingParcelList" && "activeButton"
-								}>
-								<ListItemIcon className='listItemIcon'>
-									<PlaylistAddCheckIcon />
-								</ListItemIcon>
-								<ListItemText primary={"Booking Parcel List"} />
-							</ListItem>
-						</Link>
 					</List>
 				</AccordionDetails>
 			</Accordion>

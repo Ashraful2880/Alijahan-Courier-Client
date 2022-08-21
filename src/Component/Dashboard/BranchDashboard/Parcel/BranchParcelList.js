@@ -20,16 +20,16 @@ import { useEffect } from "react";
 import { useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import GetAuth from "../../../../FirebaseAuth/GetAuth";
+import AspectRatioIcon from "@mui/icons-material/AspectRatio";
+import BranchParcelListFiltered from "./BranchParcelListFiltered";
 
 const BranchParcelList = () => {
 	const email = "branch@gmail.com";
 	const { user, loading, token } = GetAuth();
-	const [submitting, setSubmitting] = useState(false);
 	const [data, setData] = useState();
-	const [status, setStatus] = useState("");
-	const [riders, setRiders] = useState();
 	const [branch, setBranch] = useState();
-	const [Warehouse, setWarehouse] = useState();
+	const [opens, setOpens] = React.useState(false);
+	const [parcelData, setParcelData] = useState();
 
 	useEffect(() => {
 		axios
@@ -40,12 +40,11 @@ const BranchParcelList = () => {
 			})
 			.then((response) => {
 				setBranch(response.data);
-				setWarehouse(response.data?.warehouseInfo);
 			})
 			.catch((error) => {
 				console.log(error);
 			});
-	}, [token, submitting]);
+	}, [token]);
 
 	useEffect(() => {
 		axios
@@ -63,195 +62,18 @@ const BranchParcelList = () => {
 			.catch((error) => {
 				console.log(error);
 			});
-		axios
-			.get(
-				`${process.env.REACT_APP_API_PATH}/ridersbybranch/${branch?.branchName}`,
-				{
-					headers: {
-						Authorization: `Bearer ${token}`,
-					},
-				},
-			)
-			.then((response) => {
-				setRiders(response.data);
-			})
-			.catch((error) => {
-				console.log(error);
-			});
-	}, [token, submitting, branch]);
-	const changeStatus = (event, id) => {
-		Swal.fire({
-			title: "Are You Sure?",
-			showCancelButton: true,
-			confirmButtonText: "Yes",
-		}).then((result) => {
-			if (result.isConfirmed) {
-				setSubmitting(true);
-				if (event.target.value === "Delivered To Warehouse") {
-					axios
-						.put(
-							`${process.env.REACT_APP_API_PATH}/merchantorderWarehouse/${id}`,
-							{
-								warehouseInfo: Warehouse,
-								status: event.target.value,
-							},
-							{
-								headers: {
-									Authorization: `Bearer ${token}`,
-								},
-							},
-						)
-						.then((response) => {
-							setSubmitting(false);
-							Swal.fire("", "Successfully Delivered!", "success");
-						})
-						.catch((error) => {
-							setSubmitting(false);
-							console.log(error);
-						});
-				} else {
-					axios
-						.put(
-							`${process.env.REACT_APP_API_PATH}/merchantorderStatus/${id}`,
-							{
-								status: event.target.value,
-							},
-							{
-								headers: {
-									Authorization: `Bearer ${token}`,
-								},
-							},
-						)
-						.then((response) => {
-							setSubmitting(false);
-							Swal.fire("", "Successfully Done!", "success");
-						})
-						.catch((error) => {
-							setSubmitting(false);
-							console.log(error);
-						});
-				}
-			}
-		});
-	};
+	}, [token, branch]);
 
-	const [selectionModel, setSelectionModel] = React.useState();
-	const changeRider = (event, newValue, id) => {
-		Swal.fire({
-			title: "Are You Sure?",
-			showCancelButton: true,
-			confirmButtonText: "Yes",
-		}).then((result) => {
-			if (result.isConfirmed) {
-				setSubmitting(true);
-				selectionModel.map((item) =>
-					axios
-						.put(
-							`${process.env.REACT_APP_API_PATH}/merchantorderRiderCollect/${item}`,
-							{
-								collectRiderInfo: newValue,
-								status: "Assigned for Pickup",
-							},
-							{
-								headers: {
-									Authorization: `Bearer ${token}`,
-								},
-							},
-						)
-						.then((response) => {
-							setSubmitting(false);
-							Swal.fire("", "Successfully Assigned!", "success");
-						})
-						.catch((error) => {
-							setSubmitting(false);
-							console.log(error);
-						}),
-				);
-			}
-		});
-	};
 	const renderDetailsButton = (params) => {
 		return (
 			<Box sx={{ display: "flex", alignItems: "center" }}>
-				{((params.row?.status === "Assigned for Pickup" &&
-					!params.row?.collectRiderInfo?.riderName) ||
-					params.row?.status === "Cancelled by Pickup Rider") && (
-					<Autocomplete
-						onChange={(event, newValue) => {
-							changeRider(event, newValue, params.row?._id);
-						}}
-						size='small'
-						sx={{ my: 0.5, width: 200 }}
-						options={riders}
-						getOptionLabel={(option) => option.riderName}
-						renderInput={(params) => (
-							<TextField {...params} label='Select Rider' variant='outlined' />
-						)}
-					/>
-				)}
-				<FormControl sx={{ m: 1 }}>
-					<Select
-						size='small'
-						value={status}
-						onChange={(event) => {
-							changeStatus(event, params.row?._id);
-							setStatus(event.target.value);
-						}}
-						displayEmpty
-						inputProps={{ "aria-label": "Without label" }}>
-						{params.row?.status === "Pending" && (
-							<MenuItem value={"Accepted"}>Accept</MenuItem>
-						)}
-						{params.row?.status === "Accepted" && (
-							<MenuItem value={"Assigned for Pickup"}>
-								Assign for Pickup
-							</MenuItem>
-						)}
-						{params.row?.status === "Delivered To Branch By Pickup Rider" && (
-							<MenuItem value={"Received in Pickup Branch"}>
-								Received in Pickup Branch
-							</MenuItem>
-						)}
-						{params.row?.status === "Received in Pickup Branch" && (
-							<MenuItem value={"Delivered To Warehouse"}>
-								Deliver To Warehouse
-							</MenuItem>
-						)}
-					</Select>
-				</FormControl>
-
-				{/* 	<DeleteIcon
-					className='iconBtn'
-					sx={{ color: "#df0f00!important" }}
+				<AspectRatioIcon
 					onClick={() => {
-						Swal.fire({
-							title: "Do you want to Delete this?",
-							showCancelButton: true,
-							confirmButtonText: "Yes",
-						}).then((result) => {
-							if (result.isConfirmed) {
-								setSubmitting(true);
-								axios
-									.delete(
-										`${process.env.REACT_APP_API_PATH}/merchantorder/${params.row?._id}`,
-										{
-											headers: {
-												Authorization: `Bearer ${token}`,
-											},
-										},
-									)
-									.then((response) => {
-										setSubmitting(false);
-										Swal.fire("", "Successfully Deleted!", "success");
-									})
-									.catch((error) => {
-										setSubmitting(false);
-										console.log(error);
-									});
-							}
-						});
+						setOpens(true);
+						setParcelData(params.row?.marchentInfo.merchantName);
 					}}
-				/> */}
+					sx={{ ml: 1.5, color: "green", cursor: "pointer" }}
+				/>
 			</Box>
 		);
 	};
@@ -263,37 +85,28 @@ const BranchParcelList = () => {
 			renderCell: (params) => {
 				return params.row.marchentInfo.merchantName;
 			},
-			width: 150,
+			flex: 1,
 		},
 		{
-			field: "receiverBranchArea",
+			field: "merchantBusinessAddress",
 			headerName: "Pickup Address",
 			renderCell: (params) => {
-				return ` ${params.row.receiverInfo.receiverBranchArea}(${params.row.receiverInfo.receiverBranchName})`;
+				return params.row.marchentInfo.merchantBusinessAddress;
 			},
-			width: 180,
+			flex: 1,
 		},
 		{
-			field: "receiverAddress",
-			headerName: "Full Address",
-			renderCell: (params) => {
-				return params.row.receiverInfo.receiverAddress;
-			},
-			width: 180,
-		},
-		{
-			field: "receiverNumber",
+			field: "merchantContact",
 			headerName: "Phone Number",
 			renderCell: (params) => {
-				return params.row.receiverInfo.receiverNumber;
+				return params.row.marchentInfo.merchantContact;
 			},
-			width: 180,
+			flex: 1,
 		},
-		{ field: "status", headerName: "Status", width: 250 },
 		{
 			field: "_id",
 			headerName: "Action",
-			width: 300,
+			width: 50,
 			renderCell: renderDetailsButton,
 			disableClickEventBubbling: true,
 		},
@@ -301,9 +114,15 @@ const BranchParcelList = () => {
 
 	const [selectedStatus, setSelectedStatus] = useState("All");
 	const filterData = data?.filter((item) => item?.status === selectedStatus);
+	const filteredByMarchant = (
+		selectedStatus === "All" ? data : filterData
+	)?.filter(
+		(v, i, a) =>
+			a.findIndex(
+				(t) => t.marchentInfo.merchantName === v.marchentInfo.merchantName,
+			) === i,
+	);
 
-	console.log(selectedStatus === "All" ? data : filterData);
-	console.log(selectionModel);
 	return (
 		<Box sx={{ mx: 4, pt: 2, pb: 5 }}>
 			<Box
@@ -326,14 +145,18 @@ const BranchParcelList = () => {
 					All
 				</Button>
 				<Button
-					className={selectedStatus === "Pending" ? "active" : ""}
-					onClick={() => setSelectedStatus("Pending")}
+					className={
+						selectedStatus === "Pickup Request Pending" ? "active" : ""
+					}
+					onClick={() => setSelectedStatus("Pickup Request Pending")}
 					sx={{ my: 0.7, fontWeight: "bold", mx: 1, color: "gray" }}>
 					Pending
 				</Button>
 				<Button
-					className={selectedStatus === "Accepted" ? "active" : ""}
-					onClick={() => setSelectedStatus("Accepted")}
+					className={
+						selectedStatus === "Pickup Request Accepted" ? "active" : ""
+					}
+					onClick={() => setSelectedStatus("Pickup Request Accepted")}
 					sx={{ my: 0.7, fontWeight: "bold", mx: 1, color: "gray" }}>
 					Accepted
 				</Button>
@@ -374,33 +197,10 @@ const BranchParcelList = () => {
 			</Box>
 			<Grid container spacing={1} sx={{ justifyContent: "center", px: 2 }}>
 				<Grid item xs={12} md={12}>
-					{selectedStatus === "Assigned for Pickup" ||
-						(selectedStatus === "Cancelled by Pickup Rider" && (
-							<Autocomplete
-								onChange={(event, newValue) => {
-									changeRider(event, newValue);
-								}}
-								size='small'
-								sx={{ my: 0.5, width: 200 }}
-								options={riders}
-								getOptionLabel={(option) => option.riderName}
-								renderInput={(params) => (
-									<TextField
-										{...params}
-										label='Select Rider'
-										variant='outlined'
-									/>
-								)}
-							/>
-						))}
-				</Grid>
-				<Grid item xs={12} md={12}>
 					{filterData && (
 						<div style={{ height: 400, width: "100%" }} className='table'>
 							<DataGrid
-								rows={selectedStatus === "All" ? data : filterData}
-								selectionModel={selectionModel}
-								onSelectionModelChange={setSelectionModel}
+								rows={filteredByMarchant}
 								getRowId={(row) => row?._id}
 								columns={columns}
 								pageSize={5}
@@ -412,9 +212,16 @@ const BranchParcelList = () => {
 					)}
 				</Grid>
 			</Grid>
+			<BranchParcelListFiltered
+				opens={opens}
+				setOpens={setOpens}
+				marchantName={parcelData}
+				allParcels={selectedStatus === "All" ? data : filterData}
+				selectedStatus={selectedStatus}
+			/>
 			<Backdrop
 				sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 999 }}
-				open={submitting || !data}>
+				open={!data}>
 				<CircularProgress color='inherit' />
 			</Backdrop>
 		</Box>

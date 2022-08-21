@@ -204,7 +204,7 @@ const MerchantOrder = () => {
 			bookingDate: new Date().toLocaleString("en-US", {
 				timeZone: "Asia/Dhaka",
 			}),
-			status: "Pending",
+			status: "Pickup Request Pending",
 		};
 		console.log(data);
 		setSubmitting(true);
