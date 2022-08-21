@@ -39,7 +39,7 @@ const WarehouseParcelList = () => {
 			.catch((error) => {
 				console.log(error);
 			});
-	}, [token]);
+	}, [token, opens]);
 
 	const renderDetailsButton = (params) => {
 		return (

@@ -22,7 +22,6 @@ import RiderParcelListFiltered from "./RiderParcelListFiltered";
 const RidersParcelList = () => {
 	const email = "rider@gmail.com";
 	const { user, loading, token } = GetAuth();
-	const [submitting, setSubmitting] = useState(false);
 	const [data, setData] = useState();
 	const [opens, setOpens] = React.useState(false);
 	const [parcelData, setParcelData] = useState();
@@ -39,7 +38,7 @@ const RidersParcelList = () => {
 			.catch((error) => {
 				console.log(error);
 			});
-	}, [token, submitting]);
+	}, [token, opens]);
 	const renderDetailsButton = (params) => {
 		return (
 			<Box sx={{ display: "flex", alignItems: "center" }}>
@@ -188,7 +187,7 @@ const RidersParcelList = () => {
 			/>
 			<Backdrop
 				sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 999 }}
-				open={submitting || !data}>
+				open={!data}>
 				<CircularProgress color='inherit' />
 			</Backdrop>
 		</Box>

@@ -40,7 +40,7 @@ const style = {
 	backgroundColor: "white",
 };
 
-const BranchParcelListFiltered = ({
+const BranchReceivedParcelListFiltered = ({
 	opens,
 	setOpens,
 	marchantName,
@@ -444,30 +444,12 @@ const BranchParcelListFiltered = ({
 							All Parcel List
 						</Typography>
 					</Box>
-					<Grid item xs={12} md={12}>
-						<Autocomplete
-							onChange={(event, newValue) => {
-								changeRiderMulti(event, newValue);
-							}}
-							size='small'
-							sx={{ my: 0.5, width: 200 }}
-							options={riders}
-							getOptionLabel={(option) => option.riderName}
-							renderInput={(params) => (
-								<TextField
-									{...params}
-									label='Select Rider'
-									variant='outlined'
-								/>
-							)}
-						/>
-					</Grid>
 					{(selectedStatus === "Assigned Rider For Delivery" ||
 						selectedStatus === "Cancelled By Delivery Rider") && (
 						<Grid item xs={12} md={12}>
 							<Autocomplete
 								onChange={(event, newValue) => {
-									changeRider(event, newValue);
+									changeRiderMulti(event, newValue);
 								}}
 								size='small'
 								sx={{ my: 0.5, width: 200 }}
@@ -516,4 +498,4 @@ const BranchParcelListFiltered = ({
 	);
 };
 
-export default BranchParcelListFiltered;
+export default BranchReceivedParcelListFiltered;
