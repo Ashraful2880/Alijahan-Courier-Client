@@ -39,7 +39,7 @@ const RidersRecParcelList = () => {
 			.catch((error) => {
 				console.log(error);
 			});
-	}, [token]);
+	}, [token, opens]);
 	const renderDetailsButton = (params) => {
 		return (
 			<Box sx={{ display: "flex", alignItems: "center" }}>

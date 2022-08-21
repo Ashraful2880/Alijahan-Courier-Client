@@ -19,7 +19,7 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
 import GetAuth from "../../../../FirebaseAuth/GetAuth.js";
-import BranchParcelListFiltered from "./BranchReceivedParcelListFiltered.js";
+import BranchReceivedParcelListFiltered from "./BranchReceivedParcelListFiltered.js";
 
 const BranchReceivedParcelList = () => {
 	const email = "branch2@gmail.com";
@@ -56,7 +56,7 @@ const BranchReceivedParcelList = () => {
 			.catch((error) => {
 				console.log(error);
 			});
-	}, [token, branch]);
+	}, [token, branch, opens]);
 
 	const renderDetailsButton = (params) => {
 		return (
@@ -191,7 +191,7 @@ const BranchReceivedParcelList = () => {
 				open={!data}>
 				<CircularProgress color='inherit' />
 			</Backdrop>
-			<BranchParcelListFiltered
+			<BranchReceivedParcelListFiltered
 				opens={opens}
 				setOpens={setOpens}
 				marchantName={parcelData}
