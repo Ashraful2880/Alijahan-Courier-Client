@@ -1,3 +1,5 @@
+import React from "react";
+import { useRef } from 'react';
 import {
 	CircularProgress,
 	Grid,
@@ -12,15 +14,18 @@ import {
 	TextField,
 	Button,
 } from "@mui/material";
-import React from "react";
+import ReactToPrint from 'react-to-print';
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useEffect } from "react";
 import { useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
+import PrintIcon from '@mui/icons-material/Print';
 import GetAuth from "../../../../FirebaseAuth/GetAuth.js";
 import PaymentsIcon from "@mui/icons-material/Payments";
+import ComponentToPrint from "../ComponentToPrint/ComponentToPrint.js";
+import { useReactToPrint } from 'react-to-print';
 
 const BranchReceivedParcelList = () => {
 	const email = "branch@gmail.com";
@@ -30,6 +35,13 @@ const BranchReceivedParcelList = () => {
 	const [status, setStatus] = useState("");
 	const [riders, setRiders] = useState();
 	const [branch, setBranch] = useState();
+	const [printData, setPrintData] = useState();
+	let ref = useRef();
+	const componentRef = useRef();
+	const handlePrint = useReactToPrint({
+		content: () => componentRef.current,
+	});
+
 	useEffect(() => {
 		axios
 			.get(`${process.env.REACT_APP_API_PATH}/branchbyemail/${email}`, {
@@ -328,6 +340,9 @@ const BranchReceivedParcelList = () => {
 						});
 					}}
 				/> */}
+				<PrintIcon
+					onClick={handlePrint}
+					sx={{ ml: 5, color: "green" }} />
 			</Box>
 		);
 	};
@@ -369,7 +384,7 @@ const BranchReceivedParcelList = () => {
 		{
 			field: "_id",
 			headerName: "Action",
-			width: 300,
+			width: 180,
 			renderCell: renderDetailsButton,
 			disableClickEventBubbling: true,
 		},
@@ -443,6 +458,7 @@ const BranchReceivedParcelList = () => {
 								checkboxSelection
 								components={{ Toolbar: GridToolbar }}
 							/>
+
 						</div>
 					)}
 				</Grid>
@@ -452,6 +468,7 @@ const BranchReceivedParcelList = () => {
 				open={submitting || !data}>
 				<CircularProgress color='inherit' />
 			</Backdrop>
+			<ComponentToPrint ref={componentRef} />
 		</Box>
 	);
 };
