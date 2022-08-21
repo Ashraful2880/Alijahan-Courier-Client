@@ -4,6 +4,11 @@ import {
 	Backdrop,
 	Typography,
 	Box,
+	FormControl,
+	Select,
+	MenuItem,
+	FormHelperText,
+	Button,
 } from "@mui/material";
 import React from "react";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
@@ -15,17 +20,14 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import GetAuth from "../../../../FirebaseAuth/GetAuth";
 import ParcelModal from "../Account/ParcelModal";
+import AdminParcelListFiltered from "./AdminParcelListFiltered";
+import AspectRatioIcon from "@mui/icons-material/AspectRatio";
 
 const AdminParcelList = () => {
 	const { user, loading, token } = GetAuth();
-	const [submitting, setSubmitting] = useState(false);
 	const [data, setData] = useState();
-	const [status, setStatus] = useState("");
 	const [parcelData, setParcelData] = useState();
-	const [open, setOpen] = React.useState(false);
-	const handleOpen = () => setOpen(true);
-	const handleClose = () => setOpen(false);
-
+	const [opens, setOpens] = React.useState(false);
 	useEffect(() => {
 		axios
 			.get(`${process.env.REACT_APP_API_PATH}/merchantorders`, {
@@ -39,97 +41,18 @@ const AdminParcelList = () => {
 			.catch((error) => {
 				console.log(error);
 			});
-	}, [token, submitting]);
+	}, [token, opens]);
 
-	const changeStatus = (event, id) => {
-		Swal.fire({
-			title: "Are You Sure?",
-			showCancelButton: true,
-			confirmButtonText: "Yes",
-		}).then((result) => {
-			if (result.isConfirmed) {
-				setSubmitting(true);
-				axios
-					.put(
-						`${process.env.REACT_APP_API_PATH}/merchantorderStatus/${id}`,
-						{
-							status: event.target.value,
-						},
-						{
-							headers: {
-								Authorization: `Bearer ${token}`,
-							},
-						},
-					)
-					.then((response) => {
-						setSubmitting(false);
-						Swal.fire("", "Successfully Done!", "success");
-					})
-					.catch((error) => {
-						setSubmitting(false);
-						console.log(error);
-					});
-			}
-		});
-	};
 	const renderDetailsButton = (params) => {
 		return (
 			<Box sx={{ display: "flex", alignItems: "center" }}>
-				{/* <FormControl sx={{ m: 1, }}>
-					<Select
-						size='small'
-						value={status}
-						onChange={(event) => {
-							changeStatus(params.row?._id);
-							setStatus(event.target.value);
-						}}
-						displayEmpty
-						inputProps={{ "aria-label": "Without label" }}>
-						<MenuItem value={"Pending"}>Pending</MenuItem>
-						<MenuItem value={"Accepted"}>Accepted</MenuItem>
-						<MenuItem value={"Assign for Pickup"}>Assign for Pickup</MenuItem>
-						<MenuItem value={"Picked Up"}>Picked Up</MenuItem>
-						<MenuItem value={"Assign For Deliver"}>Assign For Deliver</MenuItem>
-						<MenuItem value={"Delivered"}>Delivered</MenuItem>
-						<MenuItem value={"Hold"}>Hold</MenuItem>
-						<MenuItem value={"Re-scheduled"}>Re-scheduled</MenuItem>
-						<MenuItem value={"Canceled"}>Canceled</MenuItem>
-						<MenuItem value={"Returned"}>Returned</MenuItem>
-					</Select>
-				</FormControl> */}
-				{/* <DeleteIcon
-					className='iconBtn'
-					sx={{ color: "#df0f00!important" }}
+				<AspectRatioIcon
 					onClick={() => {
-						Swal.fire({
-							title: "Do you want to Delete this?",
-							showCancelButton: true,
-							confirmButtonText: "Yes",
-						}).then((result) => {
-							if (result.isConfirmed) {
-								setSubmitting(true);
-								axios
-									.delete(
-										`${process.env.REACT_APP_API_PATH}/merchantorder/${params.row?._id}`,
-										{
-											headers: {
-												Authorization: `Bearer ${token}`,
-											},
-										},
-									)
-									.then((response) => {
-										setSubmitting(false);
-										Swal.fire("", "Successfully Deleted!", "success");
-									})
-									.catch((error) => {
-										setSubmitting(false);
-										console.log(error);
-									});
-							}
-						});
+						setOpens(true);
+						setParcelData(params.row?.marchentInfo.merchantName);
 					}}
-				/> */}
-				<RemoveRedEyeIcon onClick={() => handleOpen(setParcelData(params.row))} sx={{ ml: 1.5, color: "green", cursor: "pointer" }} />
+					sx={{ ml: 1.5, color: "green", cursor: "pointer" }}
+				/>
 			</Box>
 		);
 	};
@@ -144,38 +67,41 @@ const AdminParcelList = () => {
 			flex: 1,
 		},
 		{
-			field: "receiverBranchArea",
-			headerName: "Pickup Address",
+			field: "merchantBusinessAddress",
+			headerName: "Marchant Address",
 			renderCell: (params) => {
-				return params.row.receiverInfo.receiverBranchArea;
+				return `${params.row.marchentInfo.merchantBusinessAddress}(${params.row.marchentInfo.merchantArea})`;
 			},
 			flex: 1,
 		},
 		{
-			field: "receiverAddress",
-			headerName: "Full Address",
-			renderCell: (params) => {
-				return params.row.receiverInfo.receiverAddress;
-			},
-			flex: 1,
-		},
-		{
-			field: "receiverNumber",
+			field: "merchantContact",
 			headerName: "Phone Number",
 			renderCell: (params) => {
-				return params.row.receiverInfo.receiverNumber;
+				return params.row.marchentInfo.merchantContact;
 			},
 			flex: 1,
 		},
-		{ field: "status", headerName: "Status", flex: 1 },
 		{
 			field: "_id",
 			headerName: "Action",
-			width: 250,
+			flex: 1,
 			renderCell: renderDetailsButton,
 			disableClickEventBubbling: true,
 		},
 	];
+
+	const [selectedStatus, setSelectedStatus] = useState("All");
+	const filterData = data?.filter((item) => item?.status === selectedStatus);
+	const filteredByMarchant = (
+		selectedStatus === "All" ? data : filterData
+	)?.filter(
+		(v, i, a) =>
+			a.findIndex(
+				(t) => t.marchentInfo.merchantName === v.marchentInfo.merchantName,
+			) === i,
+	);
+
 	return (
 		<Box sx={{ mx: 4, pt: 2, pb: 5 }}>
 			<Box
@@ -189,13 +115,81 @@ const AdminParcelList = () => {
 				<Typography variant='h5' sx={{ fontWeight: "bold", color: "#1E793C" }}>
 					All Parcel List
 				</Typography>
+			</Box>{" "}
+			<Box sx={{ display: "flex" }}>
+				<Button
+					className={selectedStatus === "All" ? "active" : ""}
+					onClick={() => setSelectedStatus("All")}
+					variant='contained'
+					color='success'
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+					All
+				</Button>
+				<Button
+					className={
+						selectedStatus === "Pickup Request Pending" ? "active" : ""
+					}
+					onClick={() => setSelectedStatus("Pickup Request Pending")}
+					variant='contained'
+					color='success'
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+					Pending
+				</Button>
+				<Button
+					className={
+						selectedStatus === "Received in Pickup Branch" ? "active" : ""
+					}
+					onClick={() => setSelectedStatus("Received in Pickup Branch")}
+					variant='contained'
+					color='success'
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+					Received in Pickup Branch
+				</Button>
+				<Button
+					className={
+						selectedStatus === "Parcel Received On Warehouse" ? "active" : ""
+					}
+					onClick={() => setSelectedStatus("Parcel Received On Warehouse")}
+					variant='contained'
+					color='success'
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+					Received On Warehouse
+				</Button>
+				<Button
+					className={selectedStatus === "Received in Branch" ? "active" : ""}
+					onClick={() => setSelectedStatus("Received in Branch")}
+					variant='contained'
+					color='success'
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+					Received in Receiver Branch
+				</Button>
+				<Button
+					className={
+						selectedStatus === "Delivered To Customer By Rider" ? "active" : ""
+					}
+					onClick={() => setSelectedStatus("Delivered To Customer By Rider")}
+					variant='contained'
+					color='success'
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+					Delivered To Customer
+				</Button>
+				<Button
+					className={
+						selectedStatus === "Successfully Completed" ? "active" : ""
+					}
+					onClick={() => setSelectedStatus("Successfully Completed")}
+					variant='contained'
+					color='success'
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+					Successfully Completed
+				</Button>
 			</Box>
 			<Grid container spacing={1} sx={{ justifyContent: "center", px: 2 }}>
 				<Grid item xs={12} md={12}>
-					{data && (
+					{filterData && (
 						<div style={{ height: 400, width: "100%" }} className='table'>
 							<DataGrid
-								rows={data}
+								rows={filteredByMarchant}
 								getRowId={(row) => row?._id}
 								columns={columns}
 								pageSize={5}
@@ -209,10 +203,15 @@ const AdminParcelList = () => {
 			</Grid>
 			<Backdrop
 				sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 999 }}
-				open={submitting || !data}>
+				open={!data}>
 				<CircularProgress color='inherit' />
 			</Backdrop>
-			<ParcelModal open={open} handleOpen={handleOpen} handleClose={handleClose} modalData={parcelData} />
+			<AdminParcelListFiltered
+				opens={opens}
+				setOpens={setOpens}
+				marchantName={parcelData}
+				allParcels={selectedStatus === "All" ? data : filterData}
+			/>
 		</Box>
 	);
 };

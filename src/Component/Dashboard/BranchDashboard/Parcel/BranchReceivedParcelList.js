@@ -16,32 +16,20 @@ import {
 } from "@mui/material";
 import ReactToPrint from 'react-to-print';
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import AspectRatioIcon from "@mui/icons-material/AspectRatio";
 import axios from "axios";
-import Swal from "sweetalert2";
 import { useEffect } from "react";
 import { useState } from "react";
-import DeleteIcon from "@mui/icons-material/Delete";
-import PrintIcon from '@mui/icons-material/Print';
 import GetAuth from "../../../../FirebaseAuth/GetAuth.js";
-import PaymentsIcon from "@mui/icons-material/Payments";
-import ComponentToPrint from "../ComponentToPrint/ComponentToPrint.js";
-import { useReactToPrint } from 'react-to-print';
+import BranchReceivedParcelListFiltered from "./BranchReceivedParcelListFiltered.js";
 
 const BranchReceivedParcelList = () => {
-	const email = "branch@gmail.com";
+	const email = "branch2@gmail.com";
 	const { user, loading, token } = GetAuth();
-	const [submitting, setSubmitting] = useState(false);
 	const [data, setData] = useState();
-	const [status, setStatus] = useState("");
-	const [riders, setRiders] = useState();
 	const [branch, setBranch] = useState();
-	const [printData, setPrintData] = useState();
-	let ref = useRef();
-	const componentRef = useRef();
-	const handlePrint = useReactToPrint({
-		content: () => componentRef.current,
-	});
-
+	const [opens, setOpens] = React.useState(false);
+	const [parcelData, setParcelData] = useState();
 	useEffect(() => {
 		axios
 			.get(`${process.env.REACT_APP_API_PATH}/branchbyemail/${email}`, {
@@ -70,279 +58,18 @@ const BranchReceivedParcelList = () => {
 			.catch((error) => {
 				console.log(error);
 			});
-		axios
-			.get(
-				`${process.env.REACT_APP_API_PATH}/ridersbybranch/${branch?.branchName}`,
-				{
-					headers: {
-						Authorization: `Bearer ${token}`,
-					},
-				},
-			)
-			.then((response) => {
-				setRiders(response.data);
-			})
-			.catch((error) => {
-				console.log(error);
-			});
-	}, [token, submitting, branch]);
-	const changeStatus = (event, id) => {
-		Swal.fire({
-			title: "Are You Sure?",
-			showCancelButton: true,
-			confirmButtonText: "Yes",
-		}).then((result) => {
-			if (result.isConfirmed) {
-				setSubmitting(true);
-				axios
-					.put(
-						`${process.env.REACT_APP_API_PATH}/merchantorderStatus/${id}`,
-						{
-							status: event.target.value,
-						},
-						{
-							headers: {
-								Authorization: `Bearer ${token}`,
-							},
-						},
-					)
-					.then((response) => {
-						setSubmitting(false);
-						Swal.fire("", "Successfully Done!", "success");
-					})
-					.catch((error) => {
-						setSubmitting(false);
-						console.log(error);
-					});
-			}
-		});
-	};
-	const changeRider = (event, newValue, id) => {
-		Swal.fire({
-			title: "Are You Sure?",
-			showCancelButton: true,
-			confirmButtonText: "Yes",
-		}).then((result) => {
-			if (result.isConfirmed) {
-				setSubmitting(true);
-				axios
-					.put(
-						`${process.env.REACT_APP_API_PATH}/merchantorderRiderDeviler/${id}`,
-						{
-							deliverRiderInfo: newValue,
-							status: "Assigned Rider For Delivery",
-						},
-						{
-							headers: {
-								Authorization: `Bearer ${token}`,
-							},
-						},
-					)
-					.then((response) => {
-						setSubmitting(false);
-						Swal.fire("", "Successfully Assigned!", "success");
-					})
-					.catch((error) => {
-						setSubmitting(false);
-						console.log(error);
-					});
-			}
-		});
-	};
-	const receiveAndSendMoney = (id, paymentCollectionDetails, text) => {
-		Swal.fire({
-			title: "Are you sure?",
-			showCancelButton: true,
-			confirmButtonText: "Yes",
-		}).then((result) => {
-			if (result.isConfirmed) {
-				setSubmitting(true);
-				if (text === "Money Received In Branch") {
-					axios
-						.put(
-							`${process.env.REACT_APP_API_PATH}/merchantorderPaymentCollection/${id}`,
-							{
-								collectionStatus: text,
-								moneyReceivedInBranchDate: new Date().toLocaleString("en-US", {
-									timeZone: "Asia/Dhaka",
-								}),
-								branchMoneyStatus: "Received",
-								collectedFromCustomerDate:
-									paymentCollectionDetails?.collectedFromCustomerDate,
-								riderMoneyStatus: paymentCollectionDetails?.riderMoneyStatus,
-								collectedAmount: paymentCollectionDetails?.collectedAmount,
-							},
-							{
-								headers: {
-									Authorization: `Bearer ${token}`,
-								},
-							},
-						)
-						.then((response) => {
-							setSubmitting(false);
-							Swal.fire("", "Successfully Done!", "success");
-						})
-						.catch((error) => {
-							setSubmitting(false);
-							console.log(error);
-						});
-				}
-				if (text === "Sending Money To Accounts") {
-					axios
-						.put(
-							`${process.env.REACT_APP_API_PATH}/merchantorderPaymentCollection/${id}`,
-							{
-								collectionStatus: text,
-								moneyReceivedInBranchDate:
-									paymentCollectionDetails?.moneyReceivedInBranchDate,
-								branchMoneyStatus: paymentCollectionDetails?.branchMoneyStatus,
-								collectedFromCustomerDate:
-									paymentCollectionDetails?.collectedFromCustomerDate,
-								riderMoneyStatus: paymentCollectionDetails?.riderMoneyStatus,
-								collectedAmount: paymentCollectionDetails?.collectedAmount,
-							},
-							{
-								headers: {
-									Authorization: `Bearer ${token}`,
-								},
-							},
-						)
-						.then((response) => {
-							setSubmitting(false);
-							Swal.fire("", "Successfully Done!", "success");
-						})
-						.catch((error) => {
-							setSubmitting(false);
-							console.log(error);
-						});
-				}
-			}
-		});
-	};
+	}, [token, branch, opens]);
+
 	const renderDetailsButton = (params) => {
 		return (
 			<Box sx={{ display: "flex", alignItems: "center" }}>
-				{((params.row?.status === "Assigned Rider For Delivery" &&
-					!params.row?.deliverRiderInfo?.riderName) ||
-					params.row?.status === "Cancelled By Delivery Rider") && (
-						<Autocomplete
-							onChange={(event, newValue) => {
-								changeRider(event, newValue, params.row?._id);
-							}}
-							size='small'
-							sx={{ my: 0.5 }}
-							options={riders}
-							getOptionLabel={(option) => option.riderName}
-							style={{ width: 250 }}
-							renderInput={(params) => (
-								<TextField {...params} label='Select Rider' variant='outlined' />
-							)}
-						/>
-					)}
-				{params.row?.status === "Delivered To Customer By Rider" &&
-					params.row?.paymentCollectionDetails?.collectionStatus ===
-					"Sending Money To Branch" && (
-						<Button
-							onClick={() =>
-								receiveAndSendMoney(
-									params.row?._id,
-									params.row?.paymentCollectionDetails,
-									"Money Received In Branch",
-								)
-							}
-							sx={{
-								my: 1,
-								px: 3,
-								fontWeight: "bold",
-								borderRadius: "25px",
-								border: "2px solid ",
-							}}>
-							<PaymentsIcon sx={{ mr: 0.5 }} />
-							Receive {params.row?.paymentCollectionDetails?.collectedAmount} ৳
-							from Rider
-						</Button>
-					)}
-				{params.row?.status === "Delivered To Customer By Rider" &&
-					params.row?.paymentCollectionDetails?.collectionStatus ===
-					"Money Received In Branch" && (
-						<Button
-							onClick={() =>
-								receiveAndSendMoney(
-									params.row?._id,
-									params.row?.paymentCollectionDetails,
-									"Sending Money To Accounts",
-								)
-							}
-							sx={{
-								my: 1,
-								px: 3,
-								fontWeight: "bold",
-								borderRadius: "25px",
-								border: "2px solid ",
-							}}>
-							<PaymentsIcon sx={{ mr: 0.5 }} />
-							Send {params.row?.paymentCollectionDetails?.collectedAmount} ৳ to
-							Accounts
-						</Button>
-					)}
-				<FormControl sx={{ m: 1 }}>
-					<Select
-						size='small'
-						value={status}
-						onChange={(event) => {
-							changeStatus(event, params.row?._id);
-							setStatus(event.target.value);
-						}}
-						displayEmpty
-						inputProps={{ "aria-label": "Without label" }}>
-						{params.row?.status === "Delivered To Receiver Branch" && (
-							<MenuItem value={"Assigned Rider For Delivery"}>
-								Assign Rider For Delivery
-							</MenuItem>
-						)}
-						{params.row?.status === "Delivered To Branch By Rider" && (
-							<MenuItem value={"Received in Branch"}>
-								Received in Branch
-							</MenuItem>
-						)}
-					</Select>
-				</FormControl>
-
-				{/* 	<DeleteIcon
-					className='iconBtn'
-					sx={{ color: "#df0f00!important" }}
+				<AspectRatioIcon
 					onClick={() => {
-						Swal.fire({
-							title: "Do you want to Delete this?",
-							showCancelButton: true,
-							confirmButtonText: "Yes",
-						}).then((result) => {
-							if (result.isConfirmed) {
-								setSubmitting(true);
-								axios
-									.delete(
-										`${process.env.REACT_APP_API_PATH}/merchantorder/${params.row?._id}`,
-										{
-											headers: {
-												Authorization: `Bearer ${token}`,
-											},
-										},
-									)
-									.then((response) => {
-										setSubmitting(false);
-										Swal.fire("", "Successfully Deleted!", "success");
-									})
-									.catch((error) => {
-										setSubmitting(false);
-										console.log(error);
-									});
-							}
-						});
+						setOpens(true);
+						setParcelData(params.row?.marchentInfo.merchantName);
 					}}
-				/> */}
-				<PrintIcon
-					onClick={handlePrint}
-					sx={{ ml: 5, color: "green" }} />
+					sx={{ ml: 1.5, color: "green", cursor: "pointer" }}
+				/>
 			</Box>
 		);
 	};
@@ -354,37 +81,28 @@ const BranchReceivedParcelList = () => {
 			renderCell: (params) => {
 				return params.row.marchentInfo.merchantName;
 			},
-			width: 150,
+			flex: 1,
 		},
 		{
-			field: "receiverBranchArea",
-			headerName: "Pickup Address",
+			field: "merchantBusinessAddress",
+			headerName: "Marchant Address",
 			renderCell: (params) => {
-				return ` ${params.row.receiverInfo.receiverBranchArea}(${params.row.receiverInfo.receiverBranchName})`;
+				return `${params.row.marchentInfo.merchantBusinessAddress}(${params.row.marchentInfo.merchantArea})`;
 			},
-			width: 180,
+			flex: 1,
 		},
 		{
-			field: "receiverAddress",
-			headerName: "Full Address",
-			renderCell: (params) => {
-				return params.row.receiverInfo.receiverAddress;
-			},
-			width: 180,
-		},
-		{
-			field: "receiverNumber",
+			field: "merchantContact",
 			headerName: "Phone Number",
 			renderCell: (params) => {
-				return params.row.receiverInfo.receiverNumber;
+				return params.row.marchentInfo.merchantContact;
 			},
-			width: 180,
+			flex: 1,
 		},
-		{ field: "status", headerName: "Status", width: 250 },
 		{
 			field: "_id",
 			headerName: "Action",
-			width: 180,
+			flex: 1,
 			renderCell: renderDetailsButton,
 			disableClickEventBubbling: true,
 		},
@@ -420,7 +138,7 @@ const BranchReceivedParcelList = () => {
 					}
 					onClick={() => setSelectedStatus("Delivered To Receiver Branch")}
 					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, color: "gray" }}>
-					Delivered To Receiver Branch
+					Pending
 				</Button>
 				<Button
 					className={
@@ -444,6 +162,14 @@ const BranchReceivedParcelList = () => {
 					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, color: "gray" }}>
 					Received
 				</Button>
+				<Button
+					className={
+						selectedStatus === "Delivered To Customer By Rider" ? "active" : ""
+					}
+					onClick={() => setSelectedStatus("Delivered To Customer By Rider")}
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, color: "gray" }}>
+					Delivered To Customer
+				</Button>
 			</Box>
 			<Grid container spacing={1} sx={{ justifyContent: "center", px: 2 }}>
 				<Grid item xs={12} md={12}>
@@ -465,10 +191,16 @@ const BranchReceivedParcelList = () => {
 			</Grid>
 			<Backdrop
 				sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 999 }}
-				open={submitting || !data}>
+				open={!data}>
 				<CircularProgress color='inherit' />
 			</Backdrop>
-			<ComponentToPrint ref={componentRef} />
+			<BranchReceivedParcelListFiltered
+				opens={opens}
+				setOpens={setOpens}
+				marchantName={parcelData}
+				allParcels={selectedStatus === "All" ? data : filterData}
+				selectedStatus={selectedStatus}
+			/>
 		</Box>
 	);
 };

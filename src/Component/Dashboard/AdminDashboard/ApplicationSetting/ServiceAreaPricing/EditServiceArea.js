@@ -10,14 +10,15 @@ import {
 	Autocomplete,
 	Select,
 	MenuItem,
+	FormControl,
 } from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import ReplayIcon from "@mui/icons-material/Replay";
-import DoneIcon from '@mui/icons-material/Done';
+import DoneIcon from "@mui/icons-material/Done";
 import CancelIcon from "@mui/icons-material/Cancel";
-import BorderColorIcon from '@mui/icons-material/BorderColor';
+import BorderColorIcon from "@mui/icons-material/BorderColor";
 import Swal from "sweetalert2";
 const style = {
 	position: "absolute",
@@ -90,10 +91,7 @@ const EditServiceArea = ({ open, setOpen, id, token, setSubmitting }) => {
 				console.log(error);
 			});
 	};
-	const [type, setType] = React.useState(data?.weightPackageType);
-	const handleChange = (event) => {
-		setType(event.target.value);
-	};
+	const [type, setType] = React.useState(data?.serviceAreaName);
 
 	return (
 		<div>
@@ -138,15 +136,24 @@ const EditServiceArea = ({ open, setOpen, id, token, setSubmitting }) => {
 								</Typography>
 								<form onSubmit={handleSubmit(onSubmit)}>
 									<Box sx={{ display: "flex", gap: "20px" }}>
-										<TextField
-											size='small'
-											sx={{ my: 0.5 }}
-											fullWidth
-											required
-											label='Service Area Name'
-											helperText='Service Area Name'
-											{...register("serviceAreaName", { required: true })}
-										/>
+										<FormControl sx={{ my: 0.5, textAlign: "left" }} fullWidth>
+											<Select
+												size='small'
+												value={type || data?.serviceAreaName}
+												onChange={(e) => setType(e.target.value)}
+												{...register("serviceAreaName", { required: true })}>
+												<MenuItem value={"Inside Same City"}>
+													Inside Same City
+												</MenuItem>
+												<MenuItem value={"City to City"}>City to City</MenuItem>
+												<MenuItem value={"City to Sub City"}>
+													City to Sub City
+												</MenuItem>
+												<MenuItem value={"City to Union Level"}>
+													City to Union Level
+												</MenuItem>
+											</Select>
+										</FormControl>
 										<TextField
 											size='small'
 											sx={{ my: 0.5 }}
