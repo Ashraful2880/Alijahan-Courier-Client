@@ -50,6 +50,13 @@ const BranchParcelListFiltered = ({
 	const email = "branch@gmail.com";
 	const { user, loading, token } = GetAuth();
 	const [submitting, setSubmitting] = useState(false);
+	const [open, setOpen] = React.useState(false);
+	const handleClose = () => {
+		setOpen(false);
+	};
+	const handleOpen = () => {
+		setOpen(true);
+	};
 	const [data, setData] = useState();
 	const [status, setStatus] = useState("");
 	const [riders, setRiders] = useState();
@@ -131,7 +138,8 @@ const BranchParcelListFiltered = ({
 						)
 						.then((response) => {
 							setSubmitting(false);
-							Swal.fire("", "Successfully Delivered!", "success");
+							Swal.fire("", "Successfully Done!", "success");
+							setOpens(false);
 						})
 						.catch((error) => {
 							setSubmitting(false);
@@ -153,12 +161,73 @@ const BranchParcelListFiltered = ({
 						.then((response) => {
 							setSubmitting(false);
 							Swal.fire("", "Successfully Done!", "success");
+							setOpens(false);
 						})
 						.catch((error) => {
 							setSubmitting(false);
 							console.log(error);
 						});
 				}
+			}
+		});
+	};
+	const changeStatusMulti = (event, id) => {
+		Swal.fire({
+			title: "Are You Sure?",
+			showCancelButton: true,
+			confirmButtonText: "Yes",
+		}).then((result) => {
+			if (result.isConfirmed) {
+				setSubmitting(true);
+				// eslint-disable-next-line array-callback-return
+				selectionModel.map((item) => {
+					if (event.target.value === "Delivered To Warehouse") {
+						axios
+							.put(
+								`${process.env.REACT_APP_API_PATH}/merchantorderWarehouse/${item}`,
+								{
+									warehouseInfo: Warehouse,
+									status: event.target.value,
+								},
+								{
+									headers: {
+										Authorization: `Bearer ${token}`,
+									},
+								},
+							)
+							.then((response) => {
+								setSubmitting(false);
+								Swal.fire("", "Successfully Done!", "success");
+								setOpens(false);
+							})
+							.catch((error) => {
+								setSubmitting(false);
+								console.log(error);
+							});
+					} else {
+						axios
+							.put(
+								`${process.env.REACT_APP_API_PATH}/merchantorderStatus/${item}`,
+								{
+									status: event.target.value,
+								},
+								{
+									headers: {
+										Authorization: `Bearer ${token}`,
+									},
+								},
+							)
+							.then((response) => {
+								setSubmitting(false);
+								Swal.fire("", "Successfully Done!", "success");
+								setOpens(false);
+							})
+							.catch((error) => {
+								setSubmitting(false);
+								console.log(error);
+							});
+					}
+				});
 			}
 		});
 	};
@@ -187,7 +256,8 @@ const BranchParcelListFiltered = ({
 						)
 						.then((response) => {
 							setSubmitting(false);
-							Swal.fire("", "Successfully Assigned!", "success");
+							Swal.fire("", "Successfully Done!", "success");
+							setOpens(false);
 						})
 						.catch((error) => {
 							setSubmitting(false);
@@ -197,7 +267,7 @@ const BranchParcelListFiltered = ({
 			}
 		});
 	};
-	const changeRider = (event, newValue, id) => {
+	/* 	const changeRider = (event, newValue, id) => {
 		Swal.fire({
 			title: "Are You Sure?",
 			showCancelButton: true,
@@ -228,8 +298,8 @@ const BranchParcelListFiltered = ({
 					});
 			}
 		});
-	};
-	const renderDetailsButton = (params) => {
+	}; */
+	/* 	const renderDetailsButton = (params) => {
 		return (
 			<Box sx={{ display: "flex", alignItems: "center" }}>
 				{((params.row?.status === "Assigned for Pickup" &&
@@ -276,11 +346,21 @@ const BranchParcelListFiltered = ({
 								Deliver To Warehouse
 							</MenuItem>
 						)}
+						{params.row?.status === "Sending Returned Parcel to Branch" && (
+							<MenuItem value={"Returned Parcel Received in Branch"}>
+								Returned Parcel Received
+							</MenuItem>
+						)}
+						{params.row?.status === "Returned Parcel Received in Branch" && (
+							<MenuItem value={"Sending Returned Parcel to Merchant"}>
+								Sent Returned Parcel to Merchant
+							</MenuItem>
+						)}
 					</Select>
 				</FormControl>
 			</Box>
 		);
-	};
+	}; */
 
 	const columns = [
 		{
@@ -316,13 +396,13 @@ const BranchParcelListFiltered = ({
 			width: 180,
 		},
 		{ field: "status", headerName: "Status", width: 250 },
-		{
+		/* 	{
 			field: "_id",
 			headerName: "Action",
 			width: 300,
 			renderCell: renderDetailsButton,
 			disableClickEventBubbling: true,
-		},
+		}, */
 	];
 
 	return (
@@ -363,28 +443,106 @@ const BranchParcelListFiltered = ({
 							All Parcel List
 						</Typography>
 					</Box>
-					{(selectedStatus === "Assigned for Pickup" ||
-						selectedStatus === "Cancelled by Pickup Rider") && (
-						<Grid item xs={12} md={12}>
-							<Autocomplete
-								onChange={(event, newValue) => {
-									changeRiderMulti(event, newValue);
-								}}
-								size='small'
-								sx={{ my: 0.5, width: 200 }}
-								options={riders}
-								getOptionLabel={(option) => option.riderName}
-								renderInput={(params) => (
-									<TextField
-										{...params}
-										label='Select Rider'
-										variant='outlined'
+
+					<Box sx={{ display: "flex", my: 1 }}>
+						{selectionModel?.length > 0 ? (
+							<>
+								<PrintIcon onClick={() => printData()} />
+								{(selectedStatus === "Assigned for Pickup" ||
+									selectedStatus === "Cancelled by Pickup Rider") && (
+									<Autocomplete
+										onChange={(event, newValue) => {
+											changeRiderMulti(event, newValue);
+										}}
+										size='small'
+										sx={{ my: 0.5, width: 200 }}
+										options={riders}
+										getOptionLabel={(option) => option.riderName}
+										renderInput={(params) => (
+											<TextField
+												{...params}
+												label='Select Rider'
+												variant='outlined'
+											/>
+										)}
 									/>
 								)}
-							/>
-						</Grid>
-					)}
-					<PrintIcon onClick={() => printData()} />
+								{selectedStatus !== "All" && (
+									<Box>
+										<Button
+											variant='contained'
+											color='success'
+											onClick={handleOpen}
+											sx={{ fontWeight: "bold", p: 1 }}>
+											Change Status : {selectionModel?.length}
+										</Button>
+
+										<FormControl>
+											<Select
+												sx={{ visibility: "hidden", mr: 15 }}
+												size='small'
+												open={open}
+												onClose={handleClose}
+												onOpen={handleOpen}
+												value={status}
+												onChange={(event) => {
+													changeStatusMulti(event);
+													setStatus(event.target.value);
+												}}
+												displayEmpty
+												inputProps={{ "aria-label": "Without label" }}>
+												{selectedStatus === "Pickup Request Pending" && (
+													<MenuItem value={"Pickup Request Accepted"}>
+														Accept
+													</MenuItem>
+												)}
+												{selectedStatus === "Pickup Request Accepted" && (
+													<MenuItem value={"Assigned for Pickup"}>
+														Assign for Pickup
+													</MenuItem>
+												)}
+												{selectedStatus ===
+													"Delivered To Branch By Pickup Rider" && (
+													<MenuItem value={"Received in Pickup Branch"}>
+														Received in Pickup Branch
+													</MenuItem>
+												)}
+												{selectedStatus === "Received in Pickup Branch" && (
+													<MenuItem value={"Delivered To Warehouse"}>
+														Deliver To Warehouse
+													</MenuItem>
+												)}
+												{selectedStatus ===
+													"Sending Returned Parcel to Branch" && (
+													<MenuItem
+														value={"Returned Parcel Received in Branch"}>
+														Returned Parcel Received
+													</MenuItem>
+												)}
+												{selectedStatus ===
+													"Returned Parcel Received in Branch" && (
+													<MenuItem
+														value={"Sending Returned Parcel to Merchant"}>
+														Sent Returned Parcel to Merchant
+													</MenuItem>
+												)}
+											</Select>
+										</FormControl>
+									</Box>
+								)}
+							</>
+						) : (
+							<Button
+								disabled
+								variant='contained'
+								color='success'
+								onClick={handleOpen}
+								sx={{ fontWeight: "bold", p: 1 }}>
+								Change Status
+							</Button>
+						)}
+					</Box>
+
 					<Grid container spacing={1} sx={{ justifyContent: "center", px: 2 }}>
 						<Grid item xs={12} md={12}>
 							{data && (

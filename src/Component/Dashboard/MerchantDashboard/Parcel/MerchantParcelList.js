@@ -24,7 +24,7 @@ import PaymentsIcon from "@mui/icons-material/Payments";
 import ParcelModal from "../../AdminDashboard/Account/ParcelModal";
 
 const ParcelList = () => {
-	const email = "marchant@gmail.com";
+	const email = "marchant2@gmail.com";
 	const { user, loading, token } = GetAuth();
 	const [submitting, setSubmitting] = useState(false);
 	const [data, setData] = useState();

@@ -247,6 +247,16 @@ const RiderRecParcelListFiltered = ({
 								Deliver To Customer
 							</MenuItem>
 						)}
+						{params.row?.status === "Parcel Received By Delivery Rider" && (
+							<MenuItem value={"Parcel Returned by Customer"}>
+								Parcel Return
+							</MenuItem>
+						)}
+						{params.row?.status === "Parcel Returned by Customer" && (
+							<MenuItem value={"Returning Parcel to Branch"}>
+								Returned Parcel Send to Branch
+							</MenuItem>
+						)}
 					</Select>
 				</FormControl>
 			</Box>
