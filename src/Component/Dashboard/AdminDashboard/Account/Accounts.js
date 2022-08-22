@@ -174,7 +174,6 @@ const Accounts = () => {
 						}}>
 						<PaymentsIcon sx={{ mr: 0.5 }} />
 						Receive {params.row?.paymentCollectionDetails?.collectedAmount} ৳
-						from Branch
 					</Button>
 				)}
 				{/* 		<DeleteIcon
@@ -258,6 +257,7 @@ const Accounts = () => {
 			},
 			width: 180,
 		},
+
 		{
 			field: "collectionStatus",
 			headerName: "Collection Status",
@@ -266,11 +266,18 @@ const Accounts = () => {
 			},
 			width: 200,
 		},
-		{ field: "status", headerName: "Order Status", width: 200 },
+		{
+			field: "receiverBranchName",
+			headerName: "Receiver Branch",
+			renderCell: (params) => {
+				return params.row?.receiverInfo.receiverBranchName;
+			},
+			width: 180,
+		},
 		{
 			field: "_id",
 			headerName: "Action",
-			width: 350,
+			width: 450,
 			renderCell: renderDetailsButton,
 			disableClickEventBubbling: true,
 		},

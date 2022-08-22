@@ -54,6 +54,7 @@ const BranchReceivedParcelListFiltered = ({
 	const [status, setStatus] = useState("");
 	const [riders, setRiders] = useState();
 	const [branch, setBranch] = useState();
+	const [Warehouse, setWarehouse] = useState();
 	const [selectionModel, setSelectionModel] = React.useState();
 	const [selected, setSelected] = React.useState([]);
 
@@ -69,6 +70,7 @@ const BranchReceivedParcelListFiltered = ({
 			})
 			.then((response) => {
 				setBranch(response.data);
+				setWarehouse(response.data?.warehouseInfo);
 			})
 			.catch((error) => {
 				console.log(error);
@@ -248,26 +250,50 @@ const BranchReceivedParcelListFiltered = ({
 		}).then((result) => {
 			if (result.isConfirmed) {
 				setSubmitting(true);
-				axios
-					.put(
-						`${process.env.REACT_APP_API_PATH}/merchantorderStatus/${id}`,
-						{
-							status: event.target.value,
-						},
-						{
-							headers: {
-								Authorization: `Bearer ${token}`,
+				if (event.target.value === "Sending Returned Parcel to Warehouse") {
+					axios
+						.put(
+							`${process.env.REACT_APP_API_PATH}/merchantorderReturnWarehouse/${id}`,
+							{
+								returnWarehouseInfo: Warehouse,
+								status: event.target.value,
 							},
-						},
-					)
-					.then((response) => {
-						setSubmitting(false);
-						Swal.fire("", "Successfully Done!", "success");
-					})
-					.catch((error) => {
-						setSubmitting(false);
-						console.log(error);
-					});
+							{
+								headers: {
+									Authorization: `Bearer ${token}`,
+								},
+							},
+						)
+						.then((response) => {
+							setSubmitting(false);
+							Swal.fire("", "Successfully Done!", "success");
+						})
+						.catch((error) => {
+							setSubmitting(false);
+							console.log(error);
+						});
+				} else {
+					axios
+						.put(
+							`${process.env.REACT_APP_API_PATH}/merchantorderStatus/${id}`,
+							{
+								status: event.target.value,
+							},
+							{
+								headers: {
+									Authorization: `Bearer ${token}`,
+								},
+							},
+						)
+						.then((response) => {
+							setSubmitting(false);
+							Swal.fire("", "Successfully Done!", "success");
+						})
+						.catch((error) => {
+							setSubmitting(false);
+							console.log(error);
+						});
+				}
 			}
 		});
 	};
@@ -355,6 +381,16 @@ const BranchReceivedParcelListFiltered = ({
 						{params.row?.status === "Delivered To Branch By Rider" && (
 							<MenuItem value={"Received in Branch"}>
 								Received in Branch
+							</MenuItem>
+						)}
+						{params.row?.status === "Returning Parcel to Branch" && (
+							<MenuItem value={"Returned Parcel Received in Branch"}>
+								Returning Parcel Received
+							</MenuItem>
+						)}
+						{params.row?.status === "Returned Parcel Received in Branch" && (
+							<MenuItem value={"Sending Returned Parcel to Warehouse"}>
+								Sent Returned Parcel to Warehouse
 							</MenuItem>
 						)}
 					</Select>

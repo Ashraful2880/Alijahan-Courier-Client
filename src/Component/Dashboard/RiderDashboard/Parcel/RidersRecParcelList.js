@@ -153,6 +153,22 @@ const RidersRecParcelList = () => {
 					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, color: "gray" }}>
 					Delivered
 				</Button>
+				<Button
+					className={
+						selectedStatus === "Parcel Returned by Customer" ? "active" : ""
+					}
+					onClick={() => setSelectedStatus("Parcel Returned by Customer")}
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, color: "gray" }}>
+					Parcel Returned
+				</Button>
+				<Button
+					className={
+						selectedStatus === "Returning Parcel to Branch" ? "active" : ""
+					}
+					onClick={() => setSelectedStatus("Returning Parcel to Branch")}
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, color: "gray" }}>
+					Returning to Branch
+				</Button>
 			</Box>
 			<Grid container spacing={1} sx={{ justifyContent: "center", px: 2 }}>
 				<Grid item xs={12} md={12}>

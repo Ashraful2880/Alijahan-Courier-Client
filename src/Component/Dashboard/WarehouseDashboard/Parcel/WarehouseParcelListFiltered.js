@@ -122,6 +122,16 @@ const WarehouseParcelListFiltered = ({
 								Deliver To Receiver Branch
 							</MenuItem>
 						)}
+						{params.row?.status === "Sending Returned Parcel to Warehouse" && (
+							<MenuItem value={"Returned Parcel Received in Warehouse"}>
+								Receive Returned Parcel
+							</MenuItem>
+						)}
+						{params.row?.status === "Returned Parcel Received in Warehouse" && (
+							<MenuItem value={"Sending Returned Parcel to Branch"}>
+								Return Parcel to Branch
+							</MenuItem>
+						)}
 					</Select>
 				</FormControl>
 			</Box>
