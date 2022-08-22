@@ -114,7 +114,7 @@ const BranchParcelListFiltered = ({
 			});
 	}, [token, submitting, branch?.branchName]);
 
-	const changeStatus = (event, id) => {
+	/* const changeStatus = (event, id) => {
 		Swal.fire({
 			title: "Are You Sure?",
 			showCancelButton: true,
@@ -170,7 +170,7 @@ const BranchParcelListFiltered = ({
 				}
 			}
 		});
-	};
+	}; */
 	const changeStatusMulti = (event, id) => {
 		Swal.fire({
 			title: "Are You Sure?",
@@ -424,6 +424,7 @@ const BranchParcelListFiltered = ({
 							position: "fixed",
 							top: "30px",
 							right: "30px",
+							zIndex: 999,
 							cursor: "pointer",
 							background: "White",
 							borderRadius: "50%",
@@ -469,13 +470,18 @@ const BranchParcelListFiltered = ({
 								)}
 								{selectedStatus !== "All" && (
 									<Box>
-										<Button
-											variant='contained'
-											color='success'
-											onClick={handleOpen}
-											sx={{ fontWeight: "bold", p: 1 }}>
-											Change Status : {selectionModel?.length}
-										</Button>
+										{selectedStatus === "Assigned for Pickup" ||
+										selectedStatus === "Cancelled by Pickup Rider" ? (
+											""
+										) : (
+											<Button
+												variant='contained'
+												color='success'
+												onClick={handleOpen}
+												sx={{ fontWeight: "bold", p: 1 }}>
+												Change Status : {selectionModel?.length}
+											</Button>
+										)}
 
 										<FormControl>
 											<Select

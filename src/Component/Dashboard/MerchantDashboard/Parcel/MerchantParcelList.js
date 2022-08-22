@@ -24,7 +24,7 @@ import PaymentsIcon from "@mui/icons-material/Payments";
 import ParcelModal from "../../AdminDashboard/Account/ParcelModal";
 
 const ParcelList = () => {
-	const email = "marchant2@gmail.com";
+	const email = "marchant@gmail.com";
 	const { user, loading, token } = GetAuth();
 	const [submitting, setSubmitting] = useState(false);
 	const [data, setData] = useState();
@@ -157,38 +157,7 @@ const ParcelList = () => {
 							Mark As Completed
 						</Button>
 					)}
-				{/* 	<DeleteIcon
-					className='iconBtn'
-					sx={{ color: "#df0f00!important" }}
-					onClick={() => {
-						Swal.fire({
-							title: "Do you want to Delete this?",
-							showCancelButton: true,
-							confirmButtonText: "Yes",
-						}).then((result) => {
-							if (result.isConfirmed) {
-								setSubmitting(true);
-								axios
-									.delete(
-										`${process.env.REACT_APP_API_PATH}/merchantorder/${params.row?._id}`,
-										{
-											headers: {
-												Authorization: `Bearer ${token}`,
-											},
-										},
-									)
-									.then((response) => {
-										setSubmitting(false);
-										Swal.fire("", "Successfully Deleted!", "success");
-									})
-									.catch((error) => {
-										setSubmitting(false);
-										console.log(error);
-									});
-							}
-						});
-					}}
-				/> */}
+
 				<RemoveRedEyeIcon
 					onClick={() => handleOpen(setModalData(params.row))}
 					sx={{ ml: 1.5, color: "green", cursor: "pointer" }}
@@ -204,13 +173,13 @@ const ParcelList = () => {
 			renderCell: (params) => {
 				return params.row.marchentInfo.merchantName;
 			},
-			width: 180,
+			width: 150,
 		},
 		{
 			field: "receiverBranchArea",
 			headerName: "Pickup Address",
 			renderCell: (params) => {
-				return params.row.receiverInfo.receiverBranchArea;
+				return ` ${params.row.receiverInfo.receiverBranchArea}(${params.row.receiverInfo.receiverBranchName})`;
 			},
 			width: 180,
 		},
@@ -220,7 +189,7 @@ const ParcelList = () => {
 			renderCell: (params) => {
 				return params.row.receiverInfo.receiverAddress;
 			},
-			width: 200,
+			width: 180,
 		},
 		{
 			field: "receiverNumber",
@@ -234,7 +203,7 @@ const ParcelList = () => {
 		{
 			field: "_id",
 			headerName: "Action",
-			width: 250,
+			width: 350,
 			renderCell: renderDetailsButton,
 			disableClickEventBubbling: true,
 		},
