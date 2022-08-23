@@ -77,16 +77,17 @@ const BranchParcelListFiltered = ({
 	};
 	console.log(selected);
 	let ref = useRef();
+	const date = new Date();
 	// Print Function Here
-	function createData(name, calories, fat, carbs, protein) {
-		return { name, calories, fat, carbs, protein };
+	function createData(id, orderInfo, merchant, contactName, contactNumber, contactAddress, area, amount, collected, status, paymentStatus, instruction) {
+		return { id, orderInfo, merchant, contactName, contactNumber, contactAddress, area, amount, collected, status, paymentStatus, instruction };
 	}
-	const rows = [
-		createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-		createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-		createData('Eclair', 262, 16.0, 24, 6.0),
-		createData('Cupcake', 305, 3.7, 67, 4.3),
-		createData('Gingerbread', 356, 16.0, 49, 3.9),
+	const tableRows = [
+		createData("19649-3", "Created At 31-10-2022 Deadline 02-11-2022", "Mr.Moinuddin", "01974238487", "H.S.S Road, Jhenaidah", "Jhenaidah", 580, 300, "Rescheduled", "Due", "Please Handle The Parcel Carefully.Food Item"),
+		createData("18649-9", "Created At 31-10-2022 Deadline 02-11-2022", "Mehvish Kainat Abdullah", "01974238487", "H.S.S Road, Jhenaidah", "Jhenaidah", 500, 300, "Rescheduled", "Due", "Please Handle The Parcel Carefully.Food Item"),
+		createData("14643-9", "Created At 31-10-2022 Deadline 02-11-2022", "Eftekhar Alam", "01974238487", "H.S.S Road, Jhenaidah", "Jhenaidah", 490, 300, "Rescheduled", "Due", "Please Handle The Parcel Carefully.Food Item"),
+		createData("11641-1", "Created At 31-10-2022 Deadline 02-11-2022", "Mr.Moinuddin", "01974238487", "H.S.S Road, Jhenaidah", "Jhenaidah", 550, 300, "Rescheduled", "Due", "Please Handle The Parcel Carefully.Food Item"),
+		createData("28649-0", "Created At 31-10-2022 Deadline 02-11-2022", "Mr.Moinuddin", "01974238487", "H.S.S Road, Jhenaidah", "Jhenaidah", 620, 300, "Rescheduled", "Due", "Please Handle The Parcel Carefully.Food Item"),
 	];
 
 	useEffect(() => {
@@ -592,7 +593,7 @@ const BranchParcelListFiltered = ({
 						</Grid>
 					</Grid>
 					{/* Print Component Here */}
-					<Box style={{ display: "none" }}>
+					<Box>
 						<Box sx={{ my: 2 }} ref={(el) => (ref = el)}>
 							<Box sx={{ pb: 2, margin: "auto", textAlign: "center" }}>
 								<Typography variant="h5" sx={{ fontWeight: "bold", color: "#166534" }}>
@@ -608,6 +609,18 @@ const BranchParcelListFiltered = ({
 									www.alijahan.com
 								</Typography>
 							</Box>
+							<Box sx={{ display: "flex", justifyContent: "space-between", px: 2, mb: 1 }}>
+								<Box>
+									<Typography variant="p" sx={{ fontSize: "17px", fontWeight: 600 }}>
+										Total Order: {tableRows.length}
+									</Typography>
+								</Box>
+								<Box>
+									<Typography variant="p" sx={{ fontSize: "17px", fontWeight: 600 }}>
+										Printed Date: {date.getDate()}-{date.getMonth()}-{date.getFullYear()}
+									</Typography>
+								</Box>
+							</Box>
 							{/* Print Table Component */}
 							<Box>
 								<TableContainer component="div" sx={{ border: "1px solid #d9d9d9", borderRadius: "10px" }}>
@@ -615,41 +628,83 @@ const BranchParcelListFiltered = ({
 										<TableHead>
 											<TableRow>
 												<TableCell sx={{ fontWeight: "bold", borderRight: "1px solid #d9d9d9" }}>
-													Name
+													ID
+												</TableCell>
+												<TableCell sx={{ fontWeight: "bold", borderRight: "1px solid #d9d9d9" }}>
+													Order Info
+												</TableCell>
+												<TableCell sx={{ fontWeight: "bold", borderRight: "1px solid #d9d9d9" }}>
+													Merchant
+												</TableCell>
+												<TableCell sx={{ fontWeight: "bold", borderRight: "1px solid #d9d9d9" }}>
+													Contact Name
 												</TableCell>
 												<TableCell sx={{ fontWeight: "bold", borderRight: "1px solid #d9d9d9" }} align="center">
-													Email
+													Contact Number
 												</TableCell>
 												<TableCell sx={{ fontWeight: "bold", borderRight: "1px solid #d9d9d9" }} align="center">
-													Contact
+													Contact Address
 												</TableCell>
 												<TableCell sx={{ fontWeight: "bold", borderRight: "1px solid #d9d9d9" }} align="center">
-													Address
+													Area
 												</TableCell>
 												<TableCell sx={{ fontWeight: "bold", borderRight: "1px solid #d9d9d9" }} align="center">
-													Location
+													Amount (BDT)
+												</TableCell>
+												<TableCell sx={{ fontWeight: "bold", borderRight: "1px solid #d9d9d9" }} align="center">
+													Collected (BDT)
+												</TableCell>
+												<TableCell sx={{ fontWeight: "bold", borderRight: "1px solid #d9d9d9" }} align="center">
+													Status
+												</TableCell>
+												<TableCell sx={{ fontWeight: "bold", borderRight: "1px solid #d9d9d9" }} align="center">
+													Payment Status
+												</TableCell>
+												<TableCell sx={{ fontWeight: "bold", borderRight: "1px solid #d9d9d9" }} align="center">
+													Instruction
 												</TableCell>
 											</TableRow>
 										</TableHead>
 										<TableBody>
-											{rows.map((row) => (
+											{tableRows.map((item) => (
 												<TableRow
-													key={row.name}
+													key={item?.id}
 													sx={{ border: 0 }}>
 													<TableCell sx={{ borderRight: "1px solid #d9d9d9" }} component="th" scope="row">
-														{row.name}
+														{item?.id}
 													</TableCell>
 													<TableCell sx={{ borderRight: "1px solid #d9d9d9" }} align="center">
-														{row.calories}
+														{item?.orderInfo}
 													</TableCell>
 													<TableCell sx={{ borderRight: "1px solid #d9d9d9" }} align="center">
-														{row.fat}
+														{item?.merchant}
 													</TableCell>
 													<TableCell sx={{ borderRight: "1px solid #d9d9d9" }} align="center">
-														{row.carbs}
+														{item?.contactName}
 													</TableCell>
 													<TableCell sx={{ borderRight: "1px solid #d9d9d9" }} align="center">
-														{row.protein}
+														{item?.contactNumber}
+													</TableCell>
+													<TableCell sx={{ borderRight: "1px solid #d9d9d9" }} align="center">
+														{item?.contactAddress}
+													</TableCell>
+													<TableCell sx={{ borderRight: "1px solid #d9d9d9" }} align="center">
+														{item?.area}
+													</TableCell>
+													<TableCell sx={{ borderRight: "1px solid #d9d9d9" }} align="center">
+														{item?.amount}
+													</TableCell>
+													<TableCell sx={{ borderRight: "1px solid #d9d9d9" }} align="center">
+														{item?.collected}
+													</TableCell>
+													<TableCell sx={{ borderRight: "1px solid #d9d9d9" }} align="center">
+														{item?.status}
+													</TableCell>
+													<TableCell sx={{ borderRight: "1px solid #d9d9d9" }} align="center">
+														{item?.paymentStatus}
+													</TableCell>
+													<TableCell sx={{ borderRight: "1px solid #d9d9d9", width: "15%" }} align="center">
+														Please Handle The Parcel Carefully
 													</TableCell>
 												</TableRow>
 											))}
@@ -672,7 +727,7 @@ const BranchParcelListFiltered = ({
 					</Backdrop>
 				</Box>
 			</Fade>
-		</Modal>
+		</Modal >
 	);
 };
 
