@@ -120,9 +120,7 @@ const AdminParcelList = () => {
 				<Button
 					className={selectedStatus === "All" ? "active" : ""}
 					onClick={() => setSelectedStatus("All")}
-					variant='contained'
-					color='success'
-					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, color: "gray" }}>
 					All
 				</Button>
 				<Button
@@ -130,9 +128,7 @@ const AdminParcelList = () => {
 						selectedStatus === "Pickup Request Pending" ? "active" : ""
 					}
 					onClick={() => setSelectedStatus("Pickup Request Pending")}
-					variant='contained'
-					color='success'
-					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, color: "gray" }}>
 					Pending
 				</Button>
 				<Button
@@ -140,9 +136,7 @@ const AdminParcelList = () => {
 						selectedStatus === "Received in Pickup Branch" ? "active" : ""
 					}
 					onClick={() => setSelectedStatus("Received in Pickup Branch")}
-					variant='contained'
-					color='success'
-					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, color: "gray" }}>
 					Received in Pickup Branch
 				</Button>
 				<Button
@@ -150,17 +144,13 @@ const AdminParcelList = () => {
 						selectedStatus === "Parcel Received On Warehouse" ? "active" : ""
 					}
 					onClick={() => setSelectedStatus("Parcel Received On Warehouse")}
-					variant='contained'
-					color='success'
-					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, color: "gray" }}>
 					Received On Warehouse
 				</Button>
 				<Button
 					className={selectedStatus === "Received in Branch" ? "active" : ""}
 					onClick={() => setSelectedStatus("Received in Branch")}
-					variant='contained'
-					color='success'
-					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, color: "gray" }}>
 					Received in Receiver Branch
 				</Button>
 				<Button
@@ -168,9 +158,7 @@ const AdminParcelList = () => {
 						selectedStatus === "Delivered To Customer By Rider" ? "active" : ""
 					}
 					onClick={() => setSelectedStatus("Delivered To Customer By Rider")}
-					variant='contained'
-					color='success'
-					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, color: "gray" }}>
 					Delivered To Customer
 				</Button>
 				<Button
@@ -178,9 +166,7 @@ const AdminParcelList = () => {
 						selectedStatus === "Successfully Completed" ? "active" : ""
 					}
 					onClick={() => setSelectedStatus("Successfully Completed")}
-					variant='contained'
-					color='success'
-					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, color: "gray" }}>
 					Successfully Completed
 				</Button>
 			</Box>

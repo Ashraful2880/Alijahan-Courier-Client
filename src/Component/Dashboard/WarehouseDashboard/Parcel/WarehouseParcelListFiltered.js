@@ -45,6 +45,13 @@ const WarehouseParcelListFiltered = ({
 	const email = "warehouse2@gmail.com";
 	const { user, loading, token } = GetAuth();
 	const [submitting, setSubmitting] = useState(false);
+	const [open, setOpen] = React.useState(false);
+	const handleClose = () => {
+		setOpen(false);
+	};
+	const handleOpen = () => {
+		setOpen(true);
+	};
 	const [data, setData] = useState();
 	const [status, setStatus] = useState("");
 	const [selectionModel, setSelectionModel] = React.useState();
@@ -66,7 +73,41 @@ const WarehouseParcelListFiltered = ({
 				console.log(error);
 			});
 	}, [token, submitting]);
-	const changeStatus = (event, id) => {
+	const changeStatusMulti = (event, id) => {
+		Swal.fire({
+			title: "Are You Sure?",
+			showCancelButton: true,
+			confirmButtonText: "Yes",
+		}).then((result) => {
+			if (result.isConfirmed) {
+				setSubmitting(true);
+				selectionModel.map((item) =>
+					axios
+						.put(
+							`${process.env.REACT_APP_API_PATH}/merchantorderStatus/${id}`,
+							{
+								status: event.target.value,
+							},
+							{
+								headers: {
+									Authorization: `Bearer ${token}`,
+								},
+							},
+						)
+						.then((response) => {
+							setSubmitting(false);
+							Swal.fire("", "Successfully Done!", "success");
+							setOpens(false);
+						})
+						.catch((error) => {
+							setSubmitting(false);
+							console.log(error);
+						}),
+				);
+			}
+		});
+	};
+	/* 	const changeStatus = (event, id) => {
 		Swal.fire({
 			title: "Are You Sure?",
 			showCancelButton: true,
@@ -97,35 +138,10 @@ const WarehouseParcelListFiltered = ({
 					});
 			}
 		});
-	};
+	}; */
 
 	const renderDetailsButton = (params) => {
-		return (
-			<Box sx={{ display: "flex", alignItems: "center" }}>
-				<FormControl sx={{ m: 1 }}>
-					<Select
-						size='small'
-						value={status}
-						onChange={(event) => {
-							changeStatus(event, params.row?._id);
-							setStatus(event.target.value);
-						}}
-						displayEmpty
-						inputProps={{ "aria-label": "Without label" }}>
-						{params.row?.status === "Delivered To Warehouse" && (
-							<MenuItem value={"Parcel Received On Warehouse"}>
-								Parcel Received
-							</MenuItem>
-						)}
-						{params.row?.status === "Parcel Received On Warehouse" && (
-							<MenuItem value={"Delivered To Receiver Branch"}>
-								Deliver To Receiver Branch
-							</MenuItem>
-						)}
-					</Select>
-				</FormControl>
-			</Box>
-		);
+		return <Box sx={{ display: "flex", alignItems: "center" }}></Box>;
 	};
 
 	const columns = [
@@ -189,12 +205,81 @@ const WarehouseParcelListFiltered = ({
 							position: "fixed",
 							top: "30px",
 							right: "30px",
+							zIndex: 999,
 							cursor: "pointer",
 							background: "White",
 							borderRadius: "50%",
 						}}
 					/>
-					<PrintIcon onClick={() => printData()} />
+					<Box sx={{ display: "flex", my: 1 }}>
+						{selectionModel?.length > 0 ? (
+							<>
+								<PrintIcon onClick={() => printData()} />
+								{selectedStatus !== "All" && (
+									<Box>
+										<Button
+											variant='contained'
+											color='success'
+											onClick={handleOpen}
+											sx={{ fontWeight: "bold", p: 1 }}>
+											Change Status : {selectionModel?.length}
+										</Button>
+
+										<FormControl sx={{ m: 1 }}>
+											<Select
+												size='small'
+												value={status}
+												onChange={(event) => {
+													changeStatusMulti(event);
+													setStatus(event.target.value);
+												}}
+												displayEmpty
+												inputProps={{ "aria-label": "Without label" }}>
+												{selectedStatus === "Delivered To Warehouse" && (
+													<MenuItem value={"Parcel Received On Warehouse"}>
+														Parcel Received
+													</MenuItem>
+												)}
+												{selectedStatus === "Parcel Received On Warehouse" && (
+													<MenuItem value={"Delivered To Receiver Branch"}>
+														Deliver To Receiver Branch
+													</MenuItem>
+												)}
+												{selectedStatus ===
+													"Sending Returned Parcel to Warehouse" && (
+													<MenuItem
+														value={"Returned Parcel Received in Warehouse"}>
+														Receive Returned Parcel
+													</MenuItem>
+												)}
+												{selectedStatus ===
+													"Returned Parcel Received in Warehouse" && (
+													<MenuItem value={"Sending Returned Parcel to Branch"}>
+														Return Parcel to Branch
+													</MenuItem>
+												)}
+											</Select>
+										</FormControl>
+									</Box>
+								)}
+							</>
+						) : (
+							<>
+								{selectedStatus !== "All" && (
+									<>
+										<Button
+											disabled
+											variant='contained'
+											color='success'
+											onClick={handleOpen}
+											sx={{ fontWeight: "bold", p: 1 }}>
+											Change Status
+										</Button>
+									</>
+								)}
+							</>
+						)}
+					</Box>
 					<Grid container spacing={1} sx={{ justifyContent: "center", px: 2 }}>
 						<Grid item xs={12} md={12}>
 							{data && (

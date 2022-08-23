@@ -51,6 +51,13 @@ const RiderParcelListFiltered = ({
 	const email = "rider@gmail.com";
 	const { user, loading, token } = GetAuth();
 	const [submitting, setSubmitting] = useState(false);
+	const [open, setOpen] = React.useState(false);
+	const handleClose = () => {
+		setOpen(false);
+	};
+	const handleOpen = () => {
+		setOpen(true);
+	};
 	const [data, setData] = useState();
 	const [status, setStatus] = useState("");
 	const [selectionModel, setSelectionModel] = React.useState();
@@ -72,7 +79,7 @@ const RiderParcelListFiltered = ({
 				console.log(error);
 			});
 	}, [token, submitting]);
-	const changeStatus = (event, id) => {
+	/* const changeStatus = (event, id) => {
 		Swal.fire({
 			title: "Are You Sure?",
 			showCancelButton: true,
@@ -100,6 +107,40 @@ const RiderParcelListFiltered = ({
 						setSubmitting(false);
 						console.log(error);
 					});
+			}
+		});
+	}; */
+	const changeStatusMulti = (event, id) => {
+		Swal.fire({
+			title: "Are You Sure?",
+			showCancelButton: true,
+			confirmButtonText: "Yes",
+		}).then((result) => {
+			if (result.isConfirmed) {
+				setSubmitting(true);
+				selectionModel.map((item) =>
+					axios
+						.put(
+							`${process.env.REACT_APP_API_PATH}/merchantorderStatus/${item}`,
+							{
+								status: event.target.value,
+							},
+							{
+								headers: {
+									Authorization: `Bearer ${token}`,
+								},
+							},
+						)
+						.then((response) => {
+							setSubmitting(false);
+							Swal.fire("", "Successfully Done!", "success");
+							setOpens(false);
+						})
+						.catch((error) => {
+							setSubmitting(false);
+							console.log(error);
+						}),
+				);
 			}
 		});
 	};
@@ -221,34 +262,6 @@ const RiderParcelListFiltered = ({
 							Collect {params.row?.orderSummaray?.totalAmountWithCharges} ৳
 						</Button>
 					)}
-				<FormControl sx={{ m: 1 }}>
-					<Select
-						size='small'
-						value={status}
-						onChange={(event) => {
-							changeStatus(event, params.row?._id);
-							setStatus(event.target.value);
-						}}
-						displayEmpty
-						inputProps={{ "aria-label": "Without label" }}>
-						{params.row?.status === "Assigned for Pickup" && (
-							<MenuItem value={"Cancelled by Pickup Rider"}>Cancel</MenuItem>
-						)}
-						{params.row?.status === "Assigned for Pickup" && (
-							<MenuItem value={"Accepted by Pickup Rider"}>Accept</MenuItem>
-						)}
-						{params.row?.status === "Accepted by Pickup Rider" && (
-							<MenuItem value={"Parcel Received By Pickup Rider"}>
-								Parcel Received From Marchant
-							</MenuItem>
-						)}
-						{params.row?.status === "Parcel Received By Pickup Rider" && (
-							<MenuItem value={"Delivered To Branch By Pickup Rider"}>
-								Deliver To Pickup Branch
-							</MenuItem>
-						)}
-					</Select>
-				</FormControl>
 			</Box>
 		);
 	};
@@ -315,6 +328,7 @@ const RiderParcelListFiltered = ({
 							position: "fixed",
 							top: "30px",
 							right: "30px",
+							zIndex: 999,
 							cursor: "pointer",
 							background: "White",
 							borderRadius: "50%",
@@ -334,8 +348,76 @@ const RiderParcelListFiltered = ({
 							All Parcel List
 						</Typography>
 					</Box>
+					<Box sx={{ display: "flex", my: 1 }}>
+						{selectionModel?.length > 0 ? (
+							<>
+								<PrintIcon onClick={() => printData()} />
+								{selectedStatus !== "All" && (
+									<Box>
+										<Button
+											variant='contained'
+											color='success'
+											onClick={handleOpen}
+											sx={{ fontWeight: "bold", p: 1 }}>
+											Change Status : {selectionModel?.length}
+										</Button>
 
-					<PrintIcon onClick={() => printData()} />
+										<FormControl sx={{ m: 1 }}>
+											<Select
+												sx={{ visibility: "hidden", mr: 15 }}
+												size='small'
+												open={open}
+												onClose={handleClose}
+												onOpen={handleOpen}
+												value={status}
+												onChange={(event) => {
+													changeStatusMulti(event);
+													setStatus(event.target.value);
+												}}
+												displayEmpty
+												inputProps={{ "aria-label": "Without label" }}>
+												{selectedStatus === "Assigned for Pickup" && (
+													<MenuItem value={"Cancelled by Pickup Rider"}>
+														Cancel
+													</MenuItem>
+												)}
+												{selectedStatus === "Assigned for Pickup" && (
+													<MenuItem value={"Accepted by Pickup Rider"}>
+														Accept
+													</MenuItem>
+												)}
+												{selectedStatus === "Accepted by Pickup Rider" && (
+													<MenuItem value={"Parcel Received By Pickup Rider"}>
+														Parcel Received From Marchant
+													</MenuItem>
+												)}
+												{selectedStatus ===
+													"Parcel Received By Pickup Rider" && (
+													<MenuItem
+														value={"Delivered To Branch By Pickup Rider"}>
+														Deliver To Pickup Branch
+													</MenuItem>
+												)}
+											</Select>
+										</FormControl>
+									</Box>
+								)}
+							</>
+						) : (
+							<>
+								{selectedStatus !== "All" && (
+									<Button
+										disabled
+										variant='contained'
+										color='success'
+										onClick={handleOpen}
+										sx={{ fontWeight: "bold", p: 1 }}>
+										Change Status
+									</Button>
+								)}
+							</>
+						)}
+					</Box>
 					<Grid container spacing={1} sx={{ justifyContent: "center", px: 2 }}>
 						<Grid item xs={12} md={12}>
 							{data && (

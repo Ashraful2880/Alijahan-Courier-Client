@@ -134,49 +134,48 @@ const Accounts = () => {
 			<Box sx={{ display: "flex", alignItems: "center", width: "100%" }}>
 				{params.row?.paymentCollectionDetails?.collectionStatus ===
 					"Money Received in Accounts" && (
-					<Button
-						onClick={() =>
-							receiveAndSendMoney(
-								params.row?._id,
-								params.row?.paymentCollectionDetails,
-								params.row?.orderSummaray,
-								"Sending Money to Marchant",
-							)
-						}
-						sx={{
-							my: 1,
-							px: 3,
-							fontWeight: "bold",
-							borderRadius: "25px",
-							border: "2px solid ",
-						}}>
-						<PaymentsIcon sx={{ mr: 0.5 }} />
-						Send {params.row?.orderSummaray.totalReceive} ৳ to Marchant
-					</Button>
-				)}
+						<Button
+							onClick={() =>
+								receiveAndSendMoney(
+									params.row?._id,
+									params.row?.paymentCollectionDetails,
+									params.row?.orderSummaray,
+									"Sending Money to Marchant",
+								)
+							}
+							sx={{
+								my: 1,
+								px: 3,
+								fontWeight: "bold",
+								borderRadius: "25px",
+								border: "2px solid ",
+							}}>
+							<PaymentsIcon sx={{ mr: 0.5 }} />
+							Send {params.row?.orderSummaray.totalReceive} ৳ to Marchant
+						</Button>
+					)}
 				{params.row?.paymentCollectionDetails?.collectionStatus ===
 					"Sending Money To Accounts" && (
-					<Button
-						onClick={() =>
-							receiveAndSendMoney(
-								params.row?._id,
-								params.row?.paymentCollectionDetails,
-								params.row?.orderSummaray,
-								"Money Received in Accounts",
-							)
-						}
-						sx={{
-							my: 1,
-							px: 3,
-							fontWeight: "bold",
-							borderRadius: "25px",
-							border: "2px solid ",
-						}}>
-						<PaymentsIcon sx={{ mr: 0.5 }} />
-						Receive {params.row?.paymentCollectionDetails?.collectedAmount} ৳
-						from Branch
-					</Button>
-				)}
+						<Button
+							onClick={() =>
+								receiveAndSendMoney(
+									params.row?._id,
+									params.row?.paymentCollectionDetails,
+									params.row?.orderSummaray,
+									"Money Received in Accounts",
+								)
+							}
+							sx={{
+								my: 1,
+								px: 3,
+								fontWeight: "bold",
+								borderRadius: "25px",
+								border: "2px solid ",
+							}}>
+							<PaymentsIcon sx={{ mr: 0.5 }} />
+							Receive {params.row?.paymentCollectionDetails?.collectedAmount} ৳
+						</Button>
+					)}
 				{/* 		<DeleteIcon
 					className='iconBtn'
 					sx={{ color: "#df0f00!important" }}
@@ -224,7 +223,7 @@ const Accounts = () => {
 			renderCell: (params) => {
 				return params.row.orderId;
 			},
-			width: 180,
+			width: 170,
 		},
 		{
 			field: "merchantName",
@@ -232,7 +231,7 @@ const Accounts = () => {
 			renderCell: (params) => {
 				return params.row.marchentInfo.merchantName;
 			},
-			width: 180,
+			width: 170,
 		},
 		{
 			field: "collectedAmount",
@@ -240,7 +239,7 @@ const Accounts = () => {
 			renderCell: (params) => {
 				return params.row.paymentCollectionDetails.collectedAmount;
 			},
-			width: 150,
+			width: 130,
 		},
 		{
 			field: "totalCharges",
@@ -248,7 +247,7 @@ const Accounts = () => {
 			renderCell: (params) => {
 				return params.row.orderSummaray.totalCharges;
 			},
-			width: 150,
+			width: 130,
 		},
 		{
 			field: "totalReceive",
@@ -256,8 +255,9 @@ const Accounts = () => {
 			renderCell: (params) => {
 				return params.row.orderSummaray.totalReceive;
 			},
-			width: 180,
+			width: 130,
 		},
+
 		{
 			field: "collectionStatus",
 			headerName: "Collection Status",
@@ -266,11 +266,18 @@ const Accounts = () => {
 			},
 			width: 200,
 		},
-		{ field: "status", headerName: "Order Status", width: 200 },
+		{
+			field: "receiverBranchName",
+			headerName: "Receiver Branch",
+			renderCell: (params) => {
+				return params.row?.receiverInfo.receiverBranchName;
+			},
+			width: 140,
+		},
 		{
 			field: "_id",
 			headerName: "Action",
-			width: 350,
+			width: 420,
 			renderCell: renderDetailsButton,
 			disableClickEventBubbling: true,
 		},

@@ -233,6 +233,7 @@ const AdminParcelListFiltered = ({
 							position: "fixed",
 							top: "30px",
 							right: "30px",
+							zIndex: 999,
 							cursor: "pointer",
 							background: "White",
 							borderRadius: "50%",

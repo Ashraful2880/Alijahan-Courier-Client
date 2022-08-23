@@ -166,12 +166,7 @@ const MerchantOrder = () => {
 		instructions,
 	}) => {
 		const data = {
-			orderId:
-				senderBranch?.branchName.slice(0, 4) +
-				"-" +
-				receiverBranch?.branchName.slice(0, 4) +
-				"-" +
-				Math.floor(Math.random() * 1000000000),
+			orderId: "AJC" + Math.floor(Math.random() * 1000000000),
 			marchentInfo: marchant,
 			senderBranchInfo: senderBranch,
 			orderDetails: { productCategory, productWeight, receiverServiceArea },
