@@ -57,6 +57,7 @@ const AdminParcelListFiltered = ({
 	const printData = () => {
 		setSelected(data.filter((e) => selectionModel.find((n) => n === e._id)));
 	};
+	console.log(selected);
 	const handleOpen = () => setOpen(true);
 	const handleClose = () => setOpen(false);
 	useEffect(() => {

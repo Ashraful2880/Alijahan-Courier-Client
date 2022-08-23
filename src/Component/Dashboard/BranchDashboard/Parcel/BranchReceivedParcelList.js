@@ -1,3 +1,5 @@
+import React from "react";
+import { useRef } from 'react';
 import {
 	CircularProgress,
 	Grid,
@@ -12,7 +14,7 @@ import {
 	TextField,
 	Button,
 } from "@mui/material";
-import React from "react";
+import ReactToPrint from 'react-to-print';
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import AspectRatioIcon from "@mui/icons-material/AspectRatio";
 import axios from "axios";
@@ -214,6 +216,7 @@ const BranchReceivedParcelList = () => {
 								checkboxSelection
 								components={{ Toolbar: GridToolbar }}
 							/>
+
 						</div>
 					)}
 				</Grid>
