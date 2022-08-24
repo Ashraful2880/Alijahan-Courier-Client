@@ -56,7 +56,7 @@ const BranchAccountsFiltered = ({
 	allParcels,
 	selectedStatus,
 }) => {
-	const email = "branch@gmail.com";
+	const email = "branch2@gmail.com";
 	const { user, loading, token } = GetAuth();
 	const [submitting, setSubmitting] = useState(false);
 	const [open, setOpen] = React.useState(false);

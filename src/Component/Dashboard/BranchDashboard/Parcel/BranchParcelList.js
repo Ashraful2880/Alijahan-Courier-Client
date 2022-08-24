@@ -24,7 +24,7 @@ import AspectRatioIcon from "@mui/icons-material/AspectRatio";
 import BranchParcelListFiltered from "./BranchParcelListFiltered";
 
 const BranchParcelList = () => {
-	const email = "branch2@gmail.com";
+	const email = "branch@gmail.com";
 	const { user, loading, token } = GetAuth();
 	const [data, setData] = useState();
 	const [branch, setBranch] = useState();

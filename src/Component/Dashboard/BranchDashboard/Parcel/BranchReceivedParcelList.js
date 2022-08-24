@@ -24,7 +24,7 @@ import GetAuth from "../../../../FirebaseAuth/GetAuth.js";
 import BranchReceivedParcelListFiltered from "./BranchReceivedParcelListFiltered.js";
 
 const BranchReceivedParcelList = () => {
-	const email = "branch@gmail.com";
+	const email = "branch2@gmail.com";
 	const { user, loading, token } = GetAuth();
 	const [data, setData] = useState();
 	const [branch, setBranch] = useState();

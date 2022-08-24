@@ -48,7 +48,7 @@ const RiderRecParcelListFiltered = ({
 	allParcels,
 	selectedStatus,
 }) => {
-	const email = "rider@gmail.com";
+	const email = "rider2@gmail.com";
 	const { user, loading, token } = GetAuth();
 	const [submitting, setSubmitting] = useState(false);
 	const [open, setOpen] = React.useState(false);
