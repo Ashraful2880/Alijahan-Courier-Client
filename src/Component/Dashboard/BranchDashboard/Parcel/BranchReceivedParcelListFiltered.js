@@ -12,8 +12,14 @@ import {
 	Modal,
 	TextField,
 	Autocomplete,
+	TableRow,
+	TableCell,
+	TableBody,
+	TableHead,
+	Table,
+	TableContainer,
 } from "@mui/material";
-import React from "react";
+import React, { useRef } from "react";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -23,6 +29,8 @@ import GetAuth from "../../../../FirebaseAuth/GetAuth";
 import CancelIcon from "@mui/icons-material/Cancel";
 import PaymentsIcon from "@mui/icons-material/Payments";
 import PrintIcon from "@mui/icons-material/Print";
+import ReactToPrint from 'react-to-print';
+import Badge from '@mui/material/Badge';
 
 const style = {
 	position: "absolute",
@@ -64,9 +72,14 @@ const BranchReceivedParcelListFiltered = ({
 	const [Warehouse, setWarehouse] = useState();
 	const [selectionModel, setSelectionModel] = React.useState();
 	const [selected, setSelected] = React.useState([]);
+
 	const printData = () => {
-		setSelected(data.filter((e) => selectionModel.find((n) => n === e._id)));
+		setSelected(data?.filter((e) => selectionModel?.find((n) => n === e._id)));
 	};
+	console.log(selected);
+	let ref = useRef();
+	const date = new Date();
+
 	useEffect(() => {
 		axios
 			.get(`${process.env.REACT_APP_API_PATH}/branchbyemail/${email}`, {
@@ -310,84 +323,29 @@ const BranchReceivedParcelListFiltered = ({
 			}
 		});
 	};
-	/* 	const changeStatus = (event, id) => {
-		Swal.fire({
-			title: "Are You Sure?",
-			showCancelButton: true,
-			confirmButtonText: "Yes",
-		}).then((result) => {
-			if (result.isConfirmed) {
-				setSubmitting(true);
-				if (event.target.value === "Sending Returned Parcel to Warehouse") {
-					axios
-						.put(
-							`${process.env.REACT_APP_API_PATH}/merchantorderReturnWarehouse/${id}`,
-							{
-								returnWarehouseInfo: Warehouse,
-								status: event.target.value,
-							},
-							{
-								headers: {
-									Authorization: `Bearer ${token}`,
-								},
-							},
-						)
-						.then((response) => {
-							setSubmitting(false);
-							Swal.fire("", "Successfully Done!", "success");
-						})
-						.catch((error) => {
-							setSubmitting(false);
-							console.log(error);
-						});
-				} else {
-					axios
-						.put(
-							`${process.env.REACT_APP_API_PATH}/merchantorderStatus/${id}`,
-							{
-								status: event.target.value,
-							},
-							{
-								headers: {
-									Authorization: `Bearer ${token}`,
-								},
-							},
-						)
-						.then((response) => {
-							setSubmitting(false);
-							Swal.fire("", "Successfully Done!", "success");
-						})
-						.catch((error) => {
-							setSubmitting(false);
-							console.log(error);
-						});
-				}
-			}
-		});
-	}; */
 	const renderDetailsButton = (params) => {
 		return (
 			<Box sx={{ display: "flex", alignItems: "center" }}>
 				{((params.row?.status === "Assigned Rider For Delivery" &&
 					!params.row?.deliverRiderInfo?.riderName) ||
 					params.row?.status === "Cancelled By Delivery Rider") && (
-					<Autocomplete
-						onChange={(event, newValue) => {
-							changeRider(event, newValue, params.row?._id);
-						}}
-						size='small'
-						sx={{ my: 0.5 }}
-						options={riders}
-						getOptionLabel={(option) => option.riderName}
-						style={{ width: 250 }}
-						renderInput={(params) => (
-							<TextField {...params} label='Select Rider' variant='outlined' />
-						)}
-					/>
-				)}
+						<Autocomplete
+							onChange={(event, newValue) => {
+								changeRider(event, newValue, params.row?._id);
+							}}
+							size='small'
+							sx={{ my: 0.5 }}
+							options={riders}
+							getOptionLabel={(option) => option.riderName}
+							style={{ width: 250 }}
+							renderInput={(params) => (
+								<TextField {...params} label='Select Rider' variant='outlined' />
+							)}
+						/>
+					)}
 				{params.row?.status === "Delivered To Customer By Rider" &&
 					params.row?.paymentCollectionDetails?.collectionStatus ===
-						"Sending Money To Branch" && (
+					"Sending Money To Branch" && (
 						<Button
 							onClick={() =>
 								receiveAndSendMoney(
@@ -410,7 +368,7 @@ const BranchReceivedParcelListFiltered = ({
 					)}
 				{params.row?.status === "Delivered To Customer By Rider" &&
 					params.row?.paymentCollectionDetails?.collectionStatus ===
-						"Money Received In Branch" && (
+					"Money Received In Branch" && (
 						<Button
 							onClick={() =>
 								receiveAndSendMoney(
@@ -521,30 +479,29 @@ const BranchReceivedParcelListFiltered = ({
 					<Box sx={{ display: "flex", my: 1 }}>
 						{selectionModel?.length > 0 ? (
 							<>
-								<PrintIcon onClick={() => printData()} />
 								{(selectedStatus === "Assigned Rider For Delivery" ||
 									selectedStatus === "Cancelled By Delivery Rider") && (
-									<Autocomplete
-										onChange={(event, newValue) => {
-											changeRiderMulti(event, newValue);
-										}}
-										size='small'
-										sx={{ my: 0.5, width: 200 }}
-										options={riders}
-										getOptionLabel={(option) => option.riderName}
-										renderInput={(params) => (
-											<TextField
-												{...params}
-												label='Select Rider'
-												variant='outlined'
-											/>
-										)}
-									/>
-								)}
+										<Autocomplete
+											onChange={(event, newValue) => {
+												changeRiderMulti(event, newValue);
+											}}
+											size='small'
+											sx={{ my: 0.5, width: 200 }}
+											options={riders}
+											getOptionLabel={(option) => option.riderName}
+											renderInput={(params) => (
+												<TextField
+													{...params}
+													label='Select Rider'
+													variant='outlined'
+												/>
+											)}
+										/>
+									)}
 								{selectedStatus !== "All" && (
 									<Box>
 										{selectedStatus === "Assigned Rider For Delivery" ||
-										selectedStatus === "Cancelled By Delivery Rider" ? (
+											selectedStatus === "Cancelled By Delivery Rider" ? (
 											""
 										) : (
 											<Button
@@ -593,11 +550,11 @@ const BranchReceivedParcelListFiltered = ({
 												)}
 												{selectedStatus ===
 													"Returned Parcel Received in Branch" && (
-													<MenuItem
-														value={"Sending Returned Parcel to Warehouse"}>
-														Sent Returned Parcel to Warehouse
-													</MenuItem>
-												)}
+														<MenuItem
+															value={"Sending Returned Parcel to Warehouse"}>
+															Sent Returned Parcel to Warehouse
+														</MenuItem>
+													)}
 											</Select>
 										</FormControl>
 									</Box>
@@ -614,9 +571,17 @@ const BranchReceivedParcelListFiltered = ({
 							</Button>
 						)}
 					</Box>
-					<PrintIcon onClick={() => printData()} />
-					<Grid container spacing={1} sx={{ justifyContent: "center", px: 2 }}>
+					<Grid container spacing={1} sx={{ justifyContent: "center", px: 2, position: "relative" }}>
 						<Grid item xs={12} md={12}>
+							<Button onClick={() => printData()}>
+								<ReactToPrint
+									trigger={() =>
+										< PrintIcon
+											sx={{ position: "absolute", top: "4.5%", left: "25%", fontSize: "20px", color: "#166534", cursor: "pointer", zIndex: "999", }} />}
+									content={() => ref}
+									pageStyle="print" />
+							</Button>
+
 							{data && (
 								<div style={{ height: 400, width: "100%" }} className='table'>
 									<DataGrid
@@ -636,6 +601,132 @@ const BranchReceivedParcelListFiltered = ({
 							)}
 						</Grid>
 					</Grid>
+					{/* Print Component Here */}
+					<Box>
+						<Box sx={{ my: 2 }} ref={(el) => (ref = el)}>
+							<Box sx={{ pb: 2, margin: "auto", textAlign: "center" }}>
+								<Typography variant="h5" sx={{ fontWeight: "bold", color: "#166534" }}>
+									Alijahan Courier Service
+								</Typography>
+								<Typography component="div" variant="p">
+									89/123 Maniknagar,R.K Mission Road,Dhaka-1203
+								</Typography>
+								<Typography component="div" variant="p">
+									Email:alijahancourier@gmail.com
+								</Typography>
+								<Typography component="div" variant="p">
+									www.alijahan.com
+								</Typography>
+							</Box>
+							<Box sx={{ display: "flex", justifyContent: "space-between", px: 2, mb: 1 }}>
+								<Box>
+									<Typography variant="p" sx={{ fontSize: "17px", fontWeight: 600 }}>
+										Total Order: {selected.length}
+									</Typography>
+								</Box>
+								<Box>
+									<Typography variant="p" sx={{ fontSize: "17px", fontWeight: 600 }}>
+										Printed Date: {date.getDate()}-{date.getMonth()}-{date.getFullYear()}
+									</Typography>
+								</Box>
+							</Box>
+							{/* Print Table Component */}
+							<Box sx={{ position: "relative", mb: 2 }}>
+								<img src="https://alijahan-courier.netlify.app/static/media/Logo.9068b4f56d43d41f4abd.png" alt="Main Logo" className="imagePosition" />
+								<TableContainer component="div" sx={{ border: "1px solid #d9d9d9", borderRadius: "10px" }}>
+									<Table sx={{ minWidth: 650 }} aria-label="simple table">
+										<TableHead>
+											<TableRow>
+												<TableCell sx={{ fontWeight: "bold", borderRight: "1px solid #d9d9d9" }}>
+													ID
+												</TableCell>
+												<TableCell sx={{ fontWeight: "bold", borderRight: "1px solid #d9d9d9" }}>
+													Order Info
+												</TableCell>
+												<TableCell sx={{ fontWeight: "bold", borderRight: "1px solid #d9d9d9" }}>
+													Merchant
+												</TableCell>
+												<TableCell sx={{ fontWeight: "bold", borderRight: "1px solid #d9d9d9" }}>
+													Contact Name
+												</TableCell>
+												<TableCell sx={{ fontWeight: "bold", borderRight: "1px solid #d9d9d9" }} align="center">
+													Contact Number
+												</TableCell>
+												<TableCell sx={{ fontWeight: "bold", borderRight: "1px solid #d9d9d9" }} align="center">
+													Contact Address
+												</TableCell>
+												<TableCell sx={{ fontWeight: "bold", borderRight: "1px solid #d9d9d9" }} align="center">
+													Area
+												</TableCell>
+												<TableCell sx={{ fontWeight: "bold", borderRight: "1px solid #d9d9d9" }} align="center">
+													Amount (BDT)
+												</TableCell>
+												<TableCell sx={{ fontWeight: "bold", borderRight: "1px solid #d9d9d9" }} align="center">
+													Collected (BDT)
+												</TableCell>
+												<TableCell sx={{ fontWeight: "bold", borderRight: "1px solid #d9d9d9" }} align="center">
+													Status
+												</TableCell>
+												<TableCell sx={{ fontWeight: "bold", borderRight: "1px solid #d9d9d9" }} align="center">
+													Payment Status
+												</TableCell>
+												<TableCell sx={{ fontWeight: "bold", borderRight: "1px solid #d9d9d9" }} align="center">
+													Signature
+												</TableCell>
+											</TableRow>
+										</TableHead>
+										<TableBody>
+											{selected?.map((item) => (
+												<TableRow
+													key={item?._id}
+													sx={{ border: 0 }}>
+													<TableCell sx={{ borderRight: "1px solid #d9d9d9" }} component="th" scope="row">
+														{item?.orderId}
+													</TableCell>
+													<TableCell sx={{ borderRight: "1px solid #d9d9d9" }} align="center">
+														{item?.bookingDate}
+													</TableCell>
+													<TableCell sx={{ borderRight: "1px solid #d9d9d9" }} align="center">
+														{item?.marchentInfo?.merchantCompanyName}
+													</TableCell>
+													<TableCell sx={{ borderRight: "1px solid #d9d9d9" }} align="center">
+														{item?.marchentInfo?.merchantName}
+													</TableCell>
+													<TableCell sx={{ borderRight: "1px solid #d9d9d9" }} align="center">
+														{item?.marchentInfo?.merchantContact}
+													</TableCell>
+													<TableCell sx={{ borderRight: "1px solid #d9d9d9" }} align="center">
+														{item?.marchentInfo?.merchantBusinessAddress}
+													</TableCell>
+													<TableCell sx={{ borderRight: "1px solid #d9d9d9" }} align="center">
+														{item?.marchentInfo?.merchantArea}
+													</TableCell>
+													<TableCell sx={{ borderRight: "1px solid #d9d9d9" }} align="center">
+														{item?.orderSummaray?.totalAmountWithCharges}
+													</TableCell>
+													<TableCell sx={{ borderRight: "1px solid #d9d9d9" }} align="center">
+														{item?.orderSummaray?.totalReceive}
+													</TableCell>
+													<TableCell sx={{ borderRight: "1px solid #d9d9d9" }} align="center">
+														Rescheduled
+													</TableCell>
+													<TableCell sx={{ borderRight: "1px solid #d9d9d9" }} align="center">
+														Due
+													</TableCell>
+													<TableCell sx={{ borderRight: "1px solid #d9d9d9", width: "9%" }} align="center">
+
+													</TableCell>
+												</TableRow>
+											))}
+										</TableBody>
+									</Table>
+								</TableContainer>
+							</Box>
+							<Typography variant="p" sx={{ fontSize: "13px" }}>
+								This is an Auto Generated Report of <span style={{ color: "green", fontStyle: "italic" }}>Alijahan Courier</span>
+							</Typography>
+						</Box>
+					</Box>
 					<Backdrop
 						sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 999 }}
 						open={submitting || !data}>
