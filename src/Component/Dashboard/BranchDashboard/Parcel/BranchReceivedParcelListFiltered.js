@@ -64,7 +64,6 @@ const BranchReceivedParcelListFiltered = ({
 	const [Warehouse, setWarehouse] = useState();
 	const [selectionModel, setSelectionModel] = React.useState();
 	const [selected, setSelected] = React.useState([]);
-
 	const printData = () => {
 		setSelected(data.filter((e) => selectionModel.find((n) => n === e._id)));
 	};
@@ -572,6 +571,11 @@ const BranchReceivedParcelListFiltered = ({
 												displayEmpty
 												inputProps={{ "aria-label": "Without label" }}>
 												{selectedStatus === "Delivered To Receiver Branch" && (
+													<MenuItem value={"Received in Receiver Branch"}>
+														Receive
+													</MenuItem>
+												)}
+												{selectedStatus === "Received in Receiver Branch" && (
 													<MenuItem value={"Assigned Rider For Delivery"}>
 														Assign Rider For Delivery
 													</MenuItem>

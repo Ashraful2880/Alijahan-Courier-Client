@@ -23,7 +23,7 @@ import GetAuth from "../../../../FirebaseAuth/GetAuth";
 import ParcelModal from "../../AdminDashboard/Account/ParcelModal";
 
 const RiderAccounts = () => {
-	const email = "rider2@gmail.com";
+	const email = "rider@gmail.com";
 	const { user, loading, token } = GetAuth();
 	const [submitting, setSubmitting] = useState(false);
 	const [data, setData] = useState();

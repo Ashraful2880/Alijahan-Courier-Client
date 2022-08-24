@@ -110,7 +110,7 @@ const RiderRecParcelListFiltered = ({
 			}
 		});
 	}; */
-	const changeStatusMulti = (event, id) => {
+	const changeStatusMulti = (event) => {
 		Swal.fire({
 			title: "Are You Sure?",
 			showCancelButton: true,
@@ -121,7 +121,7 @@ const RiderRecParcelListFiltered = ({
 				selectionModel.map((item) =>
 					axios
 						.put(
-							`${process.env.REACT_APP_API_PATH}/merchantorderStatus/${id}`,
+							`${process.env.REACT_APP_API_PATH}/merchantorderStatus/${item}`,
 							{
 								status: event.target.value,
 							},
@@ -172,6 +172,7 @@ const RiderRecParcelListFiltered = ({
 					.then((response) => {
 						setSubmitting(false);
 						Swal.fire("", "Successfully Done!", "success");
+						setOpens(false);
 					})
 					.catch((error) => {
 						setSubmitting(false);
@@ -207,6 +208,7 @@ const RiderRecParcelListFiltered = ({
 					.then((response) => {
 						setSubmitting(false);
 						Swal.fire("", "Successfully Done!", "success");
+						setOpens(false);
 					})
 					.catch((error) => {
 						setSubmitting(false);
@@ -221,7 +223,7 @@ const RiderRecParcelListFiltered = ({
 			<Box sx={{ display: "flex", alignItems: "center" }}>
 				{params.row?.status === "Delivered To Customer By Rider" &&
 					params.row?.paymentCollectionDetails?.collectionStatus ===
-					"Collected From Customer" && (
+						"Collected From Customer" && (
 						<Button
 							onClick={() =>
 								sendMoneyToBranch(
@@ -243,7 +245,7 @@ const RiderRecParcelListFiltered = ({
 					)}
 				{params.row?.status === "Parcel Received By Delivery Rider" &&
 					params.row?.paymentCollectionDetails?.collectionStatus ===
-					"Pending" && (
+						"Pending" && (
 						<Button
 							onClick={() =>
 								changePaymentStatus(
