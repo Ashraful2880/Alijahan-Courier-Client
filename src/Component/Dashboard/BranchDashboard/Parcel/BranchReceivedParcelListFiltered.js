@@ -73,35 +73,13 @@ const BranchReceivedParcelListFiltered = ({
 	const [selectionModel, setSelectionModel] = React.useState();
 	const [selected, setSelected] = React.useState([]);
 
-	<ReactToPrint
-
-		/* trigger={() =>
-			} */
-		content={() => ref}
-		pageStyle="print" />
-
 	const printData = () => {
-		setSelected(data.filter((e) => selectionModel.find((n) => n === e._id)));
+		setSelected(data?.filter((e) => selectionModel?.find((n) => n === e._id)));
 	};
 	console.log(selected);
 	let ref = useRef();
 	const date = new Date();
-	// Print Function Here
-	function createData(id, orderInfo, merchant, contactName, contactNumber, contactAddress, area, amount, collected, status, paymentStatus, instruction) {
-		return { id, orderInfo, merchant, contactName, contactNumber, contactAddress, area, amount, collected, status, paymentStatus, instruction };
-	}
-	const tableRows = [
-		createData(
-			"19649-3", "Created At 31-10-2022 Deadline 02-11-2022", "Manha's Fashion Club", "Mr.Moinuddin", "01974238487", "H.S.S Road, Jhenaidah", "Jhenaidah", 580, 300, "Rescheduled", "Due", "Please Handle The Parcel Carefully.Food Item",),
-		createData(
-			"18649-9", "Created At 31-10-2022 Deadline 02-11-2022", "Manha's Fashion Club", "Mehvish Kainat Abdullah", "01974238487", "H.S.S Road, Jhenaidah", "Jhenaidah", 500, 300, "Rescheduled", "Due", "Please Handle The Parcel Carefully.Food Item"),
-		createData(
-			"14643-9", "Created At 31-10-2022 Deadline 02-11-2022", "Manha's Fashion Club", "Eftekhar Alam", "01974238487", "H.S.S Road, Jhenaidah", "Jhenaidah", 490, 300, "Rescheduled", "Due", "Please Handle The Parcel Carefully.Food Item"),
-		createData(
-			"11641-1", "Created At 31-10-2022 Deadline 02-11-2022", "Manha's Fashion Club", "Mr.Moinuddin", "01974238487", "H.S.S Road, Jhenaidah", "Jhenaidah", 550, 300, "Rescheduled", "Due", "Please Handle The Parcel Carefully.Food Item"),
-		createData(
-			"28649-0", "Created At 31-10-2022 Deadline 02-11-2022", "Manha's Fashion Club", "Mr.Moinuddin", "01974238487", "H.S.S Road, Jhenaidah", "Jhenaidah", 620, 300, "Rescheduled", "Due", "Please Handle The Parcel Carefully.Food Item"),
-	];
+
 	useEffect(() => {
 		axios
 			.get(`${process.env.REACT_APP_API_PATH}/branchbyemail/${email}`, {
@@ -550,6 +528,11 @@ const BranchReceivedParcelListFiltered = ({
 												displayEmpty
 												inputProps={{ "aria-label": "Without label" }}>
 												{selectedStatus === "Delivered To Receiver Branch" && (
+													<MenuItem value={"Received in Receiver Branch"}>
+														Receive
+													</MenuItem>
+												)}
+												{selectedStatus === "Received in Receiver Branch" && (
 													<MenuItem value={"Assigned Rider For Delivery"}>
 														Assign Rider For Delivery
 													</MenuItem>
@@ -590,8 +573,15 @@ const BranchReceivedParcelListFiltered = ({
 					</Box>
 					<Grid container spacing={1} sx={{ justifyContent: "center", px: 2, position: "relative" }}>
 						<Grid item xs={12} md={12}>
-							<PrintIcon onClick={() => printData()}
-								sx={{ position: "absolute", top: "4.5%", left: "25%", fontSize: "20px", color: "#166534", cursor: "pointer", zIndex: "999", }} />
+							<Button onClick={() => printData()}>
+								<ReactToPrint
+									trigger={() =>
+										< PrintIcon
+											sx={{ position: "absolute", top: "4.5%", left: "25%", fontSize: "20px", color: "#166534", cursor: "pointer", zIndex: "999", }} />}
+									content={() => ref}
+									pageStyle="print" />
+							</Button>
+
 							{data && (
 								<div style={{ height: 400, width: "100%" }} className='table'>
 									<DataGrid
@@ -631,7 +621,7 @@ const BranchReceivedParcelListFiltered = ({
 							<Box sx={{ display: "flex", justifyContent: "space-between", px: 2, mb: 1 }}>
 								<Box>
 									<Typography variant="p" sx={{ fontSize: "17px", fontWeight: 600 }}>
-										Total Order: {tableRows.length}
+										Total Order: {selected.length}
 									</Typography>
 								</Box>
 								<Box>
@@ -686,42 +676,42 @@ const BranchReceivedParcelListFiltered = ({
 											</TableRow>
 										</TableHead>
 										<TableBody>
-											{tableRows.map((item) => (
+											{selected?.map((item) => (
 												<TableRow
-													key={item?.id}
+													key={item?._id}
 													sx={{ border: 0 }}>
 													<TableCell sx={{ borderRight: "1px solid #d9d9d9" }} component="th" scope="row">
-														{item?.id}
+														{item?.orderId}
 													</TableCell>
 													<TableCell sx={{ borderRight: "1px solid #d9d9d9" }} align="center">
-														{item?.orderInfo}
+														{item?.bookingDate}
 													</TableCell>
 													<TableCell sx={{ borderRight: "1px solid #d9d9d9" }} align="center">
-														{item?.merchant}
+														{item?.marchentInfo?.merchantCompanyName}
 													</TableCell>
 													<TableCell sx={{ borderRight: "1px solid #d9d9d9" }} align="center">
-														{item?.contactName}
+														{item?.marchentInfo?.merchantName}
 													</TableCell>
 													<TableCell sx={{ borderRight: "1px solid #d9d9d9" }} align="center">
-														{item?.contactNumber}
+														{item?.marchentInfo?.merchantContact}
 													</TableCell>
 													<TableCell sx={{ borderRight: "1px solid #d9d9d9" }} align="center">
-														{item?.contactAddress}
+														{item?.marchentInfo?.merchantBusinessAddress}
 													</TableCell>
 													<TableCell sx={{ borderRight: "1px solid #d9d9d9" }} align="center">
-														{item?.area}
+														{item?.marchentInfo?.merchantArea}
 													</TableCell>
 													<TableCell sx={{ borderRight: "1px solid #d9d9d9" }} align="center">
-														{item?.amount}
+														{item?.orderSummaray?.totalAmountWithCharges}
 													</TableCell>
 													<TableCell sx={{ borderRight: "1px solid #d9d9d9" }} align="center">
-														{item?.collected}
+														{item?.orderSummaray?.totalReceive}
 													</TableCell>
 													<TableCell sx={{ borderRight: "1px solid #d9d9d9" }} align="center">
-														{item?.status}
+														Rescheduled
 													</TableCell>
 													<TableCell sx={{ borderRight: "1px solid #d9d9d9" }} align="center">
-														{item?.paymentStatus}
+														Due
 													</TableCell>
 													<TableCell sx={{ borderRight: "1px solid #d9d9d9", width: "9%" }} align="center">
 

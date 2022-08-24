@@ -17,6 +17,8 @@ import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import PaymentsIcon from "@mui/icons-material/Payments";
 import GetAuth from "../../../../FirebaseAuth/GetAuth";
 import ParcelModal from "./ParcelModal";
+import AspectRatioIcon from "@mui/icons-material/AspectRatio";
+import AccountsFiltered from "./AccountsFiltered";
 
 const Accounts = () => {
 	const { user, loading, token } = GetAuth();
@@ -26,7 +28,8 @@ const Accounts = () => {
 	const [open, setOpen] = React.useState(false);
 	const handleOpen = () => setOpen(true);
 	const handleClose = () => setOpen(false);
-
+	const [opens, setOpens] = React.useState(false);
+	const [parcelData, setParcelData] = useState();
 	useEffect(() => {
 		axios
 			.get(`${process.env.REACT_APP_API_PATH}/merchantorders`, {
@@ -42,174 +45,14 @@ const Accounts = () => {
 			});
 	}, [token, submitting]);
 
-	const receiveAndSendMoney = (
-		id,
-		paymentCollectionDetails,
-		totalRec,
-		text,
-	) => {
-		Swal.fire({
-			title: "Are you sure?",
-			showCancelButton: true,
-			confirmButtonText: "Yes",
-		}).then((result) => {
-			if (result.isConfirmed) {
-				setSubmitting(true);
-				if (text === "Money Received in Accounts") {
-					axios
-						.put(
-							`${process.env.REACT_APP_API_PATH}/merchantorderPaymentCollection/${id}`,
-							{
-								collectionStatus: text,
-								accountsMoneyStatus: "Received",
-								moneyReceivedInAccountsDate: new Date().toLocaleString(
-									"en-US",
-									{
-										timeZone: "Asia/Dhaka",
-									},
-								),
-								moneyReceivedInBranchDate:
-									paymentCollectionDetails?.moneyReceivedInBranchDate,
-								branchMoneyStatus: paymentCollectionDetails?.branchMoneyStatus,
-								collectedFromCustomerDate:
-									paymentCollectionDetails?.collectedFromCustomerDate,
-								riderMoneyStatus: paymentCollectionDetails?.riderMoneyStatus,
-								collectedAmount: paymentCollectionDetails?.collectedAmount,
-							},
-							{
-								headers: {
-									Authorization: `Bearer ${token}`,
-								},
-							},
-						)
-						.then((response) => {
-							setSubmitting(false);
-							Swal.fire("", "Successfully Done!", "success");
-						})
-						.catch((error) => {
-							setSubmitting(false);
-							console.log(error);
-						});
-				}
-				if (text === "Sending Money to Marchant") {
-					axios
-						.put(
-							`${process.env.REACT_APP_API_PATH}/merchantorderPaymentCollection/${id}`,
-							{
-								collectionStatus: text,
-								marchantRecAmount: totalRec.totalReceive,
-								companyRecAmount: totalRec.totalCharges,
-								accountsMoneyStatus:
-									paymentCollectionDetails?.accountsMoneyStatus,
-								moneyReceivedInAccountsDate:
-									paymentCollectionDetails?.moneyReceivedInAccountsDate,
-								moneyReceivedInBranchDate:
-									paymentCollectionDetails?.moneyReceivedInBranchDate,
-								branchMoneyStatus: paymentCollectionDetails?.branchMoneyStatus,
-								collectedFromCustomerDate:
-									paymentCollectionDetails?.collectedFromCustomerDate,
-								riderMoneyStatus: paymentCollectionDetails?.riderMoneyStatus,
-								collectedAmount: paymentCollectionDetails?.collectedAmount,
-							},
-							{
-								headers: {
-									Authorization: `Bearer ${token}`,
-								},
-							},
-						)
-						.then((response) => {
-							setSubmitting(false);
-							Swal.fire("", "Successfully Done!", "success");
-						})
-						.catch((error) => {
-							setSubmitting(false);
-							console.log(error);
-						});
-				}
-			}
-		});
-	};
 	const renderDetailsButton = (params) => {
 		return (
 			<Box sx={{ display: "flex", alignItems: "center", width: "100%" }}>
-				{params.row?.paymentCollectionDetails?.collectionStatus ===
-					"Money Received in Accounts" && (
-						<Button
-							onClick={() =>
-								receiveAndSendMoney(
-									params.row?._id,
-									params.row?.paymentCollectionDetails,
-									params.row?.orderSummaray,
-									"Sending Money to Marchant",
-								)
-							}
-							sx={{
-								my: 1,
-								px: 3,
-								fontWeight: "bold",
-								borderRadius: "25px",
-								border: "2px solid ",
-							}}>
-							<PaymentsIcon sx={{ mr: 0.5 }} />
-							Send {params.row?.orderSummaray.totalReceive} ৳ to Marchant
-						</Button>
-					)}
-				{params.row?.paymentCollectionDetails?.collectionStatus ===
-					"Sending Money To Accounts" && (
-						<Button
-							onClick={() =>
-								receiveAndSendMoney(
-									params.row?._id,
-									params.row?.paymentCollectionDetails,
-									params.row?.orderSummaray,
-									"Money Received in Accounts",
-								)
-							}
-							sx={{
-								my: 1,
-								px: 3,
-								fontWeight: "bold",
-								borderRadius: "25px",
-								border: "2px solid ",
-							}}>
-							<PaymentsIcon sx={{ mr: 0.5 }} />
-							Receive {params.row?.paymentCollectionDetails?.collectedAmount} ৳
-						</Button>
-					)}
-				{/* 		<DeleteIcon
-					className='iconBtn'
-					sx={{ color: "#df0f00!important" }}
+				<AspectRatioIcon
 					onClick={() => {
-						Swal.fire({
-							title: "Do you want to Delete this?",
-							showCancelButton: true,
-							confirmButtonText: "Yes",
-						}).then((result) => {
-							if (result.isConfirmed) {
-								setSubmitting(true);
-								axios
-									.delete(
-										`${process.env.REACT_APP_API_PATH}/merchantorder/${params.row?._id}`,
-										{
-											headers: {
-												Authorization: `Bearer ${token}`,
-											},
-										},
-									)
-									.then((response) => {
-										setSubmitting(false);
-										Swal.fire("", "Successfully Deleted!", "success");
-									})
-									.catch((error) => {
-										setSubmitting(false);
-										console.log(error);
-									});
-							}
-						});
+						setOpens(true);
+						setParcelData(params.row?.marchentInfo.merchantName);
 					}}
-				/> */}
-				<RemoveRedEyeIcon
-					onClick={() => handleOpen(setModalData(params.row))}
 					sx={{ ml: 1.5, color: "green", cursor: "pointer" }}
 				/>
 			</Box>
@@ -218,66 +61,33 @@ const Accounts = () => {
 
 	const columns = [
 		{
-			field: "orderId",
-			headerName: "Order ID",
-			renderCell: (params) => {
-				return params.row.orderId;
-			},
-			width: 170,
-		},
-		{
 			field: "merchantName",
-			headerName: "Merchant",
+			headerName: "Marchant Name",
 			renderCell: (params) => {
 				return params.row.marchentInfo.merchantName;
 			},
-			width: 170,
+			flex: 1,
 		},
 		{
-			field: "collectedAmount",
-			headerName: "Collected Amount",
+			field: "merchantBusinessAddress",
+			headerName: "Marchant Address",
 			renderCell: (params) => {
-				return params.row.paymentCollectionDetails.collectedAmount;
+				return `${params.row.marchentInfo.merchantBusinessAddress}(${params.row.marchentInfo.merchantArea})`;
 			},
-			width: 130,
+			flex: 1,
 		},
 		{
-			field: "totalCharges",
-			headerName: "Total Charges",
+			field: "merchantContact",
+			headerName: "Phone Number",
 			renderCell: (params) => {
-				return params.row.orderSummaray.totalCharges;
+				return params.row.marchentInfo.merchantContact;
 			},
-			width: 130,
-		},
-		{
-			field: "totalReceive",
-			headerName: "Merchant Receive",
-			renderCell: (params) => {
-				return params.row.orderSummaray.totalReceive;
-			},
-			width: 130,
-		},
-
-		{
-			field: "collectionStatus",
-			headerName: "Collection Status",
-			renderCell: (params) => {
-				return params.row.paymentCollectionDetails.collectionStatus;
-			},
-			width: 200,
-		},
-		{
-			field: "receiverBranchName",
-			headerName: "Receiver Branch",
-			renderCell: (params) => {
-				return params.row?.receiverInfo.receiverBranchName;
-			},
-			width: 140,
+			flex: 1,
 		},
 		{
 			field: "_id",
 			headerName: "Action",
-			width: 420,
+			flex: 1,
 			renderCell: renderDetailsButton,
 			disableClickEventBubbling: true,
 		},
@@ -358,11 +168,12 @@ const Accounts = () => {
 				<CircularProgress color='inherit' />
 			</Backdrop>
 
-			<ParcelModal
-				open={open}
-				handleOpen={handleOpen}
-				handleClose={handleClose}
-				modalData={modalData}
+			<AccountsFiltered
+				opens={opens}
+				setOpens={setOpens}
+				marchantName={parcelData}
+				allParcels={selectedStatus === "All" ? data : filterData}
+				selectedStatus={selectedStatus}
 			/>
 		</Box>
 	);

@@ -1,5 +1,3 @@
-import React from "react";
-import { useRef } from "react";
 import {
 	CircularProgress,
 	Grid,
@@ -10,26 +8,35 @@ import {
 	Select,
 	MenuItem,
 	FormHelperText,
-	Autocomplete,
-	TextField,
 	Button,
 } from "@mui/material";
-import ReactToPrint from "react-to-print";
+import React from "react";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
-import AspectRatioIcon from "@mui/icons-material/AspectRatio";
 import axios from "axios";
+import Swal from "sweetalert2";
 import { useEffect } from "react";
 import { useState } from "react";
-import GetAuth from "../../../../FirebaseAuth/GetAuth.js";
-import BranchReceivedParcelListFiltered from "./BranchReceivedParcelListFiltered.js";
+import DeleteIcon from "@mui/icons-material/Delete";
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+import PaymentsIcon from "@mui/icons-material/Payments";
+import GetAuth from "../../../../FirebaseAuth/GetAuth";
+import AspectRatioIcon from "@mui/icons-material/AspectRatio";
+import BranchAccountsFiltered from "./BranchAccountsFiltered";
 
-const BranchReceivedParcelList = () => {
+const BranchAccounts = () => {
 	const email = "branch@gmail.com";
 	const { user, loading, token } = GetAuth();
+	const [submitting, setSubmitting] = useState(false);
 	const [data, setData] = useState();
 	const [branch, setBranch] = useState();
+	const [status, setStatus] = useState("");
+	const [modalData, setModalData] = useState();
+	const [open, setOpen] = React.useState(false);
+	const handleOpen = () => setOpen(true);
+	const handleClose = () => setOpen(false);
 	const [opens, setOpens] = React.useState(false);
 	const [parcelData, setParcelData] = useState();
+
 	useEffect(() => {
 		axios
 			.get(`${process.env.REACT_APP_API_PATH}/branchbyemail/${email}`, {
@@ -58,7 +65,7 @@ const BranchReceivedParcelList = () => {
 			.catch((error) => {
 				console.log(error);
 			});
-	}, [token, branch, opens]);
+	}, [token, branch]);
 
 	const renderDetailsButton = (params) => {
 		return (
@@ -73,7 +80,6 @@ const BranchReceivedParcelList = () => {
 			</Box>
 		);
 	};
-
 	const columns = [
 		{
 			field: "merchantName",
@@ -109,7 +115,10 @@ const BranchReceivedParcelList = () => {
 	];
 
 	const [selectedStatus, setSelectedStatus] = useState("All");
-	const filterData = data?.filter((item) => item?.status === selectedStatus);
+	const filterData = data?.filter(
+		(item) =>
+			item?.paymentCollectionDetails?.collectionStatus === selectedStatus,
+	);
 
 	return (
 		<Box sx={{ mx: 4, pt: 2, pb: 5 }}>
@@ -122,7 +131,7 @@ const BranchReceivedParcelList = () => {
 					justifyContent: "space-between",
 				}}>
 				<Typography variant='h5' sx={{ fontWeight: "bold", color: "#1E793C" }}>
-					Received Parcel List
+					Accounts
 				</Typography>
 			</Box>
 			<Box sx={{ display: "flex" }}>
@@ -134,86 +143,32 @@ const BranchReceivedParcelList = () => {
 				</Button>
 				<Button
 					className={
-						selectedStatus === "Delivered To Receiver Branch" ? "active" : ""
+						selectedStatus === "Sending Money To Branch" ? "active" : ""
 					}
-					onClick={() => setSelectedStatus("Delivered To Receiver Branch")}
+					onClick={() => setSelectedStatus("Sending Money To Branch")}
 					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, color: "gray" }}>
-					Pending
+					Incomming Money
 				</Button>
 				<Button
 					className={
-						selectedStatus === "Received in Receiver Branch" ? "active" : ""
+						selectedStatus === "Money Received In Branch" ? "active" : ""
 					}
-					onClick={() => setSelectedStatus("Received in Receiver Branch")}
+					onClick={() => setSelectedStatus("Money Received In Branch")}
 					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, color: "gray" }}>
-					Accepted
+					Money Received
 				</Button>
 				<Button
 					className={
-						selectedStatus === "Assigned Rider For Delivery" ? "active" : ""
+						selectedStatus === "Sending Money To Accounts" ? "active" : ""
 					}
-					onClick={() => setSelectedStatus("Assigned Rider For Delivery")}
+					onClick={() => setSelectedStatus("Sending Money To Accounts")}
 					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, color: "gray" }}>
-					Assigned
-				</Button>
-				<Button
-					className={
-						selectedStatus === "Delivered To Branch By Rider" ? "active" : ""
-					}
-					onClick={() => setSelectedStatus("Delivered To Branch By Rider")}
-					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, color: "gray" }}>
-					Delivered
-				</Button>
-				<Button
-					className={selectedStatus === "Received in Branch" ? "active" : ""}
-					onClick={() => setSelectedStatus("Received in Branch")}
-					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, color: "gray" }}>
-					Received
-				</Button>
-				<Button
-					className={
-						selectedStatus === "Delivered To Customer By Rider" ? "active" : ""
-					}
-					onClick={() => setSelectedStatus("Delivered To Customer By Rider")}
-					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, color: "gray" }}>
-					Delivered To Customer
-				</Button>
-				<Button
-					className={
-						selectedStatus === "Returning Parcel to Branch" ? "active" : ""
-					}
-					onClick={() => setSelectedStatus("Returning Parcel to Branch")}
-					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, color: "gray" }}>
-					Returning Parcel
-				</Button>
-				<Button
-					className={
-						selectedStatus === "Returned Parcel Received in Branch"
-							? "active"
-							: ""
-					}
-					onClick={() =>
-						setSelectedStatus("Returned Parcel Received in Branch")
-					}
-					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, color: "gray" }}>
-					Received Returned Parcel
-				</Button>
-				<Button
-					className={
-						selectedStatus === "Sending Returned Parcel to Warehouse"
-							? "active"
-							: ""
-					}
-					onClick={() =>
-						setSelectedStatus("Sending Returned Parcel to Warehouse")
-					}
-					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, color: "gray" }}>
-					Send to Warehouse
+					Send Money
 				</Button>
 			</Box>
 			<Grid container spacing={1} sx={{ justifyContent: "center", px: 2 }}>
 				<Grid item xs={12} md={12}>
-					{filterData && (
+					{data && (
 						<div style={{ height: 400, width: "100%" }} className='table'>
 							<DataGrid
 								rows={selectedStatus === "All" ? data : filterData}
@@ -230,10 +185,10 @@ const BranchReceivedParcelList = () => {
 			</Grid>
 			<Backdrop
 				sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 999 }}
-				open={!data}>
+				open={submitting || !data}>
 				<CircularProgress color='inherit' />
 			</Backdrop>
-			<BranchReceivedParcelListFiltered
+			<BranchAccountsFiltered
 				opens={opens}
 				setOpens={setOpens}
 				marchantName={parcelData}
@@ -244,4 +199,4 @@ const BranchReceivedParcelList = () => {
 	);
 };
 
-export default BranchReceivedParcelList;
+export default BranchAccounts;

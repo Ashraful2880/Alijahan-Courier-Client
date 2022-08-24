@@ -74,8 +74,9 @@ const BranchParcelListFiltered = ({
 	const [selected, setSelected] = React.useState([]);
 
 	const printData = () => {
-		setSelected(data.filter((e) => selectionModel.find((n) => n === e._id)));
+		setSelected(data?.filter((e) => selectionModel?.find((n) => n === e._id)));
 	};
+
 	console.log(selected)
 
 	let ref = useRef();

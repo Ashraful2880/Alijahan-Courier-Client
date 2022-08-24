@@ -16,6 +16,7 @@ import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
 import MuiAccordion from "@mui/material/Accordion";
 import MuiAccordionSummary from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
+import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 
 const Accordion = styled((props) => (
 	<MuiAccordion disableGutters elevation={0} square {...props} />
@@ -77,6 +78,18 @@ const BranchDashboard = () => {
 						<AccountCircleIcon />
 					</ListItemIcon>
 					<ListItemText primary={"Profile"} />
+				</ListItem>
+			</Link>
+			<Link className='link' to='branchDashboard/accounts'>
+				<ListItem
+					button
+					className={
+						location?.pathname === "branchDashboard/accounts" && "activeButton"
+					}>
+					<AccountBalanceWalletIcon className='listItemIcon'>
+						<FormatListNumberedIcon />
+					</AccountBalanceWalletIcon>
+					<ListItemText primary={"Accounts"} />
 				</ListItem>
 			</Link>
 			<Accordion
