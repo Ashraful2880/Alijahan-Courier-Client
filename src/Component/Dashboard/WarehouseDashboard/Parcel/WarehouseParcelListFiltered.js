@@ -84,7 +84,7 @@ const WarehouseParcelListFiltered = ({
 				selectionModel.map((item) =>
 					axios
 						.put(
-							`${process.env.REACT_APP_API_PATH}/merchantorderStatus/${id}`,
+							`${process.env.REACT_APP_API_PATH}/merchantorderStatus/${item}`,
 							{
 								status: event.target.value,
 							},
@@ -227,7 +227,11 @@ const WarehouseParcelListFiltered = ({
 
 										<FormControl sx={{ m: 1 }}>
 											<Select
+												sx={{ visibility: "hidden", mr: 15 }}
 												size='small'
+												open={open}
+												onClose={handleClose}
+												onOpen={handleOpen}
 												value={status}
 												onChange={(event) => {
 													changeStatusMulti(event);

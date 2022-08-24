@@ -42,6 +42,7 @@ import AllUsers from "./Component/Dashboard/AdminDashboard/Setting/Allusers";
 import Accounts from "./Component/Dashboard/AdminDashboard/Account/Accounts";
 import RidersRecParcelList from "./Component/Dashboard/RiderDashboard/Parcel/RidersRecParcelList";
 import RiderAccounts from "./Component/Dashboard/RiderDashboard/Account/RiderAccounts";
+import BranchAccounts from "./Component/Dashboard/BranchDashboard/Account/BranchAccounts";
 
 function App() {
 	return (
@@ -75,6 +76,10 @@ function App() {
 							<Route
 								path='/branchDashboard/profile'
 								element={<BranchProfile />}
+							/>
+							<Route
+								path='branchDashboard/accounts'
+								element={<BranchAccounts />}
 							/>
 							<Route
 								path='/branchDashboard/AddParcel'
