@@ -180,7 +180,7 @@ const AccountsFiltered = ({
 			field: "collectedAmount",
 			headerName: "Amount",
 			renderCell: (params) => {
-				return params.row.paymentCollectionDetails.collectedAmount;
+				return params.row.paymentCollectionDetails?.collectedAmount;
 			},
 			width: 180,
 		},

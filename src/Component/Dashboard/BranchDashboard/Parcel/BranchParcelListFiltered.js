@@ -23,14 +23,14 @@ import { useState } from "react";
 import PrintIcon from "@mui/icons-material/Print";
 import GetAuth from "../../../../FirebaseAuth/GetAuth";
 import CancelIcon from "@mui/icons-material/Cancel";
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import ReactToPrint from 'react-to-print';
-import Badge from '@mui/material/Badge';
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import ReactToPrint from "react-to-print";
+import Badge from "@mui/material/Badge";
 
 const style = {
 	position: "absolute",
@@ -82,20 +82,101 @@ const BranchParcelListFiltered = ({
 	let ref = useRef();
 	const date = new Date();
 	// Print Function Here
-	function createData(id, orderInfo, merchant, contactName, contactNumber, contactAddress, area, amount, collected, status, paymentStatus, instruction) {
-		return { id, orderInfo, merchant, contactName, contactNumber, contactAddress, area, amount, collected, status, paymentStatus, instruction };
+	function createData(
+		id,
+		orderInfo,
+		merchant,
+		contactName,
+		contactNumber,
+		contactAddress,
+		area,
+		amount,
+		collected,
+		status,
+		paymentStatus,
+		instruction,
+	) {
+		return {
+			id,
+			orderInfo,
+			merchant,
+			contactName,
+			contactNumber,
+			contactAddress,
+			area,
+			amount,
+			collected,
+			status,
+			paymentStatus,
+			instruction,
+		};
 	}
 	const tableRows = [
 		createData(
-			"19649-3", "Created At 31-10-2022 Deadline 02-11-2022", "Manha's Fashion Club", "Mr.Moinuddin", "01974238487", "H.S.S Road, Jhenaidah", "Jhenaidah", 580, 300, "Rescheduled", "Due", "Please Handle The Parcel Carefully.Food Item",),
+			"19649-3",
+			"Created At 31-10-2022 Deadline 02-11-2022",
+			"Mr.Moinuddin",
+			"01974238487",
+			"H.S.S Road, Jhenaidah",
+			"Jhenaidah",
+			580,
+			300,
+			"Rescheduled",
+			"Due",
+			"Please Handle The Parcel Carefully.Food Item",
+		),
 		createData(
-			"18649-9", "Created At 31-10-2022 Deadline 02-11-2022", "Manha's Fashion Club", "Mehvish Kainat Abdullah", "01974238487", "H.S.S Road, Jhenaidah", "Jhenaidah", 500, 300, "Rescheduled", "Due", "Please Handle The Parcel Carefully.Food Item"),
+			"18649-9",
+			"Created At 31-10-2022 Deadline 02-11-2022",
+			"Mehvish Kainat Abdullah",
+			"01974238487",
+			"H.S.S Road, Jhenaidah",
+			"Jhenaidah",
+			500,
+			300,
+			"Rescheduled",
+			"Due",
+			"Please Handle The Parcel Carefully.Food Item",
+		),
 		createData(
-			"14643-9", "Created At 31-10-2022 Deadline 02-11-2022", "Manha's Fashion Club", "Eftekhar Alam", "01974238487", "H.S.S Road, Jhenaidah", "Jhenaidah", 490, 300, "Rescheduled", "Due", "Please Handle The Parcel Carefully.Food Item"),
+			"14643-9",
+			"Created At 31-10-2022 Deadline 02-11-2022",
+			"Eftekhar Alam",
+			"01974238487",
+			"H.S.S Road, Jhenaidah",
+			"Jhenaidah",
+			490,
+			300,
+			"Rescheduled",
+			"Due",
+			"Please Handle The Parcel Carefully.Food Item",
+		),
 		createData(
-			"11641-1", "Created At 31-10-2022 Deadline 02-11-2022", "Manha's Fashion Club", "Mr.Moinuddin", "01974238487", "H.S.S Road, Jhenaidah", "Jhenaidah", 550, 300, "Rescheduled", "Due", "Please Handle The Parcel Carefully.Food Item"),
+			"11641-1",
+			"Created At 31-10-2022 Deadline 02-11-2022",
+			"Mr.Moinuddin",
+			"01974238487",
+			"H.S.S Road, Jhenaidah",
+			"Jhenaidah",
+			550,
+			300,
+			"Rescheduled",
+			"Due",
+			"Please Handle The Parcel Carefully.Food Item",
+		),
 		createData(
-			"28649-0", "Created At 31-10-2022 Deadline 02-11-2022", "Manha's Fashion Club", "Mr.Moinuddin", "01974238487", "H.S.S Road, Jhenaidah", "Jhenaidah", 620, 300, "Rescheduled", "Due", "Please Handle The Parcel Carefully.Food Item"),
+			"28649-0",
+			"Created At 31-10-2022 Deadline 02-11-2022",
+			"Mr.Moinuddin",
+			"01974238487",
+			"H.S.S Road, Jhenaidah",
+			"Jhenaidah",
+			620,
+			300,
+			"Rescheduled",
+			"Due",
+			"Please Handle The Parcel Carefully.Food Item",
+		),
 	];
 
 	useEffect(() => {
@@ -240,6 +321,60 @@ const BranchParcelListFiltered = ({
 			}
 		});
 	};
+	const changeRider = (event, newValue, id) => {
+		Swal.fire({
+			title: "Are You Sure?",
+			showCancelButton: true,
+			confirmButtonText: "Yes",
+		}).then((result) => {
+			if (result.isConfirmed) {
+				setSubmitting(true);
+				axios
+					.put(
+						`${process.env.REACT_APP_API_PATH}/merchantorderRiderCollect/${id}`,
+						{
+							collectRiderInfo: newValue,
+							status: "Assigned for Pickup",
+						},
+						{
+							headers: {
+								Authorization: `Bearer ${token}`,
+							},
+						},
+					)
+					.then((response) => {
+						setSubmitting(false);
+						Swal.fire("", "Successfully Assigned!", "success");
+					})
+					.catch((error) => {
+						setSubmitting(false);
+						console.log(error);
+					});
+			}
+		});
+	};
+	const renderDetailsButton = (params) => {
+		return (
+			<Box sx={{ display: "flex", alignItems: "center" }}>
+				{((params.row?.status === "Assigned for Pickup" &&
+					!params.row?.collectRiderInfo?.riderName) ||
+					params.row?.status === "Cancelled by Pickup Rider") && (
+						<Autocomplete
+							onChange={(event, newValue) => {
+								changeRider(event, newValue, params.row?._id);
+							}}
+							size='small'
+							sx={{ my: 0.5, width: 200 }}
+							options={riders}
+							getOptionLabel={(option) => option.riderName}
+							renderInput={(params) => (
+								<TextField {...params} label='Select Rider' variant='outlined' />
+							)}
+						/>
+					)}
+			</Box>
+		);
+	};
 
 	const columns = [
 		{
@@ -275,6 +410,13 @@ const BranchParcelListFiltered = ({
 			width: 180,
 		},
 		{ field: "status", headerName: "Status", width: 250 },
+		{
+			field: "_id",
+			headerName: "Action",
+			width: 300,
+			renderCell: renderDetailsButton,
+			disableClickEventBubbling: true,
+		},
 	];
 
 	return (
@@ -446,28 +588,41 @@ const BranchParcelListFiltered = ({
 					<Box>
 						<Box sx={{ my: 2 }} ref={(el) => (ref = el)}>
 							<Box sx={{ pb: 2, margin: "auto", textAlign: "center" }}>
-								<Typography variant="h5" sx={{ fontWeight: "bold", color: "#166534" }}>
+								<Typography
+									variant='h5'
+									sx={{ fontWeight: "bold", color: "#166534" }}>
 									Alijahan Courier Service
 								</Typography>
-								<Typography component="div" variant="p">
+								<Typography component='div' variant='p'>
 									89/123 Maniknagar,R.K Mission Road,Dhaka-1203
 								</Typography>
-								<Typography component="div" variant="p">
+								<Typography component='div' variant='p'>
 									Email:alijahancourier@gmail.com
 								</Typography>
-								<Typography component="div" variant="p">
+								<Typography component='div' variant='p'>
 									www.alijahan.com
 								</Typography>
 							</Box>
-							<Box sx={{ display: "flex", justifyContent: "space-between", px: 2, mb: 1 }}>
+							<Box
+								sx={{
+									display: "flex",
+									justifyContent: "space-between",
+									px: 2,
+									mb: 1,
+								}}>
 								<Box>
-									<Typography variant="p" sx={{ fontSize: "17px", fontWeight: 600 }}>
+									<Typography
+										variant='p'
+										sx={{ fontSize: "17px", fontWeight: 600 }}>
 										Total Order: {tableRows.length}
 									</Typography>
 								</Box>
 								<Box>
-									<Typography variant="p" sx={{ fontSize: "17px", fontWeight: 600 }}>
-										Printed Date: {date.getDate()}-{date.getMonth()}-{date.getFullYear()}
+									<Typography
+										variant='p'
+										sx={{ fontSize: "17px", fontWeight: 600 }}>
+										Printed Date: {date.getDate()}-{date.getMonth()}-
+										{date.getFullYear()}
 									</Typography>
 								</Box>
 							</Box>
@@ -478,37 +633,88 @@ const BranchParcelListFiltered = ({
 									<Table sx={{ minWidth: 650 }} aria-label="simple table">
 										<TableHead>
 											<TableRow>
-												<TableCell sx={{ fontWeight: "bold", borderRight: "1px solid #d9d9d9" }}>
+												<TableCell
+													sx={{
+														fontWeight: "bold",
+														borderRight: "1px solid #d9d9d9",
+													}}>
 													ID
 												</TableCell>
-												<TableCell sx={{ fontWeight: "bold", borderRight: "1px solid #d9d9d9" }}>
+												<TableCell
+													sx={{
+														fontWeight: "bold",
+														borderRight: "1px solid #d9d9d9",
+													}}>
 													Order Info
 												</TableCell>
-												<TableCell sx={{ fontWeight: "bold", borderRight: "1px solid #d9d9d9" }}>
+												<TableCell
+													sx={{
+														fontWeight: "bold",
+														borderRight: "1px solid #d9d9d9",
+													}}>
 													Merchant
 												</TableCell>
-												<TableCell sx={{ fontWeight: "bold", borderRight: "1px solid #d9d9d9" }}>
+												<TableCell
+													sx={{
+														fontWeight: "bold",
+														borderRight: "1px solid #d9d9d9",
+													}}>
 													Contact Name
 												</TableCell>
-												<TableCell sx={{ fontWeight: "bold", borderRight: "1px solid #d9d9d9" }} align="center">
+												<TableCell
+													sx={{
+														fontWeight: "bold",
+														borderRight: "1px solid #d9d9d9",
+													}}
+													align='center'>
 													Contact Number
 												</TableCell>
-												<TableCell sx={{ fontWeight: "bold", borderRight: "1px solid #d9d9d9" }} align="center">
+												<TableCell
+													sx={{
+														fontWeight: "bold",
+														borderRight: "1px solid #d9d9d9",
+													}}
+													align='center'>
 													Contact Address
 												</TableCell>
-												<TableCell sx={{ fontWeight: "bold", borderRight: "1px solid #d9d9d9" }} align="center">
+												<TableCell
+													sx={{
+														fontWeight: "bold",
+														borderRight: "1px solid #d9d9d9",
+													}}
+													align='center'>
 													Area
 												</TableCell>
-												<TableCell sx={{ fontWeight: "bold", borderRight: "1px solid #d9d9d9" }} align="center">
+												<TableCell
+													sx={{
+														fontWeight: "bold",
+														borderRight: "1px solid #d9d9d9",
+													}}
+													align='center'>
 													Amount (BDT)
 												</TableCell>
-												<TableCell sx={{ fontWeight: "bold", borderRight: "1px solid #d9d9d9" }} align="center">
+												<TableCell
+													sx={{
+														fontWeight: "bold",
+														borderRight: "1px solid #d9d9d9",
+													}}
+													align='center'>
 													Collected (BDT)
 												</TableCell>
-												<TableCell sx={{ fontWeight: "bold", borderRight: "1px solid #d9d9d9" }} align="center">
+												<TableCell
+													sx={{
+														fontWeight: "bold",
+														borderRight: "1px solid #d9d9d9",
+													}}
+													align='center'>
 													Status
 												</TableCell>
-												<TableCell sx={{ fontWeight: "bold", borderRight: "1px solid #d9d9d9" }} align="center">
+												<TableCell
+													sx={{
+														fontWeight: "bold",
+														borderRight: "1px solid #d9d9d9",
+													}}
+													align='center'>
 													Payment Status
 												</TableCell>
 												<TableCell sx={{ fontWeight: "bold", borderRight: "1px solid #d9d9d9" }} align="center">
@@ -518,40 +724,61 @@ const BranchParcelListFiltered = ({
 										</TableHead>
 										<TableBody>
 											{tableRows.map((item) => (
-												<TableRow
-													key={item?.id}
-													sx={{ border: 0 }}>
-													<TableCell sx={{ borderRight: "1px solid #d9d9d9" }} component="th" scope="row">
+												<TableRow key={item?.id} sx={{ border: 0 }}>
+													<TableCell
+														sx={{ borderRight: "1px solid #d9d9d9" }}
+														component='th'
+														scope='row'>
 														{item?.id}
 													</TableCell>
-													<TableCell sx={{ borderRight: "1px solid #d9d9d9" }} align="center">
+													<TableCell
+														sx={{ borderRight: "1px solid #d9d9d9" }}
+														align='center'>
 														{item?.orderInfo}
 													</TableCell>
-													<TableCell sx={{ borderRight: "1px solid #d9d9d9" }} align="center">
+													<TableCell
+														sx={{ borderRight: "1px solid #d9d9d9" }}
+														align='center'>
 														{item?.merchant}
 													</TableCell>
-													<TableCell sx={{ borderRight: "1px solid #d9d9d9" }} align="center">
+													<TableCell
+														sx={{ borderRight: "1px solid #d9d9d9" }}
+														align='center'>
 														{item?.contactName}
 													</TableCell>
-													<TableCell sx={{ borderRight: "1px solid #d9d9d9" }} align="center">
+													<TableCell
+														sx={{ borderRight: "1px solid #d9d9d9" }}
+														align='center'>
 														{item?.contactNumber}
 													</TableCell>
-													<TableCell sx={{ borderRight: "1px solid #d9d9d9" }} align="center">
+													<TableCell
+														sx={{ borderRight: "1px solid #d9d9d9" }}
+														align='center'>
 														{item?.contactAddress}
 													</TableCell>
-													<TableCell sx={{ borderRight: "1px solid #d9d9d9" }} align="center">
+													<TableCell
+														sx={{ borderRight: "1px solid #d9d9d9" }}
+														align='center'>
 														{item?.area}
 													</TableCell>
-													<TableCell sx={{ borderRight: "1px solid #d9d9d9" }} align="center">
+													<TableCell
+														sx={{ borderRight: "1px solid #d9d9d9" }}
+														align='center'>
 														{item?.amount}
 													</TableCell>
-													<TableCell sx={{ borderRight: "1px solid #d9d9d9" }} align="center">
+													<TableCell
+														sx={{ borderRight: "1px solid #d9d9d9" }}
+														align='center'>
 														{item?.collected}
 													</TableCell>
-													<TableCell sx={{ borderRight: "1px solid #d9d9d9" }} align="center">
+													<TableCell
+														sx={{ borderRight: "1px solid #d9d9d9" }}
+														align='center'>
 														{item?.status}
 													</TableCell>
-													<TableCell sx={{ borderRight: "1px solid #d9d9d9" }} align="center">
+													<TableCell
+														sx={{ borderRight: "1px solid #d9d9d9" }}
+														align='center'>
 														{item?.paymentStatus}
 													</TableCell>
 													<TableCell sx={{ borderRight: "1px solid #d9d9d9", width: "9%" }} align="center">
@@ -575,7 +802,7 @@ const BranchParcelListFiltered = ({
 					</Backdrop>
 				</Box>
 			</Fade>
-		</Modal >
+		</Modal>
 	);
 };
 
