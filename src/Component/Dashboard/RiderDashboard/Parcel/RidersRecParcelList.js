@@ -21,7 +21,7 @@ import AspectRatioIcon from "@mui/icons-material/AspectRatio";
 import RiderRecParcelListFiltered from "./RiderRecParcelListFiltered";
 
 const RidersRecParcelList = () => {
-	const email = "rider@gmail.com";
+	const email = "rider2@gmail.com";
 	const { user, loading, token } = GetAuth();
 	const [data, setData] = useState();
 	const [opens, setOpens] = React.useState(false);

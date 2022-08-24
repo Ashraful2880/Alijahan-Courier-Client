@@ -24,7 +24,7 @@ import AspectRatioIcon from "@mui/icons-material/AspectRatio";
 import BranchAccountsFiltered from "./BranchAccountsFiltered";
 
 const BranchAccounts = () => {
-	const email = "branch@gmail.com";
+	const email = "branch2@gmail.com";
 	const { user, loading, token } = GetAuth();
 	const [submitting, setSubmitting] = useState(false);
 	const [data, setData] = useState();

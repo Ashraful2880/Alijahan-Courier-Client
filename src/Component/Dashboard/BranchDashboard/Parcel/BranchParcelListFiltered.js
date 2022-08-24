@@ -23,14 +23,14 @@ import { useState } from "react";
 import PrintIcon from "@mui/icons-material/Print";
 import GetAuth from "../../../../FirebaseAuth/GetAuth";
 import CancelIcon from "@mui/icons-material/Cancel";
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import ReactToPrint from 'react-to-print';
-import Badge from '@mui/material/Badge';
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import ReactToPrint from "react-to-print";
+import Badge from "@mui/material/Badge";
 
 const style = {
 	position: "absolute",
@@ -79,15 +79,101 @@ const BranchParcelListFiltered = ({
 	let ref = useRef();
 	const date = new Date();
 	// Print Function Here
-	function createData(id, orderInfo, merchant, contactName, contactNumber, contactAddress, area, amount, collected, status, paymentStatus, instruction) {
-		return { id, orderInfo, merchant, contactName, contactNumber, contactAddress, area, amount, collected, status, paymentStatus, instruction };
+	function createData(
+		id,
+		orderInfo,
+		merchant,
+		contactName,
+		contactNumber,
+		contactAddress,
+		area,
+		amount,
+		collected,
+		status,
+		paymentStatus,
+		instruction,
+	) {
+		return {
+			id,
+			orderInfo,
+			merchant,
+			contactName,
+			contactNumber,
+			contactAddress,
+			area,
+			amount,
+			collected,
+			status,
+			paymentStatus,
+			instruction,
+		};
 	}
 	const tableRows = [
-		createData("19649-3", "Created At 31-10-2022 Deadline 02-11-2022", "Mr.Moinuddin", "01974238487", "H.S.S Road, Jhenaidah", "Jhenaidah", 580, 300, "Rescheduled", "Due", "Please Handle The Parcel Carefully.Food Item"),
-		createData("18649-9", "Created At 31-10-2022 Deadline 02-11-2022", "Mehvish Kainat Abdullah", "01974238487", "H.S.S Road, Jhenaidah", "Jhenaidah", 500, 300, "Rescheduled", "Due", "Please Handle The Parcel Carefully.Food Item"),
-		createData("14643-9", "Created At 31-10-2022 Deadline 02-11-2022", "Eftekhar Alam", "01974238487", "H.S.S Road, Jhenaidah", "Jhenaidah", 490, 300, "Rescheduled", "Due", "Please Handle The Parcel Carefully.Food Item"),
-		createData("11641-1", "Created At 31-10-2022 Deadline 02-11-2022", "Mr.Moinuddin", "01974238487", "H.S.S Road, Jhenaidah", "Jhenaidah", 550, 300, "Rescheduled", "Due", "Please Handle The Parcel Carefully.Food Item"),
-		createData("28649-0", "Created At 31-10-2022 Deadline 02-11-2022", "Mr.Moinuddin", "01974238487", "H.S.S Road, Jhenaidah", "Jhenaidah", 620, 300, "Rescheduled", "Due", "Please Handle The Parcel Carefully.Food Item"),
+		createData(
+			"19649-3",
+			"Created At 31-10-2022 Deadline 02-11-2022",
+			"Mr.Moinuddin",
+			"01974238487",
+			"H.S.S Road, Jhenaidah",
+			"Jhenaidah",
+			580,
+			300,
+			"Rescheduled",
+			"Due",
+			"Please Handle The Parcel Carefully.Food Item",
+		),
+		createData(
+			"18649-9",
+			"Created At 31-10-2022 Deadline 02-11-2022",
+			"Mehvish Kainat Abdullah",
+			"01974238487",
+			"H.S.S Road, Jhenaidah",
+			"Jhenaidah",
+			500,
+			300,
+			"Rescheduled",
+			"Due",
+			"Please Handle The Parcel Carefully.Food Item",
+		),
+		createData(
+			"14643-9",
+			"Created At 31-10-2022 Deadline 02-11-2022",
+			"Eftekhar Alam",
+			"01974238487",
+			"H.S.S Road, Jhenaidah",
+			"Jhenaidah",
+			490,
+			300,
+			"Rescheduled",
+			"Due",
+			"Please Handle The Parcel Carefully.Food Item",
+		),
+		createData(
+			"11641-1",
+			"Created At 31-10-2022 Deadline 02-11-2022",
+			"Mr.Moinuddin",
+			"01974238487",
+			"H.S.S Road, Jhenaidah",
+			"Jhenaidah",
+			550,
+			300,
+			"Rescheduled",
+			"Due",
+			"Please Handle The Parcel Carefully.Food Item",
+		),
+		createData(
+			"28649-0",
+			"Created At 31-10-2022 Deadline 02-11-2022",
+			"Mr.Moinuddin",
+			"01974238487",
+			"H.S.S Road, Jhenaidah",
+			"Jhenaidah",
+			620,
+			300,
+			"Rescheduled",
+			"Due",
+			"Please Handle The Parcel Carefully.Food Item",
+		),
 	];
 
 	useEffect(() => {
@@ -289,7 +375,7 @@ const BranchParcelListFiltered = ({
 			}
 		});
 	};
-	/* 	const changeRider = (event, newValue, id) => {
+	const changeRider = (event, newValue, id) => {
 		Swal.fire({
 			title: "Are You Sure?",
 			showCancelButton: true,
@@ -320,69 +406,29 @@ const BranchParcelListFiltered = ({
 					});
 			}
 		});
-	}; */
-	/* 	const renderDetailsButton = (params) => {
+	};
+	const renderDetailsButton = (params) => {
 		return (
 			<Box sx={{ display: "flex", alignItems: "center" }}>
 				{((params.row?.status === "Assigned for Pickup" &&
 					!params.row?.collectRiderInfo?.riderName) ||
 					params.row?.status === "Cancelled by Pickup Rider") && (
-						<Autocomplete
-							onChange={(event, newValue) => {
-								changeRider(event, newValue, params.row?._id);
-							}}
-							size='small'
-							sx={{ my: 0.5, width: 200 }}
-							options={riders}
-							getOptionLabel={(option) => option.riderName}
-							renderInput={(params) => (
-								<TextField {...params} label='Select Rider' variant='outlined' />
-							)}
-						/>
-					)}
-				<FormControl sx={{ m: 1 }}>
-					<Select
-						size='small'
-						value={status}
-						onChange={(event) => {
-							changeStatus(event, params.row?._id);
-							setStatus(event.target.value);
+					<Autocomplete
+						onChange={(event, newValue) => {
+							changeRider(event, newValue, params.row?._id);
 						}}
-						displayEmpty
-						inputProps={{ "aria-label": "Without label" }}>
-						{params.row?.status === "Pickup Request Pending" && (
-							<MenuItem value={"Pickup Request Accepted"}>Accept</MenuItem>
+						size='small'
+						sx={{ my: 0.5, width: 200 }}
+						options={riders}
+						getOptionLabel={(option) => option.riderName}
+						renderInput={(params) => (
+							<TextField {...params} label='Select Rider' variant='outlined' />
 						)}
-						{params.row?.status === "Pickup Request Accepted" && (
-							<MenuItem value={"Assigned for Pickup"}>
-								Assign for Pickup
-							</MenuItem>
-						)}
-						{params.row?.status === "Delivered To Branch By Pickup Rider" && (
-							<MenuItem value={"Received in Pickup Branch"}>
-								Received in Pickup Branch
-							</MenuItem>
-						)}
-						{params.row?.status === "Received in Pickup Branch" && (
-							<MenuItem value={"Delivered To Warehouse"}>
-								Deliver To Warehouse
-							</MenuItem>
-						)}
-						{params.row?.status === "Sending Returned Parcel to Branch" && (
-							<MenuItem value={"Returned Parcel Received in Branch"}>
-								Returned Parcel Received
-							</MenuItem>
-						)}
-						{params.row?.status === "Returned Parcel Received in Branch" && (
-							<MenuItem value={"Sending Returned Parcel to Merchant"}>
-								Sent Returned Parcel to Merchant
-							</MenuItem>
-						)}
-					</Select>
-				</FormControl>
+					/>
+				)}
 			</Box>
 		);
-	}; */
+	};
 
 	const columns = [
 		{
@@ -418,13 +464,13 @@ const BranchParcelListFiltered = ({
 			width: 180,
 		},
 		{ field: "status", headerName: "Status", width: 250 },
-		/* 	{
+		{
 			field: "_id",
 			headerName: "Action",
 			width: 300,
 			renderCell: renderDetailsButton,
 			disableClickEventBubbling: true,
-		}, */
+		},
 	];
 
 	return (
@@ -473,27 +519,27 @@ const BranchParcelListFiltered = ({
 								<PrintIcon onClick={() => printData()} />
 								{(selectedStatus === "Assigned for Pickup" ||
 									selectedStatus === "Cancelled by Pickup Rider") && (
-										<Autocomplete
-											onChange={(event, newValue) => {
-												changeRiderMulti(event, newValue);
-											}}
-											size='small'
-											sx={{ my: 0.5, width: 200 }}
-											options={riders}
-											getOptionLabel={(option) => option.riderName}
-											renderInput={(params) => (
-												<TextField
-													{...params}
-													label='Select Rider'
-													variant='outlined'
-												/>
-											)}
-										/>
-									)}
+									<Autocomplete
+										onChange={(event, newValue) => {
+											changeRiderMulti(event, newValue);
+										}}
+										size='small'
+										sx={{ my: 0.5, width: 200 }}
+										options={riders}
+										getOptionLabel={(option) => option.riderName}
+										renderInput={(params) => (
+											<TextField
+												{...params}
+												label='Select Rider'
+												variant='outlined'
+											/>
+										)}
+									/>
+								)}
 								{selectedStatus !== "All" && (
 									<Box>
 										{selectedStatus === "Assigned for Pickup" ||
-											selectedStatus === "Cancelled by Pickup Rider" ? (
+										selectedStatus === "Cancelled by Pickup Rider" ? (
 											""
 										) : (
 											<Button
@@ -531,10 +577,10 @@ const BranchParcelListFiltered = ({
 												)}
 												{selectedStatus ===
 													"Delivered To Branch By Pickup Rider" && (
-														<MenuItem value={"Received in Pickup Branch"}>
-															Received in Pickup Branch
-														</MenuItem>
-													)}
+													<MenuItem value={"Received in Pickup Branch"}>
+														Received in Pickup Branch
+													</MenuItem>
+												)}
 												{selectedStatus === "Received in Pickup Branch" && (
 													<MenuItem value={"Delivered To Warehouse"}>
 														Deliver To Warehouse
@@ -542,18 +588,18 @@ const BranchParcelListFiltered = ({
 												)}
 												{selectedStatus ===
 													"Sending Returned Parcel to Branch" && (
-														<MenuItem
-															value={"Returned Parcel Received in Branch"}>
-															Returned Parcel Received
-														</MenuItem>
-													)}
+													<MenuItem
+														value={"Returned Parcel Received in Branch"}>
+														Returned Parcel Received
+													</MenuItem>
+												)}
 												{selectedStatus ===
 													"Returned Parcel Received in Branch" && (
-														<MenuItem
-															value={"Sending Returned Parcel to Merchant"}>
-															Sent Returned Parcel to Merchant
-														</MenuItem>
-													)}
+													<MenuItem
+														value={"Sending Returned Parcel to Merchant"}>
+														Sent Returned Parcel to Merchant
+													</MenuItem>
+												)}
 											</Select>
 										</FormControl>
 									</Box>
@@ -596,114 +642,211 @@ const BranchParcelListFiltered = ({
 					<Box>
 						<Box sx={{ my: 2 }} ref={(el) => (ref = el)}>
 							<Box sx={{ pb: 2, margin: "auto", textAlign: "center" }}>
-								<Typography variant="h5" sx={{ fontWeight: "bold", color: "#166534" }}>
+								<Typography
+									variant='h5'
+									sx={{ fontWeight: "bold", color: "#166534" }}>
 									Alijahan Courier Service
 								</Typography>
-								<Typography component="div" variant="p">
+								<Typography component='div' variant='p'>
 									89/123 Maniknagar,R.K Mission Road,Dhaka-1203
 								</Typography>
-								<Typography component="div" variant="p">
+								<Typography component='div' variant='p'>
 									Email:alijahancourier@gmail.com
 								</Typography>
-								<Typography component="div" variant="p">
+								<Typography component='div' variant='p'>
 									www.alijahan.com
 								</Typography>
 							</Box>
-							<Box sx={{ display: "flex", justifyContent: "space-between", px: 2, mb: 1 }}>
+							<Box
+								sx={{
+									display: "flex",
+									justifyContent: "space-between",
+									px: 2,
+									mb: 1,
+								}}>
 								<Box>
-									<Typography variant="p" sx={{ fontSize: "17px", fontWeight: 600 }}>
+									<Typography
+										variant='p'
+										sx={{ fontSize: "17px", fontWeight: 600 }}>
 										Total Order: {tableRows.length}
 									</Typography>
 								</Box>
 								<Box>
-									<Typography variant="p" sx={{ fontSize: "17px", fontWeight: 600 }}>
-										Printed Date: {date.getDate()}-{date.getMonth()}-{date.getFullYear()}
+									<Typography
+										variant='p'
+										sx={{ fontSize: "17px", fontWeight: 600 }}>
+										Printed Date: {date.getDate()}-{date.getMonth()}-
+										{date.getFullYear()}
 									</Typography>
 								</Box>
 							</Box>
 							{/* Print Table Component */}
 							<Box>
-								<TableContainer component="div" sx={{ border: "1px solid #d9d9d9", borderRadius: "10px" }}>
-									<Table sx={{ minWidth: 650 }} aria-label="simple table">
+								<TableContainer
+									component='div'
+									sx={{ border: "1px solid #d9d9d9", borderRadius: "10px" }}>
+									<Table sx={{ minWidth: 650 }} aria-label='simple table'>
 										<TableHead>
 											<TableRow>
-												<TableCell sx={{ fontWeight: "bold", borderRight: "1px solid #d9d9d9" }}>
+												<TableCell
+													sx={{
+														fontWeight: "bold",
+														borderRight: "1px solid #d9d9d9",
+													}}>
 													ID
 												</TableCell>
-												<TableCell sx={{ fontWeight: "bold", borderRight: "1px solid #d9d9d9" }}>
+												<TableCell
+													sx={{
+														fontWeight: "bold",
+														borderRight: "1px solid #d9d9d9",
+													}}>
 													Order Info
 												</TableCell>
-												<TableCell sx={{ fontWeight: "bold", borderRight: "1px solid #d9d9d9" }}>
+												<TableCell
+													sx={{
+														fontWeight: "bold",
+														borderRight: "1px solid #d9d9d9",
+													}}>
 													Merchant
 												</TableCell>
-												<TableCell sx={{ fontWeight: "bold", borderRight: "1px solid #d9d9d9" }}>
+												<TableCell
+													sx={{
+														fontWeight: "bold",
+														borderRight: "1px solid #d9d9d9",
+													}}>
 													Contact Name
 												</TableCell>
-												<TableCell sx={{ fontWeight: "bold", borderRight: "1px solid #d9d9d9" }} align="center">
+												<TableCell
+													sx={{
+														fontWeight: "bold",
+														borderRight: "1px solid #d9d9d9",
+													}}
+													align='center'>
 													Contact Number
 												</TableCell>
-												<TableCell sx={{ fontWeight: "bold", borderRight: "1px solid #d9d9d9" }} align="center">
+												<TableCell
+													sx={{
+														fontWeight: "bold",
+														borderRight: "1px solid #d9d9d9",
+													}}
+													align='center'>
 													Contact Address
 												</TableCell>
-												<TableCell sx={{ fontWeight: "bold", borderRight: "1px solid #d9d9d9" }} align="center">
+												<TableCell
+													sx={{
+														fontWeight: "bold",
+														borderRight: "1px solid #d9d9d9",
+													}}
+													align='center'>
 													Area
 												</TableCell>
-												<TableCell sx={{ fontWeight: "bold", borderRight: "1px solid #d9d9d9" }} align="center">
+												<TableCell
+													sx={{
+														fontWeight: "bold",
+														borderRight: "1px solid #d9d9d9",
+													}}
+													align='center'>
 													Amount (BDT)
 												</TableCell>
-												<TableCell sx={{ fontWeight: "bold", borderRight: "1px solid #d9d9d9" }} align="center">
+												<TableCell
+													sx={{
+														fontWeight: "bold",
+														borderRight: "1px solid #d9d9d9",
+													}}
+													align='center'>
 													Collected (BDT)
 												</TableCell>
-												<TableCell sx={{ fontWeight: "bold", borderRight: "1px solid #d9d9d9" }} align="center">
+												<TableCell
+													sx={{
+														fontWeight: "bold",
+														borderRight: "1px solid #d9d9d9",
+													}}
+													align='center'>
 													Status
 												</TableCell>
-												<TableCell sx={{ fontWeight: "bold", borderRight: "1px solid #d9d9d9" }} align="center">
+												<TableCell
+													sx={{
+														fontWeight: "bold",
+														borderRight: "1px solid #d9d9d9",
+													}}
+													align='center'>
 													Payment Status
 												</TableCell>
-												<TableCell sx={{ fontWeight: "bold", borderRight: "1px solid #d9d9d9" }} align="center">
+												<TableCell
+													sx={{
+														fontWeight: "bold",
+														borderRight: "1px solid #d9d9d9",
+													}}
+													align='center'>
 													Instruction
 												</TableCell>
 											</TableRow>
 										</TableHead>
 										<TableBody>
 											{tableRows.map((item) => (
-												<TableRow
-													key={item?.id}
-													sx={{ border: 0 }}>
-													<TableCell sx={{ borderRight: "1px solid #d9d9d9" }} component="th" scope="row">
+												<TableRow key={item?.id} sx={{ border: 0 }}>
+													<TableCell
+														sx={{ borderRight: "1px solid #d9d9d9" }}
+														component='th'
+														scope='row'>
 														{item?.id}
 													</TableCell>
-													<TableCell sx={{ borderRight: "1px solid #d9d9d9" }} align="center">
+													<TableCell
+														sx={{ borderRight: "1px solid #d9d9d9" }}
+														align='center'>
 														{item?.orderInfo}
 													</TableCell>
-													<TableCell sx={{ borderRight: "1px solid #d9d9d9" }} align="center">
+													<TableCell
+														sx={{ borderRight: "1px solid #d9d9d9" }}
+														align='center'>
 														{item?.merchant}
 													</TableCell>
-													<TableCell sx={{ borderRight: "1px solid #d9d9d9" }} align="center">
+													<TableCell
+														sx={{ borderRight: "1px solid #d9d9d9" }}
+														align='center'>
 														{item?.contactName}
 													</TableCell>
-													<TableCell sx={{ borderRight: "1px solid #d9d9d9" }} align="center">
+													<TableCell
+														sx={{ borderRight: "1px solid #d9d9d9" }}
+														align='center'>
 														{item?.contactNumber}
 													</TableCell>
-													<TableCell sx={{ borderRight: "1px solid #d9d9d9" }} align="center">
+													<TableCell
+														sx={{ borderRight: "1px solid #d9d9d9" }}
+														align='center'>
 														{item?.contactAddress}
 													</TableCell>
-													<TableCell sx={{ borderRight: "1px solid #d9d9d9" }} align="center">
+													<TableCell
+														sx={{ borderRight: "1px solid #d9d9d9" }}
+														align='center'>
 														{item?.area}
 													</TableCell>
-													<TableCell sx={{ borderRight: "1px solid #d9d9d9" }} align="center">
+													<TableCell
+														sx={{ borderRight: "1px solid #d9d9d9" }}
+														align='center'>
 														{item?.amount}
 													</TableCell>
-													<TableCell sx={{ borderRight: "1px solid #d9d9d9" }} align="center">
+													<TableCell
+														sx={{ borderRight: "1px solid #d9d9d9" }}
+														align='center'>
 														{item?.collected}
 													</TableCell>
-													<TableCell sx={{ borderRight: "1px solid #d9d9d9" }} align="center">
+													<TableCell
+														sx={{ borderRight: "1px solid #d9d9d9" }}
+														align='center'>
 														{item?.status}
 													</TableCell>
-													<TableCell sx={{ borderRight: "1px solid #d9d9d9" }} align="center">
+													<TableCell
+														sx={{ borderRight: "1px solid #d9d9d9" }}
+														align='center'>
 														{item?.paymentStatus}
 													</TableCell>
-													<TableCell sx={{ borderRight: "1px solid #d9d9d9", width: "15%" }} align="center">
+													<TableCell
+														sx={{
+															borderRight: "1px solid #d9d9d9",
+															width: "15%",
+														}}
+														align='center'>
 														Please Handle The Parcel Carefully
 													</TableCell>
 												</TableRow>
@@ -713,10 +856,17 @@ const BranchParcelListFiltered = ({
 								</TableContainer>
 							</Box>
 							<Box sx={{ margin: "auto", textAlign: "center" }}>
-								<img src="https://alijahan-courier.netlify.app/static/media/Logo.9068b4f56d43d41f4abd.png" alt="Logo" style={{ width: "300px", marginTop: "30px", opacity: "0.3" }} />
+								<img
+									src='https://alijahan-courier.netlify.app/static/media/Logo.9068b4f56d43d41f4abd.png'
+									alt='Logo'
+									style={{ width: "300px", marginTop: "30px", opacity: "0.3" }}
+								/>
 							</Box>
-							<Typography variant="p" sx={{ fontSize: "13px" }}>
-								This is an Auto Generated Report of <span style={{ color: "green", fontStyle: "italic" }}>Alijahan Courier</span>
+							<Typography variant='p' sx={{ fontSize: "13px" }}>
+								This is an Auto Generated Report of{" "}
+								<span style={{ color: "green", fontStyle: "italic" }}>
+									Alijahan Courier
+								</span>
 							</Typography>
 						</Box>
 					</Box>
@@ -727,7 +877,7 @@ const BranchParcelListFiltered = ({
 					</Backdrop>
 				</Box>
 			</Fade>
-		</Modal >
+		</Modal>
 	);
 };
 

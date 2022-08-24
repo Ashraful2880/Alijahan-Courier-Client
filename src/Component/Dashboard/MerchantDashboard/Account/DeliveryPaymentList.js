@@ -105,26 +105,26 @@ const DeliveryPaymentList = () => {
 			<Box sx={{ display: "flex", alignItems: "center" }}>
 				{params.row?.paymentCollectionDetails?.collectionStatus ===
 					"Sending Money to Marchant" && (
-						<Button
-							onClick={() =>
-								receiveAndSendMoney(
-									params.row?._id,
-									params.row?.paymentCollectionDetails,
-									"Money Received in Marchant",
-								)
-							}
-							sx={{
-								my: 1,
-								px: 3,
-								fontWeight: "bold",
-								borderRadius: "25px",
-								border: "2px solid ",
-							}}>
-							<PaymentsIcon sx={{ mr: 0.5 }} />
-							Receive {params.row?.paymentCollectionDetails?.marchantRecAmount} ৳
-							from Accounts
-						</Button>
-					)}
+					<Button
+						onClick={() =>
+							receiveAndSendMoney(
+								params.row?._id,
+								params.row?.paymentCollectionDetails,
+								"Money Received in Marchant",
+							)
+						}
+						sx={{
+							my: 1,
+							px: 3,
+							fontWeight: "bold",
+							borderRadius: "25px",
+							border: "2px solid ",
+						}}>
+						<PaymentsIcon sx={{ mr: 0.5 }} />
+						Receive {params.row?.paymentCollectionDetails?.marchantRec} ৳ from
+						Accounts
+					</Button>
+				)}
 				{/* <DeleteIcon
 					className='iconBtn'
 					sx={{ color: "#df0f00!important" }}
@@ -157,7 +157,10 @@ const DeliveryPaymentList = () => {
 						});
 					}}
 				/> */}
-				<RemoveRedEyeIcon onClick={() => handleOpen(setModalData(params.row))} sx={{ ml: 1.5, color: "green", cursor: "pointer" }} />
+				<RemoveRedEyeIcon
+					onClick={() => handleOpen(setModalData(params.row))}
+					sx={{ ml: 1.5, color: "green", cursor: "pointer" }}
+				/>
 			</Box>
 		);
 	};
@@ -248,7 +251,12 @@ const DeliveryPaymentList = () => {
 				open={submitting || !data}>
 				<CircularProgress color='inherit' />
 			</Backdrop>
-			<ParcelModal open={open} handleOpen={handleOpen} handleClose={handleClose} modalData={modalData} />
+			<ParcelModal
+				open={open}
+				handleOpen={handleOpen}
+				handleClose={handleClose}
+				modalData={modalData}
+			/>
 		</Box>
 	);
 };

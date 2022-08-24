@@ -41,7 +41,7 @@ const AddMerchantParcel = () => {
 	const [areas, setAreas] = useState();
 	const [selectedArea, setSelectedArea] = useState();
 	const [serviceAreas, setServiceAreas] = useState();
-	const email = "marchant2@gmail.com";
+	const email = "marchant@gmail.com";
 
 	const senderBranch = branch?.find(
 		(b) => b.branchName === marchant?.merchantBranchName,
@@ -192,6 +192,7 @@ const AddMerchantParcel = () => {
 				collectionStatus: "Pending",
 				collectionDate: "",
 				collectedAmount: 0,
+				marchantRec: totalReceive,
 			},
 			collectRiderInfo: {},
 			deliverRiderInfo: {},
