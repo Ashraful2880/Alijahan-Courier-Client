@@ -11,6 +11,7 @@ import {
 	Button,
 	Fade,
 	Modal,
+	Badge,
 } from "@mui/material";
 import React from "react";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
@@ -24,6 +25,7 @@ import GetAuth from "../../../../FirebaseAuth/GetAuth";
 import CancelIcon from "@mui/icons-material/Cancel";
 import ParcelModal from "../Account/ParcelModal";
 import PrintIcon from "@mui/icons-material/Print";
+import Print from "../../Print/Print";
 
 const style = {
 	position: "absolute",
@@ -54,12 +56,19 @@ const AdminParcelListFiltered = ({
 	const [open, setOpen] = React.useState(false);
 	const [selectionModel, setSelectionModel] = React.useState();
 	const [selected, setSelected] = React.useState([]);
-	const printData = () => {
-		setSelected(data.filter((e) => selectionModel.find((n) => n === e._id)));
+	const [openPrint, setOpenPrint] = React.useState(false);
+	const handleClose = () => {
+		setOpen(false);
 	};
-	console.log(selected);
-	const handleOpen = () => setOpen(true);
-	const handleClose = () => setOpen(false);
+	const handleOpen = () => {
+		setOpen(true);
+	};
+	const handleOpenPrint = () => {
+		setOpenPrint(true);
+		setSelected(data?.filter((e) => selectionModel?.find((n) => n === e._id)));
+	};
+	const handleClosePrint = () => setOpenPrint(false);
+
 	useEffect(() => {
 		axios
 			.get(`${process.env.REACT_APP_API_PATH}/merchantorders`, {
@@ -109,60 +118,6 @@ const AdminParcelListFiltered = ({
 	const renderDetailsButton = (params) => {
 		return (
 			<Box sx={{ display: "flex", alignItems: "center" }}>
-				{/* <FormControl sx={{ m: 1, }}>
-					<Select
-						size='small'
-						value={status}
-						onChange={(event) => {
-							changeStatus(params.row?._id);
-							setStatus(event.target.value);
-						}}
-						displayEmpty
-						inputProps={{ "aria-label": "Without label" }}>
-						<MenuItem value={"Pending"}>Pending</MenuItem>
-						<MenuItem value={"Accepted"}>Accepted</MenuItem>
-						<MenuItem value={"Assign for Pickup"}>Assign for Pickup</MenuItem>
-						<MenuItem value={"Picked Up"}>Picked Up</MenuItem>
-						<MenuItem value={"Assign For Deliver"}>Assign For Deliver</MenuItem>
-						<MenuItem value={"Delivered"}>Delivered</MenuItem>
-						<MenuItem value={"Hold"}>Hold</MenuItem>
-						<MenuItem value={"Re-scheduled"}>Re-scheduled</MenuItem>
-						<MenuItem value={"Canceled"}>Canceled</MenuItem>
-						<MenuItem value={"Returned"}>Returned</MenuItem>
-					</Select>
-				</FormControl> */}
-				{/* <DeleteIcon
-					className='iconBtn'
-					sx={{ color: "#df0f00!important" }}
-					onClick={() => {
-						Swal.fire({
-							title: "Do you want to Delete this?",
-							showCancelButton: true,
-							confirmButtonText: "Yes",
-						}).then((result) => {
-							if (result.isConfirmed) {
-								setSubmitting(true);
-								axios
-									.delete(
-										`${process.env.REACT_APP_API_PATH}/merchantorder/${params.row?._id}`,
-										{
-											headers: {
-												Authorization: `Bearer ${token}`,
-											},
-										},
-									)
-									.then((response) => {
-										setSubmitting(false);
-										Swal.fire("", "Successfully Deleted!", "success");
-									})
-									.catch((error) => {
-										setSubmitting(false);
-										console.log(error);
-									});
-							}
-						});
-					}}
-				/> */}
 				<RemoveRedEyeIcon
 					onClick={() => handleOpen(setParcelData(params.row))}
 					sx={{ ml: 1.5, color: "green", cursor: "pointer" }}
@@ -252,10 +207,24 @@ const AdminParcelListFiltered = ({
 							sx={{ fontWeight: "bold", color: "#1E793C" }}>
 							All Parcel List
 						</Typography>
-					</Box>{" "}
-					<PrintIcon onClick={() => printData()} />
-					<Grid container spacing={1} sx={{ justifyContent: "center", px: 2 }}>
+					</Box>
+					<Grid container spacing={1} sx={{ justifyContent: "center", px: 2, position: "relative" }}>
 						<Grid item xs={12} md={12}>
+							{selectionModel?.length > 0 &&
+								<Badge badgeContent={selectionModel?.length} color='primary' sx={{
+									position: "absolute",
+									top: "4%",
+									left: "25%",
+									fontSize: "20px",
+									color: "#166534",
+									cursor: "pointer",
+									zIndex: "999",
+								}}>
+									<PrintIcon
+										onClick={handleOpenPrint}
+
+									/>
+								</Badge>}
 							{data && (
 								<div style={{ height: 400, width: "100%" }} className='table'>
 									<DataGrid
@@ -275,6 +244,14 @@ const AdminParcelListFiltered = ({
 							)}
 						</Grid>
 					</Grid>
+					{/* Print Component Here */}
+					{
+						<Print
+							data={selected}
+							handleClosePrint={handleClosePrint}
+							openPrint={openPrint}
+						/>
+					}
 					<Backdrop
 						sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 999 }}
 						open={submitting || !data}>

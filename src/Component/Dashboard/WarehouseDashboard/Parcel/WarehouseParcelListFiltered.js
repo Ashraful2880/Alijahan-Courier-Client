@@ -11,6 +11,7 @@ import {
 	Button,
 	Fade,
 	Modal,
+	Badge,
 } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import axios from "axios";
@@ -20,6 +21,7 @@ import { useState } from "react";
 import PrintIcon from "@mui/icons-material/Print";
 import GetAuth from "../../../../FirebaseAuth/GetAuth";
 import CancelIcon from "@mui/icons-material/Cancel";
+import Print from "../../Print/Print";
 const style = {
 	position: "absolute",
 	top: "50%",
@@ -56,9 +58,14 @@ const WarehouseParcelListFiltered = ({
 	const [status, setStatus] = useState("");
 	const [selectionModel, setSelectionModel] = React.useState();
 	const [selected, setSelected] = React.useState([]);
-	const printData = () => {
-		setSelected(data.filter((e) => selectionModel.find((n) => n === e._id)));
+	const [openPrint, setOpenPrint] = React.useState(false);
+
+	const handleOpenPrint = () => {
+		setOpenPrint(true);
+		setSelected(data?.filter((e) => selectionModel?.find((n) => n === e._id)));
 	};
+	const handleClosePrint = () => setOpenPrint(false);
+
 	useEffect(() => {
 		axios
 			.get(`${process.env.REACT_APP_API_PATH}/warehouseOrders/${email}`, {
@@ -107,38 +114,6 @@ const WarehouseParcelListFiltered = ({
 			}
 		});
 	};
-	/* 	const changeStatus = (event, id) => {
-		Swal.fire({
-			title: "Are You Sure?",
-			showCancelButton: true,
-			confirmButtonText: "Yes",
-		}).then((result) => {
-			if (result.isConfirmed) {
-				setSubmitting(true);
-
-				axios
-					.put(
-						`${process.env.REACT_APP_API_PATH}/merchantorderStatus/${id}`,
-						{
-							status: event.target.value,
-						},
-						{
-							headers: {
-								Authorization: `Bearer ${token}`,
-							},
-						},
-					)
-					.then((response) => {
-						setSubmitting(false);
-						Swal.fire("", "Successfully Done!", "success");
-					})
-					.catch((error) => {
-						setSubmitting(false);
-						console.log(error);
-					});
-			}
-		});
-	}; */
 
 	const renderDetailsButton = (params) => {
 		return <Box sx={{ display: "flex", alignItems: "center" }}></Box>;
@@ -214,7 +189,6 @@ const WarehouseParcelListFiltered = ({
 					<Box sx={{ display: "flex", my: 1 }}>
 						{selectionModel?.length > 0 ? (
 							<>
-								<PrintIcon onClick={() => printData()} />
 								{selectedStatus !== "All" && (
 									<Box>
 										<Button
@@ -251,17 +225,17 @@ const WarehouseParcelListFiltered = ({
 												)}
 												{selectedStatus ===
 													"Sending Returned Parcel to Warehouse" && (
-													<MenuItem
-														value={"Returned Parcel Received in Warehouse"}>
-														Receive Returned Parcel
-													</MenuItem>
-												)}
+														<MenuItem
+															value={"Returned Parcel Received in Warehouse"}>
+															Receive Returned Parcel
+														</MenuItem>
+													)}
 												{selectedStatus ===
 													"Returned Parcel Received in Warehouse" && (
-													<MenuItem value={"Sending Returned Parcel to Branch"}>
-														Return Parcel to Branch
-													</MenuItem>
-												)}
+														<MenuItem value={"Sending Returned Parcel to Branch"}>
+															Return Parcel to Branch
+														</MenuItem>
+													)}
 											</Select>
 										</FormControl>
 									</Box>
@@ -284,8 +258,23 @@ const WarehouseParcelListFiltered = ({
 							</>
 						)}
 					</Box>
-					<Grid container spacing={1} sx={{ justifyContent: "center", px: 2 }}>
+					<Grid container spacing={1} sx={{ justifyContent: "center", px: 2, position: "relative" }}>
 						<Grid item xs={12} md={12}>
+							{selectionModel?.length > 0 &&
+								<Badge badgeContent={selectionModel?.length} color='primary' sx={{
+									position: "absolute",
+									top: "4%",
+									left: "25%",
+									fontSize: "20px",
+									color: "#166534",
+									cursor: "pointer",
+									zIndex: "999",
+								}}>
+									<PrintIcon
+										onClick={handleOpenPrint}
+
+									/>
+								</Badge>}
 							{data && (
 								<div style={{ height: 400, width: "100%" }} className='table'>
 									<DataGrid
@@ -305,6 +294,14 @@ const WarehouseParcelListFiltered = ({
 							)}
 						</Grid>
 					</Grid>
+					{/* Print Component Here */}
+					{
+						<Print
+							data={selected}
+							handleClosePrint={handleClosePrint}
+							openPrint={openPrint}
+						/>
+					}
 					<Backdrop
 						sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 999 }}
 						open={submitting || !data}>
