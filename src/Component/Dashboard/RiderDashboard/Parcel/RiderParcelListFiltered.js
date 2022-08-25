@@ -221,7 +221,7 @@ const RiderParcelListFiltered = ({
 			<Box sx={{ display: "flex", alignItems: "center" }}>
 				{params.row?.status === "Delivered To Customer By Rider" &&
 					params.row?.paymentCollectionDetails?.collectionStatus ===
-					"Collected From Customer" && (
+						"Collected From Customer" && (
 						<Button
 							onClick={() =>
 								sendMoneyToBranch(
@@ -243,7 +243,7 @@ const RiderParcelListFiltered = ({
 					)}
 				{params.row?.status === "Parcel Received By Delivery Rider" &&
 					params.row?.paymentCollectionDetails?.collectionStatus ===
-					"Pending" && (
+						"Pending" && (
 						<Button
 							onClick={() =>
 								changePaymentStatus(
