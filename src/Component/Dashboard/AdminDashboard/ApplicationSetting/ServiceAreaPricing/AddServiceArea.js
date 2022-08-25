@@ -45,6 +45,7 @@ const AddServiceArea = ({ open, setOpen, token, setSubmitting }) => {
 		serviceAreaName,
 		serviceAreaCODPercentage,
 		serviceAreaCharge,
+		returnCharge,
 	}) => {
 		setSubmitting(true);
 		axios
@@ -54,6 +55,7 @@ const AddServiceArea = ({ open, setOpen, token, setSubmitting }) => {
 					serviceAreaName,
 					serviceAreaCODPercentage,
 					serviceAreaCharge,
+					returnCharge,
 					status: "Active",
 				},
 				{
@@ -148,12 +150,20 @@ const AddServiceArea = ({ open, setOpen, token, setSubmitting }) => {
 							<Box sx={{ display: "flex", gap: "20px" }}>
 								<TextField
 									size='small'
-									sx={{ my: 0.7, width: "49%" }}
+									sx={{ my: 0.7 }}
 									fullWidth
 									label='Charge'
 									{...register("serviceAreaCharge", { required: true })}
 								/>
+								<TextField
+									size='small'
+									sx={{ my: 0.7 }}
+									fullWidth
+									label='Return Charge'
+									{...register("returnCharge", { required: true })}
+								/>
 							</Box>
+
 							<Box sx={{ my: 2 }}>
 								<Button
 									type='submit'

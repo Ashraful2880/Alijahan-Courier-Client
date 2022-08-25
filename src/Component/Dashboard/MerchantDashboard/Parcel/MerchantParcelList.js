@@ -24,7 +24,7 @@ import PaymentsIcon from "@mui/icons-material/Payments";
 import ParcelModal from "../../AdminDashboard/Account/ParcelModal";
 
 const ParcelList = () => {
-	const email = "marchant@gmail.com";
+	const email = "marchant2@gmail.com";
 	const { user, loading, token } = GetAuth();
 	const [submitting, setSubmitting] = useState(false);
 	const [data, setData] = useState();
@@ -47,7 +47,7 @@ const ParcelList = () => {
 				console.log(error);
 			});
 	}, [token, submitting]);
-	const changeStatus = (id) => {
+	const changeStatus = (id, text) => {
 		Swal.fire({
 			title: "Are You Sure?",
 			showCancelButton: true,
@@ -59,7 +59,7 @@ const ParcelList = () => {
 					.put(
 						`${process.env.REACT_APP_API_PATH}/merchantorderStatus/${id}`,
 						{
-							status: "Successfully Completed",
+							status: text,
 						},
 						{
 							headers: {
@@ -78,7 +78,7 @@ const ParcelList = () => {
 			}
 		});
 	};
-	const confirmReceive = (id, money, text) => {
+	const confirmReceive = (id, text) => {
 		Swal.fire({
 			title: "Did you received the money?",
 			showCancelButton: true,
@@ -86,30 +86,61 @@ const ParcelList = () => {
 		}).then((result) => {
 			if (result.isConfirmed) {
 				setSubmitting(true);
-				axios
-					.put(
-						`${process.env.REACT_APP_API_PATH}/merchantorderPaymentCollectionStatus/${id}`,
-						{
-							collectionStatus: text,
-							collectionDate: new Date().toLocaleString("en-US", {
-								timeZone: "Asia/Dhaka",
-							}),
-							collectedAmount: money,
-						},
-						{
-							headers: {
-								Authorization: `Bearer ${token}`,
+				if (text === "Merchant Received Money") {
+					axios
+						.put(
+							`${process.env.REACT_APP_API_PATH}/merchantorderPaymentRecMerchant/${id}`,
+							{
+								collectionStatus: text,
+								moneyReceivedInMerchantDate: new Date().toLocaleString(
+									"en-US",
+									{
+										timeZone: "Asia/Dhaka",
+									},
+								),
+								merchantMoneyStatus: "Received",
 							},
-						},
-					)
-					.then((response) => {
-						setSubmitting(false);
-						Swal.fire("", "Successfully Done!", "success");
-					})
-					.catch((error) => {
-						setSubmitting(false);
-						console.log(error);
-					});
+							{
+								headers: {
+									Authorization: `Bearer ${token}`,
+								},
+							},
+						)
+						.then((response) => {
+							setSubmitting(false);
+							Swal.fire("", "Successfully Done!", "success");
+						})
+						.catch((error) => {
+							setSubmitting(false);
+							console.log(error);
+						});
+				}
+				if (text === "Merchant Paid Return Fee") {
+					axios
+						.put(
+							`${process.env.REACT_APP_API_PATH}/merchantorderPaymentReturnFee/${id}`,
+							{
+								collectionStatus: text,
+								ReturnFeePaidDate: new Date().toLocaleString("en-US", {
+									timeZone: "Asia/Dhaka",
+								}),
+								merchantReturnFeeStatus: "Paid",
+							},
+							{
+								headers: {
+									Authorization: `Bearer ${token}`,
+								},
+							},
+						)
+						.then((response) => {
+							setSubmitting(false);
+							Swal.fire("", "Successfully Done!", "success");
+						})
+						.catch((error) => {
+							setSubmitting(false);
+							console.log(error);
+						});
+				}
 			}
 		});
 	};
@@ -121,11 +152,7 @@ const ParcelList = () => {
 						"Sending Money To Merchant" && (
 						<Button
 							onClick={() =>
-								confirmReceive(
-									params.row?._id,
-									params.row?.orderSummaray?.total,
-									"Merchant Received Money",
-								)
+								confirmReceive(params.row?._id, "Merchant Received Money")
 							}
 							sx={{
 								my: 1,
@@ -135,7 +162,8 @@ const ParcelList = () => {
 								border: "2px solid ",
 							}}>
 							<PaymentsIcon sx={{ mr: 0.5 }} />
-							Confirm {params.row?.orderSummaray?.total} ৳ Received
+							Confirm {params.row?.paymentCollectionDetails?.marchantRec} ৳
+							Received
 						</Button>
 					)}
 
@@ -144,7 +172,7 @@ const ParcelList = () => {
 						"Received" && (
 						<Button
 							onClick={() => {
-								changeStatus(params.row?._id);
+								changeStatus(params.row?._id, "Successfully Completed");
 							}}
 							sx={{
 								my: 1,
@@ -155,6 +183,45 @@ const ParcelList = () => {
 							}}>
 							<DoneAllIcon sx={{ mr: 0.5 }} />
 							Mark As Completed
+						</Button>
+					)}
+				{params.row?.status !== "Successfully Returned To Merchant" &&
+					params.row?.paymentCollectionDetails?.merchantReturnFeeStatus ===
+						"Paid" && (
+						<Button
+							onClick={() => {
+								changeStatus(
+									params.row?._id,
+									"Successfully Returned To Merchant",
+								);
+							}}
+							sx={{
+								my: 1,
+								px: 3,
+								fontWeight: "bold",
+								borderRadius: "25px",
+								border: "2px solid ",
+							}}>
+							<DoneAllIcon sx={{ mr: 0.5 }} />
+							Accept Returned Parcel
+						</Button>
+					)}
+				{params.row?.status === "Sending Returned Parcel to Merchant" &&
+					params.row?.paymentCollectionDetails?.merchantReturnFeeStatus !==
+						"Paid" && (
+						<Button
+							onClick={() =>
+								confirmReceive(params.row?._id, "Merchant Paid Return Fee")
+							}
+							sx={{
+								my: 1,
+								px: 3,
+								fontWeight: "bold",
+								borderRadius: "25px",
+								border: "2px solid ",
+							}}>
+							<PaymentsIcon sx={{ mr: 0.5 }} />
+							Pay Return Fee {params.row?.orderSummaray?.returnCharge} ৳
 						</Button>
 					)}
 
@@ -247,6 +314,28 @@ const ParcelList = () => {
 					onClick={() => setSelectedStatus("Successfully Completed")}
 					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, color: "gray" }}>
 					Completed
+				</Button>
+				<Button
+					className={
+						selectedStatus === "Sending Returned Parcel to Merchant"
+							? "active"
+							: ""
+					}
+					onClick={() =>
+						setSelectedStatus("Sending Returned Parcel to Merchant")
+					}
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, color: "gray" }}>
+					Pending Returned Parcel
+				</Button>
+				<Button
+					className={
+						selectedStatus === "Successfully Returned To Merchant"
+							? "active"
+							: ""
+					}
+					onClick={() => setSelectedStatus("Successfully Returned To Merchant")}
+					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, color: "gray" }}>
+					Returned Parcel
 				</Button>
 			</Box>
 			<Grid container spacing={1} sx={{ justifyContent: "center", px: 2 }}>
