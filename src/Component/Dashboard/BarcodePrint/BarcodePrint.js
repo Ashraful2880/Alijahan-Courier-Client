@@ -14,10 +14,9 @@ import {
 import { Box } from "@mui/system";
 import React, { useRef, useState } from "react";
 import ReactToPrint from "react-to-print";
-import Barcode from 'react-barcode';
+import Barcode from "react-barcode";
 
-const BarcodePrint = ({ data, openPrint, handleClosePrint }) => {
-
+const BarcodePrint = ({ data, openBarCode, handleCloseBarCode }) => {
 	let ref2 = useRef();
 
 	const [submitting, setSubmitting] = useState(false);
@@ -26,8 +25,8 @@ const BarcodePrint = ({ data, openPrint, handleClosePrint }) => {
 			{!submitting ? (
 				<Modal
 					keepMounted
-					open={openPrint}
-					onClose={handleClosePrint}
+					open={openBarCode}
+					onClose={handleCloseBarCode}
 					aria-labelledby='keep-mounted-modal-title'
 					aria-describedby='keep-mounted-modal-description'>
 					<Box
@@ -55,65 +54,94 @@ const BarcodePrint = ({ data, openPrint, handleClosePrint }) => {
 						</Typography>
 						<ReactToPrint
 							onBeforePrint={() => setSubmitting(true)}
-							trigger={() =>
-								<Button variant="contained" color="success">
+							trigger={() => (
+								<Button variant='contained' color='success'>
 									Yes
 								</Button>
-							}
+							)}
 							onAfterPrint={() => {
 								setSubmitting(false);
-								handleClosePrint();
+								handleCloseBarCode();
 							}}
 							content={() => ref2}
 							pageStyle='print'
 						/>
 
 						<Box sx={{ visibility: "hidden !important" }}>
-							<Box sx={{ width: "50%", margin: "auto", border: "1px solid black", p: 5 }}>
-								<Typography variant="h5" component="h5" sx={{ fontWeight: "bold", color: "#1E793C", pb: 3 }}>
-									Alijahan Courier Service
-								</Typography>
-								<Box sx={{ textAlign: "left" }}>
-									<Typography variant="h6" component="h6">
-										Customer Name: <span style={{ fontWeight: "bold" }}> Faria Tabassum Nijhu</span>
-									</Typography>
-									<Typography variant="h6" component="h6">
-										Customer Number: <span style={{ fontWeight: "bold" }}> +88 01888888888</span>
-									</Typography>
-									<Typography variant="h6" component="h6">
-										Area: <span style={{ fontWeight: "bold" }}>Dhaka (Wari)</span>
-									</Typography>
-									<Typography variant="h6" component="h6">
-										Details Address: <span style={{ fontWeight: "bold" }}>
-											Dokan no 119, 1st floor,Gias Garden Books Complex,37 Banglabazar,Dhaka 1100
-										</span>
-									</Typography>
-									<Box sx={{ display: "flex", alignItems: "center" }}>
-										<Typography variant="h6" component="h6">
-											Cash: <span style={{ fontWeight: "bold" }}>
-												1020 /-
-											</span>
+							<Box ref={(el) => (ref2 = el)}>
+								{data?.map((order) => (
+									<Box
+										sx={{
+											border: "1px solid black",
+											my: 5,
+											p: 3,
+											width: "600px",
+										}}>
+										<Typography
+											variant='h4'
+											sx={{
+												fontWeight: "bold",
+												color: "#1E793C",
+												pb: 2,
+												textAlign: "center",
+											}}>
+											Alijahan Courier Service
 										</Typography>
-										<Box sx={{ display: "flex", alignItems: "center" }}>
-											<Typography variant="h6" component="h6" sx={{ ml: 5 }}>
-												Order ID:
+										<Box sx={{ textAlign: "left" }}>
+											<Typography variant='h6' component='h6'>
+												Customer Name:{" "}
+												<span style={{ fontWeight: "bold" }}>
+													{order?.receiverInfo?.receiverName}
+												</span>
 											</Typography>
-											<Barcode value="barcode-example" />
+											<Typography variant='h6' component='h6'>
+												Customer Number:{" "}
+												<span style={{ fontWeight: "bold" }}>
+													{order?.receiverInfo?.receiverNumber}
+												</span>
+											</Typography>
+											<Typography variant='h6' component='h6'>
+												Area:{" "}
+												<span style={{ fontWeight: "bold" }}>
+													{order?.receiverInfo?.receiverBranchArea}(
+													{order?.receiverInfo?.receiverBranchDistrict})
+												</span>
+											</Typography>
+											<Typography variant='h6' component='h6'>
+												Details Address:{" "}
+												<span style={{ fontWeight: "bold" }}>
+													{order?.receiverInfo?.receiverAddress}
+												</span>
+											</Typography>
+											<Box sx={{ display: "flex", alignItems: "center" }}>
+												<Typography variant='h6' component='h6'>
+													Cash:{" "}
+													<span style={{ fontWeight: "bold" }}>
+														{order?.orderSummaray?.totalAmountWithCharges} /-
+													</span>
+												</Typography>
+												<Box sx={{ display: "flex", alignItems: "center" }}>
+													<Barcode value={order?.orderId} width={1.5} />
+												</Box>
+											</Box>
+										</Box>
+										<hr style={{ margin: "5px 0" }} />
+										<Box sx={{ textAlign: "left" }}>
+											<Typography variant='h6' component='h6'>
+												Merchant Name:{" "}
+												<span style={{ fontWeight: "bold" }}>
+													{order?.marchentInfo?.merchantName}
+												</span>
+											</Typography>
+											<Typography variant='h6' component='h6'>
+												Merchant Number:{" "}
+												<span style={{ fontWeight: "bold" }}>
+													{order?.marchentInfo?.merchantContact}
+												</span>
+											</Typography>
 										</Box>
 									</Box>
-								</Box>
-								<Box sx={{ textAlign: "left" }}>
-									<Typography variant="h6" component="h6">
-										Merchant Name: <span style={{ fontWeight: "bold" }}>
-											Tamanna Mirza
-										</span>
-									</Typography>
-									<Typography variant="h6" component="h6">
-										Merchant Number: <span style={{ fontWeight: "bold" }}>
-											+88 01888888888
-										</span>
-									</Typography>
-								</Box>
+								))}
 							</Box>
 						</Box>
 					</Box>

@@ -22,7 +22,7 @@ import PrintIcon from "@mui/icons-material/Print";
 import GetAuth from "../../../../FirebaseAuth/GetAuth";
 import CancelIcon from "@mui/icons-material/Cancel";
 import Print from "../../Print/Print";
-import BarcodePrint from './../../BarcodePrint/BarcodePrint';
+import BarcodePrint from "./../../BarcodePrint/BarcodePrint";
 const style = {
 	position: "absolute",
 	top: "50%",
@@ -70,10 +70,10 @@ const WarehouseParcelListFiltered = ({
 	const handleClosePrint = () => setOpenPrint(false);
 	const handleCloseBarCode = () => setOpenBarCode(false);
 
-	const handleBarCode = () => {
+	const handleOpenBarCode = () => {
 		setOpenBarCode(true);
-		setSelected(data?.filter((e) => selectionModel?.find((n) => n === e._id)))
-	}
+		setSelected(data?.filter((e) => selectionModel?.find((n) => n === e._id)));
+	};
 
 	useEffect(() => {
 		axios
@@ -234,17 +234,17 @@ const WarehouseParcelListFiltered = ({
 												)}
 												{selectedStatus ===
 													"Sending Returned Parcel to Warehouse" && (
-														<MenuItem
-															value={"Returned Parcel Received in Warehouse"}>
-															Receive Returned Parcel
-														</MenuItem>
-													)}
+													<MenuItem
+														value={"Returned Parcel Received in Warehouse"}>
+														Receive Returned Parcel
+													</MenuItem>
+												)}
 												{selectedStatus ===
 													"Returned Parcel Received in Warehouse" && (
-														<MenuItem value={"Sending Returned Parcel to Branch"}>
-															Return Parcel to Branch
-														</MenuItem>
-													)}
+													<MenuItem value={"Sending Returned Parcel to Branch"}>
+														Return Parcel to Branch
+													</MenuItem>
+												)}
 											</Select>
 										</FormControl>
 									</Box>
@@ -267,24 +267,31 @@ const WarehouseParcelListFiltered = ({
 							</>
 						)}
 					</Box>
-					<Grid container spacing={1} sx={{ justifyContent: "center", px: 2, position: "relative" }}>
+					<Grid
+						container
+						spacing={1}
+						sx={{ justifyContent: "center", px: 2, position: "relative" }}>
 						<Grid item xs={12} md={12}>
-							{selectionModel?.length > 0 &&
-								<Badge badgeContent={selectionModel?.length} color='primary' sx={{
-									position: "absolute",
-									top: "4%",
-									left: "25%",
-									fontSize: "20px",
-									color: "#166534",
-									cursor: "pointer",
-									zIndex: "999",
-								}}>
-									<PrintIcon
-										onClick={handleOpenPrint} />
-								</Badge>}
+							{selectionModel?.length > 0 && (
+								<Badge
+									badgeContent={selectionModel?.length}
+									color='primary'
+									sx={{
+										position: "absolute",
+										top: "4%",
+										left: "25%",
+										fontSize: "20px",
+										color: "#166534",
+										cursor: "pointer",
+										zIndex: "999",
+									}}>
+									<PrintIcon onClick={handleOpenPrint} />
+								</Badge>
+							)}
 							{/* BarCode Print Icon */}
-							{selectionModel?.length > 0 &&
-								<Button onClick={handleBarCode}
+							{selectionModel?.length > 0 && (
+								<Button
+									onClick={handleOpenBarCode}
 									sx={{
 										position: "absolute",
 										top: "4%",
@@ -295,16 +302,14 @@ const WarehouseParcelListFiltered = ({
 										zIndex: "999",
 										border: "1px solid gray",
 										py: 0.5,
-										px: 1
+										px: 1,
 									}}>
-									<Typography>
-										Barcode
-									</Typography>
-									<Badge badgeContent={selectionModel?.length} color='primary' >
+									<Typography>Barcode</Typography>
+									<Badge badgeContent={selectionModel?.length} color='primary'>
 										<PrintIcon />
 									</Badge>
 								</Button>
-							}
+							)}
 							{data && (
 								<div style={{ height: 400, width: "100%" }} className='table'>
 									<DataGrid
@@ -333,8 +338,8 @@ const WarehouseParcelListFiltered = ({
 					{/*Barcode Print Component Here */}
 					<BarcodePrint
 						data={selected}
-						handleClosePrint={handleCloseBarCode}
-						openPrint={openBarCode}
+						handleCloseBarCode={handleCloseBarCode}
+						openBarCode={openBarCode}
 					/>
 					<Backdrop
 						sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 999 }}
