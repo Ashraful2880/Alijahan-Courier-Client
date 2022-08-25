@@ -23,6 +23,7 @@ const WarehouseParcelList = () => {
 	const email = "warehouse2@gmail.com";
 	const { user, loading, token } = GetAuth();
 	const [data, setData] = useState();
+	const [submitting, setSubmitting] = useState(false);
 	const [opens, setOpens] = React.useState(false);
 	const [parcelData, setParcelData] = useState();
 
@@ -39,7 +40,7 @@ const WarehouseParcelList = () => {
 			.catch((error) => {
 				console.log(error);
 			});
-	}, [token, opens]);
+	}, [token, opens, submitting]);
 
 	const renderDetailsButton = (params) => {
 		return (
@@ -98,6 +99,36 @@ const WarehouseParcelList = () => {
 				(t) => t.marchentInfo.merchantName === v.marchentInfo.merchantName,
 			) === i,
 	);
+	const [id, setId] = useState();
+	useEffect(() => {
+		const find = data?.find((parcel) => parcel?.orderId === id);
+		if (id === find?.orderId && find?.status === "Delivered To Warehouse") {
+			console.log("Found");
+			axios
+				.put(
+					`${process.env.REACT_APP_API_PATH}/merchantorderStatus/${id}`,
+					{
+						status: "Parcel Received On Warehouse",
+					},
+					{
+						headers: {
+							Authorization: `Bearer ${token}`,
+						},
+					},
+				)
+				.then((response) => {
+					setSubmitting(false);
+					Swal.fire("", "Successfully Done!", "success");
+				})
+				.catch((error) => {
+					setSubmitting(false);
+					console.log(error);
+				});
+		} else {
+			console.log("Not Found");
+		}
+	}, [data, id, token]);
+
 	return (
 		<Box sx={{ mx: 4, pt: 2, pb: 5 }}>
 			<Box
@@ -111,6 +142,7 @@ const WarehouseParcelList = () => {
 				<Typography variant='h5' sx={{ fontWeight: "bold", color: "#1E793C" }}>
 					All Parcel List
 				</Typography>
+				<input type='text' onChange={(e) => setId(e.target.value)} />
 			</Box>
 			<Box sx={{ display: "flex" }}>
 				<Button
@@ -204,7 +236,7 @@ const WarehouseParcelList = () => {
 			/>
 			<Backdrop
 				sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 999 }}
-				open={!data}>
+				open={!data || submitting}>
 				<CircularProgress color='inherit' />
 			</Backdrop>
 		</Box>
