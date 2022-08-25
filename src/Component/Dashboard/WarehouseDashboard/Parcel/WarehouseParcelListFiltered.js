@@ -13,7 +13,12 @@ import {
 	Modal,
 	Badge,
 } from "@mui/material";
-import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import {
+	DataGrid,
+	GridToolbarContainer,
+	GridToolbarColumnsButton,
+	GridToolbarFilterButton,
+} from "@mui/x-data-grid";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useEffect } from "react";
@@ -29,7 +34,8 @@ const style = {
 	left: "50%",
 	transform: "translate(-50%, -50%)",
 	boxShadow: 24,
-	p: 2,
+	px: 2,
+	py: 5,
 	width: "90vw",
 	maxHeight: "90vh",
 	overflowX: "hidden",
@@ -170,6 +176,118 @@ const WarehouseParcelListFiltered = ({
 			disableClickEventBubbling: true,
 		},
 	];
+	function CustomToolbar() {
+		return (
+			<GridToolbarContainer sx={{ py: 1 }}>
+				<GridToolbarColumnsButton />
+				<GridToolbarFilterButton />
+				<Box sx={{ display: "flex", my: 1, mx: 2 }}>
+					{selectionModel?.length > 0 ? (
+						<>
+							{selectedStatus !== "All" && (
+								<Box>
+									<Button
+										variant='contained'
+										color='success'
+										onClick={handleOpen}
+										sx={{ fontWeight: "bold", p: 1 }}>
+										Change Status : {selectionModel?.length}
+									</Button>
+
+									<FormControl sx={{ m: 1 }}>
+										<Select
+											sx={{ visibility: "hidden", mr: 15 }}
+											size='small'
+											open={open}
+											onClose={handleClose}
+											onOpen={handleOpen}
+											value={status}
+											onChange={(event) => {
+												changeStatusMulti(event);
+												setStatus(event.target.value);
+											}}
+											displayEmpty
+											inputProps={{ "aria-label": "Without label" }}>
+											{selectedStatus === "Delivered To Warehouse" && (
+												<MenuItem value={"Parcel Received On Warehouse"}>
+													Parcel Received
+												</MenuItem>
+											)}
+											{selectedStatus === "Parcel Received On Warehouse" && (
+												<MenuItem value={"Delivered To Receiver Branch"}>
+													Deliver To Receiver Branch
+												</MenuItem>
+											)}
+											{selectedStatus ===
+												"Sending Returned Parcel to Warehouse" && (
+													<MenuItem
+														value={"Returned Parcel Received in Warehouse"}>
+														Receive Returned Parcel
+													</MenuItem>
+												)}
+											{selectedStatus ===
+												"Returned Parcel Received in Warehouse" && (
+													<MenuItem value={"Sending Returned Parcel to Branch"}>
+														Return Parcel to Branch
+													</MenuItem>
+												)}
+										</Select>
+									</FormControl>
+								</Box>
+							)}
+						</>
+					) : (
+						<>
+							{selectedStatus !== "All" && (
+								<>
+									<Button
+										disabled
+										variant='contained'
+										color='success'
+										onClick={handleOpen}
+										sx={{ fontWeight: "bold", p: 1 }}>
+										Change Status
+									</Button>
+								</>
+							)}
+						</>
+					)}
+				</Box>
+				{/* Print Icon */}
+				{selectionModel?.length > 0 && (
+					<Badge
+						badgeContent={selectionModel?.length}
+						color='primary'
+						sx={{
+							mx: 2,
+							fontSize: "20px",
+							color: "#166534",
+							cursor: "pointer",
+							zIndex: "999",
+						}}>
+						<PrintIcon onClick={handleOpenPrint} />
+					</Badge>
+				)}
+				{/* Print Icon Barcode */}
+				{selectionModel?.length > 0 && (
+					<Button
+						onClick={handleOpenBarCode}
+						sx={{
+							mx: 2,
+							fontSize: "20px",
+							color: "#166534",
+							cursor: "pointer",
+							zIndex: "999",
+						}}>
+						<Typography> Barcode </Typography>
+						<Badge badgeContent={selectionModel?.length} color='primary'>
+							<PrintIcon color="success" />
+						</Badge>
+					</Button>
+				)}
+			</GridToolbarContainer>
+		);
+	}
 	return (
 		<Modal
 			aria-labelledby='transition-modal-title'
@@ -187,129 +305,18 @@ const WarehouseParcelListFiltered = ({
 						className='textColor'
 						sx={{
 							position: "fixed",
-							top: "30px",
-							right: "30px",
+							top: "50px",
+							right: "40px",
 							zIndex: 999,
 							cursor: "pointer",
 							background: "White",
 							borderRadius: "50%",
-						}}
-					/>
-					<Box sx={{ display: "flex", my: 1 }}>
-						{selectionModel?.length > 0 ? (
-							<>
-								{selectedStatus !== "All" && (
-									<Box>
-										<Button
-											variant='contained'
-											color='success'
-											onClick={handleOpen}
-											sx={{ fontWeight: "bold", p: 1 }}>
-											Change Status : {selectionModel?.length}
-										</Button>
-
-										<FormControl sx={{ m: 1 }}>
-											<Select
-												sx={{ visibility: "hidden", mr: 15 }}
-												size='small'
-												open={open}
-												onClose={handleClose}
-												onOpen={handleOpen}
-												value={status}
-												onChange={(event) => {
-													changeStatusMulti(event);
-													setStatus(event.target.value);
-												}}
-												displayEmpty
-												inputProps={{ "aria-label": "Without label" }}>
-												{selectedStatus === "Delivered To Warehouse" && (
-													<MenuItem value={"Parcel Received On Warehouse"}>
-														Parcel Received
-													</MenuItem>
-												)}
-												{selectedStatus === "Parcel Received On Warehouse" && (
-													<MenuItem value={"Delivered To Receiver Branch"}>
-														Deliver To Receiver Branch
-													</MenuItem>
-												)}
-												{selectedStatus ===
-													"Sending Returned Parcel to Warehouse" && (
-													<MenuItem
-														value={"Returned Parcel Received in Warehouse"}>
-														Receive Returned Parcel
-													</MenuItem>
-												)}
-												{selectedStatus ===
-													"Returned Parcel Received in Warehouse" && (
-													<MenuItem value={"Sending Returned Parcel to Branch"}>
-														Return Parcel to Branch
-													</MenuItem>
-												)}
-											</Select>
-										</FormControl>
-									</Box>
-								)}
-							</>
-						) : (
-							<>
-								{selectedStatus !== "All" && (
-									<>
-										<Button
-											disabled
-											variant='contained'
-											color='success'
-											onClick={handleOpen}
-											sx={{ fontWeight: "bold", p: 1 }}>
-											Change Status
-										</Button>
-									</>
-								)}
-							</>
-						)}
-					</Box>
+						}} />
 					<Grid
 						container
 						spacing={1}
-						sx={{ justifyContent: "center", px: 2, position: "relative" }}>
+						sx={{ justifyContent: "center", px: 2, }}>
 						<Grid item xs={12} md={12}>
-							{selectionModel?.length > 0 && (
-								<Badge
-									badgeContent={selectionModel?.length}
-									color='primary'
-									sx={{
-										position: "absolute",
-										top: "4%",
-										left: "25%",
-										fontSize: "20px",
-										color: "#166534",
-										cursor: "pointer",
-										zIndex: "999",
-									}}>
-									<PrintIcon onClick={handleOpenPrint} />
-								</Badge>
-							)}
-							{/* BarCode Print Icon */}
-							{selectionModel?.length > 0 && (
-								<Button
-									onClick={handleOpenBarCode}
-									sx={{
-										position: "absolute",
-										top: "4%",
-										left: "28%",
-										fontSize: "20px",
-										color: "#166534",
-										cursor: "pointer",
-										zIndex: "999",
-										border: "1px solid gray",
-										py: 0.5,
-										px: 1,
-									}}>
-									<Typography>Barcode</Typography>
-									<Badge badgeContent={selectionModel?.length} color='primary'>
-										<PrintIcon />
-									</Badge>
-								</Button>
-							)}
 							{data && (
 								<div style={{ height: 400, width: "100%" }} className='table'>
 									<DataGrid
@@ -323,7 +330,7 @@ const WarehouseParcelListFiltered = ({
 										pageSize={5}
 										rowsPerPageOptions={[5]}
 										checkboxSelection
-										components={{ Toolbar: GridToolbar }}
+										components={{ Toolbar: CustomToolbar }}
 									/>
 								</div>
 							)}

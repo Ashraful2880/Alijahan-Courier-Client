@@ -14,7 +14,12 @@ import {
 	Badge,
 } from "@mui/material";
 import React from "react";
-import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import {
+	DataGrid,
+	GridToolbarContainer,
+	GridToolbarColumnsButton,
+	GridToolbarFilterButton,
+} from "@mui/x-data-grid";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useEffect } from "react";
@@ -168,7 +173,27 @@ const AdminParcelListFiltered = ({
 			disableClickEventBubbling: true,
 		},
 	];
+	function CustomToolbar() {
+		return (
+			<GridToolbarContainer>
+				<GridToolbarColumnsButton />
+				<GridToolbarFilterButton />
+				{selectionModel?.length > 0 &&
+					<Badge badgeContent={selectionModel?.length} color='primary' sx={{
+						mx: 2,
+						fontSize: "20px",
+						color: "#166534",
+						cursor: "pointer",
+						zIndex: "999",
+					}}>
+						<PrintIcon
+							onClick={handleOpenPrint}
 
+						/>
+					</Badge>}
+			</GridToolbarContainer>
+		);
+	}
 	return (
 		<Modal
 			aria-labelledby='transition-modal-title'
@@ -210,21 +235,6 @@ const AdminParcelListFiltered = ({
 					</Box>
 					<Grid container spacing={1} sx={{ justifyContent: "center", px: 2, position: "relative" }}>
 						<Grid item xs={12} md={12}>
-							{selectionModel?.length > 0 &&
-								<Badge badgeContent={selectionModel?.length} color='primary' sx={{
-									position: "absolute",
-									top: "4%",
-									left: "25%",
-									fontSize: "20px",
-									color: "#166534",
-									cursor: "pointer",
-									zIndex: "999",
-								}}>
-									<PrintIcon
-										onClick={handleOpenPrint}
-
-									/>
-								</Badge>}
 							{data && (
 								<div style={{ height: 400, width: "100%" }} className='table'>
 									<DataGrid
@@ -238,7 +248,7 @@ const AdminParcelListFiltered = ({
 										pageSize={5}
 										rowsPerPageOptions={[5]}
 										checkboxSelection
-										components={{ Toolbar: GridToolbar }}
+										components={{ Toolbar: CustomToolbar }}
 									/>
 								</div>
 							)}
