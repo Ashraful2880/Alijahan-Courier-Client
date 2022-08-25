@@ -77,7 +77,7 @@ const BranchParcelListFiltered = ({
 		setSelected(data?.filter((e) => selectionModel?.find((n) => n === e._id)));
 	};
 
-	console.log(selected)
+	console.log(selected);
 
 	let ref = useRef();
 	const date = new Date();
@@ -359,19 +359,19 @@ const BranchParcelListFiltered = ({
 				{((params.row?.status === "Assigned for Pickup" &&
 					!params.row?.collectRiderInfo?.riderName) ||
 					params.row?.status === "Cancelled by Pickup Rider") && (
-						<Autocomplete
-							onChange={(event, newValue) => {
-								changeRider(event, newValue, params.row?._id);
-							}}
-							size='small'
-							sx={{ my: 0.5, width: 200 }}
-							options={riders}
-							getOptionLabel={(option) => option.riderName}
-							renderInput={(params) => (
-								<TextField {...params} label='Select Rider' variant='outlined' />
-							)}
-						/>
-					)}
+					<Autocomplete
+						onChange={(event, newValue) => {
+							changeRider(event, newValue, params.row?._id);
+						}}
+						size='small'
+						sx={{ my: 0.5, width: 200 }}
+						options={riders}
+						getOptionLabel={(option) => option.riderName}
+						renderInput={(params) => (
+							<TextField {...params} label='Select Rider' variant='outlined' />
+						)}
+					/>
+				)}
 			</Box>
 		);
 	};
@@ -464,27 +464,27 @@ const BranchParcelListFiltered = ({
 							<>
 								{(selectedStatus === "Assigned for Pickup" ||
 									selectedStatus === "Cancelled by Pickup Rider") && (
-										<Autocomplete
-											onChange={(event, newValue) => {
-												changeRiderMulti(event, newValue);
-											}}
-											size='small'
-											sx={{ my: 0.5, width: 200 }}
-											options={riders}
-											getOptionLabel={(option) => option.riderName}
-											renderInput={(params) => (
-												<TextField
-													{...params}
-													label='Select Rider'
-													variant='outlined'
-												/>
-											)}
-										/>
-									)}
+									<Autocomplete
+										onChange={(event, newValue) => {
+											changeRiderMulti(event, newValue);
+										}}
+										size='small'
+										sx={{ my: 0.5, width: 200 }}
+										options={riders}
+										getOptionLabel={(option) => option.riderName}
+										renderInput={(params) => (
+											<TextField
+												{...params}
+												label='Select Rider'
+												variant='outlined'
+											/>
+										)}
+									/>
+								)}
 								{selectedStatus !== "All" && (
 									<Box>
 										{selectedStatus === "Assigned for Pickup" ||
-											selectedStatus === "Cancelled by Pickup Rider" ? (
+										selectedStatus === "Cancelled by Pickup Rider" ? (
 											""
 										) : (
 											<Button
@@ -522,10 +522,10 @@ const BranchParcelListFiltered = ({
 												)}
 												{selectedStatus ===
 													"Delivered To Branch By Pickup Rider" && (
-														<MenuItem value={"Received in Pickup Branch"}>
-															Received in Pickup Branch
-														</MenuItem>
-													)}
+													<MenuItem value={"Received in Pickup Branch"}>
+														Received in Pickup Branch
+													</MenuItem>
+												)}
 												{selectedStatus === "Received in Pickup Branch" && (
 													<MenuItem value={"Delivered To Warehouse"}>
 														Deliver To Warehouse
@@ -533,39 +533,56 @@ const BranchParcelListFiltered = ({
 												)}
 												{selectedStatus ===
 													"Sending Returned Parcel to Branch" && (
-														<MenuItem
-															value={"Returned Parcel Received in Branch"}>
-															Returned Parcel Received
-														</MenuItem>
-													)}
+													<MenuItem
+														value={"Returned Parcel Received in Branch"}>
+														Returned Parcel Received
+													</MenuItem>
+												)}
 												{selectedStatus ===
 													"Returned Parcel Received in Branch" && (
-														<MenuItem
-															value={"Sending Returned Parcel to Merchant"}>
-															Sent Returned Parcel to Merchant
-														</MenuItem>
-													)}
+													<MenuItem
+														value={"Sending Returned Parcel to Merchant"}>
+														Sent Returned Parcel to Merchant
+													</MenuItem>
+												)}
 											</Select>
 										</FormControl>
 									</Box>
 								)}
 							</>
 						) : (
-							<Button
-								disabled
-								variant='contained'
-								color='success'
-								onClick={handleOpen}
-								sx={{ fontWeight: "bold", p: 1 }}>
-								Change Status
-							</Button>
+							<>
+								{selectedStatus !== "All" && (
+									<Button
+										disabled
+										variant='contained'
+										color='success'
+										onClick={handleOpen}
+										sx={{ fontWeight: "bold", p: 1 }}>
+										Change Status
+									</Button>
+								)}
+							</>
 						)}
 					</Box>
 
-					<Grid container spacing={1} sx={{ justifyContent: "center", px: 2, position: "relative" }}>
+					<Grid
+						container
+						spacing={1}
+						sx={{ justifyContent: "center", px: 2, position: "relative" }}>
 						<Grid item xs={12} md={12}>
-							<PrintIcon onClick={() => printData()}
-								sx={{ position: "absolute", top: "4.5%", left: "30%", fontSize: "20px", color: "#166534", cursor: "pointer", zIndex: "999", }} />
+							<PrintIcon
+								onClick={() => printData()}
+								sx={{
+									position: "absolute",
+									top: "4.5%",
+									left: "30%",
+									fontSize: "20px",
+									color: "#166534",
+									cursor: "pointer",
+									zIndex: "999",
+								}}
+							/>
 							{data && (
 								<div style={{ height: 400, width: "100%" }} className='table'>
 									<DataGrid
@@ -628,9 +645,15 @@ const BranchParcelListFiltered = ({
 							</Box>
 							{/* Print Table Component */}
 							<Box sx={{ position: "relative", mb: 2 }}>
-								<img src="https://alijahan-courier.netlify.app/static/media/Logo.9068b4f56d43d41f4abd.png" alt="Main Logo" className="imagePosition" />
-								<TableContainer component="div" sx={{ border: "1px solid #d9d9d9", borderRadius: "10px" }}>
-									<Table sx={{ minWidth: 650 }} aria-label="simple table">
+								<img
+									src='https://alijahan-courier.netlify.app/static/media/Logo.9068b4f56d43d41f4abd.png'
+									alt='Main Logo'
+									className='imagePosition'
+								/>
+								<TableContainer
+									component='div'
+									sx={{ border: "1px solid #d9d9d9", borderRadius: "10px" }}>
+									<Table sx={{ minWidth: 650 }} aria-label='simple table'>
 										<TableHead>
 											<TableRow>
 												<TableCell
@@ -717,7 +740,12 @@ const BranchParcelListFiltered = ({
 													align='center'>
 													Payment Status
 												</TableCell>
-												<TableCell sx={{ fontWeight: "bold", borderRight: "1px solid #d9d9d9" }} align="center">
+												<TableCell
+													sx={{
+														fontWeight: "bold",
+														borderRight: "1px solid #d9d9d9",
+													}}
+													align='center'>
 													Signature
 												</TableCell>
 											</TableRow>
@@ -781,17 +809,23 @@ const BranchParcelListFiltered = ({
 														align='center'>
 														{item?.paymentStatus}
 													</TableCell>
-													<TableCell sx={{ borderRight: "1px solid #d9d9d9", width: "9%" }} align="center">
-
-													</TableCell>
+													<TableCell
+														sx={{
+															borderRight: "1px solid #d9d9d9",
+															width: "9%",
+														}}
+														align='center'></TableCell>
 												</TableRow>
 											))}
 										</TableBody>
 									</Table>
 								</TableContainer>
 							</Box>
-							<Typography variant="p" sx={{ fontSize: "13px" }}>
-								This is an Auto Generated Report of <span style={{ color: "green", fontStyle: "italic" }}>Alijahan Courier</span>
+							<Typography variant='p' sx={{ fontSize: "13px" }}>
+								This is an Auto Generated Report of{" "}
+								<span style={{ color: "green", fontStyle: "italic" }}>
+									Alijahan Courier
+								</span>
 							</Typography>
 						</Box>
 					</Box>

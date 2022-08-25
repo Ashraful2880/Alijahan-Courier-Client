@@ -416,14 +416,18 @@ const RiderRecParcelListFiltered = ({
 								)}
 							</>
 						) : (
-							<Button
-								disabled
-								variant='contained'
-								color='success'
-								onClick={handleOpen}
-								sx={{ fontWeight: "bold", p: 1 }}>
-								Change Status
-							</Button>
+							<>
+								{selectedStatus !== "All" && (
+									<Button
+										disabled
+										variant='contained'
+										color='success'
+										onClick={handleOpen}
+										sx={{ fontWeight: "bold", p: 1 }}>
+										Change Status
+									</Button>
+								)}
+							</>
 						)}
 					</Box>
 					<Grid container spacing={1} sx={{ justifyContent: "center", px: 2 }}>
