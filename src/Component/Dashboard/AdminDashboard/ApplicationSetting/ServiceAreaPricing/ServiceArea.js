@@ -185,6 +185,11 @@ const ServiceArea = () => {
 			headerName: "Charge",
 			flex: 1,
 		},
+		{
+			field: "returnCharge",
+			headerName: "Return Charge",
+			flex: 1,
+		},
 		{ field: "status", headerName: "Status", flex: 1 },
 		{
 			field: "_id",

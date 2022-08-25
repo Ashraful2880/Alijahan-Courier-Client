@@ -144,6 +144,7 @@ const AddMerchantParcel = () => {
 			});
 	}, [token]);
 
+	const returnCharge = parseFloat(selectedArea?.returnCharge) || 0;
 	const cashCollected = parseFloat(cashCollection) || 0;
 	const deliveryCharge = parseFloat(serviceArea?.serviceAreaCharge);
 	const codPercentage = parseFloat(serviceArea?.serviceAreaCODPercentage) || 0;
@@ -187,11 +188,13 @@ const AddMerchantParcel = () => {
 				totalCharges,
 				totalAmountWithCharges,
 				totalReceive,
+				returnCharge,
 			},
 			paymentCollectionDetails: {
 				collectionStatus: "Pending",
 				collectionDate: "",
 				collectedAmount: 0,
+				companyRec: totalCharges,
 				marchantRec: totalReceive,
 			},
 			collectRiderInfo: {},

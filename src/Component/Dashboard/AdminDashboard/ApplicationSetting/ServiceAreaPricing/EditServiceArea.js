@@ -42,6 +42,7 @@ const EditServiceArea = ({ open, setOpen, id, token, setSubmitting }) => {
 			serviceAreaName: "",
 			serviceAreaCODPercentage: "",
 			serviceAreaCharge: "",
+			returnCharge: "",
 		},
 	});
 
@@ -65,6 +66,7 @@ const EditServiceArea = ({ open, setOpen, id, token, setSubmitting }) => {
 		serviceAreaName,
 		serviceAreaCODPercentage,
 		serviceAreaCharge,
+		returnCharge,
 	}) => {
 		setSubmitting(true);
 		axios
@@ -74,6 +76,7 @@ const EditServiceArea = ({ open, setOpen, id, token, setSubmitting }) => {
 					serviceAreaName,
 					serviceAreaCODPercentage,
 					serviceAreaCharge,
+					returnCharge,
 				},
 				{
 					headers: {
@@ -169,14 +172,21 @@ const EditServiceArea = ({ open, setOpen, id, token, setSubmitting }) => {
 									<Box sx={{ display: "flex", gap: "20px" }}>
 										<TextField
 											size='small'
-											sx={{ my: 0.5, width: "49%" }}
+											sx={{ my: 0.5 }}
 											fullWidth
 											label='Charge'
 											helperText='Charge'
 											{...register("serviceAreaCharge", { required: true })}
 										/>
+										<TextField
+											size='small'
+											sx={{ my: 0.5 }}
+											fullWidth
+											label='Return Charge'
+											helperText='Return Charge'
+											{...register("returnCharge", { required: true })}
+										/>
 									</Box>
-
 									<Box sx={{ mt: 2, mb: 1 }}>
 										<Button
 											type='submit'
