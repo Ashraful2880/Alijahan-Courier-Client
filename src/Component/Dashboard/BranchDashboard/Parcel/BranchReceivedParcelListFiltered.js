@@ -20,7 +20,12 @@ import {
 	TableContainer,
 } from "@mui/material";
 import React from "react";
-import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import {
+	DataGrid,
+	GridToolbarContainer,
+	GridToolbarColumnsButton,
+	GridToolbarFilterButton,
+} from "@mui/x-data-grid";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useEffect } from "react";
@@ -59,6 +64,12 @@ const BranchReceivedParcelListFiltered = ({
 	const { user, loading, token } = GetAuth();
 	const [submitting, setSubmitting] = useState(false);
 	const [open, setOpen] = React.useState(false);
+	const [openPrint, setOpenPrint] = React.useState(false);
+	const handleOpenPrint = () => {
+		setOpenPrint(true);
+		setSelected(data?.filter((e) => selectionModel?.find((n) => n === e._id)));
+	};
+	const handleClosePrint = () => setOpenPrint(false);
 	const handleClose = () => {
 		setOpen(false);
 	};
@@ -428,12 +439,28 @@ const BranchReceivedParcelListFiltered = ({
 			disableClickEventBubbling: true,
 		},
 	];
-	const [openPrint, setOpenPrint] = React.useState(false);
-	const handleOpenPrint = () => {
-		setOpenPrint(true);
-		setSelected(data?.filter((e) => selectionModel?.find((n) => n === e._id)));
-	};
-	const handleClosePrint = () => setOpenPrint(false);
+
+	function CustomToolbar() {
+		return (
+			<GridToolbarContainer>
+				<GridToolbarColumnsButton />
+				<GridToolbarFilterButton />
+				{
+					selectionModel?.length > 0 &&
+					<Badge badgeContent={selectionModel?.length} color='primary' sx={{
+						mx: 2,
+						fontSize: "20px",
+						color: "#166534",
+						cursor: "pointer",
+					}}>
+						<PrintIcon
+							onClick={handleOpenPrint} />
+					</Badge>
+				}
+			</GridToolbarContainer>
+		);
+	}
+
 	return (
 		<Modal
 			aria-labelledby='transition-modal-title'
@@ -578,21 +605,6 @@ const BranchReceivedParcelListFiltered = ({
 						spacing={1}
 						sx={{ justifyContent: "center", px: 2, position: "relative" }}>
 						<Grid item xs={12} md={12}>
-							{selectionModel?.length > 0 &&
-								<Badge badgeContent={selectionModel?.length} color='primary' sx={{
-									position: "absolute",
-									top: "4%",
-									left: "25%",
-									fontSize: "20px",
-									color: "#166534",
-									cursor: "pointer",
-									zIndex: "999",
-								}}>
-									<PrintIcon
-										onClick={handleOpenPrint}
-
-									/>
-								</Badge>}
 							{data && (
 								<div style={{ height: 400, width: "100%" }} className='table'>
 									<DataGrid
@@ -606,7 +618,7 @@ const BranchReceivedParcelListFiltered = ({
 										pageSize={5}
 										rowsPerPageOptions={[5]}
 										checkboxSelection
-										components={{ Toolbar: GridToolbar }}
+										components={{ Toolbar: CustomToolbar }}
 									/>
 								</div>
 							)}

@@ -15,7 +15,12 @@ import {
 	TextField,
 	Autocomplete,
 } from "@mui/material";
-import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import {
+	DataGrid,
+	GridToolbarContainer,
+	GridToolbarColumnsButton,
+	GridToolbarFilterButton,
+} from "@mui/x-data-grid";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useEffect } from "react";
@@ -73,6 +78,12 @@ const BranchParcelListFiltered = ({
 	const [Warehouse, setWarehouse] = useState();
 	const [selectionModel, setSelectionModel] = React.useState();
 	const [selected, setSelected] = React.useState([]);
+	const [openPrint, setOpenPrint] = React.useState(false);
+	const handleOpenPrint = () => {
+		setOpenPrint(true);
+		setSelected(data?.filter((e) => selectionModel?.find((n) => n === e._id)));
+	};
+	const handleClosePrint = () => setOpenPrint(false);
 
 	const printData = () => {
 		setSelected(data?.filter((e) => selectionModel?.find((n) => n === e._id)));
@@ -81,104 +92,6 @@ const BranchParcelListFiltered = ({
 	console.log(selected);
 
 	let ref = useRef();
-	const date = new Date();
-	// Print Function Here
-	function createData(
-		id,
-		orderInfo,
-		merchant,
-		contactName,
-		contactNumber,
-		contactAddress,
-		area,
-		amount,
-		collected,
-		status,
-		paymentStatus,
-		instruction,
-	) {
-		return {
-			id,
-			orderInfo,
-			merchant,
-			contactName,
-			contactNumber,
-			contactAddress,
-			area,
-			amount,
-			collected,
-			status,
-			paymentStatus,
-			instruction,
-		};
-	}
-	const tableRows = [
-		createData(
-			"19649-3",
-			"Created At 31-10-2022 Deadline 02-11-2022",
-			"Mr.Moinuddin",
-			"01974238487",
-			"H.S.S Road, Jhenaidah",
-			"Jhenaidah",
-			580,
-			300,
-			"Rescheduled",
-			"Due",
-			"Please Handle The Parcel Carefully.Food Item",
-		),
-		createData(
-			"18649-9",
-			"Created At 31-10-2022 Deadline 02-11-2022",
-			"Mehvish Kainat Abdullah",
-			"01974238487",
-			"H.S.S Road, Jhenaidah",
-			"Jhenaidah",
-			500,
-			300,
-			"Rescheduled",
-			"Due",
-			"Please Handle The Parcel Carefully.Food Item",
-		),
-		createData(
-			"14643-9",
-			"Created At 31-10-2022 Deadline 02-11-2022",
-			"Eftekhar Alam",
-			"01974238487",
-			"H.S.S Road, Jhenaidah",
-			"Jhenaidah",
-			490,
-			300,
-			"Rescheduled",
-			"Due",
-			"Please Handle The Parcel Carefully.Food Item",
-		),
-		createData(
-			"11641-1",
-			"Created At 31-10-2022 Deadline 02-11-2022",
-			"Mr.Moinuddin",
-			"01974238487",
-			"H.S.S Road, Jhenaidah",
-			"Jhenaidah",
-			550,
-			300,
-			"Rescheduled",
-			"Due",
-			"Please Handle The Parcel Carefully.Food Item",
-		),
-		createData(
-			"28649-0",
-			"Created At 31-10-2022 Deadline 02-11-2022",
-			"Mr.Moinuddin",
-			"01974238487",
-			"H.S.S Road, Jhenaidah",
-			"Jhenaidah",
-			620,
-			300,
-			"Rescheduled",
-			"Due",
-			"Please Handle The Parcel Carefully.Food Item",
-		),
-	];
 
 	useEffect(() => {
 		axios
@@ -419,12 +332,30 @@ const BranchParcelListFiltered = ({
 			disableClickEventBubbling: true,
 		},
 	];
-	const [openPrint, setOpenPrint] = React.useState(false);
-	const handleOpenPrint = () => {
-		setOpenPrint(true);
-		setSelected(data?.filter((e) => selectionModel?.find((n) => n === e._id)));
-	};
-	const handleClosePrint = () => setOpenPrint(false);
+	function CustomToolbar() {
+		return (
+			<GridToolbarContainer>
+				<GridToolbarColumnsButton />
+				<GridToolbarFilterButton />
+				{
+					selectionModel?.length > 0 &&
+					<Badge badgeContent={selectionModel?.length} color='primary' sx={{
+						mx: 2,
+						fontSize: "20px",
+						color: "#166534",
+						cursor: "pointer",
+						zIndex: "999",
+					}}>
+						<PrintIcon
+							onClick={handleOpenPrint}
+
+						/>
+					</Badge>
+				}
+			</GridToolbarContainer>
+		);
+	}
+
 	return (
 		<Modal
 			aria-labelledby='transition-modal-title'
@@ -577,21 +508,6 @@ const BranchParcelListFiltered = ({
 						spacing={1}
 						sx={{ justifyContent: "center", px: 2, position: "relative" }}>
 						<Grid item xs={12} md={12}>
-							{selectionModel?.length > 0 &&
-								<Badge badgeContent={selectionModel?.length} color='primary' sx={{
-									position: "absolute",
-									top: "4%",
-									left: "30%",
-									fontSize: "20px",
-									color: "#166534",
-									cursor: "pointer",
-									zIndex: "999",
-								}}>
-									<PrintIcon
-										onClick={handleOpenPrint}
-
-									/>
-								</Badge>}
 							{data && (
 								<div style={{ height: 400, width: "100%" }} className='table'>
 									<DataGrid
@@ -605,7 +521,7 @@ const BranchParcelListFiltered = ({
 										pageSize={5}
 										rowsPerPageOptions={[5]}
 										checkboxSelection
-										components={{ Toolbar: GridToolbar }}
+										components={{ Toolbar: CustomToolbar }}
 									/>
 								</div>
 							)}
