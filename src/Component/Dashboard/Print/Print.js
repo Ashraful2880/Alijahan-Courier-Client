@@ -1,5 +1,6 @@
 import {
 	Backdrop,
+	Button,
 	CircularProgress,
 	Modal,
 	Table,
@@ -39,20 +40,24 @@ const Print = ({ data, openPrint, handleClosePrint }) => {
 							width: 300,
 							height: 150,
 							bgcolor: "white",
-							border: "2px solid #000",
+							borderRadius: 3,
 							boxShadow: 24,
 							p: 4,
 						}}>
 						<Typography
 							id='keep-mounted-modal-title'
-							variant='h6'
-							component='h2'
-							gutterBottom>
-							Really Want To Print?
+							variant='p'
+							component='p'
+							sx={{ fontSize: "20px", mb: 3 }}>
+							Do You Want to Print?
 						</Typography>
 						<ReactToPrint
 							onBeforePrint={() => setSubmitting(true)}
-							trigger={() => <button>Yes</button>}
+							trigger={() =>
+								<Button variant="contained" color="success">
+									Yes
+								</Button>
+							}
 							onAfterPrint={() => {
 								setSubmitting(false);
 								handleClosePrint();

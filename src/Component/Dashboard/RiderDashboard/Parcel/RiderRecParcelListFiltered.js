@@ -13,6 +13,7 @@ import {
 	Modal,
 	TextField,
 	Autocomplete,
+	Badge,
 } from "@mui/material";
 import React from "react";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
@@ -24,6 +25,7 @@ import PrintIcon from "@mui/icons-material/Print";
 import PaymentsIcon from "@mui/icons-material/Payments";
 import GetAuth from "../../../../FirebaseAuth/GetAuth";
 import CancelIcon from "@mui/icons-material/Cancel";
+import Print from "../../Print/Print";
 
 const style = {
 	position: "absolute",
@@ -62,9 +64,12 @@ const RiderRecParcelListFiltered = ({
 	const [status, setStatus] = useState("");
 	const [selectionModel, setSelectionModel] = React.useState();
 	const [selected, setSelected] = React.useState([]);
-	const printData = () => {
-		setSelected(data.filter((e) => selectionModel.find((n) => n === e._id)));
+	const [openPrint, setOpenPrint] = React.useState(false);
+	const handleOpenPrint = () => {
+		setOpenPrint(true);
+		setSelected(data?.filter((e) => selectionModel?.find((n) => n === e._id)));
 	};
+	const handleClosePrint = () => setOpenPrint(false);
 	useEffect(() => {
 		axios
 			.get(`${process.env.REACT_APP_API_PATH}/riderDeliverOrders/${email}`, {
@@ -79,37 +84,7 @@ const RiderRecParcelListFiltered = ({
 				console.log(error);
 			});
 	}, [token, submitting]);
-	/* 	const changeStatus = (event, id) => {
-		Swal.fire({
-			title: "Are You Sure?",
-			showCancelButton: true,
-			confirmButtonText: "Yes",
-		}).then((result) => {
-			if (result.isConfirmed) {
-				setSubmitting(true);
-				axios
-					.put(
-						`${process.env.REACT_APP_API_PATH}/merchantorderStatus/${id}`,
-						{
-							status: event.target.value,
-						},
-						{
-							headers: {
-								Authorization: `Bearer ${token}`,
-							},
-						},
-					)
-					.then((response) => {
-						setSubmitting(false);
-						Swal.fire("", "Successfully Done!", "success");
-					})
-					.catch((error) => {
-						setSubmitting(false);
-						console.log(error);
-					});
-			}
-		});
-	}; */
+
 	const changeStatusMulti = (event) => {
 		Swal.fire({
 			title: "Are You Sure?",
@@ -223,7 +198,7 @@ const RiderRecParcelListFiltered = ({
 			<Box sx={{ display: "flex", alignItems: "center" }}>
 				{params.row?.status === "Delivered To Customer By Rider" &&
 					params.row?.paymentCollectionDetails?.collectionStatus ===
-						"Collected From Customer" && (
+					"Collected From Customer" && (
 						<Button
 							onClick={() =>
 								sendMoneyToBranch(
@@ -245,7 +220,7 @@ const RiderRecParcelListFiltered = ({
 					)}
 				{params.row?.status === "Parcel Received By Delivery Rider" &&
 					params.row?.paymentCollectionDetails?.collectionStatus ===
-						"Pending" && (
+					"Pending" && (
 						<Button
 							onClick={() =>
 								changePaymentStatus(
@@ -353,7 +328,6 @@ const RiderRecParcelListFiltered = ({
 					<Box sx={{ display: "flex", my: 1 }}>
 						{selectionModel?.length > 0 ? (
 							<>
-								<PrintIcon onClick={() => printData()} />
 								{selectedStatus !== "All" && (
 									<Box>
 										<Button
@@ -395,16 +369,16 @@ const RiderRecParcelListFiltered = ({
 												)}
 												{selectedStatus ===
 													"Parcel Received By Delivery Rider" && (
-													<MenuItem value={"Delivered To Customer By Rider"}>
-														Deliver To Customer
-													</MenuItem>
-												)}
+														<MenuItem value={"Delivered To Customer By Rider"}>
+															Deliver To Customer
+														</MenuItem>
+													)}
 												{selectedStatus ===
 													"Parcel Received By Delivery Rider" && (
-													<MenuItem value={"Parcel Returned by Customer"}>
-														Parcel Return
-													</MenuItem>
-												)}
+														<MenuItem value={"Parcel Returned by Customer"}>
+															Parcel Return
+														</MenuItem>
+													)}
 												{selectedStatus === "Parcel Returned by Customer" && (
 													<MenuItem value={"Returning Parcel to Branch"}>
 														Returned Parcel Send to Branch
@@ -430,8 +404,23 @@ const RiderRecParcelListFiltered = ({
 							</>
 						)}
 					</Box>
-					<Grid container spacing={1} sx={{ justifyContent: "center", px: 2 }}>
+					<Grid container spacing={1} sx={{ justifyContent: "center", px: 2, position: "relative" }}>
 						<Grid item xs={12} md={12}>
+							{selectionModel?.length > 0 &&
+								<Badge badgeContent={selectionModel?.length} color='primary' sx={{
+									position: "absolute",
+									top: "4%",
+									left: "25%",
+									fontSize: "20px",
+									color: "#166534",
+									cursor: "pointer",
+									zIndex: "999",
+								}}>
+									<PrintIcon
+										onClick={handleOpenPrint}
+
+									/>
+								</Badge>}
 							{data && (
 								<div style={{ height: 400, width: "100%" }} className='table'>
 									<DataGrid
@@ -451,6 +440,13 @@ const RiderRecParcelListFiltered = ({
 							)}
 						</Grid>
 					</Grid>
+					{/* Print Component Here */}
+					{
+						<Print
+							data={selected}
+							handleClosePrint={handleClosePrint}
+							openPrint={openPrint} />
+					}
 					<Backdrop
 						sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 999 }}
 						open={submitting || !data}>
