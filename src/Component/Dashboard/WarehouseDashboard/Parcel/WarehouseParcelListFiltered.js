@@ -22,6 +22,7 @@ import PrintIcon from "@mui/icons-material/Print";
 import GetAuth from "../../../../FirebaseAuth/GetAuth";
 import CancelIcon from "@mui/icons-material/Cancel";
 import Print from "../../Print/Print";
+import BarcodePrint from './../../BarcodePrint/BarcodePrint';
 const style = {
 	position: "absolute",
 	top: "50%",
@@ -48,6 +49,7 @@ const WarehouseParcelListFiltered = ({
 	const { user, loading, token } = GetAuth();
 	const [submitting, setSubmitting] = useState(false);
 	const [open, setOpen] = React.useState(false);
+
 	const handleClose = () => {
 		setOpen(false);
 	};
@@ -59,12 +61,19 @@ const WarehouseParcelListFiltered = ({
 	const [selectionModel, setSelectionModel] = React.useState();
 	const [selected, setSelected] = React.useState([]);
 	const [openPrint, setOpenPrint] = React.useState(false);
+	const [openBarCode, setOpenBarCode] = React.useState(false);
 
 	const handleOpenPrint = () => {
 		setOpenPrint(true);
 		setSelected(data?.filter((e) => selectionModel?.find((n) => n === e._id)));
 	};
 	const handleClosePrint = () => setOpenPrint(false);
+	const handleCloseBarCode = () => setOpenBarCode(false);
+
+	const handleBarCode = () => {
+		setOpenBarCode(true);
+		setSelected(data?.filter((e) => selectionModel?.find((n) => n === e._id)))
+	}
 
 	useEffect(() => {
 		axios
@@ -271,10 +280,31 @@ const WarehouseParcelListFiltered = ({
 									zIndex: "999",
 								}}>
 									<PrintIcon
-										onClick={handleOpenPrint}
-
-									/>
+										onClick={handleOpenPrint} />
 								</Badge>}
+							{/* BarCode Print Icon */}
+							{selectionModel?.length > 0 &&
+								<Button onClick={handleBarCode}
+									sx={{
+										position: "absolute",
+										top: "4%",
+										left: "28%",
+										fontSize: "20px",
+										color: "#166534",
+										cursor: "pointer",
+										zIndex: "999",
+										border: "1px solid gray",
+										py: 0.5,
+										px: 1
+									}}>
+									<Typography>
+										Barcode
+									</Typography>
+									<Badge badgeContent={selectionModel?.length} color='primary' >
+										<PrintIcon />
+									</Badge>
+								</Button>
+							}
 							{data && (
 								<div style={{ height: 400, width: "100%" }} className='table'>
 									<DataGrid
@@ -295,13 +325,17 @@ const WarehouseParcelListFiltered = ({
 						</Grid>
 					</Grid>
 					{/* Print Component Here */}
-					{
-						<Print
-							data={selected}
-							handleClosePrint={handleClosePrint}
-							openPrint={openPrint}
-						/>
-					}
+					<Print
+						data={selected}
+						handleClosePrint={handleClosePrint}
+						openPrint={openPrint}
+					/>
+					{/*Barcode Print Component Here */}
+					<BarcodePrint
+						data={selected}
+						handleClosePrint={handleCloseBarCode}
+						openPrint={openBarCode}
+					/>
 					<Backdrop
 						sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 999 }}
 						open={submitting || !data}>
