@@ -1,21 +1,8 @@
-import {
-	CircularProgress,
-	Grid,
-	Backdrop,
-	Typography,
-	Box,
-	FormControl,
-	Select,
-	MenuItem,
-	FormHelperText,
-	Button,
-} from "@mui/material";
 import React from "react";
+import { useState, useEffect } from "react";
+import { CircularProgress, Grid, Backdrop, Typography, Box, Button, } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import axios from "axios";
-import Swal from "sweetalert2";
-import { useEffect } from "react";
-import { useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import PaymentsIcon from "@mui/icons-material/Payments";
@@ -29,11 +16,6 @@ const BranchAccounts = () => {
 	const [submitting, setSubmitting] = useState(false);
 	const [data, setData] = useState();
 	const [branch, setBranch] = useState();
-	const [status, setStatus] = useState("");
-	const [modalData, setModalData] = useState();
-	const [open, setOpen] = React.useState(false);
-	const handleOpen = () => setOpen(true);
-	const handleClose = () => setOpen(false);
 	const [opens, setOpens] = React.useState(false);
 	const [parcelData, setParcelData] = useState();
 
@@ -75,8 +57,7 @@ const BranchAccounts = () => {
 						setOpens(true);
 						setParcelData(params.row?.marchentInfo.merchantName);
 					}}
-					sx={{ ml: 1.5, color: "green", cursor: "pointer" }}
-				/>
+					sx={{ ml: 1.5, color: "green", cursor: "pointer" }} />
 			</Box>
 		);
 	};
@@ -123,13 +104,7 @@ const BranchAccounts = () => {
 	return (
 		<Box sx={{ mx: 4, pt: 2, pb: 5 }}>
 			<Box
-				sx={{
-					px: 2.5,
-					pb: 1,
-					display: "flex",
-					alignItems: "center",
-					justifyContent: "space-between",
-				}}>
+				sx={{ px: 2.5, pb: 1, display: "flex", alignItems: "center", justifyContent: "space-between", }}>
 				<Typography variant='h5' sx={{ fontWeight: "bold", color: "#1E793C" }}>
 					Accounts
 				</Typography>
@@ -174,7 +149,7 @@ const BranchAccounts = () => {
 								rows={selectedStatus === "All" ? data : filterData}
 								getRowId={(row) => row?._id}
 								columns={columns}
-								pageSize={5}
+								pageSize={10}
 								rowsPerPageOptions={[5]}
 								checkboxSelection
 								components={{ Toolbar: GridToolbar }}

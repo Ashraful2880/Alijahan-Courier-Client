@@ -1,22 +1,9 @@
-import {
-	CircularProgress,
-	Grid,
-	Backdrop,
-	Typography,
-	Box,
-	FormControl,
-	Select,
-	MenuItem,
-	FormHelperText,
-	Button,
-} from "@mui/material";
 import React from "react";
+import { useEffect, useState } from "react";
+import { CircularProgress, Grid, Backdrop, Typography, Box, Button, } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { useEffect } from "react";
-import { useState } from "react";
-import DeleteIcon from "@mui/icons-material/Delete";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import PaymentsIcon from "@mui/icons-material/Payments";
 import GetAuth from "../../../../FirebaseAuth/GetAuth";
@@ -105,62 +92,23 @@ const DeliveryPaymentList = () => {
 			<Box sx={{ display: "flex", alignItems: "center" }}>
 				{params.row?.paymentCollectionDetails?.collectionStatus ===
 					"Sending Money to Marchant" && (
-					<Button
-						onClick={() =>
-							receiveAndSendMoney(
-								params.row?._id,
-								params.row?.paymentCollectionDetails,
-								"Money Received in Marchant",
-							)
-						}
-						sx={{
-							my: 1,
-							px: 3,
-							fontWeight: "bold",
-							borderRadius: "25px",
-							border: "2px solid ",
-						}}>
-						<PaymentsIcon sx={{ mr: 0.5 }} />
-						Receive {params.row?.paymentCollectionDetails?.marchantRec} ৳ from
-						Accounts
-					</Button>
-				)}
-				{/* <DeleteIcon
-					className='iconBtn'
-					sx={{ color: "#df0f00!important" }}
-					onClick={() => {
-						Swal.fire({
-							title: "Do you want to Delete this?",
-							showCancelButton: true,
-							confirmButtonText: "Yes",
-						}).then((result) => {
-							if (result.isConfirmed) {
-								setSubmitting(true);
-								axios
-									.delete(
-										`${process.env.REACT_APP_API_PATH}/merchantorder/${params.row?._id}`,
-										{
-											headers: {
-												Authorization: `Bearer ${token}`,
-											},
-										},
-									)
-									.then((response) => {
-										setSubmitting(false);
-										Swal.fire("", "Successfully Deleted!", "success");
-									})
-									.catch((error) => {
-										setSubmitting(false);
-										console.log(error);
-									});
+						<Button
+							onClick={() =>
+								receiveAndSendMoney(
+									params.row?._id,
+									params.row?.paymentCollectionDetails,
+									"Money Received in Marchant",
+								)
 							}
-						});
-					}}
-				/> */}
+							sx={{ my: 1, px: 3, fontWeight: "bold", borderRadius: "25px", border: "2px solid ", }}>
+							<PaymentsIcon sx={{ mr: 0.5 }} />
+							Receive {params.row?.paymentCollectionDetails?.marchantRec} ৳ from
+							Accounts
+						</Button>
+					)}
 				<RemoveRedEyeIcon
 					onClick={() => handleOpen(setModalData(params.row))}
-					sx={{ ml: 1.5, color: "green", cursor: "pointer" }}
-				/>
+					sx={{ ml: 1.5, color: "green", cursor: "pointer" }} />
 			</Box>
 		);
 	};
@@ -237,7 +185,7 @@ const DeliveryPaymentList = () => {
 								rows={data}
 								getRowId={(row) => row?._id}
 								columns={columns}
-								pageSize={5}
+								pageSize={10}
 								rowsPerPageOptions={[5]}
 								checkboxSelection
 								components={{ Toolbar: GridToolbar }}

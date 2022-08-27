@@ -29,7 +29,6 @@ import WarehouseParcelList from "./Component/Dashboard/WarehouseDashboard/Parcel
 import WarehouseProfile from "./Component/Dashboard/WarehouseDashboard/WarehouseProfile";
 import BranchHome from "./Component/Dashboard/BranchDashboard/BranchHome";
 import BranchProfile from "./Component/Dashboard/BranchDashboard/BranchProfile";
-import AddBranchParcel from "./Component/Dashboard/BranchDashboard/Parcel/AddBranchParcel";
 import BranchParcelList from "./Component/Dashboard/BranchDashboard/Parcel/BranchParcelList";
 import RiderDashboardHome from "./Component/Dashboard/RiderDashboard/RiderDashboardHome";
 import RidersProfile from "./Component/Dashboard/RiderDashboard/RidersProfile";
@@ -80,10 +79,6 @@ function App() {
 							<Route
 								path='branchDashboard/accounts'
 								element={<BranchAccounts />}
-							/>
-							<Route
-								path='/branchDashboard/AddParcel'
-								element={<AddBranchParcel />}
 							/>
 							<Route
 								path='/branchDashboard/parcelList'

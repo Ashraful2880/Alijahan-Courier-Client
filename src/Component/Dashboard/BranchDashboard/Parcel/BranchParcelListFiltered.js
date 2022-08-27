@@ -1,40 +1,12 @@
-import React, { useRef } from "react";
-import {
-	CircularProgress,
-	Grid,
-	Backdrop,
-	Typography,
-	Box,
-	FormControl,
-	Select,
-	MenuItem,
-	FormHelperText,
-	Button,
-	Fade,
-	Modal,
-	TextField,
-	Autocomplete,
-} from "@mui/material";
-import {
-	DataGrid,
-	GridToolbarContainer,
-	GridToolbarColumnsButton,
-	GridToolbarFilterButton,
-} from "@mui/x-data-grid";
+import React from "react";
+import { useState, useEffect } from "react";
+import { CircularProgress, Grid, Backdrop, Typography, Box, FormControl, Select, MenuItem, Button, Fade, Modal, TextField, Autocomplete, } from "@mui/material";
+import { DataGrid, GridToolbarContainer, GridToolbarColumnsButton, GridToolbarFilterButton, } from "@mui/x-data-grid";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { useEffect } from "react";
-import { useState } from "react";
 import PrintIcon from "@mui/icons-material/Print";
 import GetAuth from "../../../../FirebaseAuth/GetAuth";
 import CancelIcon from "@mui/icons-material/Cancel";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import ReactToPrint from "react-to-print";
 import Badge from "@mui/material/Badge";
 import Print from "../../Print/Print";
 
@@ -84,14 +56,6 @@ const BranchParcelListFiltered = ({
 		setSelected(data?.filter((e) => selectionModel?.find((n) => n === e._id)));
 	};
 	const handleClosePrint = () => setOpenPrint(false);
-
-	const printData = () => {
-		setSelected(data?.filter((e) => selectionModel?.find((n) => n === e._id)));
-	};
-
-	console.log(selected);
-
-	let ref = useRef();
 
 	useEffect(() => {
 		axios
@@ -293,44 +257,30 @@ const BranchParcelListFiltered = ({
 	const columns = [
 		{
 			field: "merchantName",
-			headerName: "Marchant Name",
-			renderCell: (params) => {
+			headerName: "Marchant Name", renderCell: (params) => {
 				return params.row.marchentInfo.merchantName;
-			},
-			width: 150,
+			}, width: 150,
 		},
 		{
-			field: "receiverBranchArea",
-			headerName: "Pickup Address",
+			field: "receiverBranchArea", headerName: "Pickup Address",
 			renderCell: (params) => {
 				return ` ${params.row.receiverInfo.receiverBranchArea}(${params.row.receiverInfo.receiverBranchName})`;
-			},
-			width: 180,
+			}, width: 180,
 		},
 		{
-			field: "receiverAddress",
-			headerName: "Full Address",
+			field: "receiverAddress", headerName: "Full Address",
 			renderCell: (params) => {
 				return params.row.receiverInfo.receiverAddress;
-			},
-			width: 180,
+			}, width: 180,
 		},
 		{
-			field: "receiverNumber",
-			headerName: "Phone Number",
+			field: "receiverNumber", headerName: "Phone Number",
 			renderCell: (params) => {
 				return params.row.receiverInfo.receiverNumber;
-			},
-			width: 180,
+			}, width: 180,
 		},
 		{ field: "status", headerName: "Status", width: 250 },
-		{
-			field: "_id",
-			headerName: "Action",
-			width: 300,
-			renderCell: renderDetailsButton,
-			disableClickEventBubbling: true,
-		},
+		{ field: "_id", headerName: "Action", width: 300, renderCell: renderDetailsButton, disableClickEventBubbling: true, },
 	];
 	function CustomToolbar() {
 		return (
@@ -346,10 +296,7 @@ const BranchParcelListFiltered = ({
 						cursor: "pointer",
 						zIndex: "999",
 					}}>
-						<PrintIcon
-							onClick={handleOpenPrint}
-
-						/>
+						<PrintIcon onClick={handleOpenPrint} />
 					</Badge>
 				}
 			</GridToolbarContainer>
@@ -363,9 +310,7 @@ const BranchParcelListFiltered = ({
 			open={opens}
 			closeAfterTransition
 			BackdropComponent={Backdrop}
-			BackdropProps={{
-				timeout: 500,
-			}}>
+			BackdropProps={{ timeout: 500, }}>
 			<Fade in={opens}>
 				<Box sx={style}>
 					<CancelIcon
@@ -382,13 +327,7 @@ const BranchParcelListFiltered = ({
 						}}
 					/>
 					<Box
-						sx={{
-							px: 2.5,
-							pb: 1,
-							display: "flex",
-							alignItems: "center",
-							justifyContent: "space-between",
-						}}>
+						sx={{ px: 2.5, pb: 1, display: "flex", alignItems: "center", justifyContent: "space-between", }}>
 						<Typography
 							variant='h5'
 							sx={{ fontWeight: "bold", color: "#1E793C" }}>
@@ -402,9 +341,7 @@ const BranchParcelListFiltered = ({
 								{(selectedStatus === "Assigned for Pickup" ||
 									selectedStatus === "Cancelled by Pickup Rider") && (
 										<Autocomplete
-											onChange={(event, newValue) => {
-												changeRiderMulti(event, newValue);
-											}}
+											onChange={(event, newValue) => { changeRiderMulti(event, newValue); }}
 											size='small'
 											sx={{ my: 0.5, width: 200 }}
 											options={riders}
@@ -413,10 +350,7 @@ const BranchParcelListFiltered = ({
 												<TextField
 													{...params}
 													label='Select Rider'
-													variant='outlined'
-												/>
-											)}
-										/>
+													variant='outlined' />)} />
 									)}
 								{selectedStatus !== "All" && (
 									<Box>
@@ -518,7 +452,7 @@ const BranchParcelListFiltered = ({
 										onSelectionModelChange={setSelectionModel}
 										getRowId={(row) => row?._id}
 										columns={columns}
-										pageSize={5}
+										pageSize={10}
 										rowsPerPageOptions={[5]}
 										checkboxSelection
 										components={{ Toolbar: CustomToolbar }}
@@ -528,13 +462,11 @@ const BranchParcelListFiltered = ({
 						</Grid>
 					</Grid>
 					{/* Print Component Here */}
-					{
-						<Print
-							data={selected}
-							handleClosePrint={handleClosePrint}
-							openPrint={openPrint}
-						/>
-					}
+					<Print
+						data={selected}
+						handleClosePrint={handleClosePrint}
+						openPrint={openPrint}
+					/>
 					<Backdrop
 						sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 999 }}
 						open={submitting || !data}>

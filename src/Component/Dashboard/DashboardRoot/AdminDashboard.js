@@ -20,7 +20,6 @@ import ScaleIcon from "@mui/icons-material/Scale";
 import LeakAddIcon from "@mui/icons-material/LeakAdd";
 import PublicIcon from "@mui/icons-material/Public";
 import CropRotateIcon from "@mui/icons-material/CropRotate";
-import ComputerIcon from "@mui/icons-material/Computer";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import CableIcon from "@mui/icons-material/Cable";
 import CategoryIcon from "@mui/icons-material/Category";
@@ -28,7 +27,6 @@ import SettingsApplicationsIcon from "@mui/icons-material/SettingsApplications";
 import SettingsIcon from "@mui/icons-material/Settings";
 import InstallDesktopIcon from "@mui/icons-material/InstallDesktop";
 import NoteAddIcon from "@mui/icons-material/NoteAdd";
-import PlaylistAddCheckIcon from "@mui/icons-material/PlaylistAddCheck";
 import ManageHistoryIcon from "@mui/icons-material/ManageHistory";
 import CreditScoreIcon from "@mui/icons-material/CreditScore";
 import { styled } from "@mui/material/styles";
@@ -139,18 +137,6 @@ const AdminDashboard = () => {
 								<ListItemText primary={"Branch"} />
 							</ListItem>
 						</Link>
-						{/* <Link className='link' to='branchusers'>
-							<ListItem
-								button
-								className={
-									location?.pathname === "/branchusers" && "activeButton"
-								}>
-								<ListItemIcon className='listItemIcon'>
-									<PersonIcon />
-								</ListItemIcon>
-								<ListItemText primary={"Branch User"} />
-							</ListItem>
-						</Link> */}
 						<Link className='link' to='merchants'>
 							<ListItem
 								button
@@ -369,16 +355,6 @@ const AdminDashboard = () => {
 								<ListItemText primary={"Unit"} />
 							</ListItem>
 						</Link>
-						{/* <Link className='link' to='item'>
-							<ListItem
-								button
-								className={location?.pathname === "/item" && "activeButton"}>
-								<ListItemIcon className='listItemIcon'>
-									<PostAddIcon />
-								</ListItemIcon>
-								<ListItemText primary={"Item"} />
-							</ListItem>
-						</Link> */}
 					</List>
 				</AccordionDetails>
 			</Accordion>

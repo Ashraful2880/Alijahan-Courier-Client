@@ -1,35 +1,9 @@
-import {
-	CircularProgress,
-	Grid,
-	Backdrop,
-	Typography,
-	Box,
-	FormControl,
-	Select,
-	MenuItem,
-	Button,
-	Fade,
-	Modal,
-	TextField,
-	Autocomplete,
-	TableRow,
-	TableCell,
-	TableBody,
-	TableHead,
-	Table,
-	TableContainer,
-} from "@mui/material";
 import React from "react";
-import {
-	DataGrid,
-	GridToolbarContainer,
-	GridToolbarColumnsButton,
-	GridToolbarFilterButton,
-} from "@mui/x-data-grid";
+import { useState, useEffect } from "react";
+import { CircularProgress, Grid, Backdrop, Typography, Box, FormControl, Select, MenuItem, Button, Fade, Modal, TextField, Autocomplete, } from "@mui/material";
+import { DataGrid, GridToolbarContainer, GridToolbarColumnsButton, GridToolbarFilterButton, } from "@mui/x-data-grid";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { useEffect } from "react";
-import { useState } from "react";
 import GetAuth from "../../../../FirebaseAuth/GetAuth";
 import CancelIcon from "@mui/icons-material/Cancel";
 import PaymentsIcon from "@mui/icons-material/Payments";
@@ -70,12 +44,8 @@ const BranchReceivedParcelListFiltered = ({
 		setSelected(data?.filter((e) => selectionModel?.find((n) => n === e._id)));
 	};
 	const handleClosePrint = () => setOpenPrint(false);
-	const handleClose = () => {
-		setOpen(false);
-	};
-	const handleOpen = () => {
-		setOpen(true);
-	};
+	const handleClose = () => { setOpen(false); };
+	const handleOpen = () => { setOpen(true); };
 	const [data, setData] = useState();
 	const [status, setStatus] = useState("");
 	const [riders, setRiders] = useState();
@@ -334,9 +304,7 @@ const BranchReceivedParcelListFiltered = ({
 					!params.row?.deliverRiderInfo?.riderName) ||
 					params.row?.status === "Cancelled By Delivery Rider") && (
 						<Autocomplete
-							onChange={(event, newValue) => {
-								changeRider(event, newValue, params.row?._id);
-							}}
+							onChange={(event, newValue) => { changeRider(event, newValue, params.row?._id); }}
 							size='small'
 							sx={{ my: 0.5 }}
 							options={riders}
@@ -358,13 +326,7 @@ const BranchReceivedParcelListFiltered = ({
 									"Money Received In Branch",
 								)
 							}
-							sx={{
-								my: 1,
-								px: 3,
-								fontWeight: "bold",
-								borderRadius: "25px",
-								border: "2px solid ",
-							}}>
+							sx={{ my: 1, px: 3, fontWeight: "bold", borderRadius: "25px", border: "2px solid ", }}>
 							<PaymentsIcon sx={{ mr: 0.5 }} />
 							Receive {params.row?.paymentCollectionDetails?.collectedAmount} ৳
 							from Rider
@@ -381,13 +343,7 @@ const BranchReceivedParcelListFiltered = ({
 									"Sending Money To Accounts",
 								)
 							}
-							sx={{
-								my: 1,
-								px: 3,
-								fontWeight: "bold",
-								borderRadius: "25px",
-								border: "2px solid ",
-							}}>
+							sx={{ my: 1, px: 3, fontWeight: "bold", borderRadius: "25px", border: "2px solid ", }}>
 							<PaymentsIcon sx={{ mr: 0.5 }} />
 							Send {params.row?.paymentCollectionDetails?.collectedAmount} ৳ to
 							Accounts
@@ -447,14 +403,8 @@ const BranchReceivedParcelListFiltered = ({
 				<GridToolbarFilterButton />
 				{
 					selectionModel?.length > 0 &&
-					<Badge badgeContent={selectionModel?.length} color='primary' sx={{
-						mx: 2,
-						fontSize: "20px",
-						color: "#166534",
-						cursor: "pointer",
-					}}>
-						<PrintIcon
-							onClick={handleOpenPrint} />
+					<Badge badgeContent={selectionModel?.length} color='primary' sx={{ mx: 2, fontSize: "20px", color: "#166534", cursor: "pointer", }}>
+						<PrintIcon onClick={handleOpenPrint} />
 					</Badge>
 				}
 			</GridToolbarContainer>
@@ -487,13 +437,7 @@ const BranchReceivedParcelListFiltered = ({
 						}}
 					/>
 					<Box
-						sx={{
-							px: 2.5,
-							pb: 1,
-							display: "flex",
-							alignItems: "center",
-							justifyContent: "space-between",
-						}}>
+						sx={{ px: 2.5, pb: 1, display: "flex", alignItems: "center", justifyContent: "space-between", }}>
 						<Typography
 							variant='h5'
 							sx={{ fontWeight: "bold", color: "#1E793C" }}>
@@ -615,7 +559,7 @@ const BranchReceivedParcelListFiltered = ({
 										onSelectionModelChange={setSelectionModel}
 										getRowId={(row) => row?._id}
 										columns={columns}
-										pageSize={5}
+										pageSize={10}
 										rowsPerPageOptions={[5]}
 										checkboxSelection
 										components={{ Toolbar: CustomToolbar }}
@@ -625,15 +569,9 @@ const BranchReceivedParcelListFiltered = ({
 						</Grid>
 					</Grid>
 					{/* Print Component Here */}
-					{
-						<Print
-							data={selected}
-							handleClosePrint={handleClosePrint}
-							openPrint={openPrint}
-						/>
-					}
-					<Backdrop
-						sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 999 }}
+					<Print data={selected} handleClosePrint={handleClosePrint}
+						openPrint={openPrint} />
+					<Backdrop sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 999 }}
 						open={submitting || !data}>
 						<CircularProgress color='inherit' />
 					</Backdrop>

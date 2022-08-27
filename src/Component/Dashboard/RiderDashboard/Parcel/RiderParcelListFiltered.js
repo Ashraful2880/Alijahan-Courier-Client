@@ -1,31 +1,9 @@
-import {
-	CircularProgress,
-	Grid,
-	Backdrop,
-	Typography,
-	Box,
-	FormControl,
-	Select,
-	MenuItem,
-	FormHelperText,
-	Button,
-	Fade,
-	Modal,
-	TextField,
-	Autocomplete,
-	Badge,
-} from "@mui/material";
 import React from "react";
-import {
-	DataGrid,
-	GridToolbarContainer,
-	GridToolbarColumnsButton,
-	GridToolbarFilterButton,
-} from "@mui/x-data-grid";
+import { useState, useEffect } from "react";
+import { CircularProgress, Grid, Backdrop, Typography, Box, FormControl, Select, MenuItem, Button, Fade, Modal, Badge, } from "@mui/material";
+import { DataGrid, GridToolbarContainer, GridToolbarColumnsButton, GridToolbarFilterButton, } from "@mui/x-data-grid";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { useEffect } from "react";
-import { useState } from "react";
 import PrintIcon from "@mui/icons-material/Print";
 import PaymentsIcon from "@mui/icons-material/Payments";
 import GetAuth from "../../../../FirebaseAuth/GetAuth";
@@ -69,9 +47,6 @@ const RiderParcelListFiltered = ({
 	const [status, setStatus] = useState("");
 	const [selectionModel, setSelectionModel] = React.useState();
 	const [selected, setSelected] = React.useState([]);
-	const printData = () => {
-		setSelected(data.filter((e) => selectionModel.find((n) => n === e._id)));
-	};
 	const [openPrint, setOpenPrint] = React.useState(false);
 
 	const handleOpenPrint = () => {
@@ -306,10 +281,7 @@ const RiderParcelListFiltered = ({
 						cursor: "pointer",
 						zIndex: "999",
 					}}>
-						<PrintIcon
-							onClick={handleOpenPrint}
-
-						/>
+						<PrintIcon onClick={handleOpenPrint} />
 					</Badge>}
 			</GridToolbarContainer>
 		);
@@ -321,9 +293,7 @@ const RiderParcelListFiltered = ({
 			open={opens}
 			closeAfterTransition
 			BackdropComponent={Backdrop}
-			BackdropProps={{
-				timeout: 500,
-			}}>
+			BackdropProps={{ timeout: 500, }}>
 			<Fade in={opens}>
 				<Box sx={style}>
 					<CancelIcon
@@ -434,7 +404,7 @@ const RiderParcelListFiltered = ({
 										onSelectionModelChange={setSelectionModel}
 										getRowId={(row) => row?._id}
 										columns={columns}
-										pageSize={5}
+										pageSize={10}
 										rowsPerPageOptions={[5]}
 										checkboxSelection
 										components={{ Toolbar: CustomToolbar }}
@@ -444,13 +414,11 @@ const RiderParcelListFiltered = ({
 						</Grid>
 					</Grid>
 					{/* Print Component Here */}
-					{
-						<Print
-							data={selected}
-							handleClosePrint={handleClosePrint}
-							openPrint={openPrint}
-						/>
-					}
+					<Print
+						data={selected}
+						handleClosePrint={handleClosePrint}
+						openPrint={openPrint}
+					/>
 					<Backdrop
 						sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 999 }}
 						open={submitting || !data}>

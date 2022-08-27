@@ -1,22 +1,9 @@
-import {
-	CircularProgress,
-	Grid,
-	Backdrop,
-	Typography,
-	Box,
-	FormControl,
-	Select,
-	MenuItem,
-	FormHelperText,
-	Button,
-} from "@mui/material";
 import React from "react";
+import { useState, useEffect } from "react";
+import { CircularProgress, Grid, Backdrop, Typography, Box, Button, } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { useEffect } from "react";
-import { useState } from "react";
-import DeleteIcon from "@mui/icons-material/Delete";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
 import GetAuth from "../../../../FirebaseAuth/GetAuth";
@@ -149,7 +136,7 @@ const ParcelList = () => {
 			<Box sx={{ display: "flex", alignItems: "center" }}>
 				{params.row?.status === "Delivered To Customer By Rider" &&
 					params.row?.paymentCollectionDetails?.collectionStatus ===
-						"Sending Money To Merchant" && (
+					"Sending Money To Merchant" && (
 						<Button
 							onClick={() =>
 								confirmReceive(params.row?._id, "Merchant Received Money")
@@ -169,7 +156,7 @@ const ParcelList = () => {
 
 				{params.row?.status === "Delivered To Customer By Rider" &&
 					params.row?.paymentCollectionDetails?.marchantMoneyStatus ===
-						"Received" && (
+					"Received" && (
 						<Button
 							onClick={() => {
 								changeStatus(params.row?._id, "Successfully Completed");
@@ -187,7 +174,7 @@ const ParcelList = () => {
 					)}
 				{params.row?.status !== "Successfully Returned To Merchant" &&
 					params.row?.paymentCollectionDetails?.merchantReturnFeeStatus ===
-						"Paid" && (
+					"Paid" && (
 						<Button
 							onClick={() => {
 								changeStatus(
@@ -208,7 +195,7 @@ const ParcelList = () => {
 					)}
 				{params.row?.status === "Sending Returned Parcel to Merchant" &&
 					params.row?.paymentCollectionDetails?.merchantReturnFeeStatus !==
-						"Paid" && (
+					"Paid" && (
 						<Button
 							onClick={() =>
 								confirmReceive(params.row?._id, "Merchant Paid Return Fee")
@@ -267,13 +254,7 @@ const ParcelList = () => {
 			width: 180,
 		},
 		{ field: "status", headerName: "Status", width: 250 },
-		{
-			field: "_id",
-			headerName: "Action",
-			width: 350,
-			renderCell: renderDetailsButton,
-			disableClickEventBubbling: true,
-		},
+		{ field: "_id", headerName: "Action", width: 350, renderCell: renderDetailsButton, disableClickEventBubbling: true, },
 	];
 
 	const [selectedStatus, setSelectedStatus] = useState("All");
@@ -346,7 +327,7 @@ const ParcelList = () => {
 								rows={selectedStatus === "All" ? data : filterData}
 								getRowId={(row) => row?._id}
 								columns={columns}
-								pageSize={5}
+								pageSize={10}
 								rowsPerPageOptions={[5]}
 								checkboxSelection
 								components={{ Toolbar: GridToolbar }}

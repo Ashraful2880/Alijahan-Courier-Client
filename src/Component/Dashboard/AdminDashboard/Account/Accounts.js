@@ -1,22 +1,9 @@
-import {
-	CircularProgress,
-	Grid,
-	Backdrop,
-	Typography,
-	Box,
-	Button,
-} from "@mui/material";
 import React from "react";
+import { useState, useEffect } from "react";
+import { CircularProgress, Grid, Backdrop, Typography, Box, Button, } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import axios from "axios";
-import Swal from "sweetalert2";
-import { useEffect } from "react";
-import { useState } from "react";
-import DeleteIcon from "@mui/icons-material/Delete";
-import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
-import PaymentsIcon from "@mui/icons-material/Payments";
 import GetAuth from "../../../../FirebaseAuth/GetAuth";
-import ParcelModal from "./ParcelModal";
 import AspectRatioIcon from "@mui/icons-material/AspectRatio";
 import AccountsFiltered from "./AccountsFiltered";
 
@@ -24,10 +11,6 @@ const Accounts = () => {
 	const { user, loading, token } = GetAuth();
 	const [submitting, setSubmitting] = useState(false);
 	const [data, setData] = useState();
-	const [modalData, setModalData] = useState();
-	const [open, setOpen] = React.useState(false);
-	const handleOpen = () => setOpen(true);
-	const handleClose = () => setOpen(false);
 	const [opens, setOpens] = React.useState(false);
 	const [parcelData, setParcelData] = useState();
 	useEffect(() => {
@@ -53,8 +36,7 @@ const Accounts = () => {
 						setOpens(true);
 						setParcelData(params.row?.marchentInfo.merchantName);
 					}}
-					sx={{ ml: 1.5, color: "green", cursor: "pointer" }}
-				/>
+					sx={{ ml: 1.5, color: "green", cursor: "pointer" }} />
 			</Box>
 		);
 	};
@@ -153,7 +135,7 @@ const Accounts = () => {
 								rows={selectedStatus === "All" ? data : filterData}
 								getRowId={(row) => row?._id}
 								columns={columns}
-								pageSize={5}
+								pageSize={10}
 								rowsPerPageOptions={[5]}
 								checkboxSelection
 								components={{ Toolbar: GridToolbar }}
@@ -167,7 +149,6 @@ const Accounts = () => {
 				open={submitting || !data}>
 				<CircularProgress color='inherit' />
 			</Backdrop>
-
 			<AccountsFiltered
 				opens={opens}
 				setOpens={setOpens}

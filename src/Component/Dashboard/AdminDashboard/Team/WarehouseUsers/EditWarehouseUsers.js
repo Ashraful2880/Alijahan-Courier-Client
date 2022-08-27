@@ -1,14 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
-import {
-	Button,
-	TextField,
-	Backdrop,
-	Typography,
-	CircularProgress,
-	Autocomplete,
-} from "@mui/material";
+import { Button, TextField, Backdrop, Typography, CircularProgress, Autocomplete, } from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
 import { useForm } from "react-hook-form";
@@ -127,8 +120,7 @@ const EditWarehouseUsers = ({ open, setOpen, id, token, setSubmitting }) => {
 								cursor: "pointer",
 								background: "White",
 								borderRadius: "50%",
-							}}
-						/>
+							}} />
 						{data ? (
 							<>
 								<Typography
@@ -154,8 +146,7 @@ const EditWarehouseUsers = ({ open, setOpen, id, token, setSubmitting }) => {
 											required
 											label='Warehouse Name'
 											helperText='Warehouse Name'
-											{...register("warehouseUserName", { required: true })}
-										/>
+											{...register("warehouseUserName", { required: true })} />
 										<TextField
 											size='small'
 											sx={{ my: 0.5 }}
@@ -164,8 +155,7 @@ const EditWarehouseUsers = ({ open, setOpen, id, token, setSubmitting }) => {
 											rows={1}
 											label='Warehouse Address'
 											helperText='Warehouse Address'
-											{...register("warehouseUserAddress", { required: true })}
-										/>
+											{...register("warehouseUserAddress", { required: true })} />
 									</Box>
 									<Box sx={{ display: "flex", gap: "20px" }}>
 										<Autocomplete
@@ -174,10 +164,8 @@ const EditWarehouseUsers = ({ open, setOpen, id, token, setSubmitting }) => {
 											options={warehouses}
 											defaultValue={
 												warehouses[
-													warehouses?.findIndex(
-														(x) => x.warehouseName === data?.wareHouseName,
-													)
-												]
+												warehouses?.findIndex(
+													(x) => x.warehouseName === data?.wareHouseName,)]
 											}
 											getOptionLabel={(option) => option.warehouseName}
 											style={{ width: 300 }}
@@ -187,10 +175,7 @@ const EditWarehouseUsers = ({ open, setOpen, id, token, setSubmitting }) => {
 													{...params}
 													label='Warehouse Name'
 													helperText='Warehouse Name'
-													variant='outlined'
-												/>
-											)}
-										/>
+													variant='outlined' />)} />
 
 										<TextField
 											size='small'
@@ -198,8 +183,7 @@ const EditWarehouseUsers = ({ open, setOpen, id, token, setSubmitting }) => {
 											fullWidth
 											label='Warehouse Contact'
 											helperText='Warehouse Contact'
-											{...register("warehouseUserContact", { required: true })}
-										/>
+											{...register("warehouseUserContact", { required: true })} />
 									</Box>
 									<Box sx={{ display: "flex", gap: "20px" }}>
 										<TextField
@@ -208,8 +192,7 @@ const EditWarehouseUsers = ({ open, setOpen, id, token, setSubmitting }) => {
 											fullWidth
 											label='Warehouse Email'
 											helperText='Warehouse Email'
-											{...register("warehouseUserEmail", { required: true })}
-										/>
+											{...register("warehouseUserEmail", { required: true })} />
 										<TextField
 											size='small'
 											sx={{ my: 0.5 }}
@@ -234,7 +217,6 @@ const EditWarehouseUsers = ({ open, setOpen, id, token, setSubmitting }) => {
 											type='submit'
 											variant='contained'
 											color='success'
-											// className='button'
 											sx={{ my: 0.5, fontWeight: "bold", px: 1.5, mx: 1 }}>
 											<DoneIcon sx={{ mr: 0.5 }} />
 											Update

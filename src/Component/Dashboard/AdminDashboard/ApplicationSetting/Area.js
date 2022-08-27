@@ -1,14 +1,4 @@
-import {
-	Button,
-	CircularProgress,
-	Container,
-	Grid,
-	TextField,
-	Backdrop,
-	Typography,
-	Autocomplete,
-	Box,
-} from "@mui/material";
+import { Button, CircularProgress, Grid, TextField, Backdrop, Typography, Autocomplete, Box, } from "@mui/material";
 import DownloadDoneIcon from "@mui/icons-material/DownloadDone";
 import React from "react";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
@@ -213,13 +203,7 @@ const Area = () => {
 		{ field: "areaType", headerName: "Area Type", flex: 1 },
 		{ field: "area", headerName: "Area Name", flex: 1 },
 		{ field: "status", headerName: "Status", flex: 1 },
-		{
-			field: "_id",
-			headerName: "Action",
-			flex: 1,
-			renderCell: renderDetailsButton,
-			disableClickEventBubbling: true,
-		},
+		{ field: "_id", headerName: "Action", flex: 1, renderCell: renderDetailsButton, disableClickEventBubbling: true, },
 	];
 	return (
 		<Box sx={{ mx: 4, pt: 2, pb: 5 }}>
@@ -299,7 +283,7 @@ const Area = () => {
 								rows={data}
 								getRowId={(row) => row?._id}
 								columns={columns}
-								pageSize={5}
+								pageSize={10}
 								rowsPerPageOptions={[5]}
 								checkboxSelection
 								components={{ Toolbar: GridToolbar }}

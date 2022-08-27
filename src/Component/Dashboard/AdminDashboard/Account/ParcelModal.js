@@ -3,12 +3,8 @@ import Backdrop from '@mui/material/Backdrop';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import CancelIcon from "@mui/icons-material/Cancel";
 import AddTaskIcon from "@mui/icons-material/AddTask";
-import DoneIcon from '@mui/icons-material/Done';
-import ReplayIcon from "@mui/icons-material/Replay";
 import TableHead from '@mui/material/TableHead';
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -48,8 +44,7 @@ const ParcelModal = ({ open, handleClose, modalData }) => {
                 BackdropComponent={Backdrop}
                 BackdropProps={{
                     timeout: 500,
-                }}
-            >
+                }}>
                 <Fade in={open}>
                     <Box sx={style}>
                         <Typography

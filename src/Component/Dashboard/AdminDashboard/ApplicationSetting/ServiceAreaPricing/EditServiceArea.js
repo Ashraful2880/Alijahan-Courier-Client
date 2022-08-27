@@ -1,17 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
-import {
-	Button,
-	TextField,
-	Backdrop,
-	Typography,
-	CircularProgress,
-	Autocomplete,
-	Select,
-	MenuItem,
-	FormControl,
-} from "@mui/material";
+import { Button, TextField, Backdrop, Typography, CircularProgress, Select, MenuItem, FormControl, } from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
 import { useForm } from "react-hook-form";
@@ -119,8 +109,7 @@ const EditServiceArea = ({ open, setOpen, id, token, setSubmitting }) => {
 								cursor: "pointer",
 								background: "White",
 								borderRadius: "50%",
-							}}
-						/>
+							}} />
 						{data ? (
 							<>
 								<Typography
