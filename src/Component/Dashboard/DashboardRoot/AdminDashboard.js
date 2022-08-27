@@ -77,10 +77,10 @@ const AdminDashboard = () => {
 	const location = useLocation();
 	return (
 		<>
-			<Link className='link' to=''>
+			<Link className='link' to='home'>
 				<ListItem
 					button
-					className={location?.pathname === "/" && "activeButton"}>
+					className={location?.pathname === "home" && "activeButton"}>
 					<ListItemIcon className='listItemIcon'>
 						<HomeIcon />
 					</ListItemIcon>
@@ -98,11 +98,11 @@ const AdminDashboard = () => {
 				</AccordionSummary>
 				<AccordionDetails>
 					<List>
-						<Link className='link' to='/deliveryPaymentList'>
+						<Link className='link' to='deliveryPaymentList'>
 							<ListItem
 								button
 								className={
-									location?.pathname === "/deliveryPaymentList" &&
+									location?.pathname === "deliveryPaymentList" &&
 									"activeButton"
 								}>
 								<ListItemIcon className='listItemIcon'>

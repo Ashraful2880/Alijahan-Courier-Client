@@ -1,0 +1,55 @@
+.district-name {
+    display: flex;
+    transition: .2s;
+    justify-content: space-between;
+}
+
+.active {
+    display: none;
+    color: black;
+}
+
+.hideArrow {
+    display: none;
+}
+
+.covarageSearch {
+    border-radius: 8px 0px 0px 8px;
+    width: 100%;
+    padding: 13px 11px;
+    outline: none;
+    border: 1px solid #58C0C5;
+
+}
+
+.covarageSearchBtn {
+    border: 1px solid #ACCCCC;
+    padding: 8px 24px;
+    display: flex;
+    align-items: center;
+    border-radius: 0px 8px 8px 0px;
+    border-left: none;
+    cursor: pointer;
+    background-color: #58C0C5;
+    transition: 0.2s;
+}
+
+.district-name:hover {
+    background-color: #58C0C5;
+    color: white;
+}
+
+.searchIcon {
+    padding: 1px;
+    transition: 0.2s;
+}
+
+.covarageSearchBtn:hover {
+    background-color: transparent;
+
+}
+
+.covarageSearchBtn:hover .searchIcon {
+    color: #58C0C5;
+    transition: 0.2s;
+}

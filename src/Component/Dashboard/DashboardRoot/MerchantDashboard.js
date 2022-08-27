@@ -64,20 +64,20 @@ const MerchantDashboard = () => {
 	const location = useLocation();
 	return (
 		<>
-			<Link className='link' to='/merchantDashboard'>
+			<Link className='link' to='merchantDashboard/home'>
 				<ListItem
 					button
-					className={location?.pathname === "/" && "activeButton"}>
+					className={location?.pathname === "merchantDashboard/home" && "activeButton"}>
 					<ListItemIcon className='listItemIcon'>
 						<HomeIcon />
 					</ListItemIcon>
 					<ListItemText primary={"Home"} />
 				</ListItem>
 			</Link>
-			<Link className='link' to='/merchantDashboard/profile'>
+			<Link className='link' to='merchantDashboard/profile'>
 				<ListItem
 					button
-					className={location?.pathname === "/" && "activeButton"}>
+					className={location?.pathname === "merchantDashboard/profile" && "activeButton"}>
 					<ListItemIcon className='listItemIcon'>
 						<AccountCircleIcon />
 					</ListItemIcon>
@@ -148,15 +148,15 @@ const MerchantDashboard = () => {
 								<ListItemText primary={"Delivery Payment List"} />
 							</ListItem>
 						</Link>
-						
+
 					</List>
 				</AccordionDetails>
 			</Accordion>
-			<Link className='link' to='/merchantDashboard/orderTracking'>
+			<Link className='link' to='merchantDashboard/orderTracking'>
 				<ListItem
 					button
 					className={
-						location?.pathname === "/merchantDashboard/orderTracking" &&
+						location?.pathname === "merchantDashboard/orderTracking" &&
 						"activeButton"
 					}>
 					<ListItemIcon className='listItemIcon'>
@@ -165,11 +165,11 @@ const MerchantDashboard = () => {
 					<ListItemText primary={"Order Tracking"} />
 				</ListItem>
 			</Link>
-			<Link className='link' to='/merchantDashboard/coverageArea'>
+			<Link className='link' to='merchantDashboard/coverageArea'>
 				<ListItem
 					button
 					className={
-						location?.pathname === "/merchantDashboard/coverageArea" &&
+						location?.pathname === "merchantDashboard/coverageArea" &&
 						"activeButton"
 					}>
 					<ListItemIcon className='listItemIcon'>
@@ -178,11 +178,11 @@ const MerchantDashboard = () => {
 					<ListItemText primary={"Coverage Area"} />
 				</ListItem>
 			</Link>
-			<Link className='link' to='/merchantDashboard/serviceCharge'>
+			<Link className='link' to='merchantDashboard/serviceCharge'>
 				<ListItem
 					button
 					className={
-						location?.pathname === "/merchantDashboard/serviceCharge" &&
+						location?.pathname === "merchantDashboard/serviceCharge" &&
 						"activeButton"
 					}>
 					<ListItemIcon className='listItemIcon'>

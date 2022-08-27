@@ -1,0 +1,11 @@
+.singleServiceItem {
+    box-shadow: none !important;
+    border: 1px solid rgb(230, 230, 230);
+    transition: all 0.3s ease-in-out;
+}
+
+.singleServiceItem:hover {
+    box-shadow: 0px 0px 10px 7px #e5e5e5c8 !important;
+    transform: translateY(-10px);
+    transition: 0.3s ease-in-out;
+}

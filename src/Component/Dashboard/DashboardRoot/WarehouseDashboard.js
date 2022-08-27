@@ -58,20 +58,20 @@ const WarehouseDashboard = () => {
 	const location = useLocation();
 	return (
 		<>
-			<Link className='link' to='/warehouseDashboard'>
+			<Link className='link' to='warehouseDashboard/home'>
 				<ListItem
 					button
-					className={location?.pathname === "/" && "activeButton"}>
+					className={location?.pathname === "warehouseDashboard/home" && "activeButton"}>
 					<ListItemIcon className='listItemIcon'>
 						<HomeIcon />
 					</ListItemIcon>
 					<ListItemText primary={"Home"} />
 				</ListItem>
 			</Link>
-			<Link className='link' to='/warehouseDashboard/profile'>
+			<Link className='link' to='warehouseDashboard/profile'>
 				<ListItem
 					button
-					className={location?.pathname === "/" && "activeButton"}>
+					className={location?.pathname === "warehouseDashboard/profile" && "activeButton"}>
 					<ListItemIcon className='listItemIcon'>
 						<AccountCircleIcon />
 					</ListItemIcon>
