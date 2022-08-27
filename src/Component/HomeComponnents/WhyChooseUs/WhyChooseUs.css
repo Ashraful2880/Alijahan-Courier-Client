@@ -1,0 +1,51 @@
+.chooseSingleItem {
+    transition: 0.8s !important;
+    padding: 20px;
+    border: 1px solid rgb(227, 227, 227);
+    border-radius: 10px;
+    height: 350px;
+}
+
+.chooseSingleItem:hover {
+    transition: 0.6s;
+    background-color: #036f32;
+}
+
+.chooseSingleItem:hover .choosesingleItemTitle {
+    color: #fff;
+}
+
+.chooseSingleItem:hover .choosesingleItemContent {
+    color: #fff;
+}
+
+.chooseSingleItem:hover .choose-button {
+    background: #fff;
+    color: #08A74C
+}
+
+.chooseSingleItem:hover .single-icon {
+    color: #fff !important;
+}
+
+.chooseSingleItem:hover .border-circle {
+    border: 3px solid #fff !important;
+}
+
+.choosesingleItemTitle,
+.choosesingleItemContent {
+    margin: 0;
+    padding-bottom: 10px;
+    color: grey;
+    font-family: "Montserrat", sans-serif;
+    line-height: 22px;
+}
+
+.choosesingleItemTitle {
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 10px;
+    margin-top: 20px;
+    color: #02293E;
+}

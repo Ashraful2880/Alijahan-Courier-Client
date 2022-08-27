@@ -60,20 +60,20 @@ const BranchDashboard = () => {
 	const location = useLocation();
 	return (
 		<>
-			<Link className='link' to='/branchDashboard'>
+			<Link className='link' to='branchDashboard/home'>
 				<ListItem
 					button
-					className={location?.pathname === "/" && "activeButton"}>
+					className={location?.pathname === "branchDashboard/home" && "activeButton"}>
 					<ListItemIcon className='listItemIcon'>
 						<HomeIcon />
 					</ListItemIcon>
 					<ListItemText primary={"Home"} />
 				</ListItem>
 			</Link>
-			<Link className='link' to='/branchDashboard/profile'>
+			<Link className='link' to='branchDashboard/profile'>
 				<ListItem
 					button
-					className={location?.pathname === "/" && "activeButton"}>
+					className={location?.pathname === "branchDashboard/profile" && "activeButton"}>
 					<ListItemIcon className='listItemIcon'>
 						<AccountCircleIcon />
 					</ListItemIcon>
@@ -103,24 +103,11 @@ const BranchDashboard = () => {
 				</AccordionSummary>
 				<AccordionDetails>
 					<List>
-						<Link className='link' to='branchDashboard/addParcel'>
-							<ListItem
-								button
-								className={
-									location?.pathname === "merchantDashboard/addParcel" &&
-									"activeButton"
-								}>
-								<ListItemIcon className='listItemIcon'>
-									<AddTaskIcon />
-								</ListItemIcon>
-								<ListItemText primary={"Add Parcel"} />
-							</ListItem>
-						</Link>
 						<Link className='link' to='branchDashboard/parcelList'>
 							<ListItem
 								button
 								className={
-									location?.pathname === "merchantDashboard/ParcelList" &&
+									location?.pathname === "branchDashboard/parcelList" &&
 									"activeButton"
 								}>
 								<ListItemIcon className='listItemIcon'>
@@ -134,7 +121,7 @@ const BranchDashboard = () => {
 								button
 								className={
 									location?.pathname ===
-										"merchantDashboard/receivedParcelList" && "activeButton"
+									"branchDashboard/receivedParcelList" && "activeButton"
 								}>
 								<ListItemIcon className='listItemIcon'>
 									<FormatListNumberedIcon />

@@ -1,0 +1,96 @@
+.nonActive {
+    text-decoration: none;
+    font-size: 17px;
+    color: black;
+    font-family: "Montserrat", sans-serif;
+    margin: 0px 5px;
+    padding: 5px 0px;
+    border-bottom: 2px solid transparent;
+    transition: 0.4s ease-in-out;
+    font-weight: 600;
+}
+
+.nonActive:hover {
+    border-bottom: 2px solid #08A74C;
+    color: #08A74C;
+}
+
+.active {
+    text-decoration: none;
+    font-size: 17px;
+    color: #08A74C;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 600;
+    display: block !important;
+    margin: 0px 5px;
+    padding: 5px 0px;
+    border-bottom: 2px solid #08A74C;
+}
+
+.call {
+    text-decoration: none;
+    font-size: 17px;
+    color: #08A74C;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 600;
+    padding-right: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.callIcon {
+    animation: bounce 2s ease infinite;
+}
+
+@keyframes bounce {
+    70% {
+        transform: translateY(0%);
+    }
+
+    80% {
+        transform: translateY(-30%);
+    }
+
+    90% {
+        transform: translateY(0%);
+    }
+
+    95% {
+        transform: translateY(-7%);
+    }
+
+    97% {
+        transform: translateY(0%);
+    }
+
+    99% {
+        transform: translateY(-3%);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+.webLogo {
+    width: 200px;
+
+}
+
+@media only screen and (max-width: 600px) {
+    .webLogo {
+        width: 150px;
+        margin-right: 20px;
+    }
+}
+
+@media only screen and (min-width: 900px) {
+    .nonActive {
+        padding-right: 10px;
+
+    }
+
+    .active {
+        padding-right: 10px;
+    }
+}

@@ -1,0 +1,24 @@
+.delivery-conainer {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.872), rgba(0, 0, 0, 0.872)), url("../../../Assets/Image/faqimg.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: top;
+}
+
+.MuiOutlinedInput-root,
+.MuiAutocomplete-input {
+    border-color: rgb(210, 210, 210) !important;
+    background: #fff !important;
+    border-radius: 10px;
+}
+
+.MuiOutlinedInput-root,
+.MuiAutocomplete-input:focus {
+    border-color: #08A74C !important;
+}
+
+.MuiOutlinedInput-root,
+.MuiAutocomplete-input:focus {
+    box-shadow: none;
+}
