@@ -1,27 +1,10 @@
-import React, { useRef } from "react";
-import {
-	CircularProgress,
-	Grid,
-	Backdrop,
-	Typography,
-	Box,
-	FormControl,
-	Select,
-	MenuItem,
-	FormHelperText,
-	Button,
-	Fade,
-	Modal,
-	TextField,
-	Autocomplete,
-} from "@mui/material";
+import React from "react";
+import { useState, useEffect } from "react";
+import { CircularProgress, Grid, Backdrop, Typography, Box, Button, Fade, Modal, } from "@mui/material";
 import PaymentsIcon from "@mui/icons-material/Payments";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { useEffect } from "react";
-import { useState } from "react";
-import PrintIcon from "@mui/icons-material/Print";
 import GetAuth from "../../../../FirebaseAuth/GetAuth";
 import CancelIcon from "@mui/icons-material/Cancel";
 
@@ -41,32 +24,11 @@ const style = {
 	backgroundColor: "white",
 };
 
-const AccountsFiltered = ({
-	opens,
-	setOpens,
-	marchantName,
-	allParcels,
-	selectedStatus,
-}) => {
+const AccountsFiltered = ({ opens, setOpens, marchantName, allParcels, selectedStatus, }) => {
 	const { user, loading, token } = GetAuth();
 	const [submitting, setSubmitting] = useState(false);
-	const [open, setOpen] = React.useState(false);
-	const handleClose = () => {
-		setOpen(false);
-	};
-	const handleOpen = () => {
-		setOpen(true);
-	};
 	const [data, setData] = useState();
-	const [status, setStatus] = useState("");
-	const [riders, setRiders] = useState();
-	const [branch, setBranch] = useState();
-	const [Warehouse, setWarehouse] = useState();
 	const [selectionModel, setSelectionModel] = React.useState();
-	const [selected, setSelected] = React.useState([]);
-	const printData = () => {
-		setSelected(data.filter((e) => selectionModel.find((n) => n === e._id)));
-	};
 
 	useEffect(() => {
 		axios
@@ -114,9 +76,9 @@ const AccountsFiltered = ({
 								},
 							)
 							.then((response) => {
-									setSubmitting(false);
-									Swal.fire("", "Successfully Done!", "success");
-									setOpens(false);
+								setSubmitting(false);
+								Swal.fire("", "Successfully Done!", "success");
+								setOpens(false);
 							})
 							.catch((error) => {
 								setSubmitting(false);
@@ -137,9 +99,9 @@ const AccountsFiltered = ({
 								},
 							)
 							.then((response) => {
-									setSubmitting(false);
-									Swal.fire("", "Successfully Done!", "success");
-									setOpens(false);
+								setSubmitting(false);
+								Swal.fire("", "Successfully Done!", "success");
+								setOpens(false);
 							})
 							.catch((error) => {
 								setSubmitting(false);
@@ -192,13 +154,6 @@ const AccountsFiltered = ({
 			},
 			width: 250,
 		},
-		/* 	{
-			field: "_id",
-			headerName: "Action",
-			width: 300,
-			renderCell: renderDetailsButton,
-			disableClickEventBubbling: true,
-		}, */
 	];
 	return (
 		<Modal
@@ -223,8 +178,7 @@ const AccountsFiltered = ({
 							cursor: "pointer",
 							background: "White",
 							borderRadius: "50%",
-						}}
-					/>
+						}} />
 					<Box
 						sx={{
 							px: 2.5,
@@ -291,7 +245,7 @@ const AccountsFiltered = ({
 										onSelectionModelChange={setSelectionModel}
 										getRowId={(row) => row?._id}
 										columns={columns}
-										pageSize={5}
+										pageSize={10}
 										rowsPerPageOptions={[5]}
 										checkboxSelection
 										components={{ Toolbar: GridToolbar }}
@@ -300,7 +254,6 @@ const AccountsFiltered = ({
 							)}
 						</Grid>
 					</Grid>
-
 					<Backdrop
 						sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 999 }}
 						open={submitting || !data}>

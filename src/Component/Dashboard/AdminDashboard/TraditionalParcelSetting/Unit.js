@@ -1,23 +1,11 @@
-import {
-	Button,
-	CircularProgress,
-	Container,
-	Grid,
-	TextField,
-	Backdrop,
-	Typography,
-	Select,
-	MenuItem,
-	Box,
-} from "@mui/material";
-import DownloadDoneIcon from "@mui/icons-material/DownloadDone";
 import React from "react";
+import { useState, useEffect } from "react";
+import { Button, CircularProgress, Grid, TextField, Backdrop, Typography, Box } from "@mui/material";
+import DownloadDoneIcon from "@mui/icons-material/DownloadDone";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { useEffect } from "react";
-import { useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import RemoveDoneIcon from "@mui/icons-material/RemoveDone";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
@@ -182,13 +170,7 @@ const Unit = () => {
 	const columns = [
 		{ field: "unitName", headerName: "Unit Name", flex: 1 },
 		{ field: "status", headerName: "Status", flex: 1 },
-		{
-			field: "_id",
-			headerName: "Action",
-			flex: 1,
-			renderCell: renderDetailsButton,
-			disableClickEventBubbling: true,
-		},
+		{ field: "_id", headerName: "Action", flex: 1, renderCell: renderDetailsButton, disableClickEventBubbling: true, },
 	];
 	return (
 		<Box sx={{ mx: 4, pt: 2, pb: 5 }}>
@@ -231,7 +213,7 @@ const Unit = () => {
 								rows={data}
 								getRowId={(row) => row?._id}
 								columns={columns}
-								pageSize={5}
+								pageSize={10}
 								rowsPerPageOptions={[5]}
 								checkboxSelection
 								components={{ Toolbar: GridToolbar }}

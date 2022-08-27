@@ -1,16 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
-import {
-	Button,
-	TextField,
-	Backdrop,
-	Typography,
-	CircularProgress,
-	Autocomplete,
-	MenuItem,
-	Select,
-} from "@mui/material";
+import { Button, TextField, Backdrop, Typography, } from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
 import CancelIcon from "@mui/icons-material/Cancel";
@@ -83,9 +74,7 @@ const AddVehicles = ({ open, setOpen, token, setSubmitting }) => {
 				open={open}
 				closeAfterTransition
 				BackdropComponent={Backdrop}
-				BackdropProps={{
-					timeout: 500,
-				}}>
+				BackdropProps={{ timeout: 500, }}>
 				<Fade in={open}>
 					<Box sx={style}>
 						<CancelIcon
@@ -180,7 +169,6 @@ const AddVehicles = ({ open, setOpen, token, setSubmitting }) => {
 									type='submit'
 									variant='contained'
 									color='success'
-									// className='button'
 									sx={{ my: 0.5, fontWeight: "bold", px: 1.5, mx: 1 }}>
 									<DoneIcon sx={{ mr: 0.5 }} />
 									Add Branch
@@ -190,7 +178,6 @@ const AddVehicles = ({ open, setOpen, token, setSubmitting }) => {
 									type='reset'
 									variant='contained'
 									color="error"
-									// className='button'
 									sx={{ my: 0.5, fontWeight: "bold", px: 1.5, mx: 1 }}>
 									<ReplayIcon sx={{ mr: 0.5 }} />
 									Close

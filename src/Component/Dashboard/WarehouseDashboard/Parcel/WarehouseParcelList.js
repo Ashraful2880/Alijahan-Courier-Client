@@ -1,20 +1,9 @@
 import React from "react";
-import {
-	CircularProgress,
-	Grid,
-	Backdrop,
-	Typography,
-	Box,
-	FormControl,
-	Select,
-	MenuItem,
-	Button,
-} from "@mui/material";
+import { useState, useEffect } from "react";
+import { CircularProgress, Grid, Backdrop, Typography, Box, Button, } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { useEffect } from "react";
-import { useState } from "react";
 import GetAuth from "./../../../../FirebaseAuth/GetAuth";
 import WarehouseParcelListFiltered from "./WarehouseParcelListFiltered";
 import AspectRatioIcon from "@mui/icons-material/AspectRatio";
@@ -218,7 +207,7 @@ const WarehouseParcelList = () => {
 								rows={filteredByMarchant}
 								getRowId={(row) => row?._id}
 								columns={columns}
-								pageSize={5}
+								pageSize={10}
 								rowsPerPageOptions={[5]}
 								checkboxSelection
 								components={{ Toolbar: GridToolbar }}

@@ -1,16 +1,4 @@
-import {
-	Backdrop,
-	Button,
-	CircularProgress,
-	Modal,
-	Table,
-	TableBody,
-	TableCell,
-	TableContainer,
-	TableHead,
-	TableRow,
-	Typography,
-} from "@mui/material";
+import { Backdrop, Button, CircularProgress, Modal, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useRef, useState } from "react";
 import ReactToPrint from "react-to-print";

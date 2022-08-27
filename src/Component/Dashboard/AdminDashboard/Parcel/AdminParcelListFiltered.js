@@ -1,30 +1,11 @@
-import {
-	CircularProgress,
-	Grid,
-	Backdrop,
-	Typography,
-	Box,
-	FormControl,
-	Select,
-	MenuItem,
-	FormHelperText,
-	Button,
-	Fade,
-	Modal,
-	Badge,
-} from "@mui/material";
 import React from "react";
+import { useState, useEffect } from "react";
+import { CircularProgress, Grid, Backdrop, Typography, Box, Fade, Modal, Badge, } from "@mui/material";
 import {
-	DataGrid,
-	GridToolbarContainer,
-	GridToolbarColumnsButton,
-	GridToolbarFilterButton,
+	DataGrid, GridToolbarContainer, GridToolbarColumnsButton, GridToolbarFilterButton,
 } from "@mui/x-data-grid";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { useEffect } from "react";
-import { useState } from "react";
-import DeleteIcon from "@mui/icons-material/Delete";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import GetAuth from "../../../../FirebaseAuth/GetAuth";
 import CancelIcon from "@mui/icons-material/Cancel";
@@ -245,7 +226,7 @@ const AdminParcelListFiltered = ({
 										onSelectionModelChange={setSelectionModel}
 										getRowId={(row) => row?._id}
 										columns={columns}
-										pageSize={5}
+										pageSize={10}
 										rowsPerPageOptions={[5]}
 										checkboxSelection
 										components={{ Toolbar: CustomToolbar }}

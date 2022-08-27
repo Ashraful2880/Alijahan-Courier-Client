@@ -5,12 +5,7 @@ import FindReplaceIcon from '@mui/icons-material/FindReplace';
 
 const OrderTracking = () => {
 
-    const {
-        register,
-        handleSubmit,
-        formState: { errors }
-    } = useForm();
-
+    const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = (data) => {
         alert(JSON.stringify(data));
     };

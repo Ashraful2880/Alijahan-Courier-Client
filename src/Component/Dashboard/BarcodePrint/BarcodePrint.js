@@ -1,16 +1,4 @@
-import {
-	Backdrop,
-	Button,
-	CircularProgress,
-	Modal,
-	Table,
-	TableBody,
-	TableCell,
-	TableContainer,
-	TableHead,
-	TableRow,
-	Typography,
-} from "@mui/material";
+import { Backdrop, Button, CircularProgress, Modal, Typography, } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useRef, useState } from "react";
 import ReactToPrint from "react-to-print";
@@ -71,20 +59,10 @@ const BarcodePrint = ({ data, openBarCode, handleCloseBarCode }) => {
 							<Box ref={(el) => (ref2 = el)}>
 								{data?.map((order) => (
 									<Box
-										sx={{
-											border: "1px solid black",
-											my: 5,
-											p: 3,
-											width: "600px",
-										}}>
+										sx={{ border: "1px solid black", my: 5, p: 3, width: "600px", }}>
 										<Typography
 											variant='h4'
-											sx={{
-												fontWeight: "bold",
-												color: "#1E793C",
-												pb: 2,
-												textAlign: "center",
-											}}>
+											sx={{ fontWeight: "bold", color: "#1E793C", pb: 2, textAlign: "center", }}>
 											Alijahan Courier Service
 										</Typography>
 										<Box sx={{ textAlign: "left" }}>

@@ -1,53 +1,14 @@
-import React, { useRef } from "react";
-import {
-	CircularProgress,
-	Grid,
-	Backdrop,
-	Typography,
-	Box,
-	FormControl,
-	Select,
-	MenuItem,
-	FormHelperText,
-	Button,
-	Fade,
-	Modal,
-	TextField,
-	Autocomplete,
-} from "@mui/material";
+import React from "react";
+import { CircularProgress, Grid, Backdrop, Typography, Box, Button, Fade, Modal } from "@mui/material";
 import PaymentsIcon from "@mui/icons-material/Payments";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { useEffect } from "react";
-import { useState } from "react";
-import PrintIcon from "@mui/icons-material/Print";
+import { useState, useEffect } from "react";
 import GetAuth from "../../../../FirebaseAuth/GetAuth";
 import CancelIcon from "@mui/icons-material/Cancel";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import ReactToPrint from "react-to-print";
-import Badge from "@mui/material/Badge";
 
-const style = {
-	position: "absolute",
-	top: "50%",
-	left: "50%",
-	transform: "translate(-50%, -50%)",
-	boxShadow: 24,
-	p: 2,
-	width: "75vw",
-	maxHeight: "90vh",
-	overflowX: "hidden",
-	overflowY: "scroll",
-	borderRadius: 3,
-	textAlign: "center",
-	backgroundColor: "white",
-};
+const style = { position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", boxShadow: 24, p: 2, width: "75vw", maxHeight: "90vh", overflowX: "hidden", overflowY: "scroll", borderRadius: 3, textAlign: "center", backgroundColor: "white", };
 
 const BranchAccountsFiltered = ({
 	opens,
@@ -59,23 +20,11 @@ const BranchAccountsFiltered = ({
 	const email = "branch2@gmail.com";
 	const { user, loading, token } = GetAuth();
 	const [submitting, setSubmitting] = useState(false);
-	const [open, setOpen] = React.useState(false);
-	const handleClose = () => {
-		setOpen(false);
-	};
-	const handleOpen = () => {
-		setOpen(true);
-	};
 	const [data, setData] = useState();
-	const [status, setStatus] = useState("");
 	const [riders, setRiders] = useState();
 	const [branch, setBranch] = useState();
 	const [Warehouse, setWarehouse] = useState();
 	const [selectionModel, setSelectionModel] = React.useState();
-	const [selected, setSelected] = React.useState([]);
-	const printData = () => {
-		setSelected(data.filter((e) => selectionModel.find((n) => n === e._id)));
-	};
 
 	useEffect(() => {
 		axios
@@ -232,13 +181,6 @@ const BranchAccountsFiltered = ({
 			},
 			width: 250,
 		},
-		/* 	{
-			field: "_id",
-			headerName: "Action",
-			width: 300,
-			renderCell: renderDetailsButton,
-			disableClickEventBubbling: true,
-		}, */
 	];
 	return (
 		<Modal
@@ -247,9 +189,7 @@ const BranchAccountsFiltered = ({
 			open={opens}
 			closeAfterTransition
 			BackdropComponent={Backdrop}
-			BackdropProps={{
-				timeout: 500,
-			}}>
+			BackdropProps={{ timeout: 500, }}>
 			<Fade in={opens}>
 				<Box sx={style}>
 					<CancelIcon
@@ -337,7 +277,7 @@ const BranchAccountsFiltered = ({
 										onSelectionModelChange={setSelectionModel}
 										getRowId={(row) => row?._id}
 										columns={columns}
-										pageSize={5}
+										pageSize={10}
 										rowsPerPageOptions={[5]}
 										checkboxSelection
 										components={{ Toolbar: GridToolbar }}

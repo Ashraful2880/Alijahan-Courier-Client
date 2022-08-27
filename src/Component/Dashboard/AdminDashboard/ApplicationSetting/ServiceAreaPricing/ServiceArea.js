@@ -1,20 +1,10 @@
-import {
-	Button,
-	CircularProgress,
-	Container,
-	Grid,
-	TextField,
-	Backdrop,
-	Typography,
-	Box,
-} from "@mui/material";
 import React from "react";
+import { useState, useEffect } from "react";
+import { Button, CircularProgress, Grid, Backdrop, Typography, Box, } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { useEffect } from "react";
-import { useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import RemoveDoneIcon from "@mui/icons-material/RemoveDone";
@@ -26,7 +16,6 @@ import GetAuth from "../../../../../FirebaseAuth/GetAuth.js";
 
 const ServiceArea = () => {
 	const { user, loading, token } = GetAuth();
-	const { register, handleSubmit, reset } = useForm();
 	const [submitting, setSubmitting] = useState(false);
 	const [data, setData] = useState();
 	const [open, setOpen] = React.useState(false);
@@ -191,13 +180,7 @@ const ServiceArea = () => {
 			flex: 1,
 		},
 		{ field: "status", headerName: "Status", flex: 1 },
-		{
-			field: "_id",
-			headerName: "Action",
-			flex: 1,
-			renderCell: renderDetailsButton,
-			disableClickEventBubbling: true,
-		},
+		{ field: "_id", headerName: "Action", flex: 1, renderCell: renderDetailsButton, disableClickEventBubbling: true, },
 	];
 	return (
 		<Box sx={{ mx: 4, pt: 2, pb: 5 }}>
@@ -228,7 +211,7 @@ const ServiceArea = () => {
 								rows={data}
 								getRowId={(row) => row?._id}
 								columns={columns}
-								pageSize={5}
+								pageSize={10}
 								rowsPerPageOptions={[5]}
 								checkboxSelection
 								components={{ Toolbar: GridToolbar }}

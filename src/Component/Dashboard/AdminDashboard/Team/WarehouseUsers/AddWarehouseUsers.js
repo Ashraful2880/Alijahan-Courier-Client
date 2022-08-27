@@ -1,14 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
-import {
-	Button,
-	TextField,
-	Backdrop,
-	Typography,
-	CircularProgress,
-	Autocomplete,
-} from "@mui/material";
+import { Button, TextField, Backdrop, Typography, Autocomplete, } from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
 import CancelIcon from "@mui/icons-material/Cancel";
@@ -18,7 +11,6 @@ import DoneIcon from "@mui/icons-material/Done";
 import AddTaskIcon from "@mui/icons-material/AddTask";
 import Swal from "sweetalert2";
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
-import { signOut } from "firebase/auth";
 import auth2 from "../../../../../FirebaseAuth/firebase.config2";
 const style = {
 	position: "absolute",
@@ -127,8 +119,7 @@ const AddWarehouseUsers = ({ open, setOpen, token, setSubmitting }) => {
 								cursor: "pointer",
 								background: "White",
 								borderRadius: "50%",
-							}}
-						/>
+							}} />
 
 						<Typography
 							variant='h6'
@@ -180,9 +171,7 @@ const AddWarehouseUsers = ({ open, setOpen, token, setSubmitting }) => {
 											label='Warehouse Name'
 											helperText=' Warehouse Name'
 											variant='outlined'
-										/>
-									)}
-								/>
+										/>)} />
 
 								<TextField
 									size='small'

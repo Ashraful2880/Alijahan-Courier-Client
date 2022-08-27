@@ -1,25 +1,9 @@
 import React from "react";
-import { useRef } from "react";
-import {
-	CircularProgress,
-	Grid,
-	Backdrop,
-	Typography,
-	Box,
-	FormControl,
-	Select,
-	MenuItem,
-	FormHelperText,
-	Autocomplete,
-	TextField,
-	Button,
-} from "@mui/material";
-import ReactToPrint from "react-to-print";
+import { useState, useEffect } from "react";
+import { CircularProgress, Grid, Backdrop, Typography, Box, Button, } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import AspectRatioIcon from "@mui/icons-material/AspectRatio";
 import axios from "axios";
-import { useEffect } from "react";
-import { useState } from "react";
 import GetAuth from "../../../../FirebaseAuth/GetAuth.js";
 import BranchReceivedParcelListFiltered from "./BranchReceivedParcelListFiltered.js";
 
@@ -114,13 +98,7 @@ const BranchReceivedParcelList = () => {
 	return (
 		<Box sx={{ mx: 4, pt: 2, pb: 5 }}>
 			<Box
-				sx={{
-					px: 2.5,
-					pb: 1,
-					display: "flex",
-					alignItems: "center",
-					justifyContent: "space-between",
-				}}>
+				sx={{ px: 2.5, pb: 1, display: "flex", alignItems: "center", justifyContent: "space-between", }}>
 				<Typography variant='h5' sx={{ fontWeight: "bold", color: "#1E793C" }}>
 					Received Parcel List
 				</Typography>
@@ -133,33 +111,25 @@ const BranchReceivedParcelList = () => {
 					All
 				</Button>
 				<Button
-					className={
-						selectedStatus === "Delivered To Receiver Branch" ? "active" : ""
-					}
+					className={selectedStatus === "Delivered To Receiver Branch" ? "active" : ""}
 					onClick={() => setSelectedStatus("Delivered To Receiver Branch")}
 					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, color: "gray" }}>
 					Pending
 				</Button>
 				<Button
-					className={
-						selectedStatus === "Received in Receiver Branch" ? "active" : ""
-					}
+					className={selectedStatus === "Received in Receiver Branch" ? "active" : ""}
 					onClick={() => setSelectedStatus("Received in Receiver Branch")}
 					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, color: "gray" }}>
 					Accepted
 				</Button>
 				<Button
-					className={
-						selectedStatus === "Assigned Rider For Delivery" ? "active" : ""
-					}
+					className={selectedStatus === "Assigned Rider For Delivery" ? "active" : ""}
 					onClick={() => setSelectedStatus("Assigned Rider For Delivery")}
 					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, color: "gray" }}>
 					Assigned
 				</Button>
 				<Button
-					className={
-						selectedStatus === "Delivered To Branch By Rider" ? "active" : ""
-					}
+					className={selectedStatus === "Delivered To Branch By Rider" ? "active" : ""}
 					onClick={() => setSelectedStatus("Delivered To Branch By Rider")}
 					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, color: "gray" }}>
 					Delivered
@@ -171,42 +141,26 @@ const BranchReceivedParcelList = () => {
 					Received
 				</Button>
 				<Button
-					className={
-						selectedStatus === "Delivered To Customer By Rider" ? "active" : ""
-					}
+					className={selectedStatus === "Delivered To Customer By Rider" ? "active" : ""}
 					onClick={() => setSelectedStatus("Delivered To Customer By Rider")}
 					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, color: "gray" }}>
 					Delivered To Customer
 				</Button>
 				<Button
-					className={
-						selectedStatus === "Returning Parcel to Branch" ? "active" : ""
-					}
+					className={selectedStatus === "Returning Parcel to Branch" ? "active" : ""}
 					onClick={() => setSelectedStatus("Returning Parcel to Branch")}
 					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, color: "gray" }}>
 					Returning Parcel
 				</Button>
 				<Button
-					className={
-						selectedStatus === "Returned Parcel Received in Branch"
-							? "active"
-							: ""
-					}
-					onClick={() =>
-						setSelectedStatus("Returned Parcel Received in Branch")
-					}
+					className={selectedStatus === "Returned Parcel Received in Branch" ? "active" : ""}
+					onClick={() => setSelectedStatus("Returned Parcel Received in Branch")}
 					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, color: "gray" }}>
 					Received Returned Parcel
 				</Button>
 				<Button
-					className={
-						selectedStatus === "Sending Returned Parcel to Warehouse"
-							? "active"
-							: ""
-					}
-					onClick={() =>
-						setSelectedStatus("Sending Returned Parcel to Warehouse")
-					}
+					className={selectedStatus === "Sending Returned Parcel to Warehouse" ? "active" : ""}
+					onClick={() => setSelectedStatus("Sending Returned Parcel to Warehouse")}
 					sx={{ my: 0.7, fontWeight: "bold", px: 1.5, color: "gray" }}>
 					Send to Warehouse
 				</Button>
@@ -219,7 +173,7 @@ const BranchReceivedParcelList = () => {
 								rows={selectedStatus === "All" ? data : filterData}
 								getRowId={(row) => row?._id}
 								columns={columns}
-								pageSize={5}
+								pageSize={10}
 								rowsPerPageOptions={[5]}
 								checkboxSelection
 								components={{ Toolbar: GridToolbar }}

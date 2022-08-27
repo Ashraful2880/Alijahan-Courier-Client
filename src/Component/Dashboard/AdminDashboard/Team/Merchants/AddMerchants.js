@@ -1,15 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
-import {
-	Button,
-	TextField,
-	Backdrop,
-	Typography,
-	CircularProgress,
-	Autocomplete,
-	InputAdornment,
-} from "@mui/material";
+import { Button, TextField, Backdrop, Typography, Autocomplete, } from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
 import { useForm } from "react-hook-form";
@@ -316,7 +308,6 @@ const AddMerchants = ({ open, setOpen, token, setSubmitting }) => {
 									type='submit'
 									variant='contained'
 									color='success'
-									// className='button'
 									sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
 									<DoneIcon sx={{ mr: 0.5 }} />
 									Save
@@ -326,7 +317,6 @@ const AddMerchants = ({ open, setOpen, token, setSubmitting }) => {
 									type='reset'
 									variant='contained'
 									color='error'
-									// className='button'
 									sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
 									<ReplayIcon sx={{ mr: 0.5 }} />
 									Close

@@ -1,24 +1,10 @@
-import {
-	CircularProgress,
-	Grid,
-	Backdrop,
-	Typography,
-	Box,
-	FormControl,
-	Select,
-	MenuItem,
-	FormHelperText,
-	Button,
-} from "@mui/material";
 import React from "react";
+import { useState, useEffect } from "react";
+import { CircularProgress, Grid, Backdrop, Typography, Box, Button, } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { useEffect } from "react";
-import { useState } from "react";
-import DeleteIcon from "@mui/icons-material/Delete";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
-import PaymentsIcon from "@mui/icons-material/Payments";
 import GetAuth from "../../../../FirebaseAuth/GetAuth";
 import ParcelModal from "../../AdminDashboard/Account/ParcelModal";
 
@@ -27,14 +13,9 @@ const RiderAccounts = () => {
 	const { user, loading, token } = GetAuth();
 	const [submitting, setSubmitting] = useState(false);
 	const [data, setData] = useState();
-	const [status, setStatus] = useState("");
 	const [modalData, setModalData] = useState();
 	const [open, setOpen] = React.useState(false);
 	const [selectionModel, setSelectionModel] = React.useState();
-	const [selected, setSelected] = React.useState([]);
-	const printData = () => {
-		setSelected(data.filter((e) => selectionModel.find((n) => n === e._id)));
-	};
 	const handleOpen = () => setOpen(true);
 	const handleClose = () => setOpen(false);
 
@@ -242,7 +223,7 @@ const RiderAccounts = () => {
 								onSelectionModelChange={setSelectionModel}
 								getRowId={(row) => row?._id}
 								columns={columns}
-								pageSize={5}
+								pageSize={10}
 								rowsPerPageOptions={[5]}
 								checkboxSelection
 								components={{ Toolbar: GridToolbar }}
