@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
-import { Button, TextField, Backdrop, Typography, Autocomplete, } from "@mui/material";
+import {
+	Button,
+	TextField,
+	Backdrop,
+	Typography,
+	Autocomplete,
+} from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
 import { useForm } from "react-hook-form";
@@ -34,6 +40,7 @@ const AddMerchants = ({ open, setOpen, token, setSubmitting }) => {
 	const [errors, setErrors] = useState(false);
 	const [selectedBranch, setSelectedBranch] = useState([]);
 	const [branches, setBranches] = useState([]);
+	const [districts, setDistricts] = useState();
 	useEffect(() => {
 		axios
 			.get(`${process.env.REACT_APP_API_PATH}/branches`, {
@@ -43,6 +50,18 @@ const AddMerchants = ({ open, setOpen, token, setSubmitting }) => {
 			})
 			.then((response) => {
 				setBranches(response.data);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+		axios
+			.get(`${process.env.REACT_APP_API_PATH}/districts`, {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			})
+			.then((response) => {
+				setDistricts(response.data);
 			})
 			.catch((error) => {
 				console.log(error);
@@ -96,6 +115,7 @@ const AddMerchants = ({ open, setOpen, token, setSubmitting }) => {
 		merchantCompanyName,
 		merchantAddress,
 		merchantBusinessAddress,
+		merchantDistrict,
 		merchantBranchName,
 		merchantContact,
 		merchantArea,
@@ -109,6 +129,7 @@ const AddMerchants = ({ open, setOpen, token, setSubmitting }) => {
 			merchantAddress,
 			merchantBusinessAddress,
 			merchantBranchName,
+			merchantDistrict,
 			merchantContact,
 			merchantArea,
 			merchantEmail,
@@ -203,6 +224,24 @@ const AddMerchants = ({ open, setOpen, token, setSubmitting }) => {
 									{...register("merchantBusinessAddress", { required: true })}
 								/>
 							</Box>
+							<Autocomplete
+								size='small'
+								sx={{ my: 0.5, width: "100% !important" }}
+								options={districts}
+								getOptionLabel={(option) => option.district}
+								style={{ width: 300 }}
+								renderInput={(params) => (
+									<TextField
+										{...register("merchantDistrict", {
+											required: true,
+										})}
+										{...params}
+										label='Select District'
+										variant='outlined'
+										helperText='Branch'
+									/>
+								)}
+							/>
 							<Box sx={{ display: "flex", gap: "20px" }}>
 								<Autocomplete
 									onChange={(event, newValue) => {

@@ -1,5 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Autocomplete, Backdrop, Box, Button, CircularProgress, Grid, TextField, Typography, } from "@mui/material";
+import {
+	Autocomplete,
+	Backdrop,
+	Box,
+	Button,
+	CircularProgress,
+	Grid,
+	TextField,
+	Typography,
+} from "@mui/material";
 import CreateNewFolderIcon from "@mui/icons-material/CreateNewFolder";
 import DoneIcon from "@mui/icons-material/Done";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
@@ -37,6 +46,14 @@ const AddMerchantParcel = () => {
 	const receiverBranch = branch?.find((d) =>
 		d.branchArea.find((c) => c?.area === selectedArea?.area),
 	);
+
+	let aaa;
+	if (marchant?.merchantDistrict === receiverBranch?.branchDistrict) {
+		if (marchant?.merchantBranchName === receiverBranch?.branchName) {
+		}
+	}
+	console.log(aaa);
+
 	const serviceArea = serviceAreas?.find(
 		(s) =>
 			s.serviceAreaName ===
@@ -44,6 +61,7 @@ const AddMerchantParcel = () => {
 				? "Inside Same City"
 				: `City to ${selectedArea?.areaType}`),
 	);
+
 	useEffect(() => {
 		axios
 			.get(`${process.env.REACT_APP_API_PATH}/districts`, {
@@ -220,7 +238,15 @@ const AddMerchantParcel = () => {
 
 	return (
 		<Box
-			sx={{ mt: 2.5, mx: 2.5, border: "1px solid gray", borderRadius: 2, boxShadow: "0px 0px 10px gray", pt: 2, pb: 5, }}>
+			sx={{
+				mt: 2.5,
+				mx: 2.5,
+				border: "1px solid gray",
+				borderRadius: 2,
+				boxShadow: "0px 0px 10px gray",
+				pt: 2,
+				pb: 5,
+			}}>
 			<Typography
 				variant='h6'
 				sx={{

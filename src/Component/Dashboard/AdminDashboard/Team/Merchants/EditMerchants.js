@@ -1,14 +1,21 @@
 import React, { useEffect, useState } from "react";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
-import { Button, TextField, Backdrop, Typography, CircularProgress, Autocomplete, } from "@mui/material";
+import {
+	Button,
+	TextField,
+	Backdrop,
+	Typography,
+	CircularProgress,
+	Autocomplete,
+} from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import ReplayIcon from "@mui/icons-material/Replay";
-import DoneIcon from '@mui/icons-material/Done';
+import DoneIcon from "@mui/icons-material/Done";
 import CancelIcon from "@mui/icons-material/Cancel";
-import BorderColorIcon from '@mui/icons-material/BorderColor';
+import BorderColorIcon from "@mui/icons-material/BorderColor";
 import Swal from "sweetalert2";
 const style = {
 	position: "absolute",
@@ -33,6 +40,7 @@ const EditMerchants = ({ open, setOpen, id, token, setSubmitting }) => {
 			merchantCompanyName: "",
 			merchantAddress: "",
 			merchantBusinessAddress: "",
+			merchantDistrict: "",
 			merchantBranchName: "",
 			merchantArea: "",
 			merchantContact: "",
@@ -43,6 +51,7 @@ const EditMerchants = ({ open, setOpen, id, token, setSubmitting }) => {
 	const [error, setError] = useState(false);
 	const [selectedBranch, setSelectedBranch] = useState();
 	const [branches, setBranches] = useState();
+	const [districts, setDistricts] = useState();
 	useEffect(() => {
 		axios
 			.get(`${process.env.REACT_APP_API_PATH}/branches`, {
@@ -52,6 +61,18 @@ const EditMerchants = ({ open, setOpen, id, token, setSubmitting }) => {
 			})
 			.then((response) => {
 				setBranches(response.data);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+		axios
+			.get(`${process.env.REACT_APP_API_PATH}/districts`, {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			})
+			.then((response) => {
+				setDistricts(response.data);
 			})
 			.catch((error) => {
 				console.log(error);
@@ -79,6 +100,7 @@ const EditMerchants = ({ open, setOpen, id, token, setSubmitting }) => {
 		merchantAddress,
 		merchantBusinessAddress,
 		merchantBranchName,
+		merchantDistrict,
 		merchantContact,
 		merchantArea,
 		merchantEmail,
@@ -93,6 +115,7 @@ const EditMerchants = ({ open, setOpen, id, token, setSubmitting }) => {
 					merchantCompanyName,
 					merchantAddress,
 					merchantBusinessAddress,
+					merchantDistrict,
 					merchantBranchName,
 					merchantContact,
 					merchantArea,
@@ -204,6 +227,31 @@ const EditMerchants = ({ open, setOpen, id, token, setSubmitting }) => {
 											})}
 										/>
 									</Box>
+									<Autocomplete
+										size='small'
+										sx={{ my: 0.5, width: "100% !important" }}
+										options={districts}
+										getOptionLabel={(option) => option.district}
+										style={{ width: 300 }}
+										defaultValue={
+											districts[
+												districts?.findIndex(
+													(x) => x.district === data?.merchantDistrict,
+												)
+											]
+										}
+										renderInput={(params) => (
+											<TextField
+												{...register("merchantDistrict", {
+													required: true,
+												})}
+												{...params}
+												label='Select District'
+												variant='outlined'
+												helperText='Branch'
+											/>
+										)}
+									/>
 									<Box sx={{ display: "flex", gap: "20px" }}>
 										<Autocomplete
 											onChange={(event, newValue) => {
@@ -216,9 +264,9 @@ const EditMerchants = ({ open, setOpen, id, token, setSubmitting }) => {
 											style={{ width: 300 }}
 											defaultValue={
 												branches[
-												branches?.findIndex(
-													(x) => x.branchName === data?.merchantBranchName,
-												)
+													branches?.findIndex(
+														(x) => x.branchName === data?.merchantBranchName,
+													)
 												]
 											}
 											renderInput={(params) => (
@@ -279,7 +327,7 @@ const EditMerchants = ({ open, setOpen, id, token, setSubmitting }) => {
 											required
 											label='Email'
 											helperText='Email'
-											{...register("merchantCompanyName", { required: true })}
+											{...register("merchantEmail", { required: true })}
 										/>
 									</Box>
 									<Box sx={{ display: "flex", gap: "20px" }}>
