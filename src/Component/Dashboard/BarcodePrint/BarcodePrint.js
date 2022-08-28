@@ -6,7 +6,7 @@ import Barcode from "react-barcode";
 
 const BarcodePrint = ({ data, openBarCode, handleCloseBarCode }) => {
 	let ref2 = useRef();
-	const pageStyle = "@page { size: 76.8mm 50.6mm }"
+	const pageStyle = "@page { size: 50.6mm 76.8mm }"
 	const [submitting, setSubmitting] = useState(false);
 
 	return (
@@ -57,62 +57,57 @@ const BarcodePrint = ({ data, openBarCode, handleCloseBarCode }) => {
 						/>
 
 						<Box sx={{ visibility: "hidden !important" }}>
-							<Box ref={(el) => (ref2 = el)}>
+							<Box ref={(el) => (ref2 = el)} style={{ maxWidth: "50.5mm", maxHeight: "76.7mm", margin: "auto" }}>
 								{data?.map((order) => (
 									<Box
-										sx={{ border: "1px solid black", my: 5, p: 3, }}>
+										sx={{ border: "1px solid black", }}>
 										<Typography
 											variant='h4'
-											sx={{ fontWeight: "bold", color: "#1E793C", pb: 2, textAlign: "center", }}>
+											sx={{ fontWeight: "bold", color: "#1E793C", textAlign: "center", fontSize: "10px", lineHeight: "10px" }}>
 											Alijahan Courier Service
 										</Typography>
-										<Box sx={{ textAlign: "left" }}>
-											<Typography variant='h6' component='h6'>
+										<Box sx={{ textAlign: "center" }}>
+											<Typography variant='h6' component='h6' style={{ fontSize: "10px", lineHeight: "10px", }}>
 												Customer Name:{" "}
 												<span style={{ fontWeight: "bold" }}>
 													{order?.receiverInfo?.receiverName}
 												</span>
 											</Typography>
-											<Typography variant='h6' component='h6'>
+											<Typography variant='h6' component='h6' style={{ fontSize: "10px", lineHeight: "10px", }} >
 												Customer Number:{" "}
 												<span style={{ fontWeight: "bold" }}>
 													{order?.receiverInfo?.receiverNumber}
 												</span>
 											</Typography>
-											<Typography variant='h6' component='h6'>
+											<Typography variant='h6' component='h6' style={{ fontSize: "10px", lineHeight: "10px" }}>
 												Area:{" "}
 												<span style={{ fontWeight: "bold" }}>
 													{order?.receiverInfo?.receiverBranchArea}(
 													{order?.receiverInfo?.receiverBranchDistrict})
 												</span>
 											</Typography>
-											<Typography variant='h6' component='h6'>
+											<Typography variant='h6' component='h6' style={{ fontSize: "10px", lineHeight: "10px" }}>
 												Details Address:{" "}
 												<span style={{ fontWeight: "bold" }}>
 													{order?.receiverInfo?.receiverAddress}
 												</span>
 											</Typography>
-											<Box sx={{ display: "flex", alignItems: "center" }}>
-												<Typography variant='h6' component='h6'>
-													Cash:{" "}
-													<span style={{ fontWeight: "bold" }}>
-														{order?.orderSummaray?.totalAmountWithCharges} /-
-													</span>
-												</Typography>
-												<Box sx={{ display: "flex", alignItems: "center" }}>
-													<Barcode value={order?.orderId} width={1.5} />
-												</Box>
-											</Box>
+											<Typography variant='h6' component='h6' style={{ fontSize: "10px", lineHeight: "10px" }}>
+												Cash:{" "}
+												<span style={{ fontWeight: "bold" }}>
+													{order?.orderSummaray?.totalAmountWithCharges} /-
+												</span>
+											</Typography>
 										</Box>
-										<hr style={{ margin: "5px 0" }} />
-										<Box sx={{ textAlign: "left" }}>
-											<Typography variant='h6' component='h6'>
+										<Barcode value={order?.orderId} width={0.6} height={50} fontSize={14} displayValue={true} />
+										<Box sx={{ textAlign: "center" }}>
+											<Typography variant='h6' component='h6' style={{ fontSize: "10px", lineHeight: "10px" }}>
 												Merchant Name:{" "}
 												<span style={{ fontWeight: "bold" }}>
 													{order?.marchentInfo?.merchantName}
 												</span>
 											</Typography>
-											<Typography variant='h6' component='h6'>
+											<Typography variant='h6' component='h6' style={{ fontSize: "10px", lineHeight: "10px" }}>
 												Merchant Number:{" "}
 												<span style={{ fontWeight: "bold" }}>
 													{order?.marchentInfo?.merchantContact}
@@ -129,7 +124,8 @@ const BarcodePrint = ({ data, openBarCode, handleCloseBarCode }) => {
 				<Backdrop sx={{ color: "#fff", zIndex: 999 }} open={true}>
 					<CircularProgress color='inherit' />
 				</Backdrop>
-			)}
+			)
+			}
 		</>
 	);
 };
