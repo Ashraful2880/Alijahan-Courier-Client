@@ -1,0 +1,12 @@
+.faq-background {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.866), rgba(0, 0, 0, 0.856)), url("../../../Assets/Image/sliderimg.png") !important;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    justify-content: center;
+    align-items: center;
+}

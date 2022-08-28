@@ -1,0 +1,40 @@
+.swiper-button-prev {
+  background-image: url("../../../Assets/Image/partnerslideleft.png");
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  background-position: center;
+}
+
+.swiper-button-prev::after {
+  display: none;
+}
+
+.swiper-button-next {
+  background-image: url("../../../Assets/Image/partnerslideright.png");
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  background-position: center;
+}
+
+.swiper-button-next::after {
+  display: none;
+}
+
+.sliderimg {
+
+  width: 100%;
+}
+
+@media only screen and (max-width: 600px) {
+  .sliderimg {
+    width: 100%;
+
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  .sliderimg {
+    width: 100%;
+
+  }
+}
