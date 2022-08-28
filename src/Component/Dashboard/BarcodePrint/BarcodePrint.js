@@ -6,8 +6,9 @@ import Barcode from "react-barcode";
 
 const BarcodePrint = ({ data, openBarCode, handleCloseBarCode }) => {
 	let ref2 = useRef();
-
+	const pageStyle = "@page { size: 76.8mm 50.6mm }"
 	const [submitting, setSubmitting] = useState(false);
+
 	return (
 		<>
 			{!submitting ? (
@@ -52,14 +53,14 @@ const BarcodePrint = ({ data, openBarCode, handleCloseBarCode }) => {
 								handleCloseBarCode();
 							}}
 							content={() => ref2}
-							pageStyle='print'
+							pageStyle={pageStyle}
 						/>
 
 						<Box sx={{ visibility: "hidden !important" }}>
 							<Box ref={(el) => (ref2 = el)}>
 								{data?.map((order) => (
 									<Box
-										sx={{ border: "1px solid black", my: 5, p: 3, width: "600px", }}>
+										sx={{ border: "1px solid black", my: 5, p: 3, }}>
 										<Typography
 											variant='h4'
 											sx={{ fontWeight: "bold", color: "#1E793C", pb: 2, textAlign: "center", }}>

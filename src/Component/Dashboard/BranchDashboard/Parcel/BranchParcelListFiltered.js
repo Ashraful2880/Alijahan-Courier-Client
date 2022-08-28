@@ -9,6 +9,7 @@ import GetAuth from "../../../../FirebaseAuth/GetAuth";
 import CancelIcon from "@mui/icons-material/Cancel";
 import Badge from "@mui/material/Badge";
 import Print from "../../Print/Print";
+import BarcodePrint from "./../../BarcodePrint/BarcodePrint";
 
 const style = {
 	position: "absolute",
@@ -50,11 +51,19 @@ const BranchParcelListFiltered = ({
 	const [selectionModel, setSelectionModel] = React.useState();
 	const [selected, setSelected] = React.useState([]);
 	const [openPrint, setOpenPrint] = React.useState(false);
+	const [openBarCode, setOpenBarCode] = React.useState(false);
+
 	const handleOpenPrint = () => {
 		setOpenPrint(true);
 		setSelected(data?.filter((e) => selectionModel?.find((n) => n === e._id)));
 	};
 	const handleClosePrint = () => setOpenPrint(false);
+	const handleCloseBarCode = () => setOpenBarCode(false);
+
+	const handleOpenBarCode = () => {
+		setOpenBarCode(true);
+		setSelected(data?.filter((e) => selectionModel?.find((n) => n === e._id)));
+	};
 
 	useEffect(() => {
 		axios
@@ -298,6 +307,23 @@ const BranchParcelListFiltered = ({
 						<PrintIcon onClick={handleOpenPrint} />
 					</Badge>
 				}
+				{/* Print Icon Barcode */}
+				{selectionModel?.length > 0 && (
+					<Button
+						onClick={handleOpenBarCode}
+						sx={{
+							mx: 2,
+							fontSize: "20px",
+							color: "#166534",
+							cursor: "pointer",
+							zIndex: "999",
+						}}>
+						<Typography> Barcode </Typography>
+						<Badge badgeContent={selectionModel?.length} color='primary'>
+							<PrintIcon color="success" />
+						</Badge>
+					</Button>
+				)}
 			</GridToolbarContainer>
 		);
 	}
@@ -465,6 +491,12 @@ const BranchParcelListFiltered = ({
 						data={selected}
 						handleClosePrint={handleClosePrint}
 						openPrint={openPrint}
+					/>
+					{/*Barcode Print Component Here */}
+					<BarcodePrint
+						data={selected}
+						handleCloseBarCode={handleCloseBarCode}
+						openBarCode={openBarCode}
 					/>
 					<Backdrop
 						sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 999 }}

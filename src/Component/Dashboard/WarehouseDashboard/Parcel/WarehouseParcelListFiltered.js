@@ -9,6 +9,7 @@ import GetAuth from "../../../../FirebaseAuth/GetAuth";
 import CancelIcon from "@mui/icons-material/Cancel";
 import Print from "../../Print/Print";
 import BarcodePrint from "./../../BarcodePrint/BarcodePrint";
+
 const style = {
 	position: "absolute",
 	top: "50%",
