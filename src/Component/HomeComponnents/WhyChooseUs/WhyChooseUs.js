@@ -16,7 +16,7 @@ const WhyChooseUs = () => {
 
   return (
     <Container sx={{ mt: 6, mb: 5 }}>
-      <Box sx={{ marginBottom: 6 }}>
+      <Box sx={{ marginBottom: 3 }}>
         <h2
           style={{
             fontFamily: "Montserrat, sans-serif",
@@ -29,11 +29,10 @@ const WhyChooseUs = () => {
         >
           Why Choose Us?
         </h2>
-        <img src={line} width={"20%"} height={3} alt="LineImage" style={{ marginBottom: "10px" }} />
       </Box>
       {/* choose us items */}
       <Box>
-        <Grid container spacing={4} sx={{ padding: "0px 50px" }}>
+        <Grid container spacing={4} >
           <Grid item xs={12} md={4}>
             <Box className="chooseSingleItem" data-aos="fade-up" >
               <Box

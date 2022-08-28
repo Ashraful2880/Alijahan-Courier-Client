@@ -56,7 +56,7 @@ export default function Login() {
 					minHeight='100vh'>
 					<Box style={{ marginTop: 3, textAlign: "center" }} >
 						<Box>
-							<Avatar sx={{ mx: "auto", my: 1 }} className='bgColor'>
+							<Avatar sx={{ mx: "auto", my: 1 }} style={{ background: "#08a74c" }}>
 								<LockOutlinedIcon />
 							</Avatar>
 							<Typography
@@ -98,17 +98,17 @@ export default function Login() {
 							Forgot your password ? Reset Now !
 						</Typography>
 						<Button
-							className='button'
 							onClick={() => signInWithEmailAndPassword(email, password)}
 							fullWidth
-							variant='contained'
 							sx={{
 								my: 1,
 								px: 3,
 								width: "100%",
 								fontWeight: "bold",
 								borderRadius: "25px",
-								border: "2px solid ",
+								border: "2px solid #08a74c",
+								background: "#08a74c",
+								color: "black"
 							}}>
 							Sign In
 						</Button>

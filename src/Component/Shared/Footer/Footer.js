@@ -1,8 +1,9 @@
-import { Box, Grid, Paper } from "@mui/material";
 import React from "react";
+import { useState, useEffect } from "react";
+import { Box, Grid, Paper } from "@mui/material";
 import "./Footer.css";
 import footerlogo from "../../../Assets/Image/footerlogo.png";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import InstagramIcon from "@mui/icons-material/Instagram";
@@ -14,8 +15,22 @@ import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArro
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 
 const Footer = () => {
+  const [hide, setHide] = useState("block");
+  const location = useLocation();
+  useEffect(() => {
+    if (location?.pathname.includes("/")) {
+      setHide("block");
+    }
+    if (location?.pathname.includes("/home")) {
+      setHide("block");
+    }
+    if (location?.pathname.includes("/dashboard")) {
+      setHide("none");
+    }
+  }, [location.pathname]);
+
   return (
-    <Box className="footerContainer">
+    <Box className="footerContainer" style={{ display: `${hide}` }}>
       <Box sx={{ backgroundColor: "#00283ede" }}>
         <Box>
           <Grid

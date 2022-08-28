@@ -8,9 +8,9 @@ import OurBlog from "../../HomeComponnents/OurBlog/OurBlog";
 import DeliveryCalculator from "../../HomeComponnents/DeliveryCalculator/DeliveryCalculator";
 import NoticeBoard from "../../HomeComponnents/NoticeBoard/NoticeBoard";
 import Partners from "../../HomeComponnents/Partners/Partners";
-import CoverageArea from "../../Dashboard/MerchantDashboard/CoverageArea";
 import Faq from "../../HomeComponnents/Faq/Faq";
 import NewsLater from "../../HomeComponnents/NewsLater/NewsLater";
+import HomeCoverageArea from "../../HomeComponnents/CoverageArea/HomeCoverageArea";
 
 const Home = () => {
   return (
@@ -24,7 +24,7 @@ const Home = () => {
       <NoticeBoard />
       <Partners />
       <NewsLater />
-      <CoverageArea />
+      <HomeCoverageArea />
       <Faq />
     </Box>
   );

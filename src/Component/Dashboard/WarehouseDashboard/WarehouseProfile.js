@@ -10,13 +10,12 @@ import GetAuth from "../../../FirebaseAuth/GetAuth";
 import axios from "axios";
 
 const WarehouseProfile = () => {
-	const email = "Warehouse@gmail.com";
 	const { user, loading, token } = GetAuth();
 	const [warehouse, setwarehouse] = useState();
 
 	useEffect(() => {
 		axios
-			.get(`${process.env.REACT_APP_API_PATH}/warehouseUserByEmail/${email}`, {
+			.get(`${process.env.REACT_APP_API_PATH}/warehouseUserByEmail/${user?.email}`, {
 				headers: {
 					Authorization: `Bearer ${token}`,
 				},

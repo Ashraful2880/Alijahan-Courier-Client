@@ -29,26 +29,25 @@ const ConsignmentTracking = () => {
               fontSize: 30,
               textAlign: "center",
               fontWeight: "bold",
-            }}
-          >
+            }}>
             Track Your Consignment
           </h2>
-          <form action="#">
+          <form action="#" style={{ marginTop: "10px" }}>
             <Box
               sx={{
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-              }}
-            >
+              }}>
               <input
                 type="text"
                 placeholder="Enter Your Tracking Code"
                 className="tracking_input"
                 onChange={(e) => setId(e.target.value)}
+                style={{ width: { lg: "50%", md: "65%", sm: "100%" } }}
               />
               <button onClick={handleTrackerId} className="searchBtn">
-                <SearchIcon className="searchIcon" />
+                <SearchIcon className="searchIcon" style={{ fontSize: "26px" }} />
               </button>
             </Box>
           </form>

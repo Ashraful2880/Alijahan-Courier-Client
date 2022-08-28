@@ -9,7 +9,6 @@ import GetAuth from "../../../../FirebaseAuth/GetAuth";
 import ParcelModal from "../../AdminDashboard/Account/ParcelModal";
 
 const RiderAccounts = () => {
-	const email = "rider@gmail.com";
 	const { user, loading, token } = GetAuth();
 	const [submitting, setSubmitting] = useState(false);
 	const [data, setData] = useState();
@@ -21,7 +20,7 @@ const RiderAccounts = () => {
 
 	useEffect(() => {
 		axios
-			.get(`${process.env.REACT_APP_API_PATH}/riderOrders/${email}`, {
+			.get(`${process.env.REACT_APP_API_PATH}/riderOrders/${user?.email}`, {
 				headers: {
 					Authorization: `Bearer ${token}`,
 				},

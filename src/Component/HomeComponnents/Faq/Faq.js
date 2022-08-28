@@ -49,8 +49,7 @@ const Faq = () => {
               color: "white",
               borderRadius: "50%",
               backgroundColor: "#08A74C",
-            }}
-          />
+            }} />
         ) : (
           <AddIcon
             sx={{
@@ -85,8 +84,7 @@ const Faq = () => {
               <Accordion
                 style={{ background: "transparent", color: "#fff", border: "1px solid rgb(1, 113, 1)", borderRadius: "5px", margin: "15px auto" }}
                 expanded={expanded === "panel1"}
-                onChange={handleChange("panel1")}
-              >
+                onChange={handleChange("panel1")}>
                 <AccordionSummary
                   aria-controls="panel1d-content"
                   id="panel1d-header"
@@ -175,10 +173,9 @@ const Faq = () => {
                 to="/"
                 style={{
                   textDecoration: "none",
-                }}
-              >
+                }}>
                 <Button sx={{
-                  border: "1px solid #08A74C", color: "#fff", background: "#08A74C", padding: "10px 25px", margin: "10px 0px",
+                  border: "1px solid #08A74C", color: "#fff", background: "#08A74C", padding: "10px 25px", margin: "10px 0px", display: "flex", alignItems: "start"
                 }}>
                   <Typography variant="span">
                     View All FAQs

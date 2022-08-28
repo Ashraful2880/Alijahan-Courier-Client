@@ -1,12 +1,19 @@
-.blog-image {
+.singleServiceImage {
     transition: 0.5s ease-in-out;
 }
 
-.singleServiceItem:hover .blog-image {
+.singleServiceItem {
+    border: 1px solid rgb(232, 232, 232);
+    box-shadow: none !important;
+    cursor: pointer;
+    transition: 0.3s ease-in-out !important;
+}
+
+.singleServiceItem:hover .singleServiceImage {
     transform: scale(1.05);
     transition: all 0.5s ease-in-out;
 }
 
 .singleServiceItem:hover {
-    box-shadow: 0px 0px 5px 7px #e5e4e4ad;
+    box-shadow: 0px 12px 0px 0px #08A74C !important;
 }

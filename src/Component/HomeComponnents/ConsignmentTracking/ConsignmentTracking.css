@@ -1,6 +1,5 @@
 .tracking_input:focus {
     outline: none;
-
 }
 
 .searchIcon {
@@ -18,7 +17,6 @@
 
 .tracking_input {
     border: 1px solid #c9c9c9 !important;
-    width: 50% !important;
     padding: 16px 20px !important;
     border-radius: 50px !important;
 }

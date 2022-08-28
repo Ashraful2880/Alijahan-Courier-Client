@@ -143,7 +143,7 @@ const Tracking = () => {
   };
 
   return (
-    <Container sx={{ mt: 6, mb: 5 }}>
+    <Container sx={{ mt: 5, mb: 5, height: "70vh" }}>
       <Box
         sx={{
           mb: 3,
@@ -162,7 +162,7 @@ const Tracking = () => {
           >
             Track Your Consignment
           </h2>
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={handleSubmit(onSubmit)} style={{ marginTop: "15px" }}>
             <Box
               sx={{
                 display: "flex",

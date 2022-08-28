@@ -9,6 +9,7 @@ import GetAuth from "../../../../FirebaseAuth/GetAuth";
 import CancelIcon from "@mui/icons-material/Cancel";
 import Print from "../../Print/Print";
 import BarcodePrint from "./../../BarcodePrint/BarcodePrint";
+
 const style = {
 	position: "absolute",
 	top: "50%",
@@ -32,7 +33,6 @@ const WarehouseParcelListFiltered = ({
 	allParcels,
 	selectedStatus,
 }) => {
-	const email = "warehouse2@gmail.com";
 	const { user, loading, token } = GetAuth();
 	const [submitting, setSubmitting] = useState(false);
 	const [open, setOpen] = React.useState(false);
@@ -64,7 +64,7 @@ const WarehouseParcelListFiltered = ({
 
 	useEffect(() => {
 		axios
-			.get(`${process.env.REACT_APP_API_PATH}/warehouseOrders/${email}`, {
+			.get(`${process.env.REACT_APP_API_PATH}/warehouseOrders/${user?.email}`, {
 				headers: {
 					Authorization: `Bearer ${token}`,
 				},

@@ -10,7 +10,6 @@ import GetAuth from "../../../../FirebaseAuth/GetAuth";
 import ParcelModal from "../../AdminDashboard/Account/ParcelModal";
 
 const DeliveryPaymentList = () => {
-	const email = "marchant@gmail.com";
 	const { user, loading, token } = GetAuth();
 	const [submitting, setSubmitting] = useState(false);
 	const [data, setData] = useState();
@@ -21,7 +20,7 @@ const DeliveryPaymentList = () => {
 
 	useEffect(() => {
 		axios
-			.get(`${process.env.REACT_APP_API_PATH}/merchantordersbyemail/${email}`, {
+			.get(`${process.env.REACT_APP_API_PATH}/merchantordersbyemail/${user?.email}`, {
 				headers: {
 					Authorization: `Bearer ${token}`,
 				},

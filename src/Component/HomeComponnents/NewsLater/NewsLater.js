@@ -5,7 +5,7 @@ const NewsLater = () => {
     return (
         <Box sx={{ padding: "40px 0px" }}>
             <Container>
-                This is test
+
             </Container>
         </Box>
     );

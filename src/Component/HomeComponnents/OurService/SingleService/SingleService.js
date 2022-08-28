@@ -16,13 +16,13 @@ const SingleService = () => {
     <Box>
       <Grid container spacing={2}>
         <Grid item xs={12} md={3}>
-          <Box sx={{ maxWidth: 345 }}>
+          <Box>
             <Card
-              sx={{ maxWidth: 345, height: 420, }}
+              sx={{ height: 420, }}
               className="singleServiceItem">
               <CardMedia
                 component="img"
-                className="blog-image"
+                className="singleServiceImage"
                 height="200"
                 image={Ecommerce}
                 alt="green iguana"
@@ -47,7 +47,9 @@ const SingleService = () => {
                   fontSize: 16,
                   fontWeight: 400,
                   fontFamily: "Montserrat, sans-serif",
-                  padding: "0px 10px 20px 10px",
+                  padding: "20px 10px",
+                  textAlign: "left",
+                  letterSpacing: "1px",
                 }}>
                 We support you to run your ecommerce business smoothly and
                 reduce your risk.....
@@ -56,7 +58,6 @@ const SingleService = () => {
                 <Button
                   variant="outlined"
                   sx={{
-                    ml: 1.5,
                     borderColor: "#08A74C",
                     color: "#08A74C",
                     "&:hover": {
@@ -73,15 +74,12 @@ const SingleService = () => {
         </Grid>
         {/* 2nd */}
         <Grid item xs={12} md={3}>
-          <Box sx={{ maxWidth: 345, borderBottomRightRadius: 100 }}>
+          <Box>
             <Card
-              sx={{
-                maxWidth: 345,
-                height: 420,
-              }}
+              sx={{ height: 420, }}
               className="singleServiceItem">
               <CardMedia
-                className="blog-image"
+                className="singleServiceImage"
                 component="img"
                 height="200"
                 image={Logistics}
@@ -106,7 +104,9 @@ const SingleService = () => {
                   fontSize: 16,
                   fontWeight: 400,
                   fontFamily: "Montserrat, sans-serif",
-                  padding: "0px 10px 20px 10px",
+                  padding: "20px 10px",
+                  textAlign: "left",
+                  letterSpacing: "1px",
                 }}>
                 We provides ecommerce parcel pickup services from merchants
                 place and will deliver parcel to ....
@@ -132,16 +132,13 @@ const SingleService = () => {
         </Grid>
         {/* 3rd */}
         <Grid item xs={12} md={3}>
-          <Box sx={{ maxWidth: 345, borderBottomRightRadius: 100 }}>
+          <Box>
             <Card
-              sx={{
-                maxWidth: 345,
-                height: 420,
-              }}
+              sx={{ height: 420, }}
               className="singleServiceItem">
               <CardMedia
                 component="img"
-                className="blog-image"
+                className="singleServiceImage"
                 height="200"
                 image={pickdrop}
                 alt="green iguana" />
@@ -165,7 +162,9 @@ const SingleService = () => {
                   fontSize: 16,
                   fontWeight: 400,
                   fontFamily: "Montserrat, sans-serif",
-                  padding: "0px 10px 20px 10px",
+                  padding: "20px 10px",
+                  textAlign: "left",
+                  letterSpacing: "1px",
                 }}>
                 We provides ecommerce parcel pickup services from merchants
                 place and will deliver parcel to ....
@@ -191,13 +190,13 @@ const SingleService = () => {
         </Grid>
         {/* 4th */}
         <Grid item xs={12} md={3}>
-          <Box sx={{ maxWidth: 345, borderBottomRightRadius: 100 }}>
+          <Box>
             <Card
-              sx={{ maxWidth: 345, height: 420, }}
+              sx={{ height: 420, }}
               className="singleServiceItem">
               <CardMedia
                 component="img"
-                className="blog-image"
+                className="singleServiceImage"
                 height="200"
                 image={Warehouse}
                 alt="green iguana" />
@@ -221,7 +220,9 @@ const SingleService = () => {
                   fontSize: 16,
                   fontWeight: 400,
                   fontFamily: "Montserrat, sans-serif",
-                  padding: "0px 10px 20px 10px",
+                  padding: "20px 10px",
+                  textAlign: "left",
+                  letterSpacing: "1px",
                 }}>
                 Alijahan Courier Service provide Complete solution for storage,
                 sorting and processing ....

@@ -33,7 +33,6 @@ const RiderParcelListFiltered = ({
 	allParcels,
 	selectedStatus,
 }) => {
-	const email = "rider@gmail.com";
 	const { user, loading, token } = GetAuth();
 	const [submitting, setSubmitting] = useState(false);
 	const [open, setOpen] = React.useState(false);
@@ -56,7 +55,7 @@ const RiderParcelListFiltered = ({
 	const handleClosePrint = () => setOpenPrint(false);
 	useEffect(() => {
 		axios
-			.get(`${process.env.REACT_APP_API_PATH}/riderCollectOrders/${email}`, {
+			.get(`${process.env.REACT_APP_API_PATH}/riderCollectOrders/${user?.email}`, {
 				headers: {
 					Authorization: `Bearer ${token}`,
 				},

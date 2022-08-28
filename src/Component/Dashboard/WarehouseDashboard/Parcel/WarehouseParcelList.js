@@ -9,7 +9,6 @@ import WarehouseParcelListFiltered from "./WarehouseParcelListFiltered";
 import AspectRatioIcon from "@mui/icons-material/AspectRatio";
 
 const WarehouseParcelList = () => {
-	const email = "warehouse2@gmail.com";
 	const { user, loading, token } = GetAuth();
 	const [data, setData] = useState();
 	const [submitting, setSubmitting] = useState(false);
@@ -18,7 +17,7 @@ const WarehouseParcelList = () => {
 
 	useEffect(() => {
 		axios
-			.get(`${process.env.REACT_APP_API_PATH}/warehouseOrders/${email}`, {
+			.get(`${process.env.REACT_APP_API_PATH}/warehouseOrders/${user?.email}`, {
 				headers: {
 					Authorization: `Bearer ${token}`,
 				},

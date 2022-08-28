@@ -20,7 +20,7 @@ const SingleBlog = () => {
                 border: "1px solid #00800038",
                 borderRadius: "10px",
               }}
-              className="singleServiceItem"
+              className="singleBlogItem"
             >
               <CardMedia
                 component="img"
@@ -69,7 +69,7 @@ const SingleBlog = () => {
                 border: "1px solid #00800038",
                 borderRadius: "10px",
               }}
-              className="singleServiceItem"
+              className="singleBlogItem"
             >
               <CardMedia
                 component="img"
@@ -118,7 +118,7 @@ const SingleBlog = () => {
                 border: "1px solid #00800038",
                 borderRadius: "10px",
               }}
-              className="singleServiceItem"
+              className="singleBlogItem"
             >
               <CardMedia
                 component="img"

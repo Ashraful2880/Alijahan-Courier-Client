@@ -11,7 +11,6 @@ import PaymentsIcon from "@mui/icons-material/Payments";
 import ParcelModal from "../../AdminDashboard/Account/ParcelModal";
 
 const ParcelList = () => {
-	const email = "marchant2@gmail.com";
 	const { user, loading, token } = GetAuth();
 	const [submitting, setSubmitting] = useState(false);
 	const [data, setData] = useState();
@@ -22,7 +21,7 @@ const ParcelList = () => {
 
 	useEffect(() => {
 		axios
-			.get(`${process.env.REACT_APP_API_PATH}/merchantordersbyemail/${email}`, {
+			.get(`${process.env.REACT_APP_API_PATH}/merchantordersbyemail/${user?.email}`, {
 				headers: {
 					Authorization: `Bearer ${token}`,
 				},

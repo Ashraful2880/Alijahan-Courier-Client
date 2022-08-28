@@ -1,21 +1,32 @@
 import React, { useEffect } from "react";
 import { Button, Container } from "@mui/material";
 import { Grid } from "@mui/material";
-import Map from "../../../asstes/images/Map.png";
+import Map from "../../../Assets/Image/Map.png";
 import Aos from "aos";
 import "aos/dist/aos.css";
 
-const CoverageArea = () => {
+const HomeCoverageArea = () => {
   useEffect(() => {
     Aos.init();
   }, []);
   return (
     <Container>
+      <h2
+        style={{
+          fontFamily: "Montserrat, sans-serif",
+          fontSize: 30,
+          textAlign: "start",
+          fontWeight: 700,
+          color: "#08A74C",
+          marginBottom: 10,
+          marginTop: 5
+        }}>
+        Coverage Area
+      </h2>
       <Grid
         container
         spacing={2}
-        sx={{ marginTop: 3, marginBottom: 2, alignItems: "center" }}
-      >
+        sx={{ marginTop: 3, marginBottom: 2, alignItems: "center" }}>
         <Grid item xs={12} md={8} data-aos="fade-right">
           <img src={Map} width={"100%"} alt="MapImage" />
         </Grid>
@@ -29,20 +40,19 @@ const CoverageArea = () => {
             flexDirection: "column",
             justifyContent: "space-evenly",
             alignItems: "start",
-          }}
-        >
+          }}>
           <p style={{ fontSize: 24, color: "#686868" }}>
             <span style={{ color: "#08A74C", fontWeight: 700 }}>
               Alijahan Courier Services
-            </span>{" "}
-            Cover{" "}
+            </span>
+            Cover
             <span style={{ fontStyle: "italic", fontWeight: 700 }}>
               64 Districts
-            </span>{" "}
-            and{" "}
+            </span>
+            and
             <span style={{ fontStyle: "italic", fontWeight: 700 }}>
               493 Upazilas
-            </span>{" "}
+            </span>
             Across The Country
           </p>
           <Button
@@ -69,4 +79,4 @@ const CoverageArea = () => {
   );
 };
 
-export default CoverageArea;
+export default HomeCoverageArea;

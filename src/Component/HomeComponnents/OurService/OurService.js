@@ -10,7 +10,7 @@ const OurService = () => {
     Aos.init();
   }, []);
   return (
-    <Container sx={{ mt: 6, mb: 5 }}>
+    <Container sx={{ mt: 5, mb: 5 }}>
       <h2
         style={{
           textAlign: "start",
@@ -23,7 +23,6 @@ const OurService = () => {
       >
         Our Services
       </h2>
-      <img src={line} width={"16%"} height={3} alt="LineImage" style={{ marginBottom: "10px" }} />
       <Box sx={{ mt: 3 }} data-aos="fade-down">
         <SingleService />
       </Box>

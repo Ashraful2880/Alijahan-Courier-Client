@@ -73,7 +73,7 @@ const DeliveryCalculator = () => {
 
   return (
     <>
-      <Container sx={{ marginBottom: 3 }}>
+      <Container sx={{ mt: 5, mb: 5 }}>
         <h2
           style={{
             fontFamily: "Montserrat, sans-serif",
@@ -86,13 +86,6 @@ const DeliveryCalculator = () => {
         >
           Delivery Calculator
         </h2>
-        <img
-          src={line}
-          width={"22%"}
-          height={3}
-          style={{ marginBottom: "8px" }}
-          alt="Heading Line"
-        />
       </Container>
       <Box className="delivery-conainer">
         <Container sx={{ mb: 3 }}>
@@ -104,29 +97,25 @@ const DeliveryCalculator = () => {
             <Grid item xs={12} md={5} sx={{ mt: 4 }}>
               <img src={calculate} width={"100%"} alt="DeliveryImage" />
             </Grid>
-            <Grid item xs={12} md={7} sx={{ mt: { md: 5 }, pb: 6 }}>
-              <Grid
-                item
-                xs={12}
-                md={12}
+            <Grid item xs={12} md={7} sx={{ mt: { md: 5 }, pb: 6, }}>
+              <Grid item xs={12} md={12}
                 sx={{
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "space-between",
                   color: "#fff",
-                }}
-              >
+                  mb: 2
+                }}>
                 <h4
                   style={{
                     fontWeight: 700,
                     fontFamily: "Montserrat, sans-serif",
                     fontSize: 18,
-                  }}
-                >
+                  }}>
                   Pick-up Area :
                 </h4>
                 <Autocomplete
-                  sx={{ p: 0, width: "80%" }}
+                  sx={{ p: 0, width: "80%", }}
                   value={pickupArea}
                   onChange={(event, newValue) => {
                     if (typeof newValue === "string") {
@@ -197,6 +186,7 @@ const DeliveryCalculator = () => {
                   alignItems: "center",
                   justifyContent: "space-between",
                   color: "#fff",
+                  mb: 2
                 }}
               >
                 <h4
@@ -280,6 +270,7 @@ const DeliveryCalculator = () => {
                   alignItems: "center",
                   justifyContent: "space-between",
                   color: "#fff",
+                  mb: 2
                 }}
               >
                 <h4
@@ -363,6 +354,7 @@ const DeliveryCalculator = () => {
                   alignItems: "center",
                   justifyContent: "space-between",
                   color: "#fff",
+                  mb: 2
                 }}
               >
                 <h4
@@ -436,15 +428,15 @@ const DeliveryCalculator = () => {
                   )}
                 />
               </Grid>
-              <Box sx={{ display: "flex", justifyContent: "center" }}>
+              <Box sx={{ display: "flex", mb: 2 }}>
                 <h2
                   style={{
-                    border: "2px solid #08A74C",
+                    border: "3px solid #08A74C",
                     borderRadius: 10,
                     padding: "5px 25px",
                     fontWeight: 600,
                     fontFamily: "Montserrat, sans-serif",
-                    color: "#fff",
+                    background: "#fff",
                   }}
                 >
                   {finalPrice} Tk

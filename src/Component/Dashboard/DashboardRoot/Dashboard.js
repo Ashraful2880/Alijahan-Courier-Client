@@ -10,13 +10,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import DashboardIcon from "@mui/icons-material/Dashboard";
-import {
-	Avatar,
-	Button,
-	ListItem,
-	ListItemIcon,
-	ListItemText,
-} from "@mui/material";
+import { Avatar, Button, ListItem, ListItemIcon, ListItemText, } from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { signOut } from "firebase/auth";
 import auth from "../../../FirebaseAuth/firebase.config";
@@ -58,14 +52,16 @@ function Dashboard(props) {
 	const location = useLocation();
 	const drawer = (
 		<Box className='dashboard'>
-			<Box
-				sx={{
-					padding: "2px 0px 0px 0px",
-					backgroundColor: "#fff",
-					border: "1px solid #1E793C",
-				}}>
-				<img src={logo} alt='Main Logo' />
-			</Box>
+			<Link to="/">
+				<Box
+					sx={{
+						padding: "2px 0px 0px 0px",
+						backgroundColor: "white",
+						border: "1px solid #1E793C",
+					}}>
+					<img src={logo} alt='Main Logo' />
+				</Box>
+			</Link>
 			<Link className='link' to=''>
 				<ListItem
 					button

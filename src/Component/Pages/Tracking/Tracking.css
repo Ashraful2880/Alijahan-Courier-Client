@@ -1,9 +1,11 @@
 .Mui-active {
     color: #08A74C !important;
 }
+
 .Mui-completed {
     color: #08A74C !important;
 }
+
 .css-117w1su-MuiStepIcon-text {
     display: none;
 }
@@ -24,7 +26,7 @@
 .tracking_input {
     border: 1px solid #c9c9c9 !important;
     width: 50% !important;
-    padding: 16px 20px !important;
+    padding: 15px 20px !important;
     border-radius: 50px !important;
 }
 
