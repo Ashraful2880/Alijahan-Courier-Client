@@ -38,7 +38,6 @@ const AddMerchantParcel = () => {
 	const [areas, setAreas] = useState();
 	const [selectedArea, setSelectedArea] = useState();
 	const [serviceAreas, setServiceAreas] = useState();
-	const email = "marchant@gmail.com";
 
 	const senderBranch = branch?.find(
 		(b) => b.branchName === marchant?.merchantBranchName,
@@ -143,7 +142,7 @@ const AddMerchantParcel = () => {
 			});
 
 		axios
-			.get(`${process.env.REACT_APP_API_PATH}/merchants/${email}`, {
+			.get(`${process.env.REACT_APP_API_PATH}/merchants/${user?.email}`, {
 				headers: {
 					Authorization: `Bearer ${token}`,
 				},

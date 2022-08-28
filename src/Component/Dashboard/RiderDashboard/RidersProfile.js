@@ -10,13 +10,12 @@ import GetAuth from "../../../FirebaseAuth/GetAuth";
 import axios from "axios";
 
 const RidersProfile = () => {
-	const email = "rider@gmail.com";
 	const { user, loading, token } = GetAuth();
 	const [riders, setRiders] = useState();
 
 	useEffect(() => {
 		axios
-			.get(`${process.env.REACT_APP_API_PATH}/riderByEmail/${email}`, {
+			.get(`${process.env.REACT_APP_API_PATH}/riderByEmail/${user?.email}`, {
 				headers: {
 					Authorization: `Bearer ${token}`,
 				},

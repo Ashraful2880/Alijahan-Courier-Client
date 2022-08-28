@@ -65,8 +65,9 @@
 .socialIcon {
     color: white;
     margin-left: 10px;
-    transition: 0.2s !important;
+    transition: 0.3s !important;
     font-size: 30px !important;
+    cursor: pointer;
 }
 
 .socialIcon:hover {
@@ -77,6 +78,8 @@
 .footerMenuHeading {
     font-size: 22px;
     font-weight: 700;
+    text-align: left;
+    margin-bottom: 25px;
 }
 
 .goToTopBtn {

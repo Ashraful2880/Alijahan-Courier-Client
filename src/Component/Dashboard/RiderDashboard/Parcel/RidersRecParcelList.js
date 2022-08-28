@@ -8,14 +8,13 @@ import AspectRatioIcon from "@mui/icons-material/AspectRatio";
 import RiderRecParcelListFiltered from "./RiderRecParcelListFiltered";
 
 const RidersRecParcelList = () => {
-	const email = "rider2@gmail.com";
 	const { user, loading, token } = GetAuth();
 	const [data, setData] = useState();
 	const [opens, setOpens] = React.useState(false);
 	const [parcelData, setParcelData] = useState();
 	useEffect(() => {
 		axios
-			.get(`${process.env.REACT_APP_API_PATH}/riderDeliverOrders/${email}`, {
+			.get(`${process.env.REACT_APP_API_PATH}/riderDeliverOrders/${user?.email}`, {
 				headers: {
 					Authorization: `Bearer ${token}`,
 				},

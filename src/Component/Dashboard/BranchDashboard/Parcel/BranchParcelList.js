@@ -8,7 +8,6 @@ import AspectRatioIcon from "@mui/icons-material/AspectRatio";
 import BranchParcelListFiltered from "./BranchParcelListFiltered";
 
 const BranchParcelList = () => {
-	const email = "branch2@gmail.com";
 	const { user, loading, token } = GetAuth();
 	const [data, setData] = useState();
 	const [branch, setBranch] = useState();
@@ -17,7 +16,7 @@ const BranchParcelList = () => {
 
 	useEffect(() => {
 		axios
-			.get(`${process.env.REACT_APP_API_PATH}/branchbyemail/${email}`, {
+			.get(`${process.env.REACT_APP_API_PATH}/branchbyemail/${user?.email}`, {
 				headers: {
 					Authorization: `Bearer ${token}`,
 				},

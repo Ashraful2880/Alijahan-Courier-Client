@@ -16,7 +16,6 @@ import "./Partner.css";
 import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/pagination";
-import line from "../../../Assets/Image/line.png";
 
 // import required modules
 import SwiperCore, {
@@ -38,31 +37,23 @@ const Partners = () => {
           textAlign: "start",
           fontWeight: 700,
           color: "#08A74C",
-          marginBottom: 6,
-        }}
-      >
+          marginBottom: 10,
+          marginTop: 5
+        }}>
         Our Partners
       </h2>
-      <img
-        src={line}
-        width={"15%"}
-        style={{ marginBottom: "40px" }}
-        height={3}
-        alt="LineImage"
-      />
       <Box>
         <Swiper
-          slidesPerView={6}
+          slidesPerView={7}
           spaceBetween={30}
           freeMode={true}
-          mousewheel={true}
+          mousewheel={false}
           keyboard={true}
           autoplay={true}
           pauseOnMouseEnter={false}
           disableOnInteraction={false}
           modules={[FreeMode, Pagination, Mousewheel, Keyboard, Autoplay]}
-          className="partnerSwiper"
-        >
+          className="partnerSwiper">
           <SwiperSlide className="partnerSlide">
             <img src={A2i} width={70} height={60} alt="sliderimg" />
           </SwiperSlide>

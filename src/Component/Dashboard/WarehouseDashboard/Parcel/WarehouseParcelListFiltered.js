@@ -32,7 +32,6 @@ const WarehouseParcelListFiltered = ({
 	allParcels,
 	selectedStatus,
 }) => {
-	const email = "warehouse2@gmail.com";
 	const { user, loading, token } = GetAuth();
 	const [submitting, setSubmitting] = useState(false);
 	const [open, setOpen] = React.useState(false);
@@ -64,7 +63,7 @@ const WarehouseParcelListFiltered = ({
 
 	useEffect(() => {
 		axios
-			.get(`${process.env.REACT_APP_API_PATH}/warehouseOrders/${email}`, {
+			.get(`${process.env.REACT_APP_API_PATH}/warehouseOrders/${user?.email}`, {
 				headers: {
 					Authorization: `Bearer ${token}`,
 				},

@@ -11,13 +11,12 @@ import GetAuth from "../../../FirebaseAuth/GetAuth";
 import axios from "axios";
 
 const MerchantProfile = () => {
-	const email = "marchant@gmail.com";
 	const { user, loading, token } = GetAuth();
 	const [merchant, setMerchant] = useState();
 
 	useEffect(() => {
 		axios
-			.get(`${process.env.REACT_APP_API_PATH}/merchants/${email}`, {
+			.get(`${process.env.REACT_APP_API_PATH}/merchants/${user?.email}`, {
 				headers: {
 					Authorization: `Bearer ${token}`,
 				},

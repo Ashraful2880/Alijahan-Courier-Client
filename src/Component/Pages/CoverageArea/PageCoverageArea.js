@@ -1,16 +1,16 @@
 import React from "react";
 import { Box, Container, Grid, Paper } from "@mui/material";
-import coverageareamap from "../../../asstes/images/covaragemap.png";
+import coverageareamap from "../../../Assets/Image/covaragemap.png";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { useEffect } from "react";
-import hooks from "./../../../Hooks/hooks";
+import hooks from "../../../Hooks/hooks";
 import { useState } from "react";
 import FilterArea from "./FilterArea/FilterArea";
 import "./CoverageArea.css";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import SearchIcon from "@mui/icons-material/Search";
 
-const CoverageArea = () => {
+const PageCoverageArea = () => {
   const { baseUrl } = hooks();
   const [coverageArea, setCoverageArea] = useState([]);
   const [uniqArea, setUniqArea] = useState([]);
@@ -144,4 +144,4 @@ const CoverageArea = () => {
   );
 };
 
-export default CoverageArea;
+export default PageCoverageArea;

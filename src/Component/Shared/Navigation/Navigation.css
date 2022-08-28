@@ -1,4 +1,4 @@
-.nonActive {
+.inActiveMenu {
     text-decoration: none;
     font-size: 17px;
     color: black;
@@ -7,20 +7,20 @@
     padding: 5px 0px;
     border-bottom: 2px solid transparent;
     transition: 0.4s ease-in-out;
-    font-weight: 600;
+    font-weight: 500;
 }
 
-.nonActive:hover {
+.inActiveMenu:hover {
     border-bottom: 2px solid #08A74C;
     color: #08A74C;
 }
 
-.active {
+.activeMenu {
     text-decoration: none;
     font-size: 17px;
     color: #08A74C;
     font-family: "Montserrat", sans-serif;
-    font-weight: 600;
+    font-weight: 500;
     display: block !important;
     margin: 0px 5px;
     padding: 5px 0px;

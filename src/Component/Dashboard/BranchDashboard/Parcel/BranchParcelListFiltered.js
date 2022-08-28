@@ -33,7 +33,6 @@ const BranchParcelListFiltered = ({
 	allParcels,
 	selectedStatus,
 }) => {
-	const email = "branch@gmail.com";
 	const { user, loading, token } = GetAuth();
 	const [submitting, setSubmitting] = useState(false);
 	const [open, setOpen] = React.useState(false);
@@ -89,7 +88,7 @@ const BranchParcelListFiltered = ({
 				console.log(error);
 			});
 		axios
-			.get(`${process.env.REACT_APP_API_PATH}/branchbyemail/${email}`, {
+			.get(`${process.env.REACT_APP_API_PATH}/branchbyemail/${user?.email}`, {
 				headers: {
 					Authorization: `Bearer ${token}`,
 				},

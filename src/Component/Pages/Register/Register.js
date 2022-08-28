@@ -1,11 +1,118 @@
-import { Box, Button, Grid } from "@mui/material";
+import { Autocomplete, Box, Button, Grid, TextField } from "@mui/material";
 import React from "react";
 import loginsidebanner from "../../../Assets/Image/loginsidebanner.png";
 import logo from "../../../Assets/Image/logo.png";
-
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { useForm } from "react-hook-form";
+import ReplayIcon from "@mui/icons-material/Replay";
+import DoneIcon from "@mui/icons-material/Done";
+import Swal from "sweetalert2";
+import auth2 from "../../../FirebaseAuth/firebase.config2";
+import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
+import { signOut } from "firebase/auth";
+import { useState } from "react";
+import { useEffect } from "react";
 
-const Register = () => {
+const Register = ({ token }) => {
+  const [data, setData] = useState();
+  const { register, handleSubmit, reset, watch } = useForm();
+  const [errors, setErrors] = useState(false);
+  const [branches, setBranches] = useState([]);
+  const [selectedBranch, setSelectedBranch] = useState([]);
+  const [districts, setDistricts] = useState();
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_API_PATH}/branches`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setBranches(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    axios
+      .get(`${process.env.REACT_APP_API_PATH}/districts`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setDistricts(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [token]);
+  const [createUserWithEmailAndPassword, user, loading, error] =
+    useCreateUserWithEmailAndPassword(auth2);
+  if (loading) {
+    <p>Loading.....</p>
+  }
+  if (error) {
+    Swal.fire({
+      title: "Error",
+      text: error.message,
+      icon: "error",
+      confirmButtonText: "Ok",
+    });
+  }
+
+  useEffect(() => {
+    if (user) {
+      axios
+        .post(
+          `${process.env.REACT_APP_API_PATH}/merchant`,
+          {
+            ...data,
+            status: "Active",
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          },
+        )
+        .then((response) => {
+          Swal.fire("", "Successfully Added!", "success");
+          signOut(auth2);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, [data, token, user]);
+
+  const onSubmit = ({
+    merchantName,
+    merchantCompanyName,
+    merchantAddress,
+    merchantBusinessAddress,
+    merchantDistrict,
+    merchantBranchName,
+    merchantContact,
+    merchantArea,
+    merchantEmail,
+    merchantPassword,
+  }) => {
+    setData({
+      id: "merchant-" + Math.floor(Math.random() * 1000000000),
+      merchantName,
+      merchantCompanyName,
+      merchantAddress,
+      merchantBusinessAddress,
+      merchantBranchName,
+      merchantDistrict,
+      merchantContact,
+      merchantArea,
+      merchantEmail,
+      merchantPassword,
+    });
+    createUserWithEmailAndPassword(merchantEmail, merchantPassword);
+  };
   return (
     <Box sx={{ mt: 10 }}>
       <Grid container spacing={3}>
@@ -41,136 +148,186 @@ const Register = () => {
           {/* login firn section */}
           <Box sx={{ p: { md: 7, xs: 6 } }}>
             <h3>Become a Merchant</h3>
-            <form>
-              <Box sx={{ width: "100%" }}>
-                <input
-                  type="text"
-                  placeholder="Name of Business"
-                  style={{
-                    borderTop: "none",
-                    borderLeft: "none",
-                    borderRight: "none",
-                    borderRadius: 0,
-                    borderBottomColor: "#B2B1B1",
-                    fontWeight: 600,
-                  }}
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <Box sx={{ display: "flex", gap: "20px" }}>
+                <TextField
+                  size='small'
+                  sx={{ my: 0.5 }}
+                  fullWidth
+                  required
+                  label='Merchant Name'
+                  helperText='Name'
+                  {...register("merchantName", { required: true })}
                 />
-                <Box
-                  sx={{
-                    display: { md: "flex", xs: "block" },
-                    justifyContent: "space-between",
+                <TextField
+                  size='small'
+                  sx={{ my: 0.5 }}
+                  fullWidth
+                  required
+                  label='Company Name'
+                  helperText='Company Name'
+                  {...register("merchantCompanyName", { required: true })}
+                />
+              </Box>
+              <Box sx={{ display: "flex", gap: "20px" }}>
+                <TextField
+                  size='small'
+                  sx={{ my: 0.5 }}
+                  fullWidth
+                  required
+                  multiline
+                  rows={2}
+                  label='Merchant Address'
+                  helperText='Full Address'
+                  {...register("merchantAddress", { required: true })}
+                />
+                <TextField
+                  size='small'
+                  sx={{ my: 0.5 }}
+                  fullWidth
+                  required
+                  multiline
+                  rows={2}
+                  label='Business Address'
+                  helperText='Business Address'
+                  {...register("merchantBusinessAddress", { required: true })}
+                />
+              </Box>
+              <Autocomplete
+                size='small'
+                sx={{ my: 0.5, width: "100% !important" }}
+                options={districts}
+                getOptionLabel={(option) => option.district}
+                style={{ width: 300 }}
+                renderInput={(params) => (
+                  <TextField
+                    {...register("merchantDistrict", {
+                      required: true,
+                    })}
+                    {...params}
+                    label='Select District'
+                    variant='outlined'
+                    helperText='Branch'
+                  />
+                )}
+              />
+              <Box sx={{ display: "flex", gap: "20px" }}>
+                <Autocomplete
+                  onChange={(event, newValue) => {
+                    setSelectedBranch(newValue);
                   }}
-                >
-                  <Box>
-                    <input
-                      type="text"
-                      placeholder="First Name"
-                      style={{
-                        borderTop: "none",
-                        borderLeft: "none",
-                        borderRight: "none",
-                        borderRadius: 0,
-                        borderBottomColor: "#B2B1B1",
-                        fontWeight: 600,
-                        marginTop: 20,
-                      }}
+                  size='small'
+                  sx={{ my: 0.5, width: "100% !important" }}
+                  options={branches}
+                  getOptionLabel={(option) => option.branchName}
+                  style={{ width: 300 }}
+                  renderInput={(params) => (
+                    <TextField
+                      {...register("merchantBranchName", { required: true })}
+                      {...params}
+                      label='Select Branch'
+                      variant='outlined'
+                      helperText='Branch'
                     />
-                  </Box>
-                  <Box>
-                    <input
-                      type="text"
-                      placeholder="Last Name"
-                      style={{
-                        borderTop: "none",
-                        borderLeft: "none",
-                        borderRight: "none",
-                        borderRadius: 0,
-                        borderBottomColor: "#B2B1B1",
-                        fontWeight: 600,
-                        marginTop: 20,
-                      }}
+                  )}
+                />
+                <Autocomplete
+                  size='small'
+                  sx={{ my: 0.5, width: "100% !important" }}
+                  options={selectedBranch?.branchArea || []}
+                  getOptionLabel={(option) => option.area}
+                  style={{ width: 300 }}
+                  renderInput={(params) => (
+                    <TextField
+                      {...register("merchantArea", { required: true })}
+                      {...params}
+                      label='Select Area'
+                      variant='outlined'
+                      helperText='Area'
                     />
-                  </Box>
-                </Box>
-                <input
-                  type="number"
-                  placeholder="Phone Number"
-                  style={{
-                    borderTop: "none",
-                    borderLeft: "none",
-                    borderRight: "none",
-                    borderRadius: 0,
-                    borderBottomColor: "#B2B1B1",
-                    fontWeight: 600,
-                    padding: 10,
-                    width: "100%",
-                    marginTop: 20,
-                  }}
+                  )}
                 />
-                <input
-                  type="email"
-                  placeholder="Email"
-                  style={{
-                    borderTop: "none",
-                    borderLeft: "none",
-                    borderRight: "none",
-                    borderRadius: 0,
-                    borderBottomColor: "#B2B1B1",
-                    fontWeight: 600,
-                    padding: 10,
-                    width: "100%",
-                    marginTop: 20,
-                  }}
+              </Box>
+              <Box sx={{ display: "flex", gap: "20px" }}>
+                <TextField
+                  type='number'
+                  helperText='Contact Number'
+                  id='filled-start-adornment'
+                  placeholder='Merchant Contact Number'
+                  size='small'
+                  sx={{ my: 0.5, width: "100% !important" }}
+                  {...register("merchantContact", { required: true })}
+                  variant='outlined'
                 />
-                <input
-                  type="password"
-                  placeholder="Password Min: 6 Characters"
-                  style={{
-                    borderTop: "none",
-                    borderLeft: "none",
-                    borderRight: "none",
-                    borderRadius: 0,
-                    borderBottomColor: "#B2B1B1",
-                    fontWeight: 600,
-                    padding: 10,
-                    width: "100%",
-                    marginTop: 20,
-                  }}
+                <TextField
+                  type='email'
+                  size='small'
+                  sx={{ my: 0.5 }}
+                  fullWidth
+                  required
+                  label='Email'
+                  helperText='Email'
+                  {...register("merchantEmail", { required: true })}
                 />
-                <input
-                  type="password"
-                  placeholder="Confirm Password"
-                  style={{
-                    borderTop: "none",
-                    borderLeft: "none",
-                    borderRight: "none",
-                    borderRadius: 0,
-                    borderBottomColor: "#B2B1B1",
-                    fontWeight: 600,
-                    padding: 10,
-                    width: "100%",
-                    marginTop: 20,
-                  }}
+              </Box>
+              <Box sx={{ display: "flex", gap: "20px" }}>
+                <TextField
+                  size='small'
+                  sx={{ my: 0.5 }}
+                  fullWidth
+                  required
+                  type='password'
+                  label='User Password'
+                  helperText='User Password'
+                  {...register("password", {
+                    required: true,
+                  })}
                 />
-                <Box
-                  sx={{
-                    mt: 3,
-                    width: "100%",
-                  }}
-                >
-                  <Button
-                    variant="contained"
-                    sx={{
-                      backgroundColor: "#08A74C",
-                      "&:hover": {
-                        backgroundColor: "#08A74C",
-                      },
-                      width: "100%",
-                    }}
-                  >
-                    Register Now
-                  </Button>
-                </Box>
+                <TextField
+                  size='small'
+                  sx={{ my: 0.5 }}
+                  type='password'
+                  fullWidth
+                  required
+                  label='Confirm Password'
+                  helperText={
+                    errors ? (
+                      <span style={{ color: "red" }}>
+                        Your password didn't matched.
+                      </span>
+                    ) : (
+                      "Confirm Password"
+                    )
+                  }
+                  {...register("merchantPassword", {
+                    required: true,
+                    validate: (val) => {
+                      if (watch("password") !== val) {
+                        setErrors(true);
+                        return "false";
+                      }
+                    },
+                  })}
+                />
+              </Box>
+
+              <Box sx={{ my: 2 }}>
+                <Button
+                  type='submit'
+                  variant='contained'
+                  color='success'
+                  sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+                  <DoneIcon sx={{ mr: 0.5 }} />
+                  Register
+                </Button>
+                <Button
+                  type='reset'
+                  variant='contained'
+                  color='error'
+                  sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
+                  <ReplayIcon sx={{ mr: 0.5 }} />
+                  Clear
+                </Button>
               </Box>
             </form>
 

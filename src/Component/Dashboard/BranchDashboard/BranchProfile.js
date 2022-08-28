@@ -10,12 +10,11 @@ import GetAuth from "../../../FirebaseAuth/GetAuth";
 import axios from "axios";
 
 const BranchProfile = () => {
-	const email = "branch@gmail.com";
 	const { user, loading, token } = GetAuth();
 	const [branch, setBranch] = useState();
 	useEffect(() => {
 		axios
-			.get(`${process.env.REACT_APP_API_PATH}/branchbyemail/${email}`, {
+			.get(`${process.env.REACT_APP_API_PATH}/branchbyemail/${user?.email}`, {
 				headers: {
 					Authorization: `Bearer ${token}`,
 				},

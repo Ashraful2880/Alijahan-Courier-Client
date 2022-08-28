@@ -57,22 +57,15 @@ import Tracking from "./Component/Pages/Tracking/Tracking";
 import Register from "./Component/Pages/Register/Register";
 import NotFound from "./Component/Pages/Home/NotFound/NotFound";
 import DashboardHome from "./Component/Dashboard/DashboardHome/DashboardHome";
-import { useEffect, useState } from "react";
 import RequireAuth from "./FirebaseAuth/RequireAuth";
+import PageCoverageArea from "./Component/Pages/CoverageArea/PageCoverageArea";
 
 function App() {
-	const [show, setShow] = useState(true);
-	const url = window.location.pathname;
-	useEffect(() => {
-		if (url.includes("/dashboard")) {
-			setShow(false);
-		}
-	}, [url]);
 	return (
 		<div className='App'>
 			<APIContextProvider>
 				<BrowserRouter>
-					{show && <Navigation />}
+					<Navigation />
 					<Routes>
 						<Route path='/' element={<Home />} />
 						<Route path='/home' element={<Home />} />
@@ -88,7 +81,7 @@ function App() {
 						<Route path='/pricing' element={<Pricing />} />
 						<Route path='/service' element={<OurServices />} />
 						<Route path='/tracking' element={<Tracking />} />
-						<Route path='/covarage' element={<CoverageArea />} />
+						<Route path='/covarage' element={<PageCoverageArea />} />
 						<Route path='/tracking/:id' element={<Tracking />} />
 						<Route path='/login' element={<Login />} />
 						<Route path='/register' element={<Register />} />
@@ -235,7 +228,7 @@ function App() {
 							/>
 						</Route>
 					</Routes>
-					{show && <Footer />}
+					<Footer />
 				</BrowserRouter>
 			</APIContextProvider>
 		</div>

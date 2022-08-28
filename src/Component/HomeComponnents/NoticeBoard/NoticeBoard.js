@@ -20,15 +20,13 @@ const NoticeBoard = () => {
       >
         Notice Board
       </h2>
-      <img src={line} width={"16%"} height={3} alt="LineImage" style={{ marginBottom: "10px" }} />
       <Box sx={{ mt: 3 }}>
         <SingleNotice />
         <Link
           to="/"
           style={{
             textDecoration: "none",
-          }}
-        >
+          }}>
           <Box style={{ width: "20%", margin: "auto" }}>
             <Button
               variant="outlined"

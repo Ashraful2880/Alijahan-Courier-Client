@@ -5,14 +5,13 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { Link } from "react-router-dom";
 import Aos from "aos";
 import "aos/dist/aos.css";
-import line from "../../../Assets/Image/line.png";
 
 const OurBlog = () => {
   useEffect(() => {
     Aos.init();
   }, []);
   return (
-    <Container sx={{ mt: 6, mb: 5 }}>
+    <Container sx={{ mt: 5, mb: 5 }}>
       <h2
         style={{
           textAlign: "start",
@@ -25,7 +24,6 @@ const OurBlog = () => {
       >
         Our Blogs
       </h2>
-      <img src={line} width={"12%"} height={3} alt="LineImage" style={{ marginBottom: "8px" }} />
       <Box sx={{ mt: 3 }}>
         <SingleBlog />
         <Link
