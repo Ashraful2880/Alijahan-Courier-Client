@@ -47,19 +47,25 @@ const AddMerchantParcel = () => {
 		d.branchArea.find((c) => c?.area === selectedArea?.area),
 	);
 
-	let aaa;
-	if (marchant?.merchantDistrict === receiverBranch?.branchDistrict) {
-		if (marchant?.merchantBranchName === receiverBranch?.branchName) {
+	const [selectArea, setSelectArea] = useState();
+	useEffect(() => {
+		if (marchant?.merchantDistrict === receiverBranch?.branchDistrict) {
+			const findArea = receiverBranch?.branchArea?.find(
+				(a) => a?.area === selectedArea?.area,
+			);
+			if (findArea?.area === marchant?.merchantArea) {
+				setSelectArea("Inside Same City");
+			}
+			if (findArea?.area !== marchant?.merchantArea) {
+				setSelectArea("City to " + findArea?.areaType);
+			}
+		} else {
+			setSelectArea("City to City");
 		}
-	}
-	console.log(aaa);
+	}, [marchant, receiverBranch, selectedArea]);
 
 	const serviceArea = serviceAreas?.find(
-		(s) =>
-			s.serviceAreaName ===
-			(marchant?.merchantBranchName === receiverBranch?.branchName
-				? "Inside Same City"
-				: `City to ${selectedArea?.areaType}`),
+		(s) => s.serviceAreaName === selectArea,
 	);
 
 	useEffect(() => {

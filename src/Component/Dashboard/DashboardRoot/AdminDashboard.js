@@ -6,7 +6,6 @@ import ListItemText from "@mui/material/ListItemText";
 import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import HomeIcon from "@mui/icons-material/Home";
 import GroupIcon from "@mui/icons-material/Group";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 import LocalMallIcon from "@mui/icons-material/LocalMall";
@@ -77,16 +76,6 @@ const AdminDashboard = () => {
 	const location = useLocation();
 	return (
 		<>
-			<Link className='link' to='home'>
-				<ListItem
-					button
-					className={location?.pathname === "home" && "activeButton"}>
-					<ListItemIcon className='listItemIcon'>
-						<HomeIcon />
-					</ListItemIcon>
-					<ListItemText primary={"Home"} />
-				</ListItem>
-			</Link>
 			<Accordion
 				expanded={expanded === "panel8"}
 				onChange={handleChange("panel8")}>
@@ -102,8 +91,7 @@ const AdminDashboard = () => {
 							<ListItem
 								button
 								className={
-									location?.pathname === "deliveryPaymentList" &&
-									"activeButton"
+									location?.pathname === "deliveryPaymentList" && "activeButton"
 								}>
 								<ListItemIcon className='listItemIcon'>
 									<CreditScoreIcon />

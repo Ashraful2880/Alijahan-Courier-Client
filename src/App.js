@@ -42,7 +42,7 @@ import Accounts from "./Component/Dashboard/AdminDashboard/Account/Accounts";
 import RidersRecParcelList from "./Component/Dashboard/RiderDashboard/Parcel/RidersRecParcelList";
 import RiderAccounts from "./Component/Dashboard/RiderDashboard/Account/RiderAccounts";
 import BranchAccounts from "./Component/Dashboard/BranchDashboard/Account/BranchAccounts";
-import Home from './Component/Pages/Home/Home';
+import Home from "./Component/Pages/Home/Home";
 import Navigation from "./Component/Shared/Navigation/Navigation";
 import Footer from "./Component/Shared/Footer/Footer";
 import About from "./Component/Pages/About/About";
@@ -56,53 +56,100 @@ import OurServices from "./Component/Pages/OurServices/OurServices";
 import Tracking from "./Component/Pages/Tracking/Tracking";
 import Register from "./Component/Pages/Register/Register";
 import NotFound from "./Component/Pages/Home/NotFound/NotFound";
+import DashboardHome from "./Component/Dashboard/DashboardHome/DashboardHome";
+import { useEffect, useState } from "react";
+import RequireAuth from "./FirebaseAuth/RequireAuth";
 
 function App() {
+	const [show, setShow] = useState(true);
+	const url = window.location.pathname;
+	useEffect(() => {
+		if (url.includes("/dashboard")) {
+			setShow(false);
+		}
+	}, [url]);
 	return (
 		<div className='App'>
 			<APIContextProvider>
 				<BrowserRouter>
-					<Navigation />
+					{show && <Navigation />}
 					<Routes>
 						<Route path='/' element={<Home />} />
 						<Route path='/home' element={<Home />} />
-						<Route path="/about" element={<About />} />
-						<Route path="/contact" element={<Contact />} />
-						<Route path="/privacypolicy" element={<PrivacyPolicy />} />
-						<Route path="/termscondition" element={<TermsCondition />} />
-						<Route path="/returnrefundpolicy" element={<ReturnRefundPolicy />} />
-						<Route path="/blog" element={<OurBlog />} />
-						<Route path="/pricing" element={<Pricing />} />
-						<Route path="/service" element={<OurServices />} />
-						<Route path="/tracking" element={<Tracking />} />
-						<Route path="/covarage" element={<CoverageArea />} />
-						<Route path="/tracking/:id" element={<Tracking />} />
-						<Route path="/login" element={<Login />} />
-						<Route path="/register" element={<Register />} />
-						<Route path="*" element={<NotFound />} />
+						<Route path='/about' element={<About />} />
+						<Route path='/contact' element={<Contact />} />
+						<Route path='/privacypolicy' element={<PrivacyPolicy />} />
+						<Route path='/termscondition' element={<TermsCondition />} />
+						<Route
+							path='/returnrefundpolicy'
+							element={<ReturnRefundPolicy />}
+						/>
+						<Route path='/blog' element={<OurBlog />} />
+						<Route path='/pricing' element={<Pricing />} />
+						<Route path='/service' element={<OurServices />} />
+						<Route path='/tracking' element={<Tracking />} />
+						<Route path='/covarage' element={<CoverageArea />} />
+						<Route path='/tracking/:id' element={<Tracking />} />
 						<Route path='/login' element={<Login />} />
-						<Route exact path='/dashboard' element={<Dashboard />}>
-							<Route path='/dashboard/home' element={<Branches />} />
+						<Route path='/register' element={<Register />} />
+						<Route path='*' element={<NotFound />} />
+						<Route path='/login' element={<Login />} />
+						<Route
+							exact
+							path='/dashboard'
+							element={
+								<RequireAuth>
+									<Dashboard />
+								</RequireAuth>
+							}>
+							<Route path='/dashboard' element={<DashboardHome />} />
 							<Route path='/dashboard/branches' element={<Branches />} />
-							<Route path='/dashboard/deliveryPaymentList' element={<Accounts />} />
+							<Route
+								path='/dashboard/deliveryPaymentList'
+								element={<Accounts />}
+							/>
 							<Route path='/dashboard/merchants' element={<Merchants />} />
 							<Route path='/dashboard/riders' element={<Riders />} />
-							<Route path='/dashboard/warehouseusers' element={<WarehouseUsers />} />
-							<Route path='/dashboard/parcelList' element={<AdminParcelList />} />
-							<Route path='/dashboard/officeToOffice' element={<OfficeToOffice />} />
-							<Route path='/dashboard/officeToHome' element={<OfficeToHome />} />
-							<Route path='/dashboard/createMerchantOrder' element={<MerchantOrder />} />
-							<Route path='/dashboard/weightPackage' element={<WeightPackage />} />
+							<Route
+								path='/dashboard/warehouseusers'
+								element={<WarehouseUsers />}
+							/>
+							<Route
+								path='/dashboard/parcelList'
+								element={<AdminParcelList />}
+							/>
+							<Route
+								path='/dashboard/officeToOffice'
+								element={<OfficeToOffice />}
+							/>
+							<Route
+								path='/dashboard/officeToHome'
+								element={<OfficeToHome />}
+							/>
+							<Route
+								path='/dashboard/createMerchantOrder'
+								element={<MerchantOrder />}
+							/>
+							<Route
+								path='/dashboard/weightPackage'
+								element={<WeightPackage />}
+							/>
 							<Route path='/dashboard/serviceArea' element={<ServiceArea />} />
 							<Route path='/dashboard/district' element={<District />} />
 							<Route path='/dashboard/area' element={<Area />} />
 							<Route path='/dashboard/vehicle' element={<Vehicles />} />
-							<Route path='/dashboard/itemCategory' element={<ItemCategory />} />
+							<Route
+								path='/dashboard/itemCategory'
+								element={<ItemCategory />}
+							/>
 							<Route path='/dashboard/unit' element={<Unit />} />
 							<Route path='/dashboard/item' element={<Item />} />
 							<Route path='/dashboard/allUsers' element={<AllUsers />} />
 							{/* Branch Dashboard Code Here */}
-							<Route path='/dashboard/branchDashboard/home' element={<BranchHome />} />
+							<Route
+								path='/dashboard/branchDashboard/home'
+								element={<BranchHome />}
+							/>
 							<Route
 								path='/dashboard/branchDashboard/profile'
 								element={<BranchProfile />}
@@ -166,7 +213,10 @@ function App() {
 								element={<WarehouseParcelList />}
 							/>
 							{/* Riders Dashboard Code Here */}
-							<Route path='/dashboard/ridersDashboard/home' element={<RiderDashboardHome />} />
+							<Route
+								path='/dashboard/ridersDashboard/home'
+								element={<RiderDashboardHome />}
+							/>
 							<Route
 								path='/dashboard/ridersDashboard/profile'
 								element={<RidersProfile />}
@@ -185,7 +235,7 @@ function App() {
 							/>
 						</Route>
 					</Routes>
-					<Footer />
+					{show && <Footer />}
 				</BrowserRouter>
 			</APIContextProvider>
 		</div>
