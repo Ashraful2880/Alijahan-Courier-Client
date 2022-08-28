@@ -8,9 +8,15 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import { Outlet } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router-dom";
 import DashboardIcon from "@mui/icons-material/Dashboard";
-import { Avatar, Button } from "@mui/material";
+import {
+	Avatar,
+	Button,
+	ListItem,
+	ListItemIcon,
+	ListItemText,
+} from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { signOut } from "firebase/auth";
 import auth from "../../../FirebaseAuth/firebase.config";
@@ -20,15 +26,36 @@ import MerchantDashboard from "./MerchantDashboard";
 import WarehouseDashboard from "./WarehouseDashboard";
 import RiderDashboard from "./RiderDashboard";
 import BranchDashboard from "./BranchDashboard";
+import HomeIcon from "@mui/icons-material/Home";
+import GetAuth from "../../../FirebaseAuth/GetAuth";
+import axios from "axios";
 
 const drawerWidth = 268;
 
 function Dashboard(props) {
+	const { user, loading, token } = GetAuth();
+	const [data, setData] = React.useState();
+	React.useEffect(() => {
+		axios
+			.get(`${process.env.REACT_APP_API_PATH}/users`, {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			})
+			.then((response) => {
+				setData(response.data?.find((u) => u?.email === user?.email));
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	}, [token, user?.email]);
+
 	const { window } = props;
 	const [mobileOpen, setMobileOpen] = React.useState(false);
 	const handleDrawerToggle = () => {
 		setMobileOpen(!mobileOpen);
 	};
+	const location = useLocation();
 	const drawer = (
 		<Box className='dashboard'>
 			<Box
@@ -39,46 +66,79 @@ function Dashboard(props) {
 				}}>
 				<img src={logo} alt='Main Logo' />
 			</Box>
-			{/* Admin Dashboard Code Here */}
-			<Typography
-				variant='h6'
-				className='title'
-				sx={{ color: "gray", marginY: "5px" }}>
-				Admin Dashboard Here
-			</Typography>
-			<AdminDashboard />
-			{/* Branch Dashboard Code Here */}
-			<Typography
-				variant='h6'
-				className='title'
-				sx={{ color: "gray", marginY: "5px" }}>
-				Branch Dashboard Here
-			</Typography>
-			<BranchDashboard />
-			{/* Merchant Dashboard Code Here */}
-			<Typography
-				variant='h6'
-				className='title'
-				sx={{ color: "gray", marginY: "5px" }}>
-				Merchant Dashboard Here
-			</Typography>
-			<MerchantDashboard />
-			{/* Warehouse Dashboard Code Here */}
-			<Typography
-				variant='h6'
-				className='title'
-				sx={{ color: "gray", marginY: "5px" }}>
-				Warehouse Dashboard Here
-			</Typography>
-			<WarehouseDashboard />
-			{/* Rider Dashboard Code Here */}
-			<Typography
-				variant='h6'
-				className='title'
-				sx={{ color: "gray", marginY: "5px" }}>
-				Rider Dashboard Here
-			</Typography>
-			<RiderDashboard />
+			<Link className='link' to=''>
+				<ListItem
+					button
+					className={location?.pathname === "/dashboard" && "activeButton"}>
+					<ListItemIcon className='listItemIcon'>
+						<HomeIcon />
+					</ListItemIcon>
+					<ListItemText primary={"Home"} />
+				</ListItem>
+			</Link>
+			{data?.userRole === "Admin" && (
+				<>
+					<Typography
+						variant='h6'
+						className='title'
+						sx={{ color: "gray", marginY: "5px" }}>
+						Admin Dashboard Here
+					</Typography>
+
+					<AdminDashboard />
+					{/* Admin Dashboard Code Here */}
+				</>
+			)}
+			{data?.userRole === "Branch" && (
+				<>
+					{/* Branch Dashboard Code Here */}
+					<Typography
+						variant='h6'
+						className='title'
+						sx={{ color: "gray", marginY: "5px" }}>
+						Branch Dashboard Here
+					</Typography>
+					<BranchDashboard />
+				</>
+			)}
+
+			{data?.userRole === "Merchant" && (
+				<>
+					{/* Merchant Dashboard Code Here */}
+					<Typography
+						variant='h6'
+						className='title'
+						sx={{ color: "gray", marginY: "5px" }}>
+						Merchant Dashboard Here
+					</Typography>
+					<MerchantDashboard />{" "}
+				</>
+			)}
+
+			{data?.userRole === "Warehouse" && (
+				<>
+					{/* Warehouse Dashboard Code Here */}
+					<Typography
+						variant='h6'
+						className='title'
+						sx={{ color: "gray", marginY: "5px" }}>
+						Warehouse Dashboard Here
+					</Typography>
+					<WarehouseDashboard />
+				</>
+			)}
+			{data?.userRole === "Rider" && (
+				<>
+					{/* Rider Dashboard Code Here */}
+					<Typography
+						variant='h6'
+						className='title'
+						sx={{ color: "gray", marginY: "5px" }}>
+						Rider Dashboard Here
+					</Typography>
+					<RiderDashboard />
+				</>
+			)}
 		</Box>
 	);
 

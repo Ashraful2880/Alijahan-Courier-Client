@@ -4,7 +4,7 @@ import { Navigate, useLocation } from "react-router-dom";
 import GetAuth from "./GetAuth";
 
 const RequireAuth = ({ children }) => {
-	const [user, loading] = GetAuth();
+	const { user, loading } = GetAuth();
 	const location = useLocation();
 	if (loading) {
 		return (
