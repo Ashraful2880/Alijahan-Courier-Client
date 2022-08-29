@@ -48,10 +48,13 @@ const AddMerchantParcel = () => {
 
 	const [selectArea, setSelectArea] = useState();
 	useEffect(() => {
-		if (marchant?.merchantDistrict === receiverBranch?.branchDistrict) {
+		if (marchant?.merchantBranchName === receiverBranch?.branchName) {
+			setSelectArea("Inside Same City");
+		} else if (marchant?.merchantDistrict === receiverBranch?.branchDistrict) {
 			const findArea = receiverBranch?.branchArea?.find(
 				(a) => a?.area === selectedArea?.area,
 			);
+
 			if (findArea?.area === marchant?.merchantArea) {
 				setSelectArea("Inside Same City");
 			}
@@ -546,7 +549,7 @@ const AddMerchantParcel = () => {
 														color: "gray",
 														fontSize: "15px",
 													}}>
-													Cash On Delivery Charge
+													COD Charge
 												</Typography>
 											</TableCell>
 											<TableCell align='right'>
@@ -591,7 +594,7 @@ const AddMerchantParcel = () => {
 														color: "gray",
 														fontSize: "15px",
 													}}>
-													Total Receive
+													Payable
 												</Typography>
 											</TableCell>
 											<TableCell align='right'>

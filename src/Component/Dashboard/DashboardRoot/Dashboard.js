@@ -8,7 +8,7 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { Link, Outlet, useLocation, Navigate } from "react-router-dom";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import {
 	Avatar,
@@ -37,13 +37,13 @@ function Dashboard(props) {
 	const [data, setData] = React.useState();
 	React.useEffect(() => {
 		axios
-			.get(`${process.env.REACT_APP_API_PATH}/users`, {
+			.get(`${process.env.REACT_APP_API_PATH}/userByEmail/${user?.email}`, {
 				headers: {
 					Authorization: `Bearer ${token}`,
 				},
 			})
 			.then((response) => {
-				setData(response.data?.find((u) => u?.email === user?.email));
+				setData(response.data);
 			})
 			.catch((error) => {
 				console.log(error);
@@ -55,7 +55,7 @@ function Dashboard(props) {
 	const handleDrawerToggle = () => {
 		setMobileOpen(!mobileOpen);
 	};
-	const location = useLocation();
+
 	const drawer = (
 		<Box className='dashboard'>
 			<Link to='/'>
@@ -136,121 +136,128 @@ function Dashboard(props) {
 
 	const container =
 		window !== undefined ? () => window().document.body : undefined;
-
-	return (
-		<Box sx={{ display: "flex" }}>
-			<CssBaseline />
-			<AppBar
-				position='fixed'
-				className='bgColor'
-				sx={{
-					width: { sm: `calc(100% - ${drawerWidth}px)` },
-					padding: 0,
-					ml: { sm: `${drawerWidth}px` },
-				}}>
-				<Toolbar>
-					<IconButton
-						color='inherit'
-						aria-label='open drawer'
-						edge='start'
-						onClick={handleDrawerToggle}
-						sx={{ mr: 2, display: { sm: "none" } }}>
-						<MenuIcon />
-					</IconButton>
-					<Box display='flex' sx={{ flexGrow: 1, alignItems: "center" }}>
-						<DashboardIcon sx={{ mr: 1 }} />
-						<Typography variant='h6'>Welcome Admin</Typography>
-					</Box>
-					<Box>
-						<Typography
-							variant='p'
-							style={{
-								color: "white",
-								fontWeight: "bold",
-								margin: "0px 10px",
-							}}>
-							John Doe
-						</Typography>
-					</Box>
-					<Box>
-						<Avatar
-							sx={{ border: "2px solid #44ba06" }}
-							alt=''
-							src='https://expertphotography.b-cdn.net/wp-content/uploads/2020/08/social-media-profile-photos-3.jpg'
-						/>
-					</Box>
-					<Box className='logout'>
-						<Button
-							onClick={() => {
-								Swal.fire({
-									title: "Do you want to Logout?",
-									showCancelButton: true,
-									confirmButtonText: "Yes",
-								})
-									.then((result) => {
-										if (result.isConfirmed) {
-											signOut(auth);
-										}
-									})
-									.then((response) => {
-										Swal.fire("", "Successfully LoggedOut!", "success");
-									});
-							}}>
-							<LogoutIcon />
-						</Button>
-					</Box>
-				</Toolbar>
-			</AppBar>
-			<Box
-				onClick={() => setMobileOpen(false)}
-				component='nav'
-				sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
-				aria-label='mailbox folders'>
-				<Drawer
-					container={container}
-					variant='temporary'
-					open={mobileOpen}
-					onClose={handleDrawerToggle}
-					ModalProps={{
-						keepMounted: true,
-					}}
-					className='dashboard'
+	const location = useLocation();
+	if (!loading && user && data && data === "N/A") {
+		return (
+			<>
+				<Navigate to={"/login"} state={{ from: location }} replace />
+			</>
+		);
+	} else
+		return (
+			<Box sx={{ display: "flex" }}>
+				<CssBaseline />
+				<AppBar
+					position='fixed'
+					className='bgColor'
 					sx={{
-						display: { xs: "block", sm: "none" },
-						"& .MuiDrawer-paper": {
-							boxSizing: "border-box",
-							width: drawerWidth,
-						},
-						backgroundColor: "transparent",
+						width: { sm: `calc(100% - ${drawerWidth}px)` },
+						padding: 0,
+						ml: { sm: `${drawerWidth}px` },
 					}}>
-					{drawer}
-				</Drawer>
-				<Drawer
-					variant='permanent'
-					className='dashboard'
+					<Toolbar>
+						<IconButton
+							color='inherit'
+							aria-label='open drawer'
+							edge='start'
+							onClick={handleDrawerToggle}
+							sx={{ mr: 2, display: { sm: "none" } }}>
+							<MenuIcon />
+						</IconButton>
+						<Box display='flex' sx={{ flexGrow: 1, alignItems: "center" }}>
+							<DashboardIcon sx={{ mr: 1 }} />
+							<Typography variant='h6'>Welcome Admin</Typography>
+						</Box>
+						<Box>
+							<Typography
+								variant='p'
+								style={{
+									color: "white",
+									fontWeight: "bold",
+									margin: "0px 10px",
+								}}>
+								John Doe
+							</Typography>
+						</Box>
+						<Box>
+							<Avatar
+								sx={{ border: "2px solid #44ba06" }}
+								alt=''
+								src='https://expertphotography.b-cdn.net/wp-content/uploads/2020/08/social-media-profile-photos-3.jpg'
+							/>
+						</Box>
+						<Box className='logout'>
+							<Button
+								onClick={() => {
+									Swal.fire({
+										title: "Do you want to Logout?",
+										showCancelButton: true,
+										confirmButtonText: "Yes",
+									})
+										.then((result) => {
+											if (result.isConfirmed) {
+												signOut(auth);
+											}
+										})
+										.then((response) => {
+											Swal.fire("", "Successfully LoggedOut!", "success");
+										});
+								}}>
+								<LogoutIcon />
+							</Button>
+						</Box>
+					</Toolbar>
+				</AppBar>
+				<Box
+					onClick={() => setMobileOpen(false)}
+					component='nav'
+					sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+					aria-label='mailbox folders'>
+					<Drawer
+						container={container}
+						variant='temporary'
+						open={mobileOpen}
+						onClose={handleDrawerToggle}
+						ModalProps={{
+							keepMounted: true,
+						}}
+						className='dashboard'
+						sx={{
+							display: { xs: "block", sm: "none" },
+							"& .MuiDrawer-paper": {
+								boxSizing: "border-box",
+								width: drawerWidth,
+							},
+							backgroundColor: "transparent",
+						}}>
+						{drawer}
+					</Drawer>
+					<Drawer
+						variant='permanent'
+						className='dashboard'
+						sx={{
+							display: { xs: "none", sm: "block" },
+							"& .MuiDrawer-paper": {
+								boxSizing: "border-box",
+								width: drawerWidth,
+							},
+							backgroundColor: "transparent",
+						}}
+						open>
+						{drawer}
+					</Drawer>
+				</Box>
+				<Box
+					component='main'
 					sx={{
-						display: { xs: "none", sm: "block" },
-						"& .MuiDrawer-paper": {
-							boxSizing: "border-box",
-							width: drawerWidth,
-						},
-						backgroundColor: "transparent",
-					}}
-					open>
-					{drawer}
-				</Drawer>
+						flexGrow: 1,
+						width: { sm: `calc(100% - ${drawerWidth}px)` },
+					}}>
+					<Toolbar />
+					<Outlet></Outlet>
+				</Box>
 			</Box>
-			<Box
-				component='main'
-				sx={{
-					flexGrow: 1,
-					width: { sm: `calc(100% - ${drawerWidth}px)` },
-				}}>
-				<Toolbar />
-				<Outlet></Outlet>
-			</Box>
-		</Box>
-	);
+		);
 }
 
 Dashboard.propTypes = {
