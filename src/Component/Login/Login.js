@@ -13,18 +13,19 @@ import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 import Swal from "sweetalert2";
 import ResetPass from "../ResetPass/ResetPass";
 import auth from "../../FirebaseAuth/firebase.config";
+// import { useHistory } from "react-router-dom";
 
 export default function Login() {
 	const navigate = useNavigate();
-	const location = useLocation();
-	const [signInWithEmailAndPassword, user, loading, error] =
-		useSignInWithEmailAndPassword(auth);
+	// const location = useLocation();
+	const [signInWithEmailAndPassword, user, loading, error] = useSignInWithEmailAndPassword(auth);
 	const [email, setEmail] = React.useState("");
 	const [password, setPassword] = React.useState("");
 	const [loggedUser, setLoggedUser] = React.useState(null);
-	let from = location.state?.from?.pathname;
+	// let from = location.state?.from?.pathname;
 	if (user || loggedUser) {
-		navigate(from, { replace: true });
+		// navigate(from, { replace: true });
+		navigate("/")
 	}
 	React.useEffect(() => {
 		if (error) {
@@ -47,7 +48,6 @@ export default function Login() {
 	return (
 		<Container component='main' maxWidth='xs' className='login'>
 			<CssBaseline />
-
 			{!resetpass ? (
 				<Box
 					display='flex'

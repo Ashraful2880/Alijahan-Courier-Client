@@ -14,7 +14,7 @@ import ServiceCharge from "./Component/Dashboard/MerchantDashboard/ServiceCharge
 import CoverageArea from "./Component/Dashboard/MerchantDashboard/CoverageArea";
 import OrderTracking from "./Component/Dashboard/MerchantDashboard/OrderTracking";
 import DeliveryPaymentList from "./Component/Dashboard/MerchantDashboard/Account/DeliveryPaymentList";
-import Area from "./Component/Dashboard/AdminDashboard/ApplicationSetting/Area";
+import Area from "./Component/Dashboard/AdminDashboard/ApplicationSetting/Area/Area";
 import Unit from "./Component/Dashboard/AdminDashboard/TraditionalParcelSetting/Unit";
 import Item from "./Component/Dashboard/AdminDashboard/TraditionalParcelSetting/Item";
 import OfficeToOffice from "./Component/Dashboard/AdminDashboard/ManageOrderBooking/OfficeToOffice";
