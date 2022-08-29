@@ -28,6 +28,10 @@ const Footer = () => {
       setHide("none");
     }
   }, [location.pathname]); */
+	const location = useLocation();
+	if (location?.pathname.includes("/dashboard")) {
+		return false;
+	}
 
 	return (
 		<Box className='footerContainer' /* style={{ display: `${hide}` }} */>

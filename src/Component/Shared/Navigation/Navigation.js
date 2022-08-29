@@ -44,6 +44,9 @@ const Navigation = () => {
 			setHide("none");
 		}
 	}, [location.pathname]); */
+	if (location?.pathname.includes("/dashboard")) {
+		return false;
+	}
 
 	return (
 		<AppBar

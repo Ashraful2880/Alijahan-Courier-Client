@@ -62,18 +62,11 @@ import PageCoverageArea from "./Component/Pages/CoverageArea/PageCoverageArea";
 import { useEffect, useState } from "react";
 
 function App() {
-	const [show, setShow] = useState(false);
-	useEffect(() => {
-		if (window.location?.pathname.includes("/dashboard" || "/home")) {
-			setShow(false);
-		}
-	}, []);
-
 	return (
 		<div className='App'>
 			<APIContextProvider>
 				<BrowserRouter>
-					{show && <Navigation />}
+					<Navigation />
 					<Routes>
 						<Route path='/' element={<Home />} />
 						<Route path='/home' element={<Home />} />
@@ -236,7 +229,7 @@ function App() {
 							/>
 						</Route>
 					</Routes>
-					{show && <Footer />}
+					<Footer />
 				</BrowserRouter>
 			</APIContextProvider>
 		</div>
