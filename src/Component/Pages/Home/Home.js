@@ -13,21 +13,21 @@ import NewsLater from "../../HomeComponnents/NewsLater/NewsLater";
 import HomeCoverageArea from "../../HomeComponnents/CoverageArea/HomeCoverageArea";
 
 const Home = () => {
-  return (
-    <Box>
-      <HeroSlider />
-      <ConsignmentTracking />
-      <WhyChooseUs />
-      <OurService />
-      <OurBlog />
-      <DeliveryCalculator />
-      <NoticeBoard />
-      <Partners />
-      <NewsLater />
-      <HomeCoverageArea />
-      <Faq />
-    </Box>
-  );
+	return (
+		<Box>
+			<HeroSlider />
+			<ConsignmentTracking />
+			<WhyChooseUs />
+			<OurService />
+			<OurBlog />
+			<DeliveryCalculator />
+			<NoticeBoard />
+			<Partners />
+			<NewsLater />
+			<HomeCoverageArea />
+			<Faq />
+		</Box>
+	);
 };
 
 export default Home;

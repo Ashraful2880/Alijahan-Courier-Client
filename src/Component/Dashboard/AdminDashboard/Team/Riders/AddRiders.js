@@ -94,7 +94,7 @@ const AddRiders = ({ open, setOpen, token, setSubmitting }) => {
 		riderName,
 		riderBranch,
 		riderAddress,
-		userEmail,
+		riderEmail,
 		riderContact,
 		riderNID,
 		riderLicense,
@@ -106,7 +106,7 @@ const AddRiders = ({ open, setOpen, token, setSubmitting }) => {
 			riderName,
 			riderBranch,
 			riderAddress,
-			userEmail,
+			riderEmail,
 			riderContact,
 			riderNID,
 			riderLicense,
@@ -114,7 +114,7 @@ const AddRiders = ({ open, setOpen, token, setSubmitting }) => {
 			riderDOB,
 		});
 		setSubmitting(true);
-		createUserWithEmailAndPassword(userEmail, riderPassword);
+		createUserWithEmailAndPassword(riderEmail, riderPassword);
 	};
 
 	return (
@@ -213,7 +213,7 @@ const AddRiders = ({ open, setOpen, token, setSubmitting }) => {
 									required
 									label='User Email'
 									helperText='User Email'
-									{...register("userEmail", { required: true })}
+									{...register("riderEmail", { required: true })}
 								/>
 								<TextField
 									type='number'

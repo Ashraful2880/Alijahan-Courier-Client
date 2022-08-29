@@ -1,6 +1,13 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { Button, CircularProgress, Grid, Backdrop, Typography, Box, } from "@mui/material";
+import {
+	Button,
+	CircularProgress,
+	Grid,
+	Backdrop,
+	Typography,
+	Box,
+} from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -164,7 +171,13 @@ const Riders = () => {
 		{ field: "riderNID", headerName: "NID", flex: 1 },
 		{ field: "riderLicense", headerName: "Driving License", flex: 1 },
 		{ field: "status", headerName: "Status", flex: 1 },
-		{ field: "_id", headerName: "Action", flex: 1, renderCell: renderDetailsButton, disableClickEventBubbling: true, },
+		{
+			field: "_id",
+			headerName: "Action",
+			flex: 1,
+			renderCell: renderDetailsButton,
+			disableClickEventBubbling: true,
+		},
 	];
 	return (
 		<Box sx={{ mx: 4, pt: 2, pb: 5 }}>
@@ -224,7 +237,8 @@ const Riders = () => {
 					setOpen={setOpenEdit}
 					id={id}
 					token={token}
-					setSubmitting={setSubmitting} />
+					setSubmitting={setSubmitting}
+				/>
 			)}
 		</Box>
 	);
