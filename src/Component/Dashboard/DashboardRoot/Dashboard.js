@@ -28,6 +28,8 @@ const drawerWidth = 268;
 function Dashboard(props) {
 	const { user, loading, token } = GetAuth();
 	const [data, setData] = React.useState();
+	const [currentUser, setCurrentUser] = React.useState("")
+
 	React.useEffect(() => {
 		axios
 			.get(`${process.env.REACT_APP_API_PATH}/users`, {
@@ -37,6 +39,18 @@ function Dashboard(props) {
 			})
 			.then((response) => {
 				setData(response.data?.find((u) => u?.email === user?.email));
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+		axios
+			.get(`${process.env.REACT_APP_API_PATH}/userByEmail/${user?.email}`, {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			})
+			.then((response) => {
+				setCurrentUser(response?.data);
 			})
 			.catch((error) => {
 				console.log(error);
@@ -152,7 +166,7 @@ function Dashboard(props) {
 					</IconButton>
 					<Box display='flex' sx={{ flexGrow: 1, alignItems: "center" }}>
 						<DashboardIcon sx={{ mr: 1 }} />
-						<Typography variant='h6'>Welcome Admin</Typography>
+						<Typography variant='h6'>Welcome {currentUser?.userRole}</Typography>
 					</Box>
 					<Box>
 						<Typography
@@ -162,18 +176,11 @@ function Dashboard(props) {
 								fontWeight: "bold",
 								margin: "0px 10px",
 							}}>
-							John Doe
+							{currentUser?.name}
 						</Typography>
 					</Box>
-					<Box>
-						<Avatar
-							sx={{ border: "2px solid #44ba06" }}
-							alt=''
-							src='https://expertphotography.b-cdn.net/wp-content/uploads/2020/08/social-media-profile-photos-3.jpg'
-						/>
-					</Box>
 					<Box className='logout'>
-						<Button onClick={() => signOut(auth)}>
+						<Button onClick={() => signOut(auth)} >
 							<LogoutIcon />
 						</Button>
 					</Box>

@@ -43,77 +43,91 @@ export default function Login() {
 			});
 		}
 	}, [error, user]);
-
 	const [resetpass, setResetpass] = React.useState(false);
+
+	const handleLogin = (e) => {
+		e.preventDefault();
+		signInWithEmailAndPassword(email, password)
+	}
+
+	const handleKeypress = e => {
+		if (e.keyCode === 13) {
+			handleLogin();
+		}
+	};
 	return (
 		<Container component='main' maxWidth='xs' className='login'>
 			<CssBaseline />
 			{!resetpass ? (
-				<Box
-					display='flex'
-					justifyContent='center'
-					alignItems='center'
-					minHeight='100vh'>
-					<Box style={{ marginTop: 3, textAlign: "center" }} >
-						<Box>
-							<Avatar sx={{ mx: "auto", my: 1 }} style={{ background: "#08a74c" }}>
-								<LockOutlinedIcon />
-							</Avatar>
-							<Typography
-								component='h1'
-								variant='h5'
-								className='textColor'
-								sx={{ fontWeight: "bold" }}>
-								Sign in
-							</Typography>
-						</Box>
-						<TextField
-							margin='normal'
-							required
-							fullWidth
-							id='email'
-							label='Email Address'
-							name='email'
-							autoComplete='email'
-							autoFocus
-							onChange={(e) => setEmail(e.target.value)}
-						/>
+				<form onSubmit={handleLogin}>
+					<Box
+						display='flex'
+						justifyContent='center'
+						alignItems='center'
+						minHeight='100vh'>
+						<Box style={{ marginTop: 3, textAlign: "center" }} >
+							<Box>
+								<Avatar sx={{ mx: "auto", my: 1 }} style={{ background: "#08a74c" }}>
+									<LockOutlinedIcon />
+								</Avatar>
+								<Typography
+									component='h1'
+									variant='h5'
+									className='textColor'
+									sx={{ fontWeight: "bold" }}>
+									Sign in
+								</Typography>
+							</Box>
+							<TextField
+								margin='normal'
+								required
+								fullWidth
+								id='email'
+								label='Email Address'
+								name='email'
+								autoComplete='email'
+								autoFocus
+								onChange={(e) => setEmail(e.target.value)}
+							/>
 
-						<TextField
-							margin='normal'
-							required
-							fullWidth
-							name='password'
-							label='Password'
-							type='password'
-							id='password'
-							autoComplete='current-password'
-							onChange={(e) => setPassword(e.target.value)}
-						/>
-						<Typography
-							variant='body2'
-							className='textColor'
-							sx={{ textDecoration: "underline", cursor: "pointer" }}
-							onClick={() => setResetpass(true)}>
-							Forgot your password ? Reset Now !
-						</Typography>
-						<Button
-							onClick={() => signInWithEmailAndPassword(email, password)}
-							fullWidth
-							sx={{
-								my: 1,
-								px: 3,
-								width: "100%",
-								fontWeight: "bold",
-								borderRadius: "25px",
-								border: "2px solid #08a74c",
-								background: "#08a74c",
-								color: "black"
-							}}>
-							Sign In
-						</Button>
+							<TextField
+								margin='normal'
+								required
+								fullWidth
+								name='password'
+								label='Password'
+								type='password'
+								id='password'
+								autoComplete='current-password'
+								onChange={(e) => setPassword(e.target.value)}
+							/>
+							<Typography
+								variant='body2'
+								className='textColor'
+								sx={{ textDecoration: "underline", cursor: "pointer" }}
+								onClick={() => setResetpass(true)}>
+								Forgot your password ? Reset Now !
+							</Typography>
+							<Button
+								onKeyPress={handleKeypress}
+								type="submit"
+								// onClick={() => signInWithEmailAndPassword(email, password)}
+								fullWidth
+								sx={{
+									my: 1,
+									px: 3,
+									width: "100%",
+									fontWeight: "bold",
+									borderRadius: "25px",
+									border: "2px solid #08a74c",
+									background: "#08a74c",
+									color: "black"
+								}}>
+								Sign In
+							</Button>
+						</Box>
 					</Box>
-				</Box>
+				</form>
 			) : (
 				<ResetPass setResetpass={setResetpass} setLoggedUser={setLoggedUser} />
 			)}
