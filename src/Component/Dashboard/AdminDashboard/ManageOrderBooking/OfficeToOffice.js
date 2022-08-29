@@ -60,7 +60,7 @@ const OfficeToOffice = () => {
 							required
 							label='Sender Mobile Number'
 							helperText='Sender Number'
-							{...register("senderNumber", { required: true })}
+							{...register("senderNumber", { min: 11, max: 11 }, { required: true })}
 						/>
 						<TextField
 							size='small'
@@ -129,7 +129,7 @@ const OfficeToOffice = () => {
 							required
 							label='Mobile Number'
 							helperText='Write Reciever Mobile Number'
-							{...register("receiverNumber", { required: true })}
+							{...register("receiverNumber", { min: 11, max: 11 }, { required: true })}
 						/>
 					</Box>
 					{/* Payment Info Here */}
@@ -154,7 +154,7 @@ const OfficeToOffice = () => {
 							required
 							label='Service Charge'
 							helperText='Type Service Charge Here'
-							{...register("serviceCharge", { required: true })}
+							{...register("serviceCharge", { min: 11, max: 11 }, { required: true })}
 						/>
 						<Autocomplete
 							onChange={(e) => setPaymentTypes(e.target.innerText)}
@@ -200,7 +200,7 @@ const OfficeToOffice = () => {
 							required
 							label='Condition Amount'
 							helperText='Type Condition Amount'
-							{...register("conditionAmount", { required: true })}
+							{...register("conditionAmount", { min: 11, max: 11 }, { required: true })}
 						/>
 						<TextField
 							size='small'

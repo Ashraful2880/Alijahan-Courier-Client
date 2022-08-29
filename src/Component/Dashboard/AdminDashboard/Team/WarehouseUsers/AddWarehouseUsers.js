@@ -189,7 +189,7 @@ const AddWarehouseUsers = ({ open, setOpen, token, setSubmitting }) => {
 									fullWidth
 									label='Warehouse Contact'
 									helperText=' Warehouse Contact'
-									{...register("warehouseUserContact", { required: true })}
+									{...register("warehouseUserContact", { min: 11, max: 11 }, { required: true })}
 								/>
 							</Box>
 							<Box sx={{ display: "flex", gap: "20px" }}>

@@ -196,9 +196,9 @@ const EditRiders = ({ open, setOpen, id, token, setSubmitting }) => {
 											style={{ width: 300 }}
 											defaultValue={
 												branch[
-													branch?.findIndex(
-														(x) => x.branchName === data?.riderBranch,
-													)
+												branch?.findIndex(
+													(x) => x.branchName === data?.riderBranch,
+												)
 												]
 											}
 											renderInput={(params) => (
@@ -232,7 +232,7 @@ const EditRiders = ({ open, setOpen, id, token, setSubmitting }) => {
 											required
 											label='Mobile Number'
 											helperText='Mobile Number'
-											{...register("riderContact", { required: true })}
+											{...register("riderContact", { min: 11, max: 11 }, { required: true })}
 										/>
 									</Box>
 
@@ -245,7 +245,7 @@ const EditRiders = ({ open, setOpen, id, token, setSubmitting }) => {
 											required
 											label='Rider NID'
 											helperText='Rider NID'
-											{...register("riderNID", { required: true })}
+											{...register("riderNID", { min: 11, max: 11 }, { required: true })}
 										/>
 										<TextField
 											size='small'
