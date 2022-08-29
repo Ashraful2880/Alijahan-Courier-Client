@@ -1,4 +1,13 @@
-import { Button, CircularProgress, Grid, TextField, Backdrop, Typography, Autocomplete, Box, } from "@mui/material";
+import {
+	Button,
+	CircularProgress,
+	Grid,
+	TextField,
+	Backdrop,
+	Typography,
+	Autocomplete,
+	Box,
+} from "@mui/material";
 import DownloadDoneIcon from "@mui/icons-material/DownloadDone";
 import React from "react";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
@@ -20,8 +29,6 @@ const Area = () => {
 	const [submitting, setSubmitting] = useState(false);
 	const [data, setData] = useState();
 	const [districts, setDistricts] = useState([]);
-	const [cities, setCities] = useState([]);
-	const [district, setDistrict] = useState();
 	const [openEdit, setOpenEdit] = React.useState(false);
 	const [id, setId] = React.useState();
 
@@ -39,18 +46,6 @@ const Area = () => {
 			})
 			.then((response) => {
 				setData(response.data);
-			})
-			.catch((error) => {
-				console.log(error);
-			});
-		axios
-			.get(`${process.env.REACT_APP_API_PATH}/cities`, {
-				headers: {
-					Authorization: `Bearer ${token}`,
-				},
-			})
-			.then((response) => {
-				setCities(response.data);
 			})
 			.catch((error) => {
 				console.log(error);
@@ -220,7 +215,13 @@ const Area = () => {
 		{ field: "areaType", headerName: "Area Type", flex: 1 },
 		{ field: "area", headerName: "Area Name", flex: 1 },
 		{ field: "status", headerName: "Status", flex: 1 },
-		{ field: "_id", headerName: "Action", flex: 1, renderCell: renderDetailsButton, disableClickEventBubbling: true, },
+		{
+			field: "_id",
+			headerName: "Action",
+			flex: 1,
+			renderCell: renderDetailsButton,
+			disableClickEventBubbling: true,
+		},
 	];
 	return (
 		<Box sx={{ mx: 4, pt: 2, pb: 5 }}>
@@ -239,9 +240,6 @@ const Area = () => {
 					onSubmit={handleSubmit(onSubmit)}
 					style={{ display: "flex", flexGrow: "0.5", mx: 4 }}>
 					<Autocomplete
-						onChange={(event, value) => {
-							setDistrict(value);
-						}}
 						size='small'
 						sx={{ my: 1, width: "100% !important" }}
 						options={districts}
