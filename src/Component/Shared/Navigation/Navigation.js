@@ -19,7 +19,7 @@ const Navigation = () => {
 	const location = useLocation();
 	const currPath = location.pathname.split("/")[1];
 	const [path, setPath] = React.useState(currPath);
-	const [hide, setHide] = useState("block");
+	/* const [hide, setHide] = useState("block"); */
 
 	useEffect(() => {
 		setPath(currPath);
@@ -33,7 +33,7 @@ const Navigation = () => {
 		setAnchorElNav(null);
 	};
 
-	useEffect(() => {
+	/* 	useEffect(() => {
 		if (location?.pathname.includes("/")) {
 			setHide("block");
 		}
@@ -43,10 +43,13 @@ const Navigation = () => {
 		if (location?.pathname.includes("/dashboard")) {
 			setHide("none");
 		}
-	}, [location.pathname]);
+	}, [location.pathname]); */
 
 	return (
-		<AppBar position='sticky' sx={{ backgroundColor: "white" }} style={{ display: `${hide}` }}>
+		<AppBar
+			position='sticky'
+			sx={{ backgroundColor: "white" }} /* style={{ display: `${hide}` }} */
+		>
 			<Container maxWidth='xl'>
 				<Toolbar disableGutters>
 					<Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -76,7 +79,9 @@ const Navigation = () => {
 							sx={{
 								display: { xs: "block", md: "none" },
 							}}>
-							<Link to='/' className={path === "home" ? "activeMenu" : "inActiveMenu"}>
+							<Link
+								to='/'
+								className={path === "home" ? "activeMenu" : "inActiveMenu"}>
 								<MenuItem onClick={handleCloseNavMenu}>
 									<Typography textAlign='center'>Home</Typography>
 								</MenuItem>
@@ -132,7 +137,9 @@ const Navigation = () => {
 							</Link>
 							<Link
 								to='/dashboard'
-								className={path === "dashboard" ? "activeMenu" : "inActiveMenu"}>
+								className={
+									path === "dashboard" ? "activeMenu" : "inActiveMenu"
+								}>
 								<MenuItem onClick={handleCloseNavMenu}>
 									<Typography textAlign='center'>Dashboard</Typography>
 								</MenuItem>

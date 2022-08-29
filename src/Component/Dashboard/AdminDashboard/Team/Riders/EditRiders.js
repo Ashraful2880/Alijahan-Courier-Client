@@ -77,7 +77,7 @@ const EditRiders = ({ open, setOpen, id, token, setSubmitting }) => {
 		riderName,
 		riderBranch,
 		riderAddress,
-		userEmail,
+		riderEmail,
 		riderContact,
 		riderNID,
 		riderLicense,
@@ -92,7 +92,7 @@ const EditRiders = ({ open, setOpen, id, token, setSubmitting }) => {
 					riderName,
 					riderBranch,
 					riderAddress,
-					userEmail,
+					riderEmail,
 					riderContact,
 					riderNID,
 					riderLicense,
@@ -221,7 +221,7 @@ const EditRiders = ({ open, setOpen, id, token, setSubmitting }) => {
 											required
 											label='User Email'
 											helperText='User Email'
-											{...register("userEmail", { required: true })}
+											{...register("riderEmail", { required: true })}
 										/>
 										<TextField
 											type='number'
