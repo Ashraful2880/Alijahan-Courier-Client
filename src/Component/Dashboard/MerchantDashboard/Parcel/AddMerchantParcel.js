@@ -153,7 +153,7 @@ const AddMerchantParcel = () => {
 			.catch((error) => {
 				console.log(error);
 			});
-	}, [token]);
+	}, [token, user?.email]);
 
 	const returnCharge = parseFloat(selectedArea?.returnCharge) || 0;
 	const cashCollected = parseFloat(cashCollection) || 0;
@@ -233,7 +233,9 @@ const AddMerchantParcel = () => {
 			.then((response) => {
 				setSubmitting(false);
 				reset();
-				Swal.fire("", "Successfully Added!", "success");
+				Swal.fire("", "Successfully Added!", "success").then(function () {
+					window.location.reload();
+				});
 			})
 			.catch((error) => {
 				setSubmitting(false);

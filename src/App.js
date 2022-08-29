@@ -59,6 +59,7 @@ import NotFound from "./Component/Pages/Home/NotFound/NotFound";
 // import DashboardHome from "./Component/Dashboard/DashboardHome/DashboardHome";
 import RequireAuth from "./FirebaseAuth/RequireAuth";
 import PageCoverageArea from "./Component/Pages/CoverageArea/PageCoverageArea";
+import { useEffect, useState } from "react";
 
 function App() {
 	return (
