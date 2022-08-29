@@ -242,6 +242,7 @@ const EditMerchants = ({ open, setOpen, id, token, setSubmitting }) => {
 										}
 										renderInput={(params) => (
 											<TextField
+												required
 												{...register("merchantDistrict", {
 													required: true,
 												})}
@@ -271,6 +272,7 @@ const EditMerchants = ({ open, setOpen, id, token, setSubmitting }) => {
 											}
 											renderInput={(params) => (
 												<TextField
+													required
 													{...register("merchantBranchName", {
 														required: true,
 													})}
@@ -286,19 +288,23 @@ const EditMerchants = ({ open, setOpen, id, token, setSubmitting }) => {
 											sx={{ my: 0.5, width: "100% !important" }}
 											options={
 												selectedBranch ||
-												branches?.find(
-													(x) => x.branchName === data?.merchantBranchName,
-												)?.branchArea
+												branches?.filter(
+													(x) => x?.branchName === data?.merchantBranchName,
+												)?.branchArea ||
+												[]
 											}
-											getOptionLabel={(option) => option.area}
+											getOptionLabel={(option) => option?.area}
 											style={{ width: 300 }}
 											defaultValue={branches
-												?.find((x) => x.branchName === data?.merchantBranchName)
+												?.find(
+													(x) => x?.branchName === data?.merchantBranchName,
+												)
 												?.branchArea?.find(
 													(xy) => xy.area === data?.merchantArea,
 												)}
 											renderInput={(params) => (
 												<TextField
+													required
 													{...register("merchantArea", { required: true })}
 													{...params}
 													label='Select Area'

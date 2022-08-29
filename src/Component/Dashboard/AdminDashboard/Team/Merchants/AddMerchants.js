@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
-import { Button, TextField, Backdrop, Typography, Autocomplete, } from "@mui/material";
+import {
+	Button,
+	TextField,
+	Backdrop,
+	Typography,
+	Autocomplete,
+} from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
 import { useForm } from "react-hook-form";
@@ -226,6 +232,7 @@ const AddMerchants = ({ open, setOpen, token, setSubmitting }) => {
 								style={{ width: 300 }}
 								renderInput={(params) => (
 									<TextField
+										required
 										{...register("merchantDistrict", {
 											required: true,
 										})}
@@ -248,6 +255,7 @@ const AddMerchants = ({ open, setOpen, token, setSubmitting }) => {
 									style={{ width: 300 }}
 									renderInput={(params) => (
 										<TextField
+											required
 											{...register("merchantBranchName", { required: true })}
 											{...params}
 											label='Select Branch'
@@ -264,6 +272,7 @@ const AddMerchants = ({ open, setOpen, token, setSubmitting }) => {
 									style={{ width: 300 }}
 									renderInput={(params) => (
 										<TextField
+											required
 											{...register("merchantArea", { required: true })}
 											{...params}
 											label='Select Area'

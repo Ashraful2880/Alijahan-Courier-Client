@@ -196,13 +196,14 @@ const EditRiders = ({ open, setOpen, id, token, setSubmitting }) => {
 											style={{ width: 300 }}
 											defaultValue={
 												branch[
-												branch?.findIndex(
-													(x) => x.branchName === data?.riderBranch,
-												)
+													branch?.findIndex(
+														(x) => x.branchName === data?.riderBranch,
+													)
 												]
 											}
 											renderInput={(params) => (
 												<TextField
+													required
 													{...register("riderBranch", { required: true })}
 													{...params}
 													label='Rider Branch'
@@ -311,7 +312,7 @@ const EditRiders = ({ open, setOpen, id, token, setSubmitting }) => {
 											onClick={() => setOpen(false)}
 											type='reset'
 											variant='contained'
-											color="error"
+											color='error'
 											sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
 											<ReplayIcon sx={{ mr: 0.5 }} />
 											Close

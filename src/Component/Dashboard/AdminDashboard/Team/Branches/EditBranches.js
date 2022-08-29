@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
-import { Button, TextField, Backdrop, Typography, CircularProgress, Autocomplete, } from "@mui/material";
+import {
+	Button,
+	TextField,
+	Backdrop,
+	Typography,
+	CircularProgress,
+	Autocomplete,
+} from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
 import { useForm } from "react-hook-form";
@@ -47,6 +54,7 @@ const EditBranches = ({ open, setOpen, id, token, setSubmitting }) => {
 	const [selectedDistricts, setSelectedDistricts] = useState("");
 	const [warehouses, setWarehouses] = useState([]);
 	const [warehouse, setWarehouse] = useState();
+	const [districts, setDistricts] = useState([]);
 	useEffect(() => {
 		axios
 			.get(`${process.env.REACT_APP_API_PATH}/areas`, {
@@ -72,6 +80,18 @@ const EditBranches = ({ open, setOpen, id, token, setSubmitting }) => {
 			.then((response) => {
 				reset(response.data);
 				setData(response.data);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+		axios
+			.get(`${process.env.REACT_APP_API_PATH}/districts`, {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			})
+			.then((response) => {
+				setDistricts(response.data);
 			})
 			.catch((error) => {
 				console.log(error);
@@ -206,7 +226,9 @@ const EditBranches = ({ open, setOpen, id, token, setSubmitting }) => {
 											}}
 											size='small'
 											sx={{ my: 1, width: "100% !important" }}
-											options={areas}
+											options={districts?.filter(
+												(item, i, ar) => ar.indexOf(item) === i,
+											)}
 											getOptionLabel={(option) => option?.district}
 											defaultValue={
 												areas?.filter(
@@ -216,6 +238,7 @@ const EditBranches = ({ open, setOpen, id, token, setSubmitting }) => {
 											style={{ width: 300 }}
 											renderInput={(params) => (
 												<TextField
+													required
 													{...register("branchDistrict", { required: true })}
 													{...params}
 													label='Districts Name'
@@ -242,6 +265,7 @@ const EditBranches = ({ open, setOpen, id, token, setSubmitting }) => {
 											filterSelectedOptions
 											renderInput={(params) => (
 												<TextField
+													required
 													{...params}
 													label='Areas'
 													helperText='Areas'
@@ -262,6 +286,7 @@ const EditBranches = ({ open, setOpen, id, token, setSubmitting }) => {
 										defaultValue={data?.warehouseInfo}
 										renderInput={(params) => (
 											<TextField
+												required
 												{...params}
 												label='Warehouse'
 												helperText='Warehouse'
