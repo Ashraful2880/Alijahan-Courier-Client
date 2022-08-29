@@ -7,10 +7,12 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { useEffect } from "react";
 import { useState } from "react";
+import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import RemoveDoneIcon from "@mui/icons-material/RemoveDone";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
-import { useAPI } from "../../../../ApiContext";
+import { useAPI } from "../../../../../ApiContext";
+import EditArea from "./EditArea";
 
 const Area = () => {
 	const { user, loading, token } = useAPI();
@@ -20,6 +22,14 @@ const Area = () => {
 	const [districts, setDistricts] = useState([]);
 	const [cities, setCities] = useState([]);
 	const [district, setDistrict] = useState();
+	const [openEdit, setOpenEdit] = React.useState(false);
+	const [id, setId] = React.useState();
+
+	const handleOpen = (id) => {
+		setOpenEdit(true);
+		setId(id);
+	};
+
 	useEffect(() => {
 		axios
 			.get(`${process.env.REACT_APP_API_PATH}/areas`, {
@@ -162,6 +172,13 @@ const Area = () => {
 						}}
 					/>
 				)}
+				<EditIcon
+					className='iconBtn'
+					sx={{ color: "green!important" }}
+					onClick={() => {
+						handleOpen(params.row?._id);
+					}}
+				/>
 				<DeleteIcon
 					className='iconBtn'
 					sx={{ color: "#df0f00!important" }}
@@ -297,6 +314,15 @@ const Area = () => {
 				open={submitting || !data}>
 				<CircularProgress color='inherit' />
 			</Backdrop>
+			{openEdit && (
+				<EditArea
+					open={openEdit}
+					setOpen={setOpenEdit}
+					id={id}
+					token={token}
+					setSubmitting={setSubmitting}
+				/>
+			)}
 		</Box>
 	);
 };
