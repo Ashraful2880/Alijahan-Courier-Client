@@ -286,6 +286,7 @@ const AddBranches = ({ open, setOpen, token, setSubmitting }) => {
 								/>
 								<Box sx={{ display: "flex", gap: "20px" }}>
 									<TextField
+										type="number"
 										size='small'
 										sx={{ my: 0.5 }}
 										fullWidth
@@ -294,6 +295,7 @@ const AddBranches = ({ open, setOpen, token, setSubmitting }) => {
 										{...register("pickupCom", { required: true })}
 									/>
 									<TextField
+										type="number"
 										size='small'
 										sx={{ my: 0.5 }}
 										fullWidth
@@ -304,6 +306,7 @@ const AddBranches = ({ open, setOpen, token, setSubmitting }) => {
 								</Box>
 								<Box sx={{ display: "flex", gap: "20px" }}>
 									<TextField
+										type="number"
 										size='small'
 										sx={{ my: 0.5 }}
 										fullWidth
@@ -312,6 +315,7 @@ const AddBranches = ({ open, setOpen, token, setSubmitting }) => {
 										{...register("bookingCom", { required: true })}
 									/>
 									<TextField
+										type="number"
 										size='small'
 										sx={{ my: 0.5 }}
 										fullWidth
@@ -327,7 +331,7 @@ const AddBranches = ({ open, setOpen, token, setSubmitting }) => {
 										fullWidth
 										label='Branch Contact'
 										helperText='Branch Contact'
-										{...register("branchContact", { required: true })}
+										{...register("branchContact", { min: 11, max: 11 }, { required: true })}
 									/>
 									<TextField
 										size='small'

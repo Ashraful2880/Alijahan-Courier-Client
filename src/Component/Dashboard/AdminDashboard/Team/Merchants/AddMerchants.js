@@ -290,7 +290,7 @@ const AddMerchants = ({ open, setOpen, token, setSubmitting }) => {
 									placeholder='Merchant Contact Number'
 									size='small'
 									sx={{ my: 0.5, width: "100% !important" }}
-									{...register("merchantContact", { required: true })}
+									{...register("merchantContact", { min: 11, max: 11 }, { required: true })}
 									variant='outlined'
 								/>
 								<TextField

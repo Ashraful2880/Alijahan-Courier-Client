@@ -277,7 +277,7 @@ const MerchantOrder = () => {
 									required
 									label='Mobile Number'
 									helperText='Reciever Mobile Number'
-									{...register("receiverNumber", { required: true })}
+									{...register("receiverNumber", { min: 11, max: 11 }, { required: true })}
 								/>
 							</Box>
 							<Box sx={{ display: "flex", gap: "15px", mx: 2 }}>
@@ -404,7 +404,7 @@ const MerchantOrder = () => {
 									required
 									label='Cash Collection'
 									helperText='Cash Collection'
-									{...register("cashCollection", { required: true })}
+									{...register("cashCollection", { min: 11, max: 11 }, { required: true })}
 									value={cashCollection}
 									onChange={(e) => setCashCollection(e.target.value)}
 								/>
