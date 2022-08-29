@@ -20,7 +20,6 @@ import MerchantDashboard from "./MerchantDashboard";
 import WarehouseDashboard from "./WarehouseDashboard";
 import RiderDashboard from "./RiderDashboard";
 import BranchDashboard from "./BranchDashboard";
-import HomeIcon from "@mui/icons-material/Home";
 import GetAuth from "../../../FirebaseAuth/GetAuth";
 import axios from "axios";
 
@@ -61,16 +60,6 @@ function Dashboard(props) {
 					}}>
 					<img src={logo} alt='Main Logo' />
 				</Box>
-			</Link>
-			<Link className='link' to=''>
-				<ListItem
-					button
-					className={location?.pathname === "/dashboard" && "activeButton"}>
-					<ListItemIcon className='listItemIcon'>
-						<HomeIcon />
-					</ListItemIcon>
-					<ListItemText primary={"Home"} />
-				</ListItem>
 			</Link>
 			{data?.userRole === "Admin" && (
 				<>

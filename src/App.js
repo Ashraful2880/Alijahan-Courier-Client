@@ -56,7 +56,7 @@ import OurServices from "./Component/Pages/OurServices/OurServices";
 import Tracking from "./Component/Pages/Tracking/Tracking";
 import Register from "./Component/Pages/Register/Register";
 import NotFound from "./Component/Pages/Home/NotFound/NotFound";
-import DashboardHome from "./Component/Dashboard/DashboardHome/DashboardHome";
+// import DashboardHome from "./Component/Dashboard/DashboardHome/DashboardHome";
 import RequireAuth from "./FirebaseAuth/RequireAuth";
 import PageCoverageArea from "./Component/Pages/CoverageArea/PageCoverageArea";
 
@@ -95,7 +95,7 @@ function App() {
 									<Dashboard />
 								</RequireAuth>
 							}>
-							<Route path='/dashboard' element={<DashboardHome />} />
+							{/* <Route path='/dashboard' element={<DashboardHome />} /> */}
 							<Route path='/dashboard/branches' element={<Branches />} />
 							<Route
 								path='/dashboard/deliveryPaymentList'
