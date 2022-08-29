@@ -180,9 +180,7 @@ function Dashboard(props) {
 						</IconButton>
 						<Box display='flex' sx={{ flexGrow: 1, alignItems: "center" }}>
 							<DashboardIcon sx={{ mr: 1 }} />
-							<Typography variant='h6'>
-								Welcome {currentUser?.userRole}
-							</Typography>
+							<Typography variant='h6'>Welcome {currentUser?.userRole}</Typography>
 						</Box>
 						<Box>
 							<Typography
@@ -196,7 +194,7 @@ function Dashboard(props) {
 							</Typography>
 						</Box>
 						<Box className='logout'>
-							<Button onClick={() => signOut(auth)}>
+							<Button onClick={() => signOut(auth)} >
 								<LogoutIcon />
 							</Button>
 						</Box>
@@ -250,6 +248,7 @@ function Dashboard(props) {
 					<Toolbar />
 					<Outlet></Outlet>
 				</Box>
+
 			</Box>
 		);
 }
