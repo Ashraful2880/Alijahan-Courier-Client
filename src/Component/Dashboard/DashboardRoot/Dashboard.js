@@ -29,6 +29,7 @@ import BranchDashboard from "./BranchDashboard";
 import GetAuth from "../../../FirebaseAuth/GetAuth";
 import axios from "axios";
 import Swal from "sweetalert2";
+import DashboardHome from "../DashboardHome/DashboardHome";
 
 const drawerWidth = 268;
 
@@ -239,6 +240,7 @@ function Dashboard(props) {
 					width: { sm: `calc(100% - ${drawerWidth}px)` },
 				}}>
 				<Toolbar />
+				<DashboardHome />
 				<Outlet></Outlet>
 			</Box>
 		</Box>
