@@ -145,7 +145,7 @@ const Register = ({ token }) => {
               <img src={logo} width={"100%"} alt="" />
             </Box>
           </Box>
-          {/* login firn section */}
+          {/* login Form section */}
           <Box sx={{ p: { md: 7, xs: 6 } }}>
             <h3>Become a Merchant</h3>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -156,7 +156,6 @@ const Register = ({ token }) => {
                   fullWidth
                   required
                   label='Merchant Name'
-                  helperText='Name'
                   {...register("merchantName", { required: true })}
                 />
                 <TextField
@@ -165,7 +164,6 @@ const Register = ({ token }) => {
                   fullWidth
                   required
                   label='Company Name'
-                  helperText='Company Name'
                   {...register("merchantCompanyName", { required: true })}
                 />
               </Box>
@@ -178,7 +176,6 @@ const Register = ({ token }) => {
                   multiline
                   rows={2}
                   label='Merchant Address'
-                  helperText='Full Address'
                   {...register("merchantAddress", { required: true })}
                 />
                 <TextField
@@ -189,45 +186,24 @@ const Register = ({ token }) => {
                   multiline
                   rows={2}
                   label='Business Address'
-                  helperText='Business Address'
                   {...register("merchantBusinessAddress", { required: true })}
                 />
               </Box>
-              <Autocomplete
-                size='small'
-                sx={{ my: 0.5, width: "100% !important" }}
-                options={districts}
-                getOptionLabel={(option) => option.district}
-                style={{ width: 300 }}
-                renderInput={(params) => (
-                  <TextField
-                    {...register("merchantDistrict", {
-                      required: true,
-                    })}
-                    {...params}
-                    label='Select District'
-                    variant='outlined'
-                    helperText='Branch'
-                  />
-                )}
-              />
               <Box sx={{ display: "flex", gap: "20px" }}>
                 <Autocomplete
-                  onChange={(event, newValue) => {
-                    setSelectedBranch(newValue);
-                  }}
                   size='small'
                   sx={{ my: 0.5, width: "100% !important" }}
-                  options={branches}
-                  getOptionLabel={(option) => option.branchName}
+                  options={districts}
+                  getOptionLabel={(option) => option.district}
                   style={{ width: 300 }}
                   renderInput={(params) => (
                     <TextField
-                      {...register("merchantBranchName", { required: true })}
+                      {...register("merchantDistrict", {
+                        required: true,
+                      })}
                       {...params}
-                      label='Select Branch'
+                      label='Select District'
                       variant='outlined'
-                      helperText='Branch'
                     />
                   )}
                 />
@@ -243,7 +219,6 @@ const Register = ({ token }) => {
                       {...params}
                       label='Select Area'
                       variant='outlined'
-                      helperText='Area'
                     />
                   )}
                 />
@@ -251,12 +226,11 @@ const Register = ({ token }) => {
               <Box sx={{ display: "flex", gap: "20px" }}>
                 <TextField
                   type='number'
-                  helperText='Contact Number'
                   id='filled-start-adornment'
                   placeholder='Merchant Contact Number'
                   size='small'
                   sx={{ my: 0.5, width: "100% !important" }}
-                  {...register("merchantContact", { required: true })}
+                  {...register("merchantContact", { min: 11, max: 11 }, { required: true })}
                   variant='outlined'
                 />
                 <TextField
@@ -266,7 +240,6 @@ const Register = ({ token }) => {
                   fullWidth
                   required
                   label='Email'
-                  helperText='Email'
                   {...register("merchantEmail", { required: true })}
                 />
               </Box>
@@ -278,7 +251,6 @@ const Register = ({ token }) => {
                   required
                   type='password'
                   label='User Password'
-                  helperText='User Password'
                   {...register("password", {
                     required: true,
                   })}
