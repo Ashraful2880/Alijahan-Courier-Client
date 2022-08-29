@@ -235,9 +235,9 @@ const EditMerchants = ({ open, setOpen, id, token, setSubmitting }) => {
 										style={{ width: 300 }}
 										defaultValue={
 											districts[
-												districts?.findIndex(
-													(x) => x.district === data?.merchantDistrict,
-												)
+											districts?.findIndex(
+												(x) => x.district === data?.merchantDistrict,
+											)
 											]
 										}
 										renderInput={(params) => (
@@ -265,9 +265,9 @@ const EditMerchants = ({ open, setOpen, id, token, setSubmitting }) => {
 											style={{ width: 300 }}
 											defaultValue={
 												branches[
-													branches?.findIndex(
-														(x) => x.branchName === data?.merchantBranchName,
-													)
+												branches?.findIndex(
+													(x) => x.branchName === data?.merchantBranchName,
+												)
 												]
 											}
 											renderInput={(params) => (
@@ -322,7 +322,7 @@ const EditMerchants = ({ open, setOpen, id, token, setSubmitting }) => {
 											placeholder='Merchant Contact Number'
 											size='small'
 											sx={{ my: 0.5, width: "100% !important" }}
-											{...register("merchantContact", { required: true })}
+											{...register("merchantContact", { min: 11, max: 11 }, { required: true })}
 											variant='outlined'
 										/>
 										<TextField

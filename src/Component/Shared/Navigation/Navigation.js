@@ -8,11 +8,18 @@ import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import MenuItem from "@mui/material/MenuItem";
+import PersonIcon from '@mui/icons-material/Person';
 import logo from "../../../Assets/Image/logo.png";
 import { Link, useLocation } from "react-router-dom";
 import "./Navigation.css";
 import { Button } from "@mui/material";
 import call from "../../../Assets/Image/Call.png";
+import { useAuthState } from "react-firebase-hooks/auth";
+import auth from "../../../FirebaseAuth/firebase.config";
+import LogoutIcon from '@mui/icons-material/Logout';
+import LoginIcon from '@mui/icons-material/Login';
+import { signOut } from "firebase/auth";
+import Swal from "sweetalert2";
 
 const Navigation = () => {
 	const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -20,6 +27,7 @@ const Navigation = () => {
 	const currPath = location.pathname.split("/")[1];
 	const [path, setPath] = React.useState(currPath);
 	/* const [hide, setHide] = useState("block"); */
+	const [user, loading] = useAuthState(auth);
 
 	useEffect(() => {
 		setPath(currPath);
@@ -242,9 +250,9 @@ const Navigation = () => {
 								09613829867
 							</a>
 						</Box>
-						<Link to='/register' style={{ textDecoration: "none" }}>
+						{user?.email ?
 							<Button
-								variant='contained'
+								style={{ padding: "3px 13px", fontSize: "16px" }}
 								sx={{
 									backgroundColor: "#08A74C",
 									"&:hover": {
@@ -255,27 +263,69 @@ const Navigation = () => {
 									border: "1px solid #08A74C",
 									textTransform: "capitalize",
 									mr: 2,
-									mb: { xs: 2, md: 0 },
+									mb: { xs: 2, md: 0, },
+								}}
+								onClick={() => {
+									Swal.fire({
+										title: "Do you want to Logout?",
+										showCancelButton: true,
+										confirmButtonText: "Yes",
+									})
+										.then((result) => {
+											if (result.isConfirmed) {
+												signOut(auth);
+											}
+										})
+										.then((response) => {
+											Swal.fire("", "Successfully LoggedOut!", "success");
+										});
 								}}>
-								Register
+								Logout
+								<LogoutIcon sx={{ width: "20px", ml: 0.5 }} />
 							</Button>
-						</Link>
-						<Link to='/login' style={{ textDecoration: "none" }}>
-							<Button
-								variant='outlined'
-								sx={{
-									borderColor: "#08A74C",
-									"&:hover": {
-										color: "white",
-										background: "#08A74C",
-									},
-									textTransform: "capitalize",
-									color: "#08A74C",
-									mb: { xs: 2, md: 0 },
-								}}>
-								Login
-							</Button>
-						</Link>
+							:
+							<>
+								<Link to='/register' style={{ textDecoration: "none", }}>
+									<Button
+										style={{ padding: "3px 13px", fontSize: "16px" }}
+										sx={{
+											backgroundColor: "transparent",
+											"&:hover": {
+												backgroundColor: "#08A74C",
+												color: "white",
+											},
+											color: "#08A74C",
+											border: "1px solid #08A74C",
+											textTransform: "capitalize",
+											mr: 1,
+											mb: { xs: 2, md: 0, },
+										}}>
+										Register
+										<PersonIcon sx={{ width: "20px", ml: 0.5 }} />
+									</Button>
+								</Link>
+								<Link to='/login' style={{ textDecoration: "none" }}>
+									<Button
+										variant='outlined'
+										style={{ padding: "3px 13px", fontSize: "16px" }}
+										sx={{
+											backgroundColor: "#08A74C",
+											"&:hover": {
+												backgroundColor: "transparent",
+												color: "#08A74C",
+											},
+											color: "white",
+											border: "1px solid #08A74C",
+											textTransform: "capitalize",
+											mr: 1,
+											mb: { xs: 2, md: 0, },
+										}}>
+										Login
+										<LoginIcon sx={{ width: "20px", ml: 0.5 }} />
+									</Button>
+								</Link>
+							</>
+						}
 					</Box>
 				</Toolbar>
 			</Container>

@@ -224,7 +224,7 @@ const AddRiders = ({ open, setOpen, token, setSubmitting }) => {
 									required
 									label='Mobile Number'
 									helperText='Mobile Number'
-									{...register("riderContact", { required: true })}
+									{...register("riderContact", { min: 11, max: 11 }, { required: true })}
 								/>
 							</Box>
 
@@ -237,7 +237,7 @@ const AddRiders = ({ open, setOpen, token, setSubmitting }) => {
 									required
 									label='Rider NID'
 									helperText='Rider NID'
-									{...register("riderNID", { required: true })}
+									{...register("riderNID", { min: 11, max: 11 }, { required: true })}
 								/>
 								<TextField
 									size='small'
