@@ -195,6 +195,7 @@ const AddRiders = ({ open, setOpen, token, setSubmitting }) => {
 									style={{ width: 300 }}
 									renderInput={(params) => (
 										<TextField
+											required
 											{...register("riderBranch", { required: true })}
 											{...params}
 											label='Rider Branch'

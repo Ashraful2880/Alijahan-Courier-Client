@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import {
-	Button, TextField, Backdrop, Typography, Autocomplete,
+	Button,
+	TextField,
+	Backdrop,
+	Typography,
+	Autocomplete,
 } from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
@@ -221,11 +225,14 @@ const AddBranches = ({ open, setOpen, token, setSubmitting }) => {
 										}}
 										size='small'
 										sx={{ my: 1, width: "100% !important" }}
-										options={districts}
+										options={districts?.filter(
+											(item, i, ar) => ar.indexOf(item) === i,
+										)}
 										getOptionLabel={(option) => option?.district}
 										style={{ width: 300 }}
 										renderInput={(params) => (
 											<TextField
+												required
 												{...register("branchDistrict", { required: true })}
 												{...params}
 												label='Districts Name'
@@ -249,6 +256,7 @@ const AddBranches = ({ open, setOpen, token, setSubmitting }) => {
 										filterSelectedOptions
 										renderInput={(params) => (
 											<TextField
+												required
 												{...params}
 												label='Areas'
 												helperText='Areas'
@@ -268,6 +276,7 @@ const AddBranches = ({ open, setOpen, token, setSubmitting }) => {
 									style={{ width: 300 }}
 									renderInput={(params) => (
 										<TextField
+											required
 											{...params}
 											label='Warehouse'
 											helperText='Warehouse'

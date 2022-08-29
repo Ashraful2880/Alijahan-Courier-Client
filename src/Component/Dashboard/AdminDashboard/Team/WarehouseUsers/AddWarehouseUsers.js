@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
-import { Button, TextField, Backdrop, Typography, Autocomplete, } from "@mui/material";
+import {
+	Button,
+	TextField,
+	Backdrop,
+	Typography,
+	Autocomplete,
+} from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
 import CancelIcon from "@mui/icons-material/Cancel";
@@ -119,7 +125,8 @@ const AddWarehouseUsers = ({ open, setOpen, token, setSubmitting }) => {
 								cursor: "pointer",
 								background: "White",
 								borderRadius: "50%",
-							}} />
+							}}
+						/>
 
 						<Typography
 							variant='h6'
@@ -166,12 +173,15 @@ const AddWarehouseUsers = ({ open, setOpen, token, setSubmitting }) => {
 									style={{ width: 300 }}
 									renderInput={(params) => (
 										<TextField
+											required
 											{...register("wareHouseName", { required: true })}
 											{...params}
 											label='Warehouse Name'
 											helperText=' Warehouse Name'
 											variant='outlined'
-										/>)} />
+										/>
+									)}
+								/>
 
 								<TextField
 									size='small'
