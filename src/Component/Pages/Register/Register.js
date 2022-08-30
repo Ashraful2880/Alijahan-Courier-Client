@@ -125,6 +125,7 @@ const Register = ({ token }) => {
 			merchantArea,
 			merchantEmail,
 			merchantPassword,
+			status: "Inactive"
 		});
 		createUserWithEmailAndPassword(merchantEmail, merchantPassword);
 	};
