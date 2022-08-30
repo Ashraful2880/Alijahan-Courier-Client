@@ -301,6 +301,8 @@ const AddMerchantParcel = () => {
 									{...register("receiverName", { required: true })}
 								/>
 								<TextField
+									minlength="11"
+									maxlength="11"
 									size='small'
 									type='number'
 									sx={{ my: 0.5 }}
@@ -308,7 +310,7 @@ const AddMerchantParcel = () => {
 									required
 									label='Mobile Number'
 									helperText='Reciever Mobile Number'
-									{...register("receiverNumber", { min: 11, max: 11 }, { required: true })}
+									{...register("receiverNumber", { required: true })}
 								/>
 							</Box>
 							<Box sx={{ display: "flex", gap: "15px", mx: 2 }}>
@@ -428,6 +430,8 @@ const AddMerchantParcel = () => {
 							</Box>
 							<Box sx={{ display: "flex", gap: "15px", mx: 2 }}>
 								<TextField
+									minlength="11"
+									maxlength="11"
 									type='number'
 									size='small'
 									sx={{ my: 0.5 }}
@@ -435,7 +439,7 @@ const AddMerchantParcel = () => {
 									required
 									label='Cash Collection'
 									helperText='Cash Collection'
-									{...register("cashCollection", { min: 11, max: 11 }, { required: true })}
+									{...register("cashCollection", { required: true })}
 									value={cashCollection}
 									onChange={(e) => setCashCollection(e.target.value)}
 								/>

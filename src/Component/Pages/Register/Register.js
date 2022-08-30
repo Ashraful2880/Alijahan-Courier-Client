@@ -236,6 +236,8 @@ const Register = ({ token }) => {
 							</Box>
 							<Box sx={{ display: "flex", gap: "20px" }}>
 								<TextField
+									minlength="11"
+									maxlength="11"
 									type='number'
 									id='filled-start-adornment'
 									placeholder='Merchant Contact Number'
@@ -243,7 +245,6 @@ const Register = ({ token }) => {
 									sx={{ my: 0.5, width: "100% !important" }}
 									{...register(
 										"merchantContact",
-										{ min: 11, max: 11 },
 										{ required: true },
 									)}
 									variant='outlined'
