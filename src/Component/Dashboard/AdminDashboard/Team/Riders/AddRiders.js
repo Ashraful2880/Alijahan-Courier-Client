@@ -217,6 +217,8 @@ const AddRiders = ({ open, setOpen, token, setSubmitting }) => {
 									{...register("riderEmail", { required: true })}
 								/>
 								<TextField
+									minlength="11"
+									maxlength="11"
 									type='number'
 									size='small'
 									sx={{ my: 0.5 }}
@@ -224,12 +226,14 @@ const AddRiders = ({ open, setOpen, token, setSubmitting }) => {
 									required
 									label='Mobile Number'
 									helperText='Mobile Number'
-									{...register("riderContact", { min: 11, max: 11 }, { required: true })}
+									{...register("riderContact", { required: true })}
 								/>
 							</Box>
 
 							<Box sx={{ display: "flex", gap: "20px" }}>
 								<TextField
+									minlength="11"
+									maxlength="11"
 									type='number'
 									size='small'
 									sx={{ my: 0.5 }}
@@ -237,7 +241,7 @@ const AddRiders = ({ open, setOpen, token, setSubmitting }) => {
 									required
 									label='Rider NID'
 									helperText='Rider NID'
-									{...register("riderNID", { min: 11, max: 11 }, { required: true })}
+									{...register("riderNID", { required: true })}
 								/>
 								<TextField
 									size='small'

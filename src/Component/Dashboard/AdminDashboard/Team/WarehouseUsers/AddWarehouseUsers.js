@@ -184,12 +184,14 @@ const AddWarehouseUsers = ({ open, setOpen, token, setSubmitting }) => {
 								/>
 
 								<TextField
+									minlength="11"
+									maxlength="11"
 									size='small'
 									sx={{ my: 1 }}
 									fullWidth
 									label='Warehouse Contact'
 									helperText=' Warehouse Contact'
-									{...register("warehouseUserContact", { min: 11, max: 11 }, { required: true })}
+									{...register("warehouseUserContact", { required: true })}
 								/>
 							</Box>
 							<Box sx={{ display: "flex", gap: "20px" }}>

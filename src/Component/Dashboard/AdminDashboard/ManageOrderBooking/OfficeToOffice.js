@@ -53,6 +53,8 @@ const OfficeToOffice = () => {
 					</Typography>
 					<Box sx={{ display: "flex", gap: "15px", mx: 2 }}>
 						<TextField
+							minlength="11"
+							maxlength="11"
 							type='number'
 							size='small'
 							sx={{ my: 0.5 }}
@@ -60,7 +62,7 @@ const OfficeToOffice = () => {
 							required
 							label='Sender Mobile Number'
 							helperText='Sender Number'
-							{...register("senderNumber", { min: 11, max: 11 }, { required: true })}
+							{...register("senderNumber", { required: true })}
 						/>
 						<TextField
 							size='small'
@@ -122,6 +124,8 @@ const OfficeToOffice = () => {
 							{...register("receiverName", { required: true })}
 						/>
 						<TextField
+							minlength="11"
+							maxlength="11"
 							size='small'
 							type='number'
 							sx={{ my: 0.5 }}
@@ -129,7 +133,7 @@ const OfficeToOffice = () => {
 							required
 							label='Mobile Number'
 							helperText='Write Reciever Mobile Number'
-							{...register("receiverNumber", { min: 11, max: 11 }, { required: true })}
+							{...register("receiverNumber", { required: true })}
 						/>
 					</Box>
 					{/* Payment Info Here */}
@@ -147,6 +151,8 @@ const OfficeToOffice = () => {
 					</Typography>
 					<Box sx={{ display: "flex", gap: "15px", mx: 2 }}>
 						<TextField
+							minlength="11"
+							maxlength="11"
 							type='number'
 							size='small'
 							sx={{ my: 0.5 }}
@@ -154,7 +160,7 @@ const OfficeToOffice = () => {
 							required
 							label='Service Charge'
 							helperText='Type Service Charge Here'
-							{...register("serviceCharge", { min: 11, max: 11 }, { required: true })}
+							{...register("serviceCharge", { required: true })}
 						/>
 						<Autocomplete
 							onChange={(e) => setPaymentTypes(e.target.innerText)}
@@ -193,6 +199,8 @@ const OfficeToOffice = () => {
 					</Box>
 					<Box sx={{ display: "flex", gap: "15px", mx: 2 }}>
 						<TextField
+							minlength="11"
+							maxlength="11"
 							type='number'
 							size='small'
 							sx={{ my: 0.5 }}
@@ -200,7 +208,7 @@ const OfficeToOffice = () => {
 							required
 							label='Condition Amount'
 							helperText='Type Condition Amount'
-							{...register("conditionAmount", { min: 11, max: 11 }, { required: true })}
+							{...register("conditionAmount", { required: true })}
 						/>
 						<TextField
 							size='small'
