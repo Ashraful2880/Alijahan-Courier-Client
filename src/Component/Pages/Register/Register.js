@@ -22,6 +22,7 @@ const Register = ({ token }) => {
 	const [selectedDistricts, setSelectedDistricts] = useState([]);
 	const [districts, setDistricts] = useState();
 	const [area, setArea] = useState();
+	const [num, setNum] = React.useState();
 	useEffect(() => {
 		axios
 			.get(`${process.env.REACT_APP_API_PATH}/areas`, {
@@ -241,20 +242,22 @@ const Register = ({ token }) => {
 								/>
 							</Box>
 							<Box sx={{ display: "flex", gap: "20px" }}>
-								<TextField
-									minlength="11"
-									maxlength="11"
-									type='number'
-									id='filled-start-adornment'
-									placeholder='Merchant Contact Number'
-									size='small'
-									sx={{ my: 0.5, width: "100% !important" }}
-									{...register(
-										"merchantContact",
-										{ required: true },
-									)}
-									variant='outlined'
-								/>
+								<Box style={{ width: "100%" }}>
+									<input
+										type='text'
+										placeholder="Merchant Contact"
+										name="merchantContact"
+										style={{ width: "100%", padding: "10px 12px", margin: "4px 0px", fontSize: "16px", borderRadius: "5px", border: "1px solid gray" }}
+										value={num}
+										onChange={(e) =>
+											setNum(e.target.value.replace(/[^0-9]/g, ""))
+										}
+										maxLength="11"
+										minLength="11"
+										{...register("merchantContact", { required: true })}
+									/>
+									<label style={{ textAlign: "left", fontSize: "12px", color: "gray", width: "100%", display: "block", }}>Sender number</label>
+								</Box>
 								<TextField
 									type='email'
 									size='small'

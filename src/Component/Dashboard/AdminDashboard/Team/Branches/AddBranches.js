@@ -42,6 +42,7 @@ const AddBranches = ({ open, setOpen, token, setSubmitting }) => {
 	const [districts, setDistricts] = useState([]);
 	const [warehouses, setWarehouses] = useState([]);
 	const [warehouse, setWarehouse] = useState();
+	const [num, setNum] = React.useState();
 	useEffect(() => {
 		axios
 			.get(`${process.env.REACT_APP_API_PATH}/areas`, {
@@ -325,16 +326,22 @@ const AddBranches = ({ open, setOpen, token, setSubmitting }) => {
 									/>
 								</Box>
 								<Box sx={{ display: "flex", gap: "20px" }}>
-									<TextField
-										minlength="11"
-										maxlength="11"
-										size='small'
-										sx={{ my: 0.5 }}
-										fullWidth
-										label='Branch Contact'
-										helperText='Branch Contact'
-										{...register("branchContact", { required: true })}
-									/>
+									<Box style={{ width: "100%" }}>
+										<input
+											type='text'
+											placeholder="Branch Contact"
+											name="branchContact"
+											style={{ width: "100%", padding: "10px 12px", margin: "4px 0px", fontSize: "16px", borderRadius: "5px", border: "1px solid gray" }}
+											value={num}
+											onChange={(e) =>
+												setNum(e.target.value.replace(/[^0-9]/g, ""))
+											}
+											maxLength="11"
+											minLength="11"
+											{...register("branchContact", { required: true })}
+										/>
+										<label style={{ textAlign: "left", fontSize: "12px", color: "gray", width: "100%", display: "block", }}>Sender number</label>
+									</Box>
 									<TextField
 										size='small'
 										sx={{ my: 0.5 }}
