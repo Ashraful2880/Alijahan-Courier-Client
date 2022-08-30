@@ -19,7 +19,7 @@ const Register = ({ token }) => {
 	const { register, handleSubmit, reset, watch } = useForm();
 	const [errors, setErrors] = useState(false);
 	const [branches, setBranches] = useState([]);
-	const [selectedBranch, setSelectedBranch] = useState([]);
+	const [selectedDistricts, setSelectedDistricts] = useState([]);
 	const [districts, setDistricts] = useState();
 	const [area, setArea] = useState();
 	useEffect(() => {
@@ -60,6 +60,7 @@ const Register = ({ token }) => {
 				console.log(error);
 			});
 	}, [token]);
+
 	const [createUserWithEmailAndPassword, user, loading, error] =
 		useCreateUserWithEmailAndPassword(auth2);
 	if (loading) {
@@ -202,6 +203,9 @@ const Register = ({ token }) => {
 							</Box>
 							<Box sx={{ display: "flex", gap: "20px" }}>
 								<Autocomplete
+									onChange={(event, newValue) => {
+										setSelectedDistricts(newValue);
+									}}
 									size='small'
 									sx={{ my: 0.5, width: "100% !important" }}
 									options={districts}
@@ -221,7 +225,9 @@ const Register = ({ token }) => {
 								<Autocomplete
 									size='small'
 									sx={{ my: 0.5, width: "100% !important" }}
-									options={area}
+									options={area?.filter(
+										(a) => a?.district === selectedDistricts?.district,
+									)}
 									getOptionLabel={(option) => option.area}
 									style={{ width: 300 }}
 									renderInput={(params) => (

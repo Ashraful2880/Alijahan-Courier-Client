@@ -27,12 +27,10 @@ const MerchantProfile = () => {
 			.catch((error) => {
 				console.log(error);
 			});
-	}, [token]);
-
+	}, [token, user?.email]);
 
 	return (
-		<Box
-			sx={{ px: 4, pt: 2, pb: 5, background: "#f8f8f8", height: "93vh" }}>
+		<Box sx={{ px: 4, pt: 2, pb: 5, background: "#f8f8f8", height: "93vh" }}>
 			<Box
 				sx={{
 					px: 2.5,
@@ -56,7 +54,7 @@ const MerchantProfile = () => {
 				}}>
 				<Typography
 					variant='h5'
-					sx={{ fontWeight: "bold", marginBottom: "15px", }}>
+					sx={{ fontWeight: "bold", marginBottom: "15px" }}>
 					Welcome Back! <span style={{ color: "green" }}>Mr John</span>
 				</Typography>
 				<TableContainer

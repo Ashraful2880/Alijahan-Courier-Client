@@ -15,18 +15,21 @@ const WarehouseProfile = () => {
 
 	useEffect(() => {
 		axios
-			.get(`${process.env.REACT_APP_API_PATH}/warehouseUserByEmail/${user?.email}`, {
-				headers: {
-					Authorization: `Bearer ${token}`,
+			.get(
+				`${process.env.REACT_APP_API_PATH}/warehouseUserByEmail/${user?.email}`,
+				{
+					headers: {
+						Authorization: `Bearer ${token}`,
+					},
 				},
-			})
+			)
 			.then((response) => {
 				setwarehouse(response.data);
 			})
 			.catch((error) => {
 				console.log(error);
 			});
-	}, [token]);
+	}, [token, user?.email]);
 
 	return (
 		<Box sx={{ mx: 4, pt: 2, pb: 5 }}>

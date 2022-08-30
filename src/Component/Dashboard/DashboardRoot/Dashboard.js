@@ -28,14 +28,16 @@ import RiderDashboard from "./RiderDashboard";
 import BranchDashboard from "./BranchDashboard";
 import GetAuth from "../../../FirebaseAuth/GetAuth";
 import axios from "axios";
-import Swal from "sweetalert2";
 
 const drawerWidth = 268;
 
 function Dashboard(props) {
 	const { user, loading, token } = GetAuth();
 	const [data, setData] = React.useState();
-	const [currentUser, setCurrentUser] = React.useState("");
+	const [merchant, setMerchant] = React.useState();
+	const [branch, setBranch] = React.useState();
+	const [riders, setRiders] = React.useState();
+	const [warehouse, setwarehouse] = React.useState();
 
 	React.useEffect(() => {
 		axios
@@ -51,13 +53,52 @@ function Dashboard(props) {
 				console.log(error);
 			});
 		axios
-			.get(`${process.env.REACT_APP_API_PATH}/userByEmail/${user?.email}`, {
+			.get(`${process.env.REACT_APP_API_PATH}/merchants/${user?.email}`, {
 				headers: {
 					Authorization: `Bearer ${token}`,
 				},
 			})
 			.then((response) => {
-				setCurrentUser(response?.data);
+				setMerchant(response.data);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+		axios
+			.get(`${process.env.REACT_APP_API_PATH}/branchbyemail/${user?.email}`, {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			})
+			.then((response) => {
+				setBranch(response.data);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+		axios
+			.get(`${process.env.REACT_APP_API_PATH}/riderByEmail/${user?.email}`, {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			})
+			.then((response) => {
+				setRiders(response.data);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+		axios
+			.get(
+				`${process.env.REACT_APP_API_PATH}/warehouseUserByEmail/${user?.email}`,
+				{
+					headers: {
+						Authorization: `Bearer ${token}`,
+					},
+				},
+			)
+			.then((response) => {
+				setwarehouse(response.data);
 			})
 			.catch((error) => {
 				console.log(error);
@@ -151,6 +192,25 @@ function Dashboard(props) {
 	const container =
 		window !== undefined ? () => window().document.body : undefined;
 	const location = useLocation();
+	console.log(merchant?.status);
+	console.log(branch?.status);
+	console.log(riders?.status);
+	console.log(warehouse?.status);
+	if (
+		!loading &&
+		user &&
+		data &&
+		(merchant?.status === "Inactive" ||
+			branch?.status === "Inactive" ||
+			riders?.status === "Inactive" ||
+			warehouse?.status === "Inactive")
+	) {
+		return (
+			<>
+				<Navigate to={"/login"} state={{ from: location }} replace />
+			</>
+		);
+	}
 	if (!loading && user && data && data === "N/A") {
 		return (
 			<>
@@ -180,7 +240,7 @@ function Dashboard(props) {
 						</IconButton>
 						<Box display='flex' sx={{ flexGrow: 1, alignItems: "center" }}>
 							<DashboardIcon sx={{ mr: 1 }} />
-							<Typography variant='h6'>Welcome {currentUser?.userRole}</Typography>
+							<Typography variant='h6'>Welcome {data?.userRole}</Typography>
 						</Box>
 						<Box>
 							<Typography
@@ -190,11 +250,11 @@ function Dashboard(props) {
 									fontWeight: "bold",
 									margin: "0px 10px",
 								}}>
-								{currentUser?.name}
+								{data?.name}
 							</Typography>
 						</Box>
 						<Box className='logout'>
-							<Button onClick={() => signOut(auth)} >
+							<Button onClick={() => signOut(auth)}>
 								<LogoutIcon />
 							</Button>
 						</Box>
@@ -248,7 +308,6 @@ function Dashboard(props) {
 					<Toolbar />
 					<Outlet></Outlet>
 				</Box>
-
 			</Box>
 		);
 }
