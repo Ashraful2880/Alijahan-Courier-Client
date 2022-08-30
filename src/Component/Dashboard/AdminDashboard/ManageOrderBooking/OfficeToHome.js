@@ -11,17 +11,13 @@ const OfficeToHome = () => {
     const [paymentTypes, setPaymentTypes] = useState([]);
     const [conditionType, setConditionType] = useState([]);
     const { register, handleSubmit, reset } = useForm();
-
-    const onSubmit = (data) => {
-        console.log("Form Data", data);
-    }
     return (
         <Box sx={{ mt: 2.5, mx: 2.5, boxShadow: "0px 0px 10px #b5b5b5", pt: 2, pb: 5 }}>
             <Typography variant='h6' sx={{ mb: 3, textAlign: "left", background: "#1E793C", padding: "8px 20px", color: "#fff", borderRadius: "5px", display: "flex", alignItems: "center", mx: 2 }}>
                 <CreateNewFolderIcon sx={{ mr: 2 }} /> Create a New Parcel Order
             </Typography>
             <Box sx={{ mx: 3 }}>
-                <form onSubmit={handleSubmit(onSubmit)}>
+                <form>
                     {/* Sender Info Here */}
                     <Typography component="p" sx={{ fontWeight: "bold", textAlign: "left", my: 1, mx: 2, color: "#009688", fontSize: "18px", }}>
                         Sender Information
@@ -37,8 +33,6 @@ const OfficeToHome = () => {
                             {...register("senderName", { required: true })}
                         />
                         <TextField
-                            minlength="11"
-                            maxlength="11"
                             type="number"
                             size='small'
                             sx={{ my: 0.5 }}
@@ -46,7 +40,7 @@ const OfficeToHome = () => {
                             required
                             label='Sender Mobile Number'
                             helperText="Sender Number"
-                            {...register("senderNumber", { required: true })}
+                            {...register("senderNumber", { min: 11, max: 11 }, { required: true })}
                         />
                         <TextField
                             size='small'
@@ -73,8 +67,6 @@ const OfficeToHome = () => {
                             {...register("receiverName", { required: true })}
                         />
                         <TextField
-                            minlength="11"
-                            maxlength="11"
                             size='small'
                             type="number"
                             sx={{ my: 0.5 }}
@@ -82,7 +74,7 @@ const OfficeToHome = () => {
                             required
                             label='Mobile Number'
                             helperText="Write Reciever Mobile Number"
-                            {...register("receiverNumber", { required: true })}
+                            {...register("receiverNumber", { min: 11, max: 11 }, { required: true })}
                         />
                         <Autocomplete
                             onChange={(e) => setSelectDeliveryArea(e.target.innerText)}
