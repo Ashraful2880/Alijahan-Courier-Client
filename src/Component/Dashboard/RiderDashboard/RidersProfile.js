@@ -26,7 +26,7 @@ const RidersProfile = () => {
 			.catch((error) => {
 				console.log(error);
 			});
-	}, [token]);
+	}, [token, user?.email]);
 
 	return (
 		<Box sx={{ mx: 4, pt: 2, pb: 5 }}>

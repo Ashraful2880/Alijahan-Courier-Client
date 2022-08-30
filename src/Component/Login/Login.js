@@ -18,14 +18,15 @@ import auth from "../../FirebaseAuth/firebase.config";
 export default function Login() {
 	const navigate = useNavigate();
 	// const location = useLocation();
-	const [signInWithEmailAndPassword, user, loading, error] = useSignInWithEmailAndPassword(auth);
+	const [signInWithEmailAndPassword, user, loading, error] =
+		useSignInWithEmailAndPassword(auth);
 	const [email, setEmail] = React.useState("");
 	const [password, setPassword] = React.useState("");
 	const [loggedUser, setLoggedUser] = React.useState(null);
 	// let from = location.state?.from?.pathname;
 	if (user || loggedUser) {
 		// navigate(from, { replace: true });
-		navigate("/")
+		navigate("/dashboard");
 	}
 	React.useEffect(() => {
 		if (error) {
@@ -47,10 +48,10 @@ export default function Login() {
 
 	const handleLogin = (e) => {
 		e.preventDefault();
-		signInWithEmailAndPassword(email, password)
-	}
+		signInWithEmailAndPassword(email, password);
+	};
 
-	const handleKeypress = e => {
+	const handleKeypress = (e) => {
 		if (e.keyCode === 13) {
 			handleLogin();
 		}
@@ -65,9 +66,11 @@ export default function Login() {
 						justifyContent='center'
 						alignItems='center'
 						minHeight='100vh'>
-						<Box style={{ marginTop: 3, textAlign: "center" }} >
+						<Box style={{ marginTop: 3, textAlign: "center" }}>
 							<Box>
-								<Avatar sx={{ mx: "auto", my: 1 }} style={{ background: "#08a74c" }}>
+								<Avatar
+									sx={{ mx: "auto", my: 1 }}
+									style={{ background: "#08a74c" }}>
 									<LockOutlinedIcon />
 								</Avatar>
 								<Typography
@@ -110,7 +113,7 @@ export default function Login() {
 							</Typography>
 							<Button
 								onKeyPress={handleKeypress}
-								type="submit"
+								type='submit'
 								// onClick={() => signInWithEmailAndPassword(email, password)}
 								fullWidth
 								sx={{
@@ -121,7 +124,7 @@ export default function Login() {
 									borderRadius: "25px",
 									border: "2px solid #08a74c",
 									background: "#08a74c",
-									color: "black"
+									color: "black",
 								}}>
 								Sign In
 							</Button>

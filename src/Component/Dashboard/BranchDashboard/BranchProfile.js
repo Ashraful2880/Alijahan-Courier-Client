@@ -25,7 +25,7 @@ const BranchProfile = () => {
 			.catch((error) => {
 				console.log(error);
 			});
-	}, [token]);
+	}, [token, user?.email]);
 
 	return (
 		<Box sx={{ mx: 4, pt: 2, pb: 5 }}>
@@ -149,7 +149,7 @@ const BranchProfile = () => {
 								<TableCell
 									sx={{ fontSize: "15px", letterSpacing: "0.2px" }}
 									align='right'>
-									{branch?.branchArea.map(area => area?.area + "," + " ")}
+									{branch?.branchArea.map((area) => area?.area + "," + " ")}
 								</TableCell>
 							</TableRow>
 							<TableRow>
