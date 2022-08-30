@@ -284,13 +284,15 @@ const AddMerchants = ({ open, setOpen, token, setSubmitting }) => {
 							</Box>
 							<Box sx={{ display: "flex", gap: "20px" }}>
 								<TextField
+									minlength="11"
+									maxlength="11"
 									type='number'
 									helperText='Contact Number'
 									id='filled-start-adornment'
 									placeholder='Merchant Contact Number'
 									size='small'
 									sx={{ my: 0.5, width: "100% !important" }}
-									{...register("merchantContact", { min: 11, max: 11 }, { required: true })}
+									{...register("merchantContact", { required: true })}
 									variant='outlined'
 								/>
 								<TextField

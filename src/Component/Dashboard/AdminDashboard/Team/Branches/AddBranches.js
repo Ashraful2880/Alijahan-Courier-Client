@@ -326,12 +326,14 @@ const AddBranches = ({ open, setOpen, token, setSubmitting }) => {
 								</Box>
 								<Box sx={{ display: "flex", gap: "20px" }}>
 									<TextField
+										minlength="11"
+										maxlength="11"
 										size='small'
 										sx={{ my: 0.5 }}
 										fullWidth
 										label='Branch Contact'
 										helperText='Branch Contact'
-										{...register("branchContact", { min: 11, max: 11 }, { required: true })}
+										{...register("branchContact", { required: true })}
 									/>
 									<TextField
 										size='small'
