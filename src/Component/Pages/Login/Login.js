@@ -5,7 +5,6 @@ import logo from "../../../asstes/images/logo.png";
 import Checkbox from "@mui/material/Checkbox";
 import LockIcon from "@mui/icons-material/Lock";
 import { Link } from "react-router-dom";
-
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
 const Login = () => {
