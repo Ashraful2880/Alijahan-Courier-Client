@@ -1,6 +1,13 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { CircularProgress, Grid, Backdrop, Typography, Box, Button, } from "@mui/material";
+import {
+	CircularProgress,
+	Grid,
+	Backdrop,
+	Typography,
+	Box,
+	Button,
+} from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -97,6 +104,9 @@ const WarehouseParcelList = () => {
 					`${process.env.REACT_APP_API_PATH}/merchantorderStatus/${id}`,
 					{
 						status: "Parcel Received On Warehouse",
+						time: new Date().toLocaleString("en-US", {
+							timeZone: "Asia/Dhaka",
+						}),
 					},
 					{
 						headers: {

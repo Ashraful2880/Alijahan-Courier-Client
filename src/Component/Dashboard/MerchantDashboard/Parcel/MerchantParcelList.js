@@ -1,6 +1,13 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { CircularProgress, Grid, Backdrop, Typography, Box, Button, } from "@mui/material";
+import {
+	CircularProgress,
+	Grid,
+	Backdrop,
+	Typography,
+	Box,
+	Button,
+} from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -21,18 +28,21 @@ const ParcelList = () => {
 
 	useEffect(() => {
 		axios
-			.get(`${process.env.REACT_APP_API_PATH}/merchantordersbyemail/${user?.email}`, {
-				headers: {
-					Authorization: `Bearer ${token}`,
+			.get(
+				`${process.env.REACT_APP_API_PATH}/merchantordersbyemail/${user?.email}`,
+				{
+					headers: {
+						Authorization: `Bearer ${token}`,
+					},
 				},
-			})
+			)
 			.then((response) => {
 				setData(response.data);
 			})
 			.catch((error) => {
 				console.log(error);
 			});
-	}, [token, submitting]);
+	}, [token, submitting, user?.email]);
 	const changeStatus = (id, text) => {
 		Swal.fire({
 			title: "Are You Sure?",
@@ -46,6 +56,9 @@ const ParcelList = () => {
 						`${process.env.REACT_APP_API_PATH}/merchantorderStatus/${id}`,
 						{
 							status: text,
+							time: new Date().toLocaleString("en-US", {
+								timeZone: "Asia/Dhaka",
+							}),
 						},
 						{
 							headers: {
@@ -135,7 +148,7 @@ const ParcelList = () => {
 			<Box sx={{ display: "flex", alignItems: "center" }}>
 				{params.row?.status === "Delivered To Customer By Rider" &&
 					params.row?.paymentCollectionDetails?.collectionStatus ===
-					"Sending Money To Merchant" && (
+						"Sending Money To Merchant" && (
 						<Button
 							onClick={() =>
 								confirmReceive(params.row?._id, "Merchant Received Money")
@@ -155,7 +168,7 @@ const ParcelList = () => {
 
 				{params.row?.status === "Delivered To Customer By Rider" &&
 					params.row?.paymentCollectionDetails?.marchantMoneyStatus ===
-					"Received" && (
+						"Received" && (
 						<Button
 							onClick={() => {
 								changeStatus(params.row?._id, "Successfully Completed");
@@ -173,7 +186,7 @@ const ParcelList = () => {
 					)}
 				{params.row?.status !== "Successfully Returned To Merchant" &&
 					params.row?.paymentCollectionDetails?.merchantReturnFeeStatus ===
-					"Paid" && (
+						"Paid" && (
 						<Button
 							onClick={() => {
 								changeStatus(
@@ -194,7 +207,7 @@ const ParcelList = () => {
 					)}
 				{params.row?.status === "Sending Returned Parcel to Merchant" &&
 					params.row?.paymentCollectionDetails?.merchantReturnFeeStatus !==
-					"Paid" && (
+						"Paid" && (
 						<Button
 							onClick={() =>
 								confirmReceive(params.row?._id, "Merchant Paid Return Fee")
@@ -253,7 +266,13 @@ const ParcelList = () => {
 			width: 180,
 		},
 		{ field: "status", headerName: "Status", width: 250 },
-		{ field: "_id", headerName: "Action", width: 350, renderCell: renderDetailsButton, disableClickEventBubbling: true, },
+		{
+			field: "_id",
+			headerName: "Action",
+			width: 350,
+			renderCell: renderDetailsButton,
+			disableClickEventBubbling: true,
+		},
 	];
 
 	const [selectedStatus, setSelectedStatus] = useState("All");

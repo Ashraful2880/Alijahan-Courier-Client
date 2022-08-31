@@ -12,7 +12,6 @@ import AddMerchantParcel from "./Component/Dashboard/MerchantDashboard/Parcel/Ad
 import District from "./Component/Dashboard/AdminDashboard/ApplicationSetting/District";
 import ServiceCharge from "./Component/Dashboard/MerchantDashboard/ServiceCharge";
 import CoverageArea from "./Component/Dashboard/MerchantDashboard/CoverageArea";
-import OrderTracking from "./Component/Dashboard/MerchantDashboard/OrderTracking";
 import DeliveryPaymentList from "./Component/Dashboard/MerchantDashboard/Account/DeliveryPaymentList";
 import Area from "./Component/Dashboard/AdminDashboard/ApplicationSetting/Area/Area";
 import Unit from "./Component/Dashboard/AdminDashboard/TraditionalParcelSetting/Unit";
@@ -60,6 +59,7 @@ import NotFound from "./Component/Pages/Home/NotFound/NotFound";
 import RequireAuth from "./FirebaseAuth/RequireAuth";
 import PageCoverageArea from "./Component/Pages/CoverageArea/PageCoverageArea";
 import { useEffect, useState } from "react";
+import OrderTracking from "./Component/Dashboard/MerchantDashboard/OrderTracking/OrderTracking";
 
 function App() {
 	return (
