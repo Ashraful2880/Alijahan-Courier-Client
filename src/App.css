@@ -213,3 +213,16 @@ input[type="number"] {
 	right: 50%;
 	transform: translate(50%, -50%);
 }
+
+.dbHomeBackground {
+	background-image: linear-gradient(rgba(0, 0, 0, 0.774), rgba(0, 0, 0, 0.801)), url("./Assets/Image/sliderimg.png") !important;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-attachment: fixed;
+	display: flex;
+	flex-direction: column;
+	justify-items: center;
+	justify-content: center;
+	align-items: center;
+}

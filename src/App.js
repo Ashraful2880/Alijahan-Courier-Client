@@ -26,13 +26,9 @@ import ItemCategory from "./Component/Dashboard/AdminDashboard/TraditionalParcel
 import RidersParcelList from "./Component/Dashboard/RiderDashboard/Parcel/RidersParcelList";
 import WarehouseParcelList from "./Component/Dashboard/WarehouseDashboard/Parcel/WarehouseParcelList";
 import WarehouseProfile from "./Component/Dashboard/WarehouseDashboard/WarehouseProfile";
-import BranchHome from "./Component/Dashboard/BranchDashboard/BranchHome";
 import BranchProfile from "./Component/Dashboard/BranchDashboard/BranchProfile";
 import BranchParcelList from "./Component/Dashboard/BranchDashboard/Parcel/BranchParcelList";
-import RiderDashboardHome from "./Component/Dashboard/RiderDashboard/RiderDashboardHome";
 import RidersProfile from "./Component/Dashboard/RiderDashboard/RidersProfile";
-import MerchantDashboardHome from "./Component/Dashboard/MerchantDashboard/MerchantDashboardHome";
-import WarehouseDashboardHome from "./Component/Dashboard/WarehouseDashboard/WarehouseDashboardHome";
 import AdminParcelList from "./Component/Dashboard/AdminDashboard/Parcel/AdminParcelList";
 import MerchantParcelList from "./Component/Dashboard/MerchantDashboard/Parcel/MerchantParcelList";
 import BranchReceivedParcelList from "./Component/Dashboard/BranchDashboard/Parcel/BranchReceivedParcelList";
@@ -60,6 +56,7 @@ import RequireAuth from "./FirebaseAuth/RequireAuth";
 import PageCoverageArea from "./Component/Pages/CoverageArea/PageCoverageArea";
 import { useEffect, useState } from "react";
 import OrderTracking from "./Component/Dashboard/MerchantDashboard/OrderTracking/OrderTracking";
+import DashboardHome from "./Component/Dashboard/DashboardHome/DashboardHome";
 
 function App() {
 	return (
@@ -89,14 +86,13 @@ function App() {
 						<Route path='*' element={<NotFound />} />
 						<Route path='/login' element={<Login />} />
 						<Route
-							exact
 							path='/dashboard'
 							element={
 								<RequireAuth>
 									<Dashboard />
 								</RequireAuth>
 							}>
-							{/* <Route path='/dashboard' element={<DashboardHome />} /> */}
+							<Route path='/dashboard' element={<DashboardHome />} />
 							<Route path='/dashboard/branches' element={<Branches />} />
 							<Route
 								path='/dashboard/deliveryPaymentList'
@@ -141,10 +137,6 @@ function App() {
 							<Route path='/dashboard/allUsers' element={<AllUsers />} />
 							{/* Branch Dashboard Code Here */}
 							<Route
-								path='/dashboard/branchDashboard/home'
-								element={<BranchHome />}
-							/>
-							<Route
 								path='/dashboard/branchDashboard/profile'
 								element={<BranchProfile />}
 							/>
@@ -161,10 +153,6 @@ function App() {
 								element={<BranchReceivedParcelList />}
 							/>
 							{/* Merchant Dashboard Code Here */}
-							<Route
-								path='/dashboard/merchantDashboard/home'
-								element={<MerchantDashboardHome />}
-							/>
 							<Route
 								path='/dashboard/merchantDashboard/profile'
 								element={<MerchantProfile />}
@@ -195,10 +183,6 @@ function App() {
 							/>
 							{/* Warehouse Dashboard Code Here */}
 							<Route
-								path='/dashboard/warehouseDashboard/home'
-								element={<WarehouseDashboardHome />}
-							/>
-							<Route
 								path='/dashboard/warehouseDashboard/profile'
 								element={<WarehouseProfile />}
 							/>
@@ -207,10 +191,6 @@ function App() {
 								element={<WarehouseParcelList />}
 							/>
 							{/* Riders Dashboard Code Here */}
-							<Route
-								path='/dashboard/ridersDashboard/home'
-								element={<RiderDashboardHome />}
-							/>
 							<Route
 								path='/dashboard/ridersDashboard/profile'
 								element={<RidersProfile />}
