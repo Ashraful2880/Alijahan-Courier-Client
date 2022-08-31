@@ -59,16 +59,6 @@ const BranchDashboard = () => {
 	const location = useLocation();
 	return (
 		<>
-			<Link className='link' to='branchDashboard/home'>
-				<ListItem
-					button
-					className={location?.pathname === "branchDashboard/home" && "activeButton"}>
-					<ListItemIcon className='listItemIcon'>
-						<HomeIcon />
-					</ListItemIcon>
-					<ListItemText primary={"Home"} />
-				</ListItem>
-			</Link>
 			<Link className='link' to='branchDashboard/profile'>
 				<ListItem
 					button

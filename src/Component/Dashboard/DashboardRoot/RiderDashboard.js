@@ -61,16 +61,6 @@ const RiderDashboard = () => {
 	const location = useLocation();
 	return (
 		<>
-			<Link className='link' to='ridersDashboard/home'>
-				<ListItem
-					button
-					className={location?.pathname === "ridersDashboard/home" && "activeButton"}>
-					<ListItemIcon className='listItemIcon'>
-						<HomeIcon />
-					</ListItemIcon>
-					<ListItemText primary={"Home"} />
-				</ListItem>
-			</Link>
 			<Link className='link' to='ridersDashboard/profile'>
 				<ListItem
 					button

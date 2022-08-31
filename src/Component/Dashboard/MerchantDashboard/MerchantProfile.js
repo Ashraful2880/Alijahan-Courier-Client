@@ -13,6 +13,7 @@ import axios from "axios";
 const MerchantProfile = () => {
 	const { user, loading, token } = GetAuth();
 	const [merchant, setMerchant] = useState();
+	const [currentUser, setCurrentUser] = React.useState("")
 
 	useEffect(() => {
 		axios
@@ -23,6 +24,18 @@ const MerchantProfile = () => {
 			})
 			.then((response) => {
 				setMerchant(response.data);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+		axios
+			.get(`${process.env.REACT_APP_API_PATH}/userByEmail/${user?.email}`, {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			})
+			.then((response) => {
+				setCurrentUser(response?.data);
 			})
 			.catch((error) => {
 				console.log(error);
@@ -55,7 +68,7 @@ const MerchantProfile = () => {
 				<Typography
 					variant='h5'
 					sx={{ fontWeight: "bold", marginBottom: "15px" }}>
-					Welcome Back! <span style={{ color: "green" }}>Mr John</span>
+					Welcome Back! <span style={{ color: "green" }}>{currentUser?.userRole}</span>
 				</Typography>
 				<TableContainer
 					component={Paper}

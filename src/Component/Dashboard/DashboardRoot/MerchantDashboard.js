@@ -6,7 +6,6 @@ import ListItemText from "@mui/material/ListItemText";
 import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import HomeIcon from "@mui/icons-material/Home";
 import FormatListNumberedIcon from "@mui/icons-material/FormatListNumbered";
 import RedeemIcon from "@mui/icons-material/Redeem";
 import AddTaskIcon from "@mui/icons-material/AddTask";
@@ -57,23 +56,12 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 
 const MerchantDashboard = () => {
 	const [expanded, setExpanded] = React.useState("");
-
 	const handleChange = (panel) => (event, newExpanded) => {
 		setExpanded(newExpanded ? panel : false);
 	};
 	const location = useLocation();
 	return (
 		<>
-			<Link className='link' to='merchantDashboard/home'>
-				<ListItem
-					button
-					className={location?.pathname === "merchantDashboard/home" && "activeButton"}>
-					<ListItemIcon className='listItemIcon'>
-						<HomeIcon />
-					</ListItemIcon>
-					<ListItemText primary={"Home"} />
-				</ListItem>
-			</Link>
 			<Link className='link' to='merchantDashboard/profile'>
 				<ListItem
 					button
