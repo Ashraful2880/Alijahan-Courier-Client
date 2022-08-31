@@ -12,7 +12,7 @@ import axios from "axios";
 
 const MerchantProfile = () => {
 	const { user, loading, token } = GetAuth();
-	const [merchant, setMerchant] = useState();
+	const [merchant, setMerchant] = useState([]);
 	const [currentUser, setCurrentUser] = React.useState("")
 
 	useEffect(() => {

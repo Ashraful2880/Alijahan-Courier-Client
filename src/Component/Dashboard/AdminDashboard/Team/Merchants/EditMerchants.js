@@ -50,8 +50,9 @@ const EditMerchants = ({ open, setOpen, id, token, setSubmitting }) => {
 	});
 	const [error, setError] = useState(false);
 	const [selectedBranch, setSelectedBranch] = useState();
-	const [branches, setBranches] = useState();
-	const [districts, setDistricts] = useState();
+	const [branches, setBranches] = useState([]);
+	const [districts, setDistricts] = useState([]);
+
 	useEffect(() => {
 		axios
 			.get(`${process.env.REACT_APP_API_PATH}/branches`, {
@@ -60,7 +61,7 @@ const EditMerchants = ({ open, setOpen, id, token, setSubmitting }) => {
 				},
 			})
 			.then((response) => {
-				setBranches(response.data);
+				setBranches(response?.data);
 			})
 			.catch((error) => {
 				console.log(error);
@@ -72,13 +73,14 @@ const EditMerchants = ({ open, setOpen, id, token, setSubmitting }) => {
 				},
 			})
 			.then((response) => {
-				setDistricts(response.data);
+				setDistricts(response?.data);
 			})
 			.catch((error) => {
 				console.log(error);
 			});
 	}, [token]);
-	const [data, setData] = React.useState();
+	const [data, setData] = React.useState([]);
+
 	useEffect(() => {
 		axios
 			.get(`${process.env.REACT_APP_API_PATH}/merchant/${id}`, {
@@ -87,8 +89,8 @@ const EditMerchants = ({ open, setOpen, id, token, setSubmitting }) => {
 				},
 			})
 			.then((response) => {
-				reset(response.data);
-				setData(response.data);
+				reset(response?.data);
+				setData(response?.data);
 			})
 			.catch((error) => {
 				console.log(error);
@@ -231,12 +233,12 @@ const EditMerchants = ({ open, setOpen, id, token, setSubmitting }) => {
 										size='small'
 										sx={{ my: 0.5, width: "100% !important" }}
 										options={districts}
-										getOptionLabel={(option) => option.district}
+										getOptionLabel={(option) => option?.district}
 										style={{ width: 300 }}
 										defaultValue={
 											districts[
 											districts?.findIndex(
-												(x) => x.district === data?.merchantDistrict,
+												(x) => x?.district === data?.merchantDistrict,
 											)
 											]
 										}
@@ -261,12 +263,12 @@ const EditMerchants = ({ open, setOpen, id, token, setSubmitting }) => {
 											size='small'
 											sx={{ my: 0.5, width: "100% !important" }}
 											options={branches}
-											getOptionLabel={(option) => option.branchName}
+											getOptionLabel={(option) => option?.branchName}
 											style={{ width: 300 }}
 											defaultValue={
 												branches[
 												branches?.findIndex(
-													(x) => x.branchName === data?.merchantBranchName,
+													(x) => x?.branchName === data?.merchantBranchName,
 												)
 												]
 											}
@@ -283,7 +285,8 @@ const EditMerchants = ({ open, setOpen, id, token, setSubmitting }) => {
 												/>
 											)}
 										/>
-										<Autocomplete
+
+										{/* <Autocomplete
 											size='small'
 											sx={{ my: 0.5, width: "100% !important" }}
 											options={
@@ -300,7 +303,7 @@ const EditMerchants = ({ open, setOpen, id, token, setSubmitting }) => {
 													(x) => x?.branchName === data?.merchantBranchName,
 												)
 												?.branchArea?.find(
-													(xy) => xy.area === data?.merchantArea || [],
+													(xy) => xy?.area === data?.merchantArea || [],
 												)}
 											renderInput={(params) => (
 												<TextField
@@ -312,6 +315,16 @@ const EditMerchants = ({ open, setOpen, id, token, setSubmitting }) => {
 													helperText='Area'
 												/>
 											)}
+										/> */}
+										<TextField
+											disabled
+											size='small'
+											sx={{ my: 0.5 }}
+											fullWidth
+											required
+											label='Merchant Area'
+											helperText='Merchant Area'
+											{...register("merchantArea", { required: true })}
 										/>
 									</Box>
 									<Box sx={{ display: "flex", gap: "20px" }}>

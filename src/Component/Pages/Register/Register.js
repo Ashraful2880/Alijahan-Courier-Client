@@ -15,13 +15,13 @@ import { useState } from "react";
 import { useEffect } from "react";
 
 const Register = ({ token }) => {
-	const [data, setData] = useState();
+	const [data, setData] = useState([]);
 	const { register, handleSubmit, reset, watch } = useForm();
 	const [errors, setErrors] = useState(false);
 	const [branches, setBranches] = useState([]);
 	const [selectedDistricts, setSelectedDistricts] = useState([]);
-	const [districts, setDistricts] = useState();
-	const [area, setArea] = useState();
+	const [districts, setDistricts] = useState([]);
+	const [area, setArea] = useState([]);
 	const [num, setNum] = React.useState();
 	useEffect(() => {
 		axios

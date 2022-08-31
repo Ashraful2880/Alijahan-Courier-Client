@@ -54,7 +54,7 @@ const AddWarehouseUsers = ({ open, setOpen, token, setSubmitting }) => {
 			confirmButtonText: "Ok",
 		});
 	}
-	const [data, setData] = useState();
+	const [data, setData] = useState([]);
 	const [num, setNum] = React.useState();
 	useEffect(() => {
 		if (user) {

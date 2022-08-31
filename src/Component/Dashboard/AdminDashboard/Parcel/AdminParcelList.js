@@ -9,8 +9,8 @@ import AspectRatioIcon from "@mui/icons-material/AspectRatio";
 
 const AdminParcelList = () => {
 	const { user, loading, token } = GetAuth();
-	const [data, setData] = useState();
-	const [parcelData, setParcelData] = useState();
+	const [data, setData] = useState([]);
+	const [parcelData, setParcelData] = useState([]);
 	const [opens, setOpens] = React.useState(false);
 	useEffect(() => {
 		axios
@@ -157,7 +157,7 @@ const AdminParcelList = () => {
 			<Grid container spacing={1} sx={{ justifyContent: "center", px: 2 }}>
 				<Grid item xs={12} md={12}>
 					{filterData && (
-						<div style={{ height: 400, width: "100%" }} className='table'>
+						<div style={{ height: "80vh", width: "100%" }} className='table'>
 							<DataGrid
 								rows={filteredByMarchant}
 								getRowId={(row) => row?._id}

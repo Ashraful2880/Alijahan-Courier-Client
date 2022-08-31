@@ -21,16 +21,16 @@ const MerchantOrder = () => {
 	const [submitting, setSubmitting] = useState(false);
 	const { register, handleSubmit, reset } = useForm();
 	const [selectedDistricts, setSelectedDistricts] = useState("");
-	const [branch, setBranch] = useState();
+	const [branch, setBranch] = useState([]);
 	const [productCategory, setProductCategory] = useState();
 	const [weight, setWeight] = useState();
 	const [selectWeight, setSelectWeight] = useState();
 	const [cashCollection, setCashCollection] = useState();
-	const [districts, setDistricts] = useState();
-	const [marchant, setMarchant] = useState();
-	const [areas, setAreas] = useState();
-	const [selectedArea, setSelectedArea] = useState();
-	const [serviceAreas, setServiceAreas] = useState();
+	const [districts, setDistricts] = useState([]);
+	const [marchant, setMarchant] = useState([]);
+	const [areas, setAreas] = useState([]);
+	const [selectedArea, setSelectedArea] = useState([]);
+	const [serviceAreas, setServiceAreas] = useState([]);
 	const [num, setNum] = React.useState();
 
 	const senderBranch = branch?.find(

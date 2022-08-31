@@ -37,11 +37,11 @@ const style = {
 
 const AddBranches = ({ open, setOpen, token, setSubmitting }) => {
 	const { register, handleSubmit, reset } = useForm();
-	const [areas, setAreas] = useState();
+	const [areas, setAreas] = useState([]);
 	const [selectedDistricts, setSelectedDistricts] = useState("");
 	const [districts, setDistricts] = useState([]);
 	const [warehouses, setWarehouses] = useState([]);
-	const [warehouse, setWarehouse] = useState();
+	const [warehouse, setWarehouse] = useState([]);
 	const [num, setNum] = React.useState();
 	useEffect(() => {
 		axios
@@ -96,7 +96,7 @@ const AddBranches = ({ open, setOpen, token, setSubmitting }) => {
 			confirmButtonText: "Ok",
 		});
 	}
-	const [data, setData] = useState();
+	const [data, setData] = useState([]);
 	useEffect(() => {
 		if (user) {
 			axios

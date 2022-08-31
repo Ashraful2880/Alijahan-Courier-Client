@@ -46,8 +46,8 @@ const EditArea = ({ open, setOpen, id, token, setSubmitting }) => {
 		},
 	});
 
-	const [data, setData] = React.useState();
-	const [districts, setDistricts] = useState();
+	const [data, setData] = React.useState([]);
+	const [districts, setDistricts] = useState([]);
 
 	console.log(data);
 	useEffect(() => {
@@ -156,9 +156,9 @@ const EditArea = ({ open, setOpen, id, token, setSubmitting }) => {
 										getOptionLabel={(option) => option.district}
 										defaultValue={
 											districts[
-												districts?.findIndex(
-													(x) => x.district === data?.district,
-												)
+											districts?.findIndex(
+												(x) => x.district === data?.district,
+											)
 											]
 										}
 										style={{ width: 300 }}
@@ -186,11 +186,11 @@ const EditArea = ({ open, setOpen, id, token, setSubmitting }) => {
 												{ areaType: "Sub City" },
 												{ areaType: "Union Level" },
 											][
-												[
-													{ areaType: "City" },
-													{ areaType: "Sub City" },
-													{ areaType: "Union Level" },
-												]?.findIndex((x) => x.areaType === data?.areaType)
+											[
+												{ areaType: "City" },
+												{ areaType: "Sub City" },
+												{ areaType: "Union Level" },
+											]?.findIndex((x) => x.areaType === data?.areaType)
 											]
 										}
 										style={{ width: 300 }}

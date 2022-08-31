@@ -40,7 +40,7 @@ const AddMerchants = ({ open, setOpen, token, setSubmitting }) => {
 	const [errors, setErrors] = useState(false);
 	const [selectedBranch, setSelectedBranch] = useState([]);
 	const [branches, setBranches] = useState([]);
-	const [districts, setDistricts] = useState();
+	const [districts, setDistricts] = useState([]);
 	const [num, setNum] = React.useState();
 	useEffect(() => {
 		axios
@@ -50,7 +50,7 @@ const AddMerchants = ({ open, setOpen, token, setSubmitting }) => {
 				},
 			})
 			.then((response) => {
-				setBranches(response.data);
+				setBranches(response?.data);
 			})
 			.catch((error) => {
 				console.log(error);
@@ -62,7 +62,7 @@ const AddMerchants = ({ open, setOpen, token, setSubmitting }) => {
 				},
 			})
 			.then((response) => {
-				setDistricts(response.data);
+				setDistricts(response?.data);
 			})
 			.catch((error) => {
 				console.log(error);
@@ -82,7 +82,7 @@ const AddMerchants = ({ open, setOpen, token, setSubmitting }) => {
 			confirmButtonText: "Ok",
 		});
 	}
-	const [data, setData] = useState();
+	const [data, setData] = useState([]);
 
 	useEffect(() => {
 		if (user) {
@@ -230,7 +230,7 @@ const AddMerchants = ({ open, setOpen, token, setSubmitting }) => {
 								size='small'
 								sx={{ my: 0.5, width: "100% !important" }}
 								options={districts}
-								getOptionLabel={(option) => option.district}
+								getOptionLabel={(option) => option?.district}
 								style={{ width: 300 }}
 								renderInput={(params) => (
 									<TextField
@@ -253,7 +253,7 @@ const AddMerchants = ({ open, setOpen, token, setSubmitting }) => {
 									size='small'
 									sx={{ my: 0.5, width: "100% !important" }}
 									options={branches}
-									getOptionLabel={(option) => option.branchName}
+									getOptionLabel={(option) => option?.branchName}
 									style={{ width: 300 }}
 									renderInput={(params) => (
 										<TextField
@@ -270,7 +270,7 @@ const AddMerchants = ({ open, setOpen, token, setSubmitting }) => {
 									size='small'
 									sx={{ my: 0.5, width: "100% !important" }}
 									options={selectedBranch?.branchArea || []}
-									getOptionLabel={(option) => option.area}
+									getOptionLabel={(option) => option?.area}
 									style={{ width: 300 }}
 									renderInput={(params) => (
 										<TextField

@@ -50,10 +50,10 @@ const EditBranches = ({ open, setOpen, id, token, setSubmitting }) => {
 		},
 	});
 	const [value, setValue] = React.useState();
-	const [areas, setAreas] = useState();
+	const [areas, setAreas] = useState([]);
 	const [selectedDistricts, setSelectedDistricts] = useState("");
 	const [warehouses, setWarehouses] = useState([]);
-	const [warehouse, setWarehouse] = useState();
+	const [warehouse, setWarehouse] = useState([]);
 	const [districts, setDistricts] = useState([]);
 	useEffect(() => {
 		axios
@@ -69,7 +69,7 @@ const EditBranches = ({ open, setOpen, id, token, setSubmitting }) => {
 				console.log(error);
 			});
 	}, [token]);
-	const [data, setData] = React.useState();
+	const [data, setData] = React.useState([]);
 	useEffect(() => {
 		axios
 			.get(`${process.env.REACT_APP_API_PATH}/branch/${id}`, {

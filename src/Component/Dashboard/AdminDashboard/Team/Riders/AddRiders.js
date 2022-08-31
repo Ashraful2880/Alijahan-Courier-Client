@@ -31,7 +31,7 @@ const style = {
 
 const AddRiders = ({ open, setOpen, token, setSubmitting }) => {
 	const { register, handleSubmit, reset, watch } = useForm();
-	const [branch, setBranch] = useState();
+	const [branch, setBranch] = useState([]);
 	const [errors, setErrors] = useState(false);
 	const [num, setNum] = React.useState();
 	useEffect(() => {
@@ -62,7 +62,7 @@ const AddRiders = ({ open, setOpen, token, setSubmitting }) => {
 			confirmButtonText: "Ok",
 		});
 	}
-	const [data, setData] = useState();
+	const [data, setData] = useState([]);
 	useEffect(() => {
 		if (user) {
 			axios
