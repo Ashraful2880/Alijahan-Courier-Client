@@ -300,7 +300,7 @@ const EditMerchants = ({ open, setOpen, id, token, setSubmitting }) => {
 													(x) => x?.branchName === data?.merchantBranchName,
 												)
 												?.branchArea?.find(
-													(xy) => xy.area === data?.merchantArea,
+													(xy) => xy.area === data?.merchantArea || [],
 												)}
 											renderInput={(params) => (
 												<TextField

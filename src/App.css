@@ -198,3 +198,18 @@ input[type="number"] {
 	transform: translate(-50%, -50%);
 	opacity: 0.1;
 }
+
+.registerBackground {
+	background-image: linear-gradient(rgba(0, 0, 0, 0.664), rgba(0, 0, 0, 0.664)), url("./Assets/Image/sliderimg.png");
+	background-size: cover;
+	background-attachment: fixed;
+	background-repeat: no-repeat;
+	height: 90vh;
+}
+
+.center {
+	position: absolute;
+	top: 50%;
+	right: 50%;
+	transform: translate(50%, -50%);
+}
