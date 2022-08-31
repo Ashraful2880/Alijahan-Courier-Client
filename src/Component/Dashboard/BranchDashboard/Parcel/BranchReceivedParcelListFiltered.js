@@ -1,7 +1,26 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { CircularProgress, Grid, Backdrop, Typography, Box, FormControl, Select, MenuItem, Button, Fade, Modal, TextField, Autocomplete, } from "@mui/material";
-import { DataGrid, GridToolbarContainer, GridToolbarColumnsButton, GridToolbarFilterButton, } from "@mui/x-data-grid";
+import {
+	CircularProgress,
+	Grid,
+	Backdrop,
+	Typography,
+	Box,
+	FormControl,
+	Select,
+	MenuItem,
+	Button,
+	Fade,
+	Modal,
+	TextField,
+	Autocomplete,
+} from "@mui/material";
+import {
+	DataGrid,
+	GridToolbarContainer,
+	GridToolbarColumnsButton,
+	GridToolbarFilterButton,
+} from "@mui/x-data-grid";
 import axios from "axios";
 import Swal from "sweetalert2";
 import GetAuth from "../../../../FirebaseAuth/GetAuth";
@@ -43,8 +62,12 @@ const BranchReceivedParcelListFiltered = ({
 		setSelected(data?.filter((e) => selectionModel?.find((n) => n === e._id)));
 	};
 	const handleClosePrint = () => setOpenPrint(false);
-	const handleClose = () => { setOpen(false); };
-	const handleOpen = () => { setOpen(true); };
+	const handleClose = () => {
+		setOpen(false);
+	};
+	const handleOpen = () => {
+		setOpen(true);
+	};
 	const [data, setData] = useState();
 	const [status, setStatus] = useState("");
 	const [riders, setRiders] = useState();
@@ -97,7 +120,7 @@ const BranchReceivedParcelListFiltered = ({
 			.catch((error) => {
 				console.log(error);
 			});
-	}, [token, submitting, branch]);
+	}, [token, submitting, branch, user?.email]);
 	const changeRiderMulti = (event, newValue) => {
 		Swal.fire({
 			title: "Are You Sure?",
@@ -113,6 +136,9 @@ const BranchReceivedParcelListFiltered = ({
 							{
 								deliverRiderInfo: newValue,
 								status: "Assigned Rider For Delivery",
+								time: new Date().toLocaleString("en-US", {
+									timeZone: "Asia/Dhaka",
+								}),
 							},
 							{
 								headers: {
@@ -147,6 +173,9 @@ const BranchReceivedParcelListFiltered = ({
 						{
 							deliverRiderInfo: newValue,
 							status: "Assigned Rider For Delivery",
+							time: new Date().toLocaleString("en-US", {
+								timeZone: "Asia/Dhaka",
+							}),
 						},
 						{
 							headers: {
@@ -253,6 +282,9 @@ const BranchReceivedParcelListFiltered = ({
 								{
 									returnWarehouseInfo: Warehouse,
 									status: event.target.value,
+									time: new Date().toLocaleString("en-US", {
+										timeZone: "Asia/Dhaka",
+									}),
 								},
 								{
 									headers: {
@@ -275,6 +307,9 @@ const BranchReceivedParcelListFiltered = ({
 								`${process.env.REACT_APP_API_PATH}/merchantorderStatus/${item}`,
 								{
 									status: event.target.value,
+									time: new Date().toLocaleString("en-US", {
+										timeZone: "Asia/Dhaka",
+									}),
 								},
 								{
 									headers: {
@@ -302,21 +337,23 @@ const BranchReceivedParcelListFiltered = ({
 				{((params.row?.status === "Assigned Rider For Delivery" &&
 					!params.row?.deliverRiderInfo?.riderName) ||
 					params.row?.status === "Cancelled By Delivery Rider") && (
-						<Autocomplete
-							onChange={(event, newValue) => { changeRider(event, newValue, params.row?._id); }}
-							size='small'
-							sx={{ my: 0.5 }}
-							options={riders}
-							getOptionLabel={(option) => option.riderName}
-							style={{ width: 250 }}
-							renderInput={(params) => (
-								<TextField {...params} label='Select Rider' variant='outlined' />
-							)}
-						/>
-					)}
+					<Autocomplete
+						onChange={(event, newValue) => {
+							changeRider(event, newValue, params.row?._id);
+						}}
+						size='small'
+						sx={{ my: 0.5 }}
+						options={riders}
+						getOptionLabel={(option) => option.riderName}
+						style={{ width: 250 }}
+						renderInput={(params) => (
+							<TextField {...params} label='Select Rider' variant='outlined' />
+						)}
+					/>
+				)}
 				{params.row?.status === "Delivered To Customer By Rider" &&
 					params.row?.paymentCollectionDetails?.collectionStatus ===
-					"Sending Money To Branch" && (
+						"Sending Money To Branch" && (
 						<Button
 							onClick={() =>
 								receiveAndSendMoney(
@@ -325,7 +362,13 @@ const BranchReceivedParcelListFiltered = ({
 									"Money Received In Branch",
 								)
 							}
-							sx={{ my: 1, px: 3, fontWeight: "bold", borderRadius: "25px", border: "2px solid ", }}>
+							sx={{
+								my: 1,
+								px: 3,
+								fontWeight: "bold",
+								borderRadius: "25px",
+								border: "2px solid ",
+							}}>
 							<PaymentsIcon sx={{ mr: 0.5 }} />
 							Receive {params.row?.paymentCollectionDetails?.collectedAmount} ৳
 							from Rider
@@ -333,7 +376,7 @@ const BranchReceivedParcelListFiltered = ({
 					)}
 				{params.row?.status === "Delivered To Customer By Rider" &&
 					params.row?.paymentCollectionDetails?.collectionStatus ===
-					"Money Received In Branch" && (
+						"Money Received In Branch" && (
 						<Button
 							onClick={() =>
 								receiveAndSendMoney(
@@ -342,7 +385,13 @@ const BranchReceivedParcelListFiltered = ({
 									"Sending Money To Accounts",
 								)
 							}
-							sx={{ my: 1, px: 3, fontWeight: "bold", borderRadius: "25px", border: "2px solid ", }}>
+							sx={{
+								my: 1,
+								px: 3,
+								fontWeight: "bold",
+								borderRadius: "25px",
+								border: "2px solid ",
+							}}>
 							<PaymentsIcon sx={{ mr: 0.5 }} />
 							Send {params.row?.paymentCollectionDetails?.collectedAmount} ৳ to
 							Accounts
@@ -400,12 +449,19 @@ const BranchReceivedParcelListFiltered = ({
 			<GridToolbarContainer>
 				<GridToolbarColumnsButton />
 				<GridToolbarFilterButton />
-				{
-					selectionModel?.length > 0 &&
-					<Badge badgeContent={selectionModel?.length} color='primary' sx={{ mx: 2, fontSize: "20px", color: "#166534", cursor: "pointer", }}>
+				{selectionModel?.length > 0 && (
+					<Badge
+						badgeContent={selectionModel?.length}
+						color='primary'
+						sx={{
+							mx: 2,
+							fontSize: "20px",
+							color: "#166534",
+							cursor: "pointer",
+						}}>
 						<PrintIcon onClick={handleOpenPrint} />
 					</Badge>
-				}
+				)}
 			</GridToolbarContainer>
 		);
 	}
@@ -436,7 +492,13 @@ const BranchReceivedParcelListFiltered = ({
 						}}
 					/>
 					<Box
-						sx={{ px: 2.5, pb: 1, display: "flex", alignItems: "center", justifyContent: "space-between", }}>
+						sx={{
+							px: 2.5,
+							pb: 1,
+							display: "flex",
+							alignItems: "center",
+							justifyContent: "space-between",
+						}}>
 						<Typography
 							variant='h5'
 							sx={{ fontWeight: "bold", color: "#1E793C" }}>
@@ -449,27 +511,27 @@ const BranchReceivedParcelListFiltered = ({
 							<>
 								{(selectedStatus === "Assigned Rider For Delivery" ||
 									selectedStatus === "Cancelled By Delivery Rider") && (
-										<Autocomplete
-											onChange={(event, newValue) => {
-												changeRiderMulti(event, newValue);
-											}}
-											size='small'
-											sx={{ my: 0.5, width: 200 }}
-											options={riders}
-											getOptionLabel={(option) => option.riderName}
-											renderInput={(params) => (
-												<TextField
-													{...params}
-													label='Select Rider'
-													variant='outlined'
-												/>
-											)}
-										/>
-									)}
+									<Autocomplete
+										onChange={(event, newValue) => {
+											changeRiderMulti(event, newValue);
+										}}
+										size='small'
+										sx={{ my: 0.5, width: 200 }}
+										options={riders}
+										getOptionLabel={(option) => option.riderName}
+										renderInput={(params) => (
+											<TextField
+												{...params}
+												label='Select Rider'
+												variant='outlined'
+											/>
+										)}
+									/>
+								)}
 								{selectedStatus !== "All" && (
 									<Box>
 										{selectedStatus === "Assigned Rider For Delivery" ||
-											selectedStatus === "Cancelled By Delivery Rider" ? (
+										selectedStatus === "Cancelled By Delivery Rider" ? (
 											""
 										) : (
 											<Button
@@ -518,11 +580,11 @@ const BranchReceivedParcelListFiltered = ({
 												)}
 												{selectedStatus ===
 													"Returned Parcel Received in Branch" && (
-														<MenuItem
-															value={"Sending Returned Parcel to Warehouse"}>
-															Sent Returned Parcel to Warehouse
-														</MenuItem>
-													)}
+													<MenuItem
+														value={"Sending Returned Parcel to Warehouse"}>
+														Sent Returned Parcel to Warehouse
+													</MenuItem>
+												)}
 											</Select>
 										</FormControl>
 									</Box>
@@ -568,9 +630,13 @@ const BranchReceivedParcelListFiltered = ({
 						</Grid>
 					</Grid>
 					{/* Print Component Here */}
-					<Print data={selected} handleClosePrint={handleClosePrint}
-						openPrint={openPrint} />
-					<Backdrop sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 999 }}
+					<Print
+						data={selected}
+						handleClosePrint={handleClosePrint}
+						openPrint={openPrint}
+					/>
+					<Backdrop
+						sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 999 }}
 						open={submitting || !data}>
 						<CircularProgress color='inherit' />
 					</Backdrop>

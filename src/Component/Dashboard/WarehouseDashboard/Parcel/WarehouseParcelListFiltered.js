@@ -1,7 +1,25 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { CircularProgress, Grid, Backdrop, Typography, Box, FormControl, Select, MenuItem, Button, Fade, Modal, Badge, } from "@mui/material";
-import { DataGrid, GridToolbarContainer, GridToolbarColumnsButton, GridToolbarFilterButton, } from "@mui/x-data-grid";
+import {
+	CircularProgress,
+	Grid,
+	Backdrop,
+	Typography,
+	Box,
+	FormControl,
+	Select,
+	MenuItem,
+	Button,
+	Fade,
+	Modal,
+	Badge,
+} from "@mui/material";
+import {
+	DataGrid,
+	GridToolbarContainer,
+	GridToolbarColumnsButton,
+	GridToolbarFilterButton,
+} from "@mui/x-data-grid";
 import axios from "axios";
 import Swal from "sweetalert2";
 import PrintIcon from "@mui/icons-material/Print";
@@ -75,7 +93,7 @@ const WarehouseParcelListFiltered = ({
 			.catch((error) => {
 				console.log(error);
 			});
-	}, [token, submitting]);
+	}, [token, submitting, user?.email]);
 	const changeStatusMulti = (event, id) => {
 		Swal.fire({
 			title: "Are You Sure?",
@@ -90,6 +108,9 @@ const WarehouseParcelListFiltered = ({
 							`${process.env.REACT_APP_API_PATH}/merchantorderStatus/${item}`,
 							{
 								status: event.target.value,
+								time: new Date().toLocaleString("en-US", {
+									timeZone: "Asia/Dhaka",
+								}),
 							},
 							{
 								headers: {
@@ -201,17 +222,17 @@ const WarehouseParcelListFiltered = ({
 											)}
 											{selectedStatus ===
 												"Sending Returned Parcel to Warehouse" && (
-													<MenuItem
-														value={"Returned Parcel Received in Warehouse"}>
-														Receive Returned Parcel
-													</MenuItem>
-												)}
+												<MenuItem
+													value={"Returned Parcel Received in Warehouse"}>
+													Receive Returned Parcel
+												</MenuItem>
+											)}
 											{selectedStatus ===
 												"Returned Parcel Received in Warehouse" && (
-													<MenuItem value={"Sending Returned Parcel to Branch"}>
-														Return Parcel to Branch
-													</MenuItem>
-												)}
+												<MenuItem value={"Sending Returned Parcel to Branch"}>
+													Return Parcel to Branch
+												</MenuItem>
+											)}
 										</Select>
 									</FormControl>
 								</Box>
@@ -262,7 +283,7 @@ const WarehouseParcelListFiltered = ({
 						}}>
 						<Typography> Barcode </Typography>
 						<Badge badgeContent={selectionModel?.length} color='primary'>
-							<PrintIcon color="success" />
+							<PrintIcon color='success' />
 						</Badge>
 					</Button>
 				)}
@@ -292,11 +313,9 @@ const WarehouseParcelListFiltered = ({
 							cursor: "pointer",
 							background: "White",
 							borderRadius: "50%",
-						}} />
-					<Grid
-						container
-						spacing={1}
-						sx={{ justifyContent: "center", px: 2, }}>
+						}}
+					/>
+					<Grid container spacing={1} sx={{ justifyContent: "center", px: 2 }}>
 						<Grid item xs={12} md={12}>
 							{data && (
 								<div style={{ height: 400, width: "100%" }} className='table'>
