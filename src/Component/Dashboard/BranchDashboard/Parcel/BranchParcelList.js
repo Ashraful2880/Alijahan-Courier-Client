@@ -9,10 +9,10 @@ import BranchParcelListFiltered from "./BranchParcelListFiltered";
 
 const BranchParcelList = () => {
 	const { user, loading, token } = GetAuth();
-	const [data, setData] = useState();
-	const [branch, setBranch] = useState();
+	const [data, setData] = useState([]);
+	const [branch, setBranch] = useState([]);
 	const [opens, setOpens] = React.useState(false);
-	const [parcelData, setParcelData] = useState();
+	const [parcelData, setParcelData] = useState([]);
 
 	useEffect(() => {
 		axios
@@ -215,7 +215,7 @@ const BranchParcelList = () => {
 			<Grid container spacing={1} sx={{ justifyContent: "center", px: 2 }}>
 				<Grid item xs={12} md={12}>
 					{filterData && (
-						<div style={{ height: 400, width: "100%" }} className='table'>
+						<div style={{ height: "80vh", width: "100%" }} className='table'>
 							<DataGrid
 								rows={filteredByMarchant}
 								getRowId={(row) => row?._id}

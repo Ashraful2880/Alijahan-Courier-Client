@@ -6,7 +6,7 @@ import axios from "axios";
 
 const DashboardHome = () => {
     const { user, loading, token } = GetAuth();
-    const [data, setData] = React.useState();
+    const [data, setData] = React.useState([]);
     const [currentUser, setCurrentUser] = React.useState("")
 
     React.useEffect(() => {

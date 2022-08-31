@@ -61,9 +61,9 @@ const WarehouseParcelListFiltered = ({
 	const handleOpen = () => {
 		setOpen(true);
 	};
-	const [data, setData] = useState();
+	const [data, setData] = useState([]);
 	const [status, setStatus] = useState("");
-	const [selectionModel, setSelectionModel] = React.useState();
+	const [selectionModel, setSelectionModel] = React.useState([]);
 	const [selected, setSelected] = React.useState([]);
 	const [openPrint, setOpenPrint] = React.useState(false);
 	const [openBarCode, setOpenBarCode] = React.useState(false);
@@ -222,17 +222,17 @@ const WarehouseParcelListFiltered = ({
 											)}
 											{selectedStatus ===
 												"Sending Returned Parcel to Warehouse" && (
-												<MenuItem
-													value={"Returned Parcel Received in Warehouse"}>
-													Receive Returned Parcel
-												</MenuItem>
-											)}
+													<MenuItem
+														value={"Returned Parcel Received in Warehouse"}>
+														Receive Returned Parcel
+													</MenuItem>
+												)}
 											{selectedStatus ===
 												"Returned Parcel Received in Warehouse" && (
-												<MenuItem value={"Sending Returned Parcel to Branch"}>
-													Return Parcel to Branch
-												</MenuItem>
-											)}
+													<MenuItem value={"Sending Returned Parcel to Branch"}>
+														Return Parcel to Branch
+													</MenuItem>
+												)}
 										</Select>
 									</FormControl>
 								</Box>
@@ -318,7 +318,7 @@ const WarehouseParcelListFiltered = ({
 					<Grid container spacing={1} sx={{ justifyContent: "center", px: 2 }}>
 						<Grid item xs={12} md={12}>
 							{data && (
-								<div style={{ height: 400, width: "100%" }} className='table'>
+								<div style={{ height: "80vh", width: "100%" }} className='table'>
 									<DataGrid
 										rows={allParcels?.filter(
 											(item) => item.marchentInfo.merchantName === marchantName,

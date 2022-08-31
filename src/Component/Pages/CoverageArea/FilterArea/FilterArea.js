@@ -38,7 +38,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 const FilterArea = ({ uniqArea }) => {
   return (
     <Container sx={{ mt: 5, mb: 5 }}>
-      {uniqArea.length > 0 ? (
+      {uniqArea?.length > 0 ? (
         <TableContainer
           component={Paper}
           sx={{ width: { md: "50%", xs: "100%", mt: 5 } }}

@@ -20,8 +20,8 @@ import ParcelModal from "../../AdminDashboard/Account/ParcelModal";
 const ParcelList = () => {
 	const { user, loading, token } = GetAuth();
 	const [submitting, setSubmitting] = useState(false);
-	const [data, setData] = useState();
-	const [modalData, setModalData] = useState();
+	const [data, setData] = useState([]);
+	const [modalData, setModalData] = useState([]);
 	const [open, setOpen] = React.useState(false);
 	const handleOpen = () => setOpen(true);
 	const handleClose = () => setOpen(false);
@@ -148,7 +148,7 @@ const ParcelList = () => {
 			<Box sx={{ display: "flex", alignItems: "center" }}>
 				{params.row?.status === "Delivered To Customer By Rider" &&
 					params.row?.paymentCollectionDetails?.collectionStatus ===
-						"Sending Money To Merchant" && (
+					"Sending Money To Merchant" && (
 						<Button
 							onClick={() =>
 								confirmReceive(params.row?._id, "Merchant Received Money")
@@ -168,7 +168,7 @@ const ParcelList = () => {
 
 				{params.row?.status === "Delivered To Customer By Rider" &&
 					params.row?.paymentCollectionDetails?.marchantMoneyStatus ===
-						"Received" && (
+					"Received" && (
 						<Button
 							onClick={() => {
 								changeStatus(params.row?._id, "Successfully Completed");
@@ -186,7 +186,7 @@ const ParcelList = () => {
 					)}
 				{params.row?.status !== "Successfully Returned To Merchant" &&
 					params.row?.paymentCollectionDetails?.merchantReturnFeeStatus ===
-						"Paid" && (
+					"Paid" && (
 						<Button
 							onClick={() => {
 								changeStatus(
@@ -207,7 +207,7 @@ const ParcelList = () => {
 					)}
 				{params.row?.status === "Sending Returned Parcel to Merchant" &&
 					params.row?.paymentCollectionDetails?.merchantReturnFeeStatus !==
-						"Paid" && (
+					"Paid" && (
 						<Button
 							onClick={() =>
 								confirmReceive(params.row?._id, "Merchant Paid Return Fee")
@@ -340,7 +340,7 @@ const ParcelList = () => {
 			<Grid container spacing={1} sx={{ justifyContent: "center", px: 2 }}>
 				<Grid item xs={12} md={12}>
 					{filterData && (
-						<div style={{ height: 400, width: "100%" }} className='table'>
+						<div style={{ height: "80vh", width: "100%" }} className='table'>
 							<DataGrid
 								rows={selectedStatus === "All" ? data : filterData}
 								getRowId={(row) => row?._id}

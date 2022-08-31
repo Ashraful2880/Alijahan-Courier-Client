@@ -11,7 +11,7 @@ import axios from "axios";
 
 const RidersProfile = () => {
 	const { user, loading, token } = GetAuth();
-	const [riders, setRiders] = useState();
+	const [riders, setRiders] = useState([]);
 
 	useEffect(() => {
 		axios

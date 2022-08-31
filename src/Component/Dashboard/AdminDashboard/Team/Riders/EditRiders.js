@@ -40,7 +40,7 @@ const EditRiders = ({ open, setOpen, id, token, setSubmitting }) => {
 			riderDOB: "",
 		},
 	});
-	const [branch, setBranch] = useState();
+	const [branch, setBranch] = useState([]);
 	const [error, setError] = useState(false);
 
 	useEffect(() => {
@@ -57,7 +57,7 @@ const EditRiders = ({ open, setOpen, id, token, setSubmitting }) => {
 				console.log(error);
 			});
 	}, [token]);
-	const [data, setData] = React.useState();
+	const [data, setData] = React.useState([]);
 	useEffect(() => {
 		axios
 			.get(`${process.env.REACT_APP_API_PATH}/rider/${id}`, {

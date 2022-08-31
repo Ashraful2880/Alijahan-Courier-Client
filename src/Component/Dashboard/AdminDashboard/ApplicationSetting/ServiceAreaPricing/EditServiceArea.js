@@ -36,7 +36,7 @@ const EditServiceArea = ({ open, setOpen, id, token, setSubmitting }) => {
 		},
 	});
 
-	const [data, setData] = React.useState();
+	const [data, setData] = React.useState([]);
 	useEffect(() => {
 		axios
 			.get(`${process.env.REACT_APP_API_PATH}/serviceArea/${id}`, {

@@ -16,7 +16,7 @@ import GetAuth from "../../../../../FirebaseAuth/GetAuth";
 const Merchants = () => {
 	const { user, loading, token } = GetAuth();
 	const [submitting, setSubmitting] = useState(false);
-	const [data, setData] = useState();
+	const [data, setData] = useState([]);
 	const [open, setOpen] = React.useState(false);
 	const [openEdit, setOpenEdit] = React.useState(false);
 	const [id, setId] = React.useState();
@@ -32,7 +32,7 @@ const Merchants = () => {
 				},
 			})
 			.then((response) => {
-				setData(response.data);
+				setData(response?.data);
 			})
 			.catch((error) => {
 				console.log(error);
@@ -52,7 +52,7 @@ const Merchants = () => {
 								showCancelButton: true,
 								confirmButtonText: "Yes",
 							}).then((result) => {
-								if (result.isConfirmed) {
+								if (result?.isConfirmed) {
 									setSubmitting(true);
 									axios
 										.put(
@@ -87,7 +87,7 @@ const Merchants = () => {
 								showCancelButton: true,
 								confirmButtonText: "Yes",
 							}).then((result) => {
-								if (result.isConfirmed) {
+								if (result?.isConfirmed) {
 									setSubmitting(true);
 									axios
 										.put(
@@ -118,7 +118,7 @@ const Merchants = () => {
 					className='iconBtn'
 					sx={{ color: "green!important" }}
 					onClick={() => {
-						handleOpen(params.row?._id);
+						handleOpen(params?.row?._id);
 					}} />
 				<DeleteIcon
 					className='iconBtn'
@@ -129,11 +129,11 @@ const Merchants = () => {
 							showCancelButton: true,
 							confirmButtonText: "Yes",
 						}).then((result) => {
-							if (result.isConfirmed) {
+							if (result?.isConfirmed) {
 								setSubmitting(true);
 								axios
 									.delete(
-										`${process.env.REACT_APP_API_PATH}/merchant/${params.row?._id}`,
+										`${process.env.REACT_APP_API_PATH}/merchant/${params?.row?._id}`,
 										{
 											headers: {
 												Authorization: `Bearer ${token}`,
@@ -187,7 +187,7 @@ const Merchants = () => {
 			<Grid container spacing={1} sx={{ justifyContent: "center" }}>
 				<Grid item xs={12} md={12}>
 					{data && (
-						<div style={{ height: 400, width: "100%" }} className='table'>
+						<div style={{ height: "80vh", width: "100%" }} className='table'>
 							<DataGrid
 								rows={data}
 								getRowId={(row) => row?._id}
@@ -202,7 +202,7 @@ const Merchants = () => {
 				</Grid>
 			</Grid>
 			<Backdrop
-				sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 999 }}
+				sx={{ color: "#fff", zIndex: (theme) => theme?.zIndex?.drawer + 999 }}
 				open={submitting || !data}>
 				<CircularProgress color='inherit' />
 			</Backdrop>
