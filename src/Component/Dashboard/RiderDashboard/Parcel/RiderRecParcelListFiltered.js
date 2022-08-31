@@ -1,7 +1,25 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { CircularProgress, Grid, Backdrop, Typography, Box, FormControl, Select, MenuItem, Button, Fade, Modal, Badge, } from "@mui/material";
-import { DataGrid, GridToolbarContainer, GridToolbarColumnsButton, GridToolbarFilterButton, } from "@mui/x-data-grid";
+import {
+	CircularProgress,
+	Grid,
+	Backdrop,
+	Typography,
+	Box,
+	FormControl,
+	Select,
+	MenuItem,
+	Button,
+	Fade,
+	Modal,
+	Badge,
+} from "@mui/material";
+import {
+	DataGrid,
+	GridToolbarContainer,
+	GridToolbarColumnsButton,
+	GridToolbarFilterButton,
+} from "@mui/x-data-grid";
 import axios from "axios";
 import Swal from "sweetalert2";
 import PrintIcon from "@mui/icons-material/Print";
@@ -54,18 +72,21 @@ const RiderRecParcelListFiltered = ({
 	const handleClosePrint = () => setOpenPrint(false);
 	useEffect(() => {
 		axios
-			.get(`${process.env.REACT_APP_API_PATH}/riderDeliverOrders/${user?.email}`, {
-				headers: {
-					Authorization: `Bearer ${token}`,
+			.get(
+				`${process.env.REACT_APP_API_PATH}/riderDeliverOrders/${user?.email}`,
+				{
+					headers: {
+						Authorization: `Bearer ${token}`,
+					},
 				},
-			})
+			)
 			.then((response) => {
 				setData(response.data);
 			})
 			.catch((error) => {
 				console.log(error);
 			});
-	}, [token, submitting]);
+	}, [token, submitting, user?.email]);
 
 	const changeStatusMulti = (event) => {
 		Swal.fire({
@@ -81,6 +102,9 @@ const RiderRecParcelListFiltered = ({
 							`${process.env.REACT_APP_API_PATH}/merchantorderStatus/${item}`,
 							{
 								status: event.target.value,
+								time: new Date().toLocaleString("en-US", {
+									timeZone: "Asia/Dhaka",
+								}),
 							},
 							{
 								headers: {
@@ -180,7 +204,7 @@ const RiderRecParcelListFiltered = ({
 			<Box sx={{ display: "flex", alignItems: "center" }}>
 				{params.row?.status === "Delivered To Customer By Rider" &&
 					params.row?.paymentCollectionDetails?.collectionStatus ===
-					"Collected From Customer" && (
+						"Collected From Customer" && (
 						<Button
 							onClick={() =>
 								sendMoneyToBranch(
@@ -202,7 +226,7 @@ const RiderRecParcelListFiltered = ({
 					)}
 				{params.row?.status === "Parcel Received By Delivery Rider" &&
 					params.row?.paymentCollectionDetails?.collectionStatus ===
-					"Pending" && (
+						"Pending" && (
 						<Button
 							onClick={() =>
 								changePaymentStatus(
@@ -272,16 +296,20 @@ const RiderRecParcelListFiltered = ({
 			<GridToolbarContainer>
 				<GridToolbarColumnsButton />
 				<GridToolbarFilterButton />
-				{selectionModel?.length > 0 &&
-					<Badge badgeContent={selectionModel?.length} color='primary' sx={{
-						mx: 2,
-						fontSize: "20px",
-						color: "#166534",
-						cursor: "pointer",
-						zIndex: "999",
-					}}>
+				{selectionModel?.length > 0 && (
+					<Badge
+						badgeContent={selectionModel?.length}
+						color='primary'
+						sx={{
+							mx: 2,
+							fontSize: "20px",
+							color: "#166534",
+							cursor: "pointer",
+							zIndex: "999",
+						}}>
 						<PrintIcon onClick={handleOpenPrint} />
-					</Badge>}
+					</Badge>
+				)}
 			</GridToolbarContainer>
 		);
 	}
@@ -369,16 +397,16 @@ const RiderRecParcelListFiltered = ({
 												)}
 												{selectedStatus ===
 													"Parcel Received By Delivery Rider" && (
-														<MenuItem value={"Delivered To Customer By Rider"}>
-															Deliver To Customer
-														</MenuItem>
-													)}
+													<MenuItem value={"Delivered To Customer By Rider"}>
+														Deliver To Customer
+													</MenuItem>
+												)}
 												{selectedStatus ===
 													"Parcel Received By Delivery Rider" && (
-														<MenuItem value={"Parcel Returned by Customer"}>
-															Parcel Return
-														</MenuItem>
-													)}
+													<MenuItem value={"Parcel Returned by Customer"}>
+														Parcel Return
+													</MenuItem>
+												)}
 												{selectedStatus === "Parcel Returned by Customer" && (
 													<MenuItem value={"Returning Parcel to Branch"}>
 														Returned Parcel Send to Branch
@@ -404,7 +432,10 @@ const RiderRecParcelListFiltered = ({
 							</>
 						)}
 					</Box>
-					<Grid container spacing={1} sx={{ justifyContent: "center", px: 2, position: "relative" }}>
+					<Grid
+						container
+						spacing={1}
+						sx={{ justifyContent: "center", px: 2, position: "relative" }}>
 						<Grid item xs={12} md={12}>
 							{data && (
 								<div style={{ height: 400, width: "100%" }} className='table'>
@@ -429,7 +460,8 @@ const RiderRecParcelListFiltered = ({
 					<Print
 						data={selected}
 						handleClosePrint={handleClosePrint}
-						openPrint={openPrint} />
+						openPrint={openPrint}
+					/>
 					<Backdrop
 						sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 999 }}
 						open={submitting || !data}>

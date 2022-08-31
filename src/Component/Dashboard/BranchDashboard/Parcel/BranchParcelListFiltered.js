@@ -1,7 +1,26 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { CircularProgress, Grid, Backdrop, Typography, Box, FormControl, Select, MenuItem, Button, Fade, Modal, TextField, Autocomplete, } from "@mui/material";
-import { DataGrid, GridToolbarContainer, GridToolbarColumnsButton, GridToolbarFilterButton, } from "@mui/x-data-grid";
+import {
+	CircularProgress,
+	Grid,
+	Backdrop,
+	Typography,
+	Box,
+	FormControl,
+	Select,
+	MenuItem,
+	Button,
+	Fade,
+	Modal,
+	TextField,
+	Autocomplete,
+} from "@mui/material";
+import {
+	DataGrid,
+	GridToolbarContainer,
+	GridToolbarColumnsButton,
+	GridToolbarFilterButton,
+} from "@mui/x-data-grid";
 import axios from "axios";
 import Swal from "sweetalert2";
 import PrintIcon from "@mui/icons-material/Print";
@@ -109,7 +128,7 @@ const BranchParcelListFiltered = ({
 			.catch((error) => {
 				console.log(error);
 			});
-	}, [token, submitting, branch?.branchName]);
+	}, [token, submitting, branch?.branchName, user?.email]);
 
 	const changeStatusMulti = (event, id) => {
 		Swal.fire({
@@ -128,6 +147,9 @@ const BranchParcelListFiltered = ({
 								{
 									warehouseInfo: Warehouse,
 									status: event.target.value,
+									time: new Date().toLocaleString("en-US", {
+										timeZone: "Asia/Dhaka",
+									}),
 								},
 								{
 									headers: {
@@ -150,6 +172,9 @@ const BranchParcelListFiltered = ({
 								`${process.env.REACT_APP_API_PATH}/merchantorderStatus/${item}`,
 								{
 									status: event.target.value,
+									time: new Date().toLocaleString("en-US", {
+										timeZone: "Asia/Dhaka",
+									}),
 								},
 								{
 									headers: {
@@ -187,6 +212,9 @@ const BranchParcelListFiltered = ({
 							{
 								collectRiderInfo: newValue,
 								status: "Assigned for Pickup",
+								time: new Date().toLocaleString("en-US", {
+									timeZone: "Asia/Dhaka",
+								}),
 							},
 							{
 								headers: {
@@ -221,6 +249,9 @@ const BranchParcelListFiltered = ({
 						{
 							collectRiderInfo: newValue,
 							status: "Assigned for Pickup",
+							time: new Date().toLocaleString("en-US", {
+								timeZone: "Asia/Dhaka",
+							}),
 						},
 						{
 							headers: {
@@ -245,19 +276,19 @@ const BranchParcelListFiltered = ({
 				{((params.row?.status === "Assigned for Pickup" &&
 					!params.row?.collectRiderInfo?.riderName) ||
 					params.row?.status === "Cancelled by Pickup Rider") && (
-						<Autocomplete
-							onChange={(event, newValue) => {
-								changeRider(event, newValue, params.row?._id);
-							}}
-							size='small'
-							sx={{ my: 0.5, width: 200 }}
-							options={riders}
-							getOptionLabel={(option) => option.riderName}
-							renderInput={(params) => (
-								<TextField {...params} label='Select Rider' variant='outlined' />
-							)}
-						/>
-					)}
+					<Autocomplete
+						onChange={(event, newValue) => {
+							changeRider(event, newValue, params.row?._id);
+						}}
+						size='small'
+						sx={{ my: 0.5, width: 200 }}
+						options={riders}
+						getOptionLabel={(option) => option.riderName}
+						renderInput={(params) => (
+							<TextField {...params} label='Select Rider' variant='outlined' />
+						)}
+					/>
+				)}
 			</Box>
 		);
 	};
@@ -265,48 +296,64 @@ const BranchParcelListFiltered = ({
 	const columns = [
 		{
 			field: "merchantName",
-			headerName: "Marchant Name", renderCell: (params) => {
+			headerName: "Marchant Name",
+			renderCell: (params) => {
 				return params.row.marchentInfo.merchantName;
-			}, width: 150,
+			},
+			width: 150,
 		},
 		{
-			field: "receiverBranchArea", headerName: "Pickup Address",
+			field: "receiverBranchArea",
+			headerName: "Pickup Address",
 			renderCell: (params) => {
 				return ` ${params.row.receiverInfo.receiverBranchArea}(${params.row.receiverInfo.receiverBranchName})`;
-			}, width: 180,
+			},
+			width: 180,
 		},
 		{
-			field: "receiverAddress", headerName: "Full Address",
+			field: "receiverAddress",
+			headerName: "Full Address",
 			renderCell: (params) => {
 				return params.row.receiverInfo.receiverAddress;
-			}, width: 180,
+			},
+			width: 180,
 		},
 		{
-			field: "receiverNumber", headerName: "Phone Number",
+			field: "receiverNumber",
+			headerName: "Phone Number",
 			renderCell: (params) => {
 				return params.row.receiverInfo.receiverNumber;
-			}, width: 180,
+			},
+			width: 180,
 		},
 		{ field: "status", headerName: "Status", width: 250 },
-		{ field: "_id", headerName: "Action", width: 300, renderCell: renderDetailsButton, disableClickEventBubbling: true, },
+		{
+			field: "_id",
+			headerName: "Action",
+			width: 300,
+			renderCell: renderDetailsButton,
+			disableClickEventBubbling: true,
+		},
 	];
 	function CustomToolbar() {
 		return (
 			<GridToolbarContainer>
 				<GridToolbarColumnsButton />
 				<GridToolbarFilterButton />
-				{
-					selectionModel?.length > 0 &&
-					<Badge badgeContent={selectionModel?.length} color='primary' sx={{
-						mx: 2,
-						fontSize: "20px",
-						color: "#166534",
-						cursor: "pointer",
-						zIndex: "999",
-					}}>
+				{selectionModel?.length > 0 && (
+					<Badge
+						badgeContent={selectionModel?.length}
+						color='primary'
+						sx={{
+							mx: 2,
+							fontSize: "20px",
+							color: "#166534",
+							cursor: "pointer",
+							zIndex: "999",
+						}}>
 						<PrintIcon onClick={handleOpenPrint} />
 					</Badge>
-				}
+				)}
 				{/* Print Icon Barcode */}
 				{selectionModel?.length > 0 && (
 					<Button
@@ -320,7 +367,7 @@ const BranchParcelListFiltered = ({
 						}}>
 						<Typography> Barcode </Typography>
 						<Badge badgeContent={selectionModel?.length} color='primary'>
-							<PrintIcon color="success" />
+							<PrintIcon color='success' />
 						</Badge>
 					</Button>
 				)}
@@ -335,7 +382,7 @@ const BranchParcelListFiltered = ({
 			open={opens}
 			closeAfterTransition
 			BackdropComponent={Backdrop}
-			BackdropProps={{ timeout: 500, }}>
+			BackdropProps={{ timeout: 500 }}>
 			<Fade in={opens}>
 				<Box sx={style}>
 					<CancelIcon
@@ -352,7 +399,13 @@ const BranchParcelListFiltered = ({
 						}}
 					/>
 					<Box
-						sx={{ px: 2.5, pb: 1, display: "flex", alignItems: "center", justifyContent: "space-between", }}>
+						sx={{
+							px: 2.5,
+							pb: 1,
+							display: "flex",
+							alignItems: "center",
+							justifyContent: "space-between",
+						}}>
 						<Typography
 							variant='h5'
 							sx={{ fontWeight: "bold", color: "#1E793C" }}>
@@ -365,22 +418,27 @@ const BranchParcelListFiltered = ({
 							<>
 								{(selectedStatus === "Assigned for Pickup" ||
 									selectedStatus === "Cancelled by Pickup Rider") && (
-										<Autocomplete
-											onChange={(event, newValue) => { changeRiderMulti(event, newValue); }}
-											size='small'
-											sx={{ my: 0.5, width: 200 }}
-											options={riders}
-											getOptionLabel={(option) => option.riderName}
-											renderInput={(params) => (
-												<TextField
-													{...params}
-													label='Select Rider'
-													variant='outlined' />)} />
-									)}
+									<Autocomplete
+										onChange={(event, newValue) => {
+											changeRiderMulti(event, newValue);
+										}}
+										size='small'
+										sx={{ my: 0.5, width: 200 }}
+										options={riders}
+										getOptionLabel={(option) => option.riderName}
+										renderInput={(params) => (
+											<TextField
+												{...params}
+												label='Select Rider'
+												variant='outlined'
+											/>
+										)}
+									/>
+								)}
 								{selectedStatus !== "All" && (
 									<Box>
 										{selectedStatus === "Assigned for Pickup" ||
-											selectedStatus === "Cancelled by Pickup Rider" ? (
+										selectedStatus === "Cancelled by Pickup Rider" ? (
 											""
 										) : (
 											<Button
@@ -418,10 +476,10 @@ const BranchParcelListFiltered = ({
 												)}
 												{selectedStatus ===
 													"Delivered To Branch By Pickup Rider" && (
-														<MenuItem value={"Received in Pickup Branch"}>
-															Received in Pickup Branch
-														</MenuItem>
-													)}
+													<MenuItem value={"Received in Pickup Branch"}>
+														Received in Pickup Branch
+													</MenuItem>
+												)}
 												{selectedStatus === "Received in Pickup Branch" && (
 													<MenuItem value={"Delivered To Warehouse"}>
 														Deliver To Warehouse
@@ -429,18 +487,18 @@ const BranchParcelListFiltered = ({
 												)}
 												{selectedStatus ===
 													"Sending Returned Parcel to Branch" && (
-														<MenuItem
-															value={"Returned Parcel Received in Branch"}>
-															Returned Parcel Received
-														</MenuItem>
-													)}
+													<MenuItem
+														value={"Returned Parcel Received in Branch"}>
+														Returned Parcel Received
+													</MenuItem>
+												)}
 												{selectedStatus ===
 													"Returned Parcel Received in Branch" && (
-														<MenuItem
-															value={"Sending Returned Parcel to Merchant"}>
-															Sent Returned Parcel to Merchant
-														</MenuItem>
-													)}
+													<MenuItem
+														value={"Sending Returned Parcel to Merchant"}>
+														Sent Returned Parcel to Merchant
+													</MenuItem>
+												)}
 											</Select>
 										</FormControl>
 									</Box>

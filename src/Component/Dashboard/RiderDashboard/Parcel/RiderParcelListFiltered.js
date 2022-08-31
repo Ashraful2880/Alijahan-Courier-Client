@@ -1,7 +1,25 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { CircularProgress, Grid, Backdrop, Typography, Box, FormControl, Select, MenuItem, Button, Fade, Modal, Badge, } from "@mui/material";
-import { DataGrid, GridToolbarContainer, GridToolbarColumnsButton, GridToolbarFilterButton, } from "@mui/x-data-grid";
+import {
+	CircularProgress,
+	Grid,
+	Backdrop,
+	Typography,
+	Box,
+	FormControl,
+	Select,
+	MenuItem,
+	Button,
+	Fade,
+	Modal,
+	Badge,
+} from "@mui/material";
+import {
+	DataGrid,
+	GridToolbarContainer,
+	GridToolbarColumnsButton,
+	GridToolbarFilterButton,
+} from "@mui/x-data-grid";
 import axios from "axios";
 import Swal from "sweetalert2";
 import PrintIcon from "@mui/icons-material/Print";
@@ -55,18 +73,21 @@ const RiderParcelListFiltered = ({
 	const handleClosePrint = () => setOpenPrint(false);
 	useEffect(() => {
 		axios
-			.get(`${process.env.REACT_APP_API_PATH}/riderCollectOrders/${user?.email}`, {
-				headers: {
-					Authorization: `Bearer ${token}`,
+			.get(
+				`${process.env.REACT_APP_API_PATH}/riderCollectOrders/${user?.email}`,
+				{
+					headers: {
+						Authorization: `Bearer ${token}`,
+					},
 				},
-			})
+			)
 			.then((response) => {
 				setData(response.data);
 			})
 			.catch((error) => {
 				console.log(error);
 			});
-	}, [token, submitting]);
+	}, [token, submitting, user?.email]);
 
 	const changeStatusMulti = (event, id) => {
 		Swal.fire({
@@ -82,6 +103,9 @@ const RiderParcelListFiltered = ({
 							`${process.env.REACT_APP_API_PATH}/merchantorderStatus/${item}`,
 							{
 								status: event.target.value,
+								time: new Date().toLocaleString("en-US", {
+									timeZone: "Asia/Dhaka",
+								}),
 							},
 							{
 								headers: {
@@ -179,7 +203,7 @@ const RiderParcelListFiltered = ({
 			<Box sx={{ display: "flex", alignItems: "center" }}>
 				{params.row?.status === "Delivered To Customer By Rider" &&
 					params.row?.paymentCollectionDetails?.collectionStatus ===
-					"Collected From Customer" && (
+						"Collected From Customer" && (
 						<Button
 							onClick={() =>
 								sendMoneyToBranch(
@@ -201,7 +225,7 @@ const RiderParcelListFiltered = ({
 					)}
 				{params.row?.status === "Parcel Received By Delivery Rider" &&
 					params.row?.paymentCollectionDetails?.collectionStatus ===
-					"Pending" && (
+						"Pending" && (
 						<Button
 							onClick={() =>
 								changePaymentStatus(
@@ -272,16 +296,20 @@ const RiderParcelListFiltered = ({
 			<GridToolbarContainer>
 				<GridToolbarColumnsButton />
 				<GridToolbarFilterButton />
-				{selectionModel?.length > 0 &&
-					<Badge badgeContent={selectionModel?.length} color='primary' sx={{
-						mx: 2,
-						fontSize: "20px",
-						color: "#166534",
-						cursor: "pointer",
-						zIndex: "999",
-					}}>
+				{selectionModel?.length > 0 && (
+					<Badge
+						badgeContent={selectionModel?.length}
+						color='primary'
+						sx={{
+							mx: 2,
+							fontSize: "20px",
+							color: "#166534",
+							cursor: "pointer",
+							zIndex: "999",
+						}}>
 						<PrintIcon onClick={handleOpenPrint} />
-					</Badge>}
+					</Badge>
+				)}
 			</GridToolbarContainer>
 		);
 	}
@@ -292,7 +320,7 @@ const RiderParcelListFiltered = ({
 			open={opens}
 			closeAfterTransition
 			BackdropComponent={Backdrop}
-			BackdropProps={{ timeout: 500, }}>
+			BackdropProps={{ timeout: 500 }}>
 			<Fade in={opens}>
 				<Box sx={style}>
 					<CancelIcon
@@ -366,11 +394,11 @@ const RiderParcelListFiltered = ({
 												)}
 												{selectedStatus ===
 													"Parcel Received By Pickup Rider" && (
-														<MenuItem
-															value={"Delivered To Branch By Pickup Rider"}>
-															Deliver To Pickup Branch
-														</MenuItem>
-													)}
+													<MenuItem
+														value={"Delivered To Branch By Pickup Rider"}>
+														Deliver To Pickup Branch
+													</MenuItem>
+												)}
 											</Select>
 										</FormControl>
 									</Box>
@@ -391,7 +419,10 @@ const RiderParcelListFiltered = ({
 							</>
 						)}
 					</Box>
-					<Grid container spacing={1} sx={{ justifyContent: "center", px: 2, position: "relative" }}>
+					<Grid
+						container
+						spacing={1}
+						sx={{ justifyContent: "center", px: 2, position: "relative" }}>
 						<Grid item xs={12} md={12}>
 							{data && (
 								<div style={{ height: 400, width: "100%" }} className='table'>
