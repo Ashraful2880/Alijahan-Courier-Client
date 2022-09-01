@@ -29,10 +29,11 @@ const ConsignmentTracking = () => {
               fontSize: 30,
               textAlign: "center",
               fontWeight: "bold",
+              color: "#08A74C",
             }}>
             Track Your Consignment
           </h2>
-          <form action="#" style={{ marginTop: "10px" }}>
+          <form style={{ marginTop: "10px", width: "100%" }}>
             <Box
               sx={{
                 display: "flex",
@@ -41,10 +42,10 @@ const ConsignmentTracking = () => {
               }}>
               <input
                 type="text"
-                placeholder="Enter Your Tracking Code"
+                placeholder="Enter Merchant Order ID"
                 className="tracking_input"
                 onChange={(e) => setId(e.target.value)}
-                style={{ width: { lg: "50%", md: "65%", sm: "100%" } }}
+                style={{ width: "600px" }}
               />
               <button onClick={handleTrackerId} className="searchBtn">
                 <SearchIcon className="searchIcon" style={{ fontSize: "26px" }} />

@@ -47,58 +47,44 @@ const OrderTracking = () => {
 			});
 	};
 	return (
-		<Box sx={{ mx: 4, pt: 2, pb: 5 }}>
-			<Box
-				sx={{
-					px: 2.5,
-					pb: 1,
-					mb: 1,
-					display: "flex",
-					alignItems: "center",
-					justifyContent: "space-between",
-				}}>
-				<Typography variant='h5' sx={{ fontWeight: "bold", color: "#1E793C" }}>
-					Order Tracking
-				</Typography>
-			</Box>
+		<Box sx={{ mx: 4, pt: 1, pb: 5 }}>
 			{show ? (
 				<Tracking data={data} setShow={setShow} />
 			) : (
-				<Box>
-					<Paper sx={{ p: 4 }} elevation={3}>
-						<h2
-							style={{
-								marginTop: 0,
-								fontFamily: "Montserrat, sans-serif",
-								fontSize: 30,
-								textAlign: "center",
-								fontWeight: "bold",
+				<Box sx={{ p: 4 }} elevation={3}>
+					<h2
+						style={{
+							marginBottom: "25px",
+							fontFamily: "Montserrat, sans-serif",
+							fontSize: 30,
+							textAlign: "center",
+							fontWeight: "bold",
+							color: "#08a74c",
+						}}>
+						Track Your Consignment
+					</h2>
+					<form style={{ marginTop: "10px" }}>
+						<Box
+							sx={{
+								display: "flex",
+								alignItems: "center",
+								justifyContent: "center",
 							}}>
-							Track Your Consignment
-						</h2>
-						<form style={{ marginTop: "10px" }}>
-							<Box
-								sx={{
-									display: "flex",
-									alignItems: "center",
-									justifyContent: "center",
-								}}>
-								<input
-									type='text'
-									placeholder='Enter Your Tracking Code'
-									className='tracking_input'
-									onChange={(e) => setId(e.target.value)}
-									style={{ width: { lg: "50%", md: "65%", sm: "100%" } }}
+							<input
+								type='text'
+								placeholder='Enter Merchant Order ID'
+								className='tracking_input'
+								onChange={(e) => setId(e.target.value)}
+								style={{ width: "600px" }}
+							/>
+							<button onClick={() => submit()} className='searchBtn'>
+								<SearchIcon
+									className='searchIcon'
+									style={{ fontSize: "26px" }}
 								/>
-								<button onClick={() => submit()} className='searchBtn'>
-									<SearchIcon
-										className='searchIcon'
-										style={{ fontSize: "26px" }}
-									/>
-								</button>
-							</Box>
-						</form>
-					</Paper>
+							</button>
+						</Box>
+					</form>
 				</Box>
 			)}
 			<Backdrop
