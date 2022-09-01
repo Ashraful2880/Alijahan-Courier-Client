@@ -31,7 +31,7 @@ const style = {
 
 const AddRiders = ({ open, setOpen, token, setSubmitting }) => {
 	const { register, handleSubmit, reset, watch } = useForm();
-	const [branch, setBranch] = useState([]);
+	const [branch, setBranch] = useState();
 	const [errors, setErrors] = useState(false);
 	const [num, setNum] = React.useState();
 	useEffect(() => {
@@ -107,7 +107,7 @@ const AddRiders = ({ open, setOpen, token, setSubmitting }) => {
 			riderName,
 			riderBranch,
 			riderAddress,
-			riderEmail,
+			riderEmail: riderEmail.toLowerCase(),
 			riderContact,
 			riderNID,
 			riderLicense,

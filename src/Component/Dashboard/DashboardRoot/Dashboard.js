@@ -34,11 +34,11 @@ const drawerWidth = 268;
 
 function Dashboard(props) {
 	const { user, loading, token } = GetAuth();
-	const [data, setData] = React.useState([]);
-	const [merchant, setMerchant] = React.useState([]);
-	const [branch, setBranch] = React.useState([]);
-	const [riders, setRiders] = React.useState([]);
-	const [warehouse, setwarehouse] = React.useState([]);
+	const [data, setData] = React.useState();
+	const [merchant, setMerchant] = React.useState();
+	const [branch, setBranch] = React.useState();
+	const [riders, setRiders] = React.useState();
+	const [warehouse, setwarehouse] = React.useState();
 	const location = useLocation();
 
 	React.useEffect(() => {
@@ -100,7 +100,7 @@ function Dashboard(props) {
 				},
 			)
 			.then((response) => {
-				setwarehouse(response.data);
+				setwarehouse(response?.data);
 			})
 			.catch((error) => {
 				console.log(error);

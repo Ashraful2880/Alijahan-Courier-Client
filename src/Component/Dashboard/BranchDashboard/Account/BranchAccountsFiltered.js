@@ -21,9 +21,9 @@ const BranchAccountsFiltered = ({
 	const [submitting, setSubmitting] = useState(false);
 	const [data, setData] = useState([]);
 	const [riders, setRiders] = useState([]);
-	const [branch, setBranch] = useState([]);
-	const [Warehouse, setWarehouse] = useState([]);
-	const [selectionModel, setSelectionModel] = React.useState([]);
+	const [branch, setBranch] = useState();
+	const [Warehouse, setWarehouse] = useState({});
+	const [selectionModel, setSelectionModel] = React.useState();
 
 	useEffect(() => {
 		axios

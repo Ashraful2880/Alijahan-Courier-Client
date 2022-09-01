@@ -10,7 +10,7 @@ import BranchReceivedParcelListFiltered from "./BranchReceivedParcelListFiltered
 const BranchReceivedParcelList = () => {
 	const { user, loading, token } = GetAuth();
 	const [data, setData] = useState([]);
-	const [branch, setBranch] = useState([]);
+	const [branch, setBranch] = useState();
 	const [opens, setOpens] = React.useState(false);
 	const [parcelData, setParcelData] = useState([]);
 	useEffect(() => {

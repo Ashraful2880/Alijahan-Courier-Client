@@ -37,11 +37,11 @@ const style = {
 
 const AddBranches = ({ open, setOpen, token, setSubmitting }) => {
 	const { register, handleSubmit, reset } = useForm();
-	const [areas, setAreas] = useState([]);
-	const [selectedDistricts, setSelectedDistricts] = useState("");
-	const [districts, setDistricts] = useState([]);
-	const [warehouses, setWarehouses] = useState([]);
-	const [warehouse, setWarehouse] = useState([]);
+	const [areas, setAreas] = useState();
+	const [selectedDistricts, setSelectedDistricts] = useState();
+	const [districts, setDistricts] = useState();
+	const [warehouses, setWarehouses] = useState();
+	const [warehouse, setWarehouse] = useState();
 	const [num, setNum] = React.useState();
 	useEffect(() => {
 		axios
@@ -227,7 +227,7 @@ const AddBranches = ({ open, setOpen, token, setSubmitting }) => {
 										size='small'
 										sx={{ my: 1, width: "100% !important" }}
 										options={districts?.filter(
-											(item, i, ar) => ar.indexOf(item) === i,
+											(item, i, ar) => ar?.indexOf(item) === i,
 										)}
 										getOptionLabel={(option) => option?.district}
 										style={{ width: 300 }}
@@ -253,11 +253,10 @@ const AddBranches = ({ open, setOpen, token, setSubmitting }) => {
 										options={areas?.filter(
 											(item) => item?.district === selectedDistricts?.district,
 										)}
-										getOptionLabel={(option) => option.area}
+										getOptionLabel={(option) => option?.area}
 										filterSelectedOptions
 										renderInput={(params) => (
 											<TextField
-												required
 												{...params}
 												label='Areas'
 												helperText='Areas'

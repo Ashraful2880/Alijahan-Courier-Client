@@ -87,7 +87,6 @@ const AddWarehouseUsers = ({ open, setOpen, token, setSubmitting }) => {
 		warehouseUserContact,
 		warehouseUserEmail,
 		warehouseUserPassword,
-		warehouseUserImage,
 	}) => {
 		setData({
 			id: "warehouse-" + Math.floor(Math.random() * 1000000000),
@@ -95,9 +94,8 @@ const AddWarehouseUsers = ({ open, setOpen, token, setSubmitting }) => {
 			warehouseUserAddress,
 			wareHouseName,
 			warehouseUserContact,
-			warehouseUserEmail,
+			warehouseUserEmail: warehouseUserEmail.toLowerCase(),
 			warehouseUserPassword,
-			warehouseUserImage,
 		});
 		setSubmitting(true);
 		createUserWithEmailAndPassword(warehouseUserEmail, warehouseUserPassword);
@@ -177,8 +175,8 @@ const AddWarehouseUsers = ({ open, setOpen, token, setSubmitting }) => {
 											required
 											{...register("wareHouseName", { required: true })}
 											{...params}
-											label='Warehouse Name'
-											helperText=' Warehouse Name'
+											label='Warehouse Type'
+											helperText=' Warehouse Type'
 											variant='outlined'
 										/>
 									)}
@@ -217,16 +215,6 @@ const AddWarehouseUsers = ({ open, setOpen, token, setSubmitting }) => {
 									label='Warehouse Password'
 									helperText=' Warehouse Password'
 									{...register("warehouseUserPassword", { required: true })}
-								/>
-							</Box>
-							<Box sx={{ display: "flex", gap: "10px" }}>
-								<TextField
-									size='small'
-									sx={{ my: 0.5, width: "49%" }}
-									fullWidth
-									label='Warehouse Image'
-									helperText=' Warehouse Image'
-									{...register("warehouseUserImage", { required: true })}
 								/>
 							</Box>
 							<Box sx={{ mt: 2, mb: 1 }}>

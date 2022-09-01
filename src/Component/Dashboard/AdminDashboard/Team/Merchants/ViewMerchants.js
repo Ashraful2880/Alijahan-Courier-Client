@@ -33,7 +33,7 @@ const style = {
 	backgroundColor: "white",
 };
 
-const EditMerchants = ({ open, setOpen, id, token, setSubmitting }) => {
+const ViewMerchants = ({ open, setOpen, id, token, setSubmitting }) => {
 	const { register, handleSubmit, reset, watch } = useForm({
 		defaultValues: {
 			merchantName: "",
@@ -180,7 +180,7 @@ const EditMerchants = ({ open, setOpen, id, token, setSubmitting }) => {
 										display: "flex",
 										alignItems: "center",
 									}}>
-									<BorderColorIcon sx={{ mr: 2 }} /> Edit Merchant
+									<BorderColorIcon sx={{ mr: 2 }} /> View Merchant Details
 								</Typography>
 								<form onSubmit={handleSubmit(onSubmit)}>
 									<Box sx={{ display: "flex", gap: "20px" }}>
@@ -425,4 +425,4 @@ const EditMerchants = ({ open, setOpen, id, token, setSubmitting }) => {
 	);
 };
 
-export default EditMerchants;
+export default ViewMerchants;

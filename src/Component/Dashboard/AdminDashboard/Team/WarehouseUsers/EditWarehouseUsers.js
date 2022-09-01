@@ -76,7 +76,7 @@ const EditWarehouseUsers = ({ open, setOpen, id, token, setSubmitting }) => {
 					warehouseUserAddress,
 					wareHouseName,
 					warehouseUserContact,
-					warehouseUserEmail,
+					warehouseUserEmail: warehouseUserEmail.toLowerCase(),
 					warehouseUserPassword,
 					warehouseUserImage,
 				},

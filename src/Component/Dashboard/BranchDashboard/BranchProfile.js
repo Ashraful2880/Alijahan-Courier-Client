@@ -11,7 +11,8 @@ import axios from "axios";
 
 const BranchProfile = () => {
 	const { user, loading, token } = GetAuth();
-	const [branch, setBranch] = useState([]);
+	const [branch, setBranch] = useState();
+
 	useEffect(() => {
 		axios
 			.get(`${process.env.REACT_APP_API_PATH}/branchbyemail/${user?.email}`, {

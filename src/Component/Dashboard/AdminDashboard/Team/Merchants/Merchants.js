@@ -4,13 +4,13 @@ import { Button, CircularProgress, Grid, Backdrop, Typography, Box, } from "@mui
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import axios from "axios";
 import Swal from "sweetalert2";
-import EditIcon from "@mui/icons-material/Edit";
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import DeleteIcon from "@mui/icons-material/Delete";
 import RemoveDoneIcon from "@mui/icons-material/RemoveDone";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
 import AddIcon from "@mui/icons-material/Add";
 import AddMerchants from "./AddMerchants";
-import EditMerchants from "./EditMerchants";
+import EditMerchants from "./ViewMerchants";
 import GetAuth from "../../../../../FirebaseAuth/GetAuth";
 
 const Merchants = () => {
@@ -114,7 +114,7 @@ const Merchants = () => {
 						}}
 					/>
 				)}
-				<EditIcon
+				<RemoveRedEyeIcon
 					className='iconBtn'
 					sx={{ color: "green!important" }}
 					onClick={() => {
