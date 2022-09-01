@@ -13,6 +13,7 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import {
 	Avatar,
 	Button,
+	CircularProgress,
 	ListItem,
 	ListItemIcon,
 	ListItemText,
@@ -29,6 +30,7 @@ import RiderDashboard from "./RiderDashboard";
 import BranchDashboard from "./BranchDashboard";
 import GetAuth from "../../../FirebaseAuth/GetAuth";
 import axios from "axios";
+import Backdrop from '@mui/material/Backdrop';
 
 const drawerWidth = 268;
 
@@ -142,6 +144,11 @@ function Dashboard(props) {
 			{data?.userRole === "Merchant" && (<MerchantDashboard />)}
 			{data?.userRole === "Warehouse" && (<WarehouseDashboard />)}
 			{data?.userRole === "Rider" && (<RiderDashboard />)}
+			<Backdrop
+				sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 999 }}
+				open={!data}>
+				<CircularProgress color='inherit' />
+			</Backdrop>
 		</Box>
 	);
 

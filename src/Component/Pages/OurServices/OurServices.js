@@ -5,16 +5,19 @@ import SingleService from "../../HomeComponnents/OurService/SingleService/Single
 
 const OurServices = () => {
   return (
-    <Container sx={{ mt: 6, mb: 5 }}>
-      <Box sx={{ mb: 4 }}>
-        <SingleService />
-      </Box>
-      <Box sx={{ mb: 4 }}>
-        <SingleService />
-      </Box>
-      <Box sx={{ mb: 4 }}>
-        <SingleService />
-      </Box>
+    <Container sx={{ mt: 6, height: "80vh" }}>
+      <h2
+        style={{
+          textAlign: "start",
+          fontWeight: 600,
+          color: "#08A74C",
+          fontFamily: "Montserrat, sans-serif",
+          fontSize: 30,
+          marginBottom: "40px",
+        }}
+      >
+        Our Services
+      </h2>
       <Box sx={{ mb: 4 }}>
         <SingleService />
       </Box>

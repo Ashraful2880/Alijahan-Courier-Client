@@ -20,8 +20,7 @@ const OurBlog = () => {
           fontFamily: "Montserrat, sans-serif",
           fontSize: 30,
           marginBottom: 0,
-        }}
-      >
+        }}>
         Our Blogs
       </h2>
       <Box sx={{ mt: 3 }}>
@@ -30,8 +29,7 @@ const OurBlog = () => {
           to="/about"
           style={{
             textDecoration: "none",
-          }}
-        >
+          }}>
           <Box style={{ width: "13%", margin: "auto" }}>
             <Button
               variant="outlined"

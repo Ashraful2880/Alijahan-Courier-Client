@@ -27,7 +27,7 @@ const BranchParcelList = () => {
 			.catch((error) => {
 				console.log(error);
 			});
-	}, [token, opens]);
+	}, [token, opens, user?.email]);
 
 	useEffect(() => {
 		axios

@@ -3,7 +3,7 @@
 }
 
 .singleServiceItem {
-    border: 1px solid rgb(232, 232, 232);
+    border: 1px solid rgb(238, 238, 238);
     box-shadow: none !important;
     cursor: pointer;
     transition: 0.3s ease-in-out !important;
