@@ -28,7 +28,7 @@ const AddMerchantParcel = () => {
 	const [submitting, setSubmitting] = useState(false);
 	const { register, handleSubmit, reset } = useForm();
 	const [selectedDistricts, setSelectedDistricts] = useState("");
-	const [branch, setBranch] = useState([]);
+	const [branch, setBranch] = useState();
 	const [productCategory, setProductCategory] = useState([]);
 	const [weight, setWeight] = useState();
 	const [selectWeight, setSelectWeight] = useState();

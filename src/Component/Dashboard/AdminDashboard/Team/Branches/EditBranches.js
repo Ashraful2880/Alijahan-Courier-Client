@@ -50,11 +50,11 @@ const EditBranches = ({ open, setOpen, id, token, setSubmitting }) => {
 		},
 	});
 	const [value, setValue] = React.useState();
-	const [areas, setAreas] = useState([]);
-	const [selectedDistricts, setSelectedDistricts] = useState("");
-	const [warehouses, setWarehouses] = useState([]);
-	const [warehouse, setWarehouse] = useState([]);
-	const [districts, setDistricts] = useState([]);
+	const [areas, setAreas] = useState();
+	const [selectedDistricts, setSelectedDistricts] = useState();
+	const [warehouses, setWarehouses] = useState();
+	const [warehouse, setWarehouse] = useState();
+	const [districts, setDistricts] = useState();
 	useEffect(() => {
 		axios
 			.get(`${process.env.REACT_APP_API_PATH}/areas`, {
@@ -130,7 +130,7 @@ const EditBranches = ({ open, setOpen, id, token, setSubmitting }) => {
 					branchAddress,
 					branchDistrict,
 					branchContact,
-					branchEmail,
+					branchEmail: branchEmail.toLowerCase(),
 					branchPassword,
 					pickupCom,
 					deliveryCom,
@@ -227,7 +227,7 @@ const EditBranches = ({ open, setOpen, id, token, setSubmitting }) => {
 											size='small'
 											sx={{ my: 1, width: "100% !important" }}
 											options={districts?.filter(
-												(item, i, ar) => ar.indexOf(item) === i,
+												(item, i, ar) => ar?.indexOf(item) === i,
 											)}
 											getOptionLabel={(option) => option?.district}
 											defaultValue={
@@ -260,7 +260,7 @@ const EditBranches = ({ open, setOpen, id, token, setSubmitting }) => {
 												(item) =>
 													item?.district === selectedDistricts?.district,
 											)}
-											getOptionLabel={(option) => option.area}
+											getOptionLabel={(option) => option?.area}
 											defaultValue={data?.branchArea}
 											filterSelectedOptions
 											renderInput={(params) => (

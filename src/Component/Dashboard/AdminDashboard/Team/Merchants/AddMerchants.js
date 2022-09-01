@@ -134,7 +134,7 @@ const AddMerchants = ({ open, setOpen, token, setSubmitting }) => {
 			merchantDistrict,
 			merchantContact,
 			merchantArea,
-			merchantEmail,
+			merchantEmail: merchantEmail.toLowerCase(),
 			merchantPassword,
 		});
 		setSubmitting(true);

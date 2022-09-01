@@ -40,7 +40,7 @@ const EditRiders = ({ open, setOpen, id, token, setSubmitting }) => {
 			riderDOB: "",
 		},
 	});
-	const [branch, setBranch] = useState([]);
+	const [branch, setBranch] = useState();
 	const [error, setError] = useState(false);
 
 	useEffect(() => {
@@ -92,7 +92,7 @@ const EditRiders = ({ open, setOpen, id, token, setSubmitting }) => {
 					riderName,
 					riderBranch,
 					riderAddress,
-					riderEmail,
+					riderEmail: riderEmail.toLowerCase(),
 					riderContact,
 					riderNID,
 					riderLicense,

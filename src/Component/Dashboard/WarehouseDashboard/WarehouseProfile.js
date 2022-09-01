@@ -11,7 +11,7 @@ import axios from "axios";
 
 const WarehouseProfile = () => {
 	const { user, loading, token } = GetAuth();
-	const [warehouse, setwarehouse] = useState([]);
+	const [warehouse, setwarehouse] = useState();
 
 	useEffect(() => {
 		axios

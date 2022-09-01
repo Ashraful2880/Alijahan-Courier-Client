@@ -19,10 +19,11 @@ const Register = ({ token }) => {
 	const { register, handleSubmit, reset, watch } = useForm();
 	const [errors, setErrors] = useState(false);
 	const [branches, setBranches] = useState([]);
-	const [selectedDistricts, setSelectedDistricts] = useState([]);
+	const [selectedDistricts, setSelectedDistricts] = useState();
 	const [districts, setDistricts] = useState([]);
 	const [area, setArea] = useState([]);
 	const [num, setNum] = React.useState();
+
 	useEffect(() => {
 		axios
 			.get(`${process.env.REACT_APP_API_PATH}/areas`, {
@@ -123,7 +124,7 @@ const Register = ({ token }) => {
 			merchantDistrict,
 			merchantContact,
 			merchantArea,
-			merchantEmail,
+			merchantEmail: merchantEmail.toLowerCase(),
 			merchantPassword,
 			status: "Inactive"
 		});
