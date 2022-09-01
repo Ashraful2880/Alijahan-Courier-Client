@@ -15,7 +15,7 @@ import { Button } from "@mui/material";
 
 const Tracking = ({ data, setShow }) => {
 	console.log(data);
-	const allStatus = [
+	const sendStatus = [
 		{ id: 1, status: "Pickup Request Pending" },
 		{ id: 2, status: "Pickup Request Accepted" },
 		{ id: 3, status: "Assigned for Pickup" },
@@ -32,13 +32,23 @@ const Tracking = ({ data, setShow }) => {
 		{ id: 14, status: "Parcel Received By Delivery Rider" },
 		{ id: 15, status: "Delivered To Customer By Rider" },
 	];
-
-	const idIndex = allStatus?.map((obj) => obj.status).indexOf(data?.status);
+	const returnStatus = [
+		{ id: 1, status: "Parcel Returned by Customer" },
+		{ id: 2, status: "Returning Parcel to Branch" },
+		{ id: 3, status: "Returned Parcel Received in Branch" },
+		{ id: 4, status: "Sending Returned Parcel to Warehouse" },
+		{ id: 5, status: "Returned Parcel Received in Warehouse" },
+		{ id: 6, status: "Sending Returned Parcel to Branch" },
+		{ id: 7, status: "Returned Parcel Received in Branch" },
+		{ id: 8, status: "Sending Returned Parcel to Merchant" },
+		{ id: 9, status: "Successfully Returned To Merchant" },
+	];
+	const idIndex = sendStatus?.map((obj) => obj.status).indexOf(data?.status);
 
 	return (
 		<div>
 			<Timeline position='alternate'>
-				{allStatus?.map((s, i) => (
+				{sendStatus?.map((s, i) => (
 					<>
 						{data?.status === s?.status ? (
 							<TimelineItem sx={{ color: "green" }}>
