@@ -15,13 +15,15 @@ import { useState } from "react";
 import { useEffect } from "react";
 
 const Register = ({ token }) => {
-	const [data, setData] = useState();
+	const [data, setData] = useState([]);
 	const { register, handleSubmit, reset, watch } = useForm();
 	const [errors, setErrors] = useState(false);
 	const [branches, setBranches] = useState([]);
 	const [selectedDistricts, setSelectedDistricts] = useState([]);
-	const [districts, setDistricts] = useState();
-	const [area, setArea] = useState();
+	const [selectedArea, setSelectedArea] = useState();
+	const [districts, setDistricts] = useState([]);
+	const [area, setArea] = useState([]);
+
 	useEffect(() => {
 		axios
 			.get(`${process.env.REACT_APP_API_PATH}/areas`, {
@@ -124,6 +126,7 @@ const Register = ({ token }) => {
 			merchantArea,
 			merchantEmail,
 			merchantPassword,
+			status: "Inactive",
 		});
 		createUserWithEmailAndPassword(merchantEmail, merchantPassword);
 	};
@@ -223,6 +226,9 @@ const Register = ({ token }) => {
 									)}
 								/>
 								<Autocomplete
+									onChange={(event, newValue) => {
+										setSelectedArea(newValue);
+									}}
 									size='small'
 									sx={{ my: 0.5, width: "100% !important" }}
 									options={area?.filter(
@@ -240,19 +246,38 @@ const Register = ({ token }) => {
 									)}
 								/>
 							</Box>
+							<Autocomplete
+								onChange={(event, newValue) => {
+									setSelectedDistricts(newValue);
+								}}
+								size='small'
+								sx={{ my: 0.5, width: "100% !important" }}
+								options={branches?.filter((e) =>
+									e?.branchArea?.find((n) => n?.area === selectedArea?.area),
+								)}
+								getOptionLabel={(option) => option.branchName}
+								style={{ width: 300 }}
+								renderInput={(params) => (
+									<TextField
+										{...register("merchantBranchName", {
+											required: true,
+										})}
+										{...params}
+										label='Select Branch'
+										variant='outlined'
+									/>
+								)}
+							/>
 							<Box sx={{ display: "flex", gap: "20px" }}>
 								<TextField
-									minlength="11"
-									maxlength="11"
+									minlength='11'
+									maxlength='11'
 									type='number'
 									id='filled-start-adornment'
 									placeholder='Merchant Contact Number'
 									size='small'
 									sx={{ my: 0.5, width: "100% !important" }}
-									{...register(
-										"merchantContact",
-										{ required: true },
-									)}
+									{...register("merchantContact", { required: true })}
 									variant='outlined'
 								/>
 								<TextField
