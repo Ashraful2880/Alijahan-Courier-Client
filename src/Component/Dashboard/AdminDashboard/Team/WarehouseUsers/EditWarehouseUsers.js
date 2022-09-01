@@ -1,7 +1,14 @@
 import React, { useEffect } from "react";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
-import { Button, TextField, Backdrop, Typography, CircularProgress, Autocomplete, } from "@mui/material";
+import {
+	Button,
+	TextField,
+	Backdrop,
+	Typography,
+	CircularProgress,
+	Autocomplete,
+} from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
 import { useForm } from "react-hook-form";
@@ -42,7 +49,7 @@ const EditWarehouseUsers = ({ open, setOpen, id, token, setSubmitting }) => {
 		{ id: 1, warehouseName: "District Warehouse" },
 		{ id: 2, warehouseName: "Central Warehouse" },
 	];
-	const [data, setData] = React.useState([]);
+	const [data, setData] = React.useState();
 	useEffect(() => {
 		axios
 			.get(`${process.env.REACT_APP_API_PATH}/warehouseUser/${id}`, {
@@ -165,9 +172,9 @@ const EditWarehouseUsers = ({ open, setOpen, id, token, setSubmitting }) => {
 											options={warehouses}
 											defaultValue={
 												warehouses[
-												warehouses?.findIndex(
-													(x) => x.warehouseName === data?.wareHouseName,
-												)
+													warehouses?.findIndex(
+														(x) => x.warehouseName === data?.wareHouseName,
+													)
 												]
 											}
 											getOptionLabel={(option) => option.warehouseName}

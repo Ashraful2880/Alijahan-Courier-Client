@@ -1,4 +1,11 @@
-import { Autocomplete, Box, Button, Grid, TextField, Typography } from "@mui/material";
+import {
+	Autocomplete,
+	Box,
+	Button,
+	Grid,
+	TextField,
+	Typography,
+} from "@mui/material";
 import React from "react";
 import loginsidebanner from "../../../Assets/Image/loginsidebanner.png";
 import logo from "../../../Assets/Image/logo.png";
@@ -23,6 +30,7 @@ const Register = ({ token }) => {
 	const [districts, setDistricts] = useState([]);
 	const [area, setArea] = useState([]);
 	const [num, setNum] = React.useState();
+	const [selectedArea, setSelectedArea] = React.useState();
 
 	useEffect(() => {
 		axios
@@ -126,18 +134,40 @@ const Register = ({ token }) => {
 			merchantArea,
 			merchantEmail: merchantEmail.toLowerCase(),
 			merchantPassword,
-			status: "Inactive"
+			status: "Inactive",
 		});
 		createUserWithEmailAndPassword(merchantEmail, merchantPassword);
 	};
 	return (
-		<Box className="registerBackground" style={{ paddingBottom: "100px" }}>
-			<Box sx={{ width: { lg: "50%", md: "70%", sm: "95%" }, margin: "auto", }} className="center" style={{ borderRadius: "10px", padding: "30px 30px", backgroundColor: "white", boxShadow: "0px 0px 30px green" }}>
-				<h3 style={{ color: "green", fontSize: "20px", fontWeight: "bold", }}>Welcome To Alijahan Courier</h3>
-				<img src={logo} alt="Main logo" />
-				<h3 style={{ color: "black", fontSize: "25px", fontWeight: "bold", marginBottom: "25px" }}>Become a Merchant</h3>
+		<Box className='registerBackground' style={{ paddingBottom: "100px" }}>
+			<Box
+				sx={{ width: { lg: "50%", md: "70%", sm: "95%" }, margin: "auto" }}
+				className='center'
+				style={{
+					borderRadius: "10px",
+					padding: "30px 30px",
+					backgroundColor: "white",
+					boxShadow: "0px 0px 30px green",
+				}}>
+				<h3 style={{ color: "green", fontSize: "20px", fontWeight: "bold" }}>
+					Welcome To Alijahan Courier
+				</h3>
+				<img src={logo} alt='Main logo' />
+				<h3
+					style={{
+						color: "black",
+						fontSize: "25px",
+						fontWeight: "bold",
+						marginBottom: "25px",
+					}}>
+					Become a Merchant
+				</h3>
 				<form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
-					<Box sx={{ display: { lg: "flex", md: "flex", sm: "block" }, gap: "20px", }}>
+					<Box
+						sx={{
+							display: { lg: "flex", md: "flex", sm: "block" },
+							gap: "20px",
+						}}>
 						<TextField
 							size='small'
 							sx={{ my: 0.5, width: "100%" }}
@@ -155,7 +185,11 @@ const Register = ({ token }) => {
 							{...register("merchantCompanyName", { required: true })}
 						/>
 					</Box>
-					<Box sx={{ display: { lg: "flex", md: "flex", sm: "block" }, gap: "20px", }}>
+					<Box
+						sx={{
+							display: { lg: "flex", md: "flex", sm: "block" },
+							gap: "20px",
+						}}>
 						<TextField
 							size='small'
 							sx={{ my: 0.5 }}
@@ -177,7 +211,11 @@ const Register = ({ token }) => {
 							{...register("merchantBusinessAddress", { required: true })}
 						/>
 					</Box>
-					<Box sx={{ display: { lg: "flex", md: "flex", sm: "block" }, gap: "20px", }}>
+					<Box
+						sx={{
+							display: { lg: "flex", md: "flex", sm: "block" },
+							gap: "20px",
+						}}>
 						<Autocomplete
 							onChange={(event, newValue) => {
 								setSelectedDistricts(newValue);
@@ -199,6 +237,9 @@ const Register = ({ token }) => {
 							)}
 						/>
 						<Autocomplete
+							onChange={(event, newValue) => {
+								setSelectedArea(newValue);
+							}}
 							size='small'
 							sx={{ my: 0.5, width: "100% !important" }}
 							options={area?.filter(
@@ -216,19 +257,50 @@ const Register = ({ token }) => {
 							)}
 						/>
 					</Box>
-					<Box sx={{ display: { lg: "flex", md: "flex", sm: "block" }, gap: "20px", }}>
+					<Autocomplete
+						onChange={(event, newValue) => {
+							setSelectedDistricts(newValue);
+						}}
+						size='small'
+						sx={{ my: 0.5, width: "100% !important" }}
+						options={branches?.filter((e) =>
+							e?.branchArea?.find((n) => n?.area === selectedArea?.area),
+						)}
+						getOptionLabel={(option) => option.branchName}
+						style={{ width: 300 }}
+						renderInput={(params) => (
+							<TextField
+								{...register("merchantBranchName", {
+									required: true,
+								})}
+								{...params}
+								label='Select Branch'
+								variant='outlined'
+							/>
+						)}
+					/>
+					<Box
+						sx={{
+							display: { lg: "flex", md: "flex", sm: "block" },
+							gap: "20px",
+						}}>
 						<Box style={{ width: "100%" }}>
 							<input
 								type='text'
-								placeholder="Merchant Contact"
-								name="merchantContact"
-								style={{ width: "100%", padding: "10px 12px", margin: "4px 0px", fontSize: "16px", borderRadius: "5px", border: "1px solid gray" }}
+								placeholder='Merchant Contact'
+								name='merchantContact'
+								style={{
+									width: "100%",
+									padding: "10px 12px",
+									margin: "4px 0px",
+									fontSize: "16px",
+									borderRadius: "5px",
+									border: "1px solid gray",
+								}}
 								value={num}
-								onChange={(e) =>
-									setNum(e.target.value.replace(/[^0-9]/g, ""))
-								}
-								maxLength="11"
-								minLength="11"
+								onChange={(e) => setNum(e.target.value.replace(/[^0-9]/g, ""))}
+								maxLength='11'
+								minLength='11'
 								{...register("merchantContact", { required: true })}
 							/>
 						</Box>
@@ -242,7 +314,11 @@ const Register = ({ token }) => {
 							{...register("merchantEmail", { required: true })}
 						/>
 					</Box>
-					<Box sx={{ display: { lg: "flex", md: "flex", sm: "block" }, gap: "20px", }}>
+					<Box
+						sx={{
+							display: { lg: "flex", md: "flex", sm: "block" },
+							gap: "20px",
+						}}>
 						<TextField
 							size='small'
 							sx={{ my: 0.5 }}

@@ -16,7 +16,7 @@ import ReplayIcon from "@mui/icons-material/Replay";
 import DoneIcon from "@mui/icons-material/Done";
 import CancelIcon from "@mui/icons-material/Cancel";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
-import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import Swal from "sweetalert2";
 const style = {
 	position: "absolute",
@@ -80,8 +80,8 @@ const ViewMerchants = ({ open, setOpen, id, token, setSubmitting }) => {
 				console.log(error);
 			});
 	}, [token]);
-	const [data, setData] = React.useState([]);
-
+	const [data, setData] = React.useState();
+	console.log(data);
 	useEffect(() => {
 		axios
 			.get(`${process.env.REACT_APP_API_PATH}/merchant/${id}`, {
@@ -183,7 +183,9 @@ const ViewMerchants = ({ open, setOpen, id, token, setSubmitting }) => {
 									}}>
 									<RemoveRedEyeIcon sx={{ mr: 2 }} /> View Merchant Details
 								</Typography>
-								<form onSubmit={handleSubmit(onSubmit)} style={{ pointerEvents: "none", paddingBottom: "30px" }}>
+								<form
+									onSubmit={handleSubmit(onSubmit)}
+									style={{ pointerEvents: "none", paddingBottom: "30px" }}>
 									<Box sx={{ display: "flex", gap: "20px" }}>
 										<TextField
 											size='small'
@@ -234,9 +236,9 @@ const ViewMerchants = ({ open, setOpen, id, token, setSubmitting }) => {
 										style={{ width: 300 }}
 										defaultValue={
 											districts[
-											districts?.findIndex(
-												(x) => x?.district === data?.merchantDistrict,
-											)
+												districts?.findIndex(
+													(x) => x?.district === data?.merchantDistrict,
+												)
 											]
 										}
 										renderInput={(params) => (
@@ -263,9 +265,9 @@ const ViewMerchants = ({ open, setOpen, id, token, setSubmitting }) => {
 											style={{ width: 300 }}
 											defaultValue={
 												branches[
-												branches?.findIndex(
-													(x) => x?.branchName === data?.merchantBranchName,
-												)
+													branches?.findIndex(
+														(x) => x?.branchName === data?.merchantBranchName,
+													)
 												]
 											}
 											renderInput={(params) => (
@@ -281,19 +283,41 @@ const ViewMerchants = ({ open, setOpen, id, token, setSubmitting }) => {
 											)}
 										/>
 
-										<TextField
+										<Autocomplete
 											size='small'
-											sx={{ my: 0.5 }}
-											fullWidth
-											required
-											helperText='Merchant Area'
-											{...register("merchantArea", { required: true })}
+											sx={{ my: 0.5, width: "100% !important" }}
+											options={
+												selectedBranch ||
+												branches?.filter(
+													(x) => x?.branchName === data?.merchantBranchName,
+												)?.branchArea ||
+												[]
+											}
+											getOptionLabel={(option) => option?.area}
+											style={{ width: 300 }}
+											defaultValue={branches
+												?.find(
+													(x) => x?.branchName === data?.merchantBranchName,
+												)
+												?.branchArea?.find(
+													(xy) => xy?.area === data?.merchantArea || [],
+												)}
+											renderInput={(params) => (
+												<TextField
+													required
+													{...register("merchantArea", { required: true })}
+													{...params}
+													label='Select Area'
+													variant='outlined'
+													helperText='Area'
+												/>
+											)}
 										/>
 									</Box>
 									<Box sx={{ display: "flex", gap: "20px" }}>
 										<TextField
-											minlength="11"
-											maxlength="11"
+											minlength='11'
+											maxlength='11'
 											type='number'
 											helperText='Contact Number'
 											id='filled-start-adornment'
