@@ -7,7 +7,7 @@ import Branches from "./Component/Dashboard/AdminDashboard/Team/Branches/Branche
 import Merchants from "./Component/Dashboard/AdminDashboard/Team/Merchants/Merchants";
 import Riders from "./Component/Dashboard/AdminDashboard/Team/Riders/Riders";
 import WarehouseUsers from "./Component/Dashboard/AdminDashboard/Team/WarehouseUsers/WarehouseUsers";
-import MerchantProfile from "./Component/Dashboard/MerchantDashboard/MerchantProfile";
+import MerchantProfile from "./Component/Dashboard/MerchantDashboard/Profile/MerchantProfile";
 import AddMerchantParcel from "./Component/Dashboard/MerchantDashboard/Parcel/AddMerchantParcel";
 import District from "./Component/Dashboard/AdminDashboard/ApplicationSetting/District";
 import ServiceCharge from "./Component/Dashboard/MerchantDashboard/ServiceCharge";

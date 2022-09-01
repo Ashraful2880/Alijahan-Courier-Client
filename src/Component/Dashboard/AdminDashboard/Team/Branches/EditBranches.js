@@ -264,7 +264,6 @@ const EditBranches = ({ open, setOpen, id, token, setSubmitting }) => {
 											filterSelectedOptions
 											renderInput={(params) => (
 												<TextField
-													required
 													{...params}
 													helperText='Areas'
 													placeholder='Select Areas'
