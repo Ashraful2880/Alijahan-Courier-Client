@@ -4,6 +4,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import blogimg1 from "../../../../Assets/Image/blogimg1.png";
 import blogimg2 from "../../../../Assets/Image/blogimg2.png";
 import blogimg3 from "../../../../Assets/Image/blogimg3.png";
@@ -20,24 +21,21 @@ const SingleBlog = () => {
                 border: "1px solid #00800038",
                 borderRadius: "10px",
               }}
-              className="singleBlogItem"
-            >
+              className="singleBlogItem">
               <CardMedia
                 component="img"
                 height="240"
                 image={blogimg1}
-                alt="green iguana"
-              />
+                alt="green iguana" />
               <CardContent>
                 <Typography
                   gutterBottom
                   variant="h5"
                   component="div"
-                  sx={{ fontSize: 20, fontWeight: 600, }}
-                >
+                  sx={{ fontSize: 20, fontWeight: 600, textAlign: "left" }}>
                   Agreement with Faiha’s Style
                 </Typography>
-                <p style={{ fontSize: 17, color: "gray", marginBottom: 5 }}>
+                <p style={{ fontSize: 17, color: "gray", marginBottom: 5, textAlign: "left", }}>
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
                   Saepe, in! This is Alijahan international Test Blog.
                 </p>
@@ -45,18 +43,18 @@ const SingleBlog = () => {
               <Button
                 variant="outlined"
                 sx={{
-                  ml: 1.5,
+                  ml: 2,
                   mb: 4,
                   borderColor: "#08A74C",
                   backgroundColor: "#08A74C",
+                  display: "flex",
                   color: "#fff",
                   "&:hover": {
                     borderColor: "#08A74C",
                     color: "#08A74C",
                   },
-                }}
-              >
-                Read More
+                }}>
+                Read More <ArrowForwardIcon style={{ fontSize: "18px", marginLeft: "10px" }} />
               </Button>
             </Card>
           </Box>
@@ -69,24 +67,21 @@ const SingleBlog = () => {
                 border: "1px solid #00800038",
                 borderRadius: "10px",
               }}
-              className="singleBlogItem"
-            >
+              className="singleBlogItem">
               <CardMedia
                 component="img"
                 height="240"
                 image={blogimg2}
-                alt="green iguana"
-              />
+                alt="green iguana" />
               <CardContent>
                 <Typography
                   gutterBottom
                   variant="h5"
                   component="div"
-                  sx={{ fontSize: 20, fontWeight: 600 }}
-                >
+                  sx={{ fontSize: 20, fontWeight: 600, textAlign: "left" }}>
                   Agreement with Faiha’s Style
                 </Typography>
-                <p style={{ fontSize: 17, color: "gray", marginBottom: 5 }}>
+                <p style={{ fontSize: 17, color: "gray", marginBottom: 5, textAlign: "left" }}>
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
                   Saepe, in!  This is Alijahan international Test Blog.
                 </p>
@@ -94,18 +89,18 @@ const SingleBlog = () => {
               <Button
                 variant="outlined"
                 sx={{
-                  ml: 1.5,
+                  ml: 2,
                   mb: 4,
                   borderColor: "#08A74C",
                   backgroundColor: "#08A74C",
+                  display: "flex",
                   color: "#fff",
                   "&:hover": {
                     borderColor: "#08A74C",
                     color: "#08A74C",
                   },
-                }}
-              >
-                Read More
+                }}>
+                Read More <ArrowForwardIcon style={{ fontSize: "18px", marginLeft: "10px" }} />
               </Button>
             </Card>
           </Box>
@@ -118,24 +113,21 @@ const SingleBlog = () => {
                 border: "1px solid #00800038",
                 borderRadius: "10px",
               }}
-              className="singleBlogItem"
-            >
+              className="singleBlogItem">
               <CardMedia
                 component="img"
                 height="240"
                 image={blogimg3}
-                alt="green iguana"
-              />
+                alt="green iguana" />
               <CardContent>
                 <Typography
                   gutterBottom
                   variant="h5"
                   component="div"
-                  sx={{ fontSize: 20, fontWeight: 600 }}
-                >
+                  sx={{ fontSize: 20, fontWeight: 600, textAlign: "left" }}>
                   Agreement with Faiha’s Style
                 </Typography>
-                <p style={{ fontSize: 17, color: "gray", marginBottom: 5 }}>
+                <p style={{ fontSize: 17, color: "gray", marginBottom: 5, textAlign: "left" }}>
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
                   Saepe, in! This is Alijahan international Test Blog.
                 </p>
@@ -143,18 +135,18 @@ const SingleBlog = () => {
               <Button
                 variant="outlined"
                 sx={{
-                  ml: 1.5,
+                  ml: 2,
                   mb: 4,
                   borderColor: "#08A74C",
                   backgroundColor: "#08A74C",
+                  display: "flex",
                   color: "#fff",
                   "&:hover": {
                     borderColor: "#08A74C",
                     color: "#08A74C",
                   },
-                }}
-              >
-                Read More
+                }}>
+                Read More <ArrowForwardIcon style={{ fontSize: "18px", marginLeft: "10px" }} />
               </Button>
             </Card>
           </Box>

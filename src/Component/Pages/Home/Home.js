@@ -11,14 +11,15 @@ import Partners from "../../HomeComponnents/Partners/Partners";
 import Faq from "../../HomeComponnents/Faq/Faq";
 import NewsLater from "../../HomeComponnents/NewsLater/NewsLater";
 import HomeCoverageArea from "../../HomeComponnents/CoverageArea/HomeCoverageArea";
+import OrderTracking from "../../Dashboard/MerchantDashboard/OrderTracking/OrderTracking";
 
 const Home = () => {
 	return (
 		<Box>
 			<HeroSlider />
-			<ConsignmentTracking />
-			<WhyChooseUs />
+			<OrderTracking />
 			<OurService />
+			<WhyChooseUs />
 			<OurBlog />
 			<DeliveryCalculator />
 			<NoticeBoard />

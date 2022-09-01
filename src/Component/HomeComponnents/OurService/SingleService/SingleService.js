@@ -27,7 +27,7 @@ const SingleService = () => {
                 image={Ecommerce}
                 alt="green iguana"
               />
-              <CardContent sx={{ backgroundColor: "#08A74C", color: "white", padding: "8px 0px" }}>
+              <CardContent sx={{ backgroundColor: "black", color: "white", padding: "8px 0px" }}>
                 <Typography
                   variant="h6"
                   component="div"
@@ -58,8 +58,10 @@ const SingleService = () => {
                 <Button
                   variant="outlined"
                   sx={{
-                    borderColor: "#08A74C",
-                    color: "#08A74C",
+                    borderColor: "black",
+                    color: "white",
+                    border: "1px solid #08A74C",
+                    backgroundColor: "#08A74C",
                     "&:hover": {
                       borderColor: "#08A74C",
                       backgroundColor: "#08A74C",
@@ -84,7 +86,7 @@ const SingleService = () => {
                 height="200"
                 image={Logistics}
                 alt="green iguana" />
-              <CardContent sx={{ backgroundColor: "#08A74C", color: "white", padding: "8px 0px" }}>
+              <CardContent sx={{ backgroundColor: "black", color: "white", padding: "8px 0px" }}>
                 <Typography
                   variant="h6"
                   component="div"
@@ -115,9 +117,10 @@ const SingleService = () => {
                 <Button
                   variant="outlined"
                   sx={{
-                    ml: 1.5,
-                    borderColor: "#08A74C",
-                    color: "#08A74C",
+                    borderColor: "black",
+                    color: "white",
+                    border: "1px solid #08A74C",
+                    backgroundColor: "#08A74C",
                     "&:hover": {
                       borderColor: "#08A74C",
                       backgroundColor: "#08A74C",
@@ -142,7 +145,7 @@ const SingleService = () => {
                 height="200"
                 image={pickdrop}
                 alt="green iguana" />
-              <CardContent sx={{ backgroundColor: "#08A74C", color: "white", padding: "8px 0px" }}>
+              <CardContent sx={{ backgroundColor: "black", color: "white", padding: "8px 0px" }}>
                 <Typography
                   variant="h6"
                   component="div"
@@ -173,9 +176,10 @@ const SingleService = () => {
                 <Button
                   variant="outlined"
                   sx={{
-                    ml: 1.5,
-                    borderColor: "#08A74C",
-                    color: "#08A74C",
+                    borderColor: "black",
+                    color: "white",
+                    border: "1px solid #08A74C",
+                    backgroundColor: "#08A74C",
                     "&:hover": {
                       borderColor: "#08A74C",
                       backgroundColor: "#08A74C",
@@ -200,7 +204,7 @@ const SingleService = () => {
                 height="200"
                 image={Warehouse}
                 alt="green iguana" />
-              <CardContent sx={{ backgroundColor: "#08A74C", color: "white", padding: "8px 0px" }}>
+              <CardContent sx={{ backgroundColor: "black", color: "white", padding: "8px 0px" }}>
                 <Typography
                   variant="h6"
                   component="div"
@@ -231,9 +235,10 @@ const SingleService = () => {
                 <Button
                   variant="outlined"
                   sx={{
-                    ml: 1.5,
-                    borderColor: "#08A74C",
-                    color: "#08A74C",
+                    borderColor: "black",
+                    color: "white",
+                    border: "1px solid #08A74C",
+                    backgroundColor: "#08A74C",
                     "&:hover": {
                       borderColor: "#08A74C",
                       backgroundColor: "#08A74C",

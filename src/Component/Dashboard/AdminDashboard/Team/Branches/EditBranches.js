@@ -55,6 +55,7 @@ const EditBranches = ({ open, setOpen, id, token, setSubmitting }) => {
 	const [warehouses, setWarehouses] = useState();
 	const [warehouse, setWarehouse] = useState();
 	const [districts, setDistricts] = useState();
+
 	useEffect(() => {
 		axios
 			.get(`${process.env.REACT_APP_API_PATH}/areas`, {
@@ -109,7 +110,7 @@ const EditBranches = ({ open, setOpen, id, token, setSubmitting }) => {
 				console.log(error);
 			});
 	}, [id, reset, token]);
-	console.log(data);
+
 	const onSubmit = ({
 		branchName,
 		branchAddress,
@@ -182,7 +183,7 @@ const EditBranches = ({ open, setOpen, id, token, setSubmitting }) => {
 								borderRadius: "50%",
 							}}
 						/>
-						{data ? (
+						{data && warehouses && districts && areas ? (
 							<>
 								<Typography
 									variant='h6'

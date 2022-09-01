@@ -48,7 +48,6 @@ import ReturnRefundPolicy from "./Component/Pages/ReturnRefundPolicy/ReturnRefun
 import OurBlog from "./Component/HomeComponnents/OurBlog/OurBlog";
 import Pricing from "./Component/Pages/Pricing/Pricing";
 import OurServices from "./Component/Pages/OurServices/OurServices";
-import Tracking from "./Component/Pages/Tracking/Tracking";
 import Register from "./Component/Pages/Register/Register";
 import NotFound from "./Component/Pages/Home/NotFound/NotFound";
 // import DashboardHome from "./Component/Dashboard/DashboardHome/DashboardHome";
@@ -77,9 +76,8 @@ function App() {
 						<Route path='/blog' element={<OurBlog />} />
 						<Route path='/pricing' element={<Pricing />} />
 						<Route path='/service' element={<OurServices />} />
-						<Route path='/tracking' element={<Tracking />} />
+						<Route path='/tracking' element={<OrderTracking />} />
 						<Route path='/covarage' element={<PageCoverageArea />} />
-						<Route path='/tracking/:id' element={<Tracking />} />
 						<Route path='/login' element={<Login />} />
 						<Route path='/register' element={<Register />} />
 						<Route path='*' element={<NotFound />} />

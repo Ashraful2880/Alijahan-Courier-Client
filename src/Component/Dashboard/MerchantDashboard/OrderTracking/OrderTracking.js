@@ -4,6 +4,7 @@ import {
 	Box,
 	Button,
 	CircularProgress,
+	Paper,
 	TextField,
 	Typography,
 } from "@mui/material";
@@ -14,6 +15,7 @@ import axios from "axios";
 import GetAuth from "../../../../FirebaseAuth/GetAuth";
 import Swal from "sweetalert2";
 import { idID } from "@mui/material/locale";
+import SearchIcon from "@mui/icons-material/Search";
 
 const OrderTracking = () => {
 	const { user, loading, token } = GetAuth();
@@ -63,56 +65,40 @@ const OrderTracking = () => {
 				<Tracking data={data} setShow={setShow} />
 			) : (
 				<Box>
-					<form>
-						<Typography
-							component='p'
-							sx={{ fontSize: "20px", fontWeight: "bold" }}>
-							Track Your Order
-						</Typography>
-						<Box
-							sx={{
-								width: { sx: "100%", sm: "100%", md: "80%", lg: "30%" },
-								margin: "auto",
+					<Paper sx={{ p: 4 }} elevation={3}>
+						<h2
+							style={{
+								marginTop: 0,
+								fontFamily: "Montserrat, sans-serif",
+								fontSize: 30,
+								textAlign: "center",
+								fontWeight: "bold",
 							}}>
-							{/* <Box sx={{ width: "100%", marginY: "10px" }}>
-							<TextField
-								sx={{ width: "100%" }}
-								helperText='Parcel Invoice Barcode'
-								label='Enter Parcel Invoice Barcode'
-								{...register("invoice", {
-									required: true,
-								})}
-							/>
-							{errors?.invoice?.type === "required" && (
-								<p
-									style={{
-										color: "red",
-										fontSize: "14px",
-										marginTop: "-15px",
-									}}>
-									This field is required
-								</p>
-							)}
-						</Box> */}
-							<Box sx={{ width: "100%", marginY: "10px" }}>
-								<TextField
-									sx={{ width: "100%" }}
-									helperText='Merchant Order ID'
-									label='Enter Merchant Order ID'
+							Track Your Consignment
+						</h2>
+						<form style={{ marginTop: "10px" }}>
+							<Box
+								sx={{
+									display: "flex",
+									alignItems: "center",
+									justifyContent: "center",
+								}}>
+								<input
+									type='text'
+									placeholder='Enter Your Tracking Code'
+									className='tracking_input'
 									onChange={(e) => setId(e.target.value)}
+									style={{ width: { lg: "50%", md: "65%", sm: "100%" } }}
 								/>
+								<button onClick={() => submit()} className='searchBtn'>
+									<SearchIcon
+										className='searchIcon'
+										style={{ fontSize: "26px" }}
+									/>
+								</button>
 							</Box>
-							<Box sx={{ marginY: "10px", display: "flex" }}>
-								<Button
-									onClick={() => submit()}
-									variant='contained'
-									color='success'
-									sx={{ padding: "10px 0px", width: "100%", fontSize: "15px" }}>
-									<FindReplaceIcon sx={{ mr: 1 }} /> Search
-								</Button>
-							</Box>
-						</Box>
-					</form>
+						</form>
+					</Paper>
 				</Box>
 			)}
 			<Backdrop

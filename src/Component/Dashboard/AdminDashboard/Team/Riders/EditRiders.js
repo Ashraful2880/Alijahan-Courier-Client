@@ -141,7 +141,7 @@ const EditRiders = ({ open, setOpen, id, token, setSubmitting }) => {
 								borderRadius: "50%",
 							}}
 						/>
-						{data ? (
+						{data && branch ? (
 							<>
 								<Typography
 									variant='h6'

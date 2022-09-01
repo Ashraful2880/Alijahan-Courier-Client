@@ -172,9 +172,9 @@ const EditWarehouseUsers = ({ open, setOpen, id, token, setSubmitting }) => {
 											options={warehouses}
 											defaultValue={
 												warehouses[
-													warehouses?.findIndex(
-														(x) => x.warehouseName === data?.wareHouseName,
-													)
+												warehouses?.findIndex(
+													(x) => x.warehouseName === data?.wareHouseName,
+												)
 												]
 											}
 											getOptionLabel={(option) => option.warehouseName}
