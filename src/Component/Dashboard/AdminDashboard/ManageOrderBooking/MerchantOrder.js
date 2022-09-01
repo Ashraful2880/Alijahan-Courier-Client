@@ -26,11 +26,12 @@ const MerchantOrder = () => {
 	const [weight, setWeight] = useState();
 	const [selectWeight, setSelectWeight] = useState();
 	const [cashCollection, setCashCollection] = useState();
-	const [districts, setDistricts] = useState();
-	const [marchant, setMarchant] = useState();
-	const [areas, setAreas] = useState();
-	const [selectedArea, setSelectedArea] = useState();
-	const [serviceAreas, setServiceAreas] = useState();
+	const [districts, setDistricts] = useState([]);
+	const [marchant, setMarchant] = useState([]);
+	const [areas, setAreas] = useState([]);
+	const [selectedArea, setSelectedArea] = useState([]);
+	const [serviceAreas, setServiceAreas] = useState([]);
+	const [num, setNum] = React.useState();
 
 	const senderBranch = branch?.find(
 		(b) => b.branchName === marchant?.merchantBranchName,
@@ -269,18 +270,22 @@ const MerchantOrder = () => {
 									helperText='Receiver Name'
 									{...register("receiverName", { required: true })}
 								/>
-								<TextField
-									minlength="11"
-									maxlength="11"
-									size='small'
-									type='number'
-									sx={{ my: 0.5 }}
-									fullWidth
-									required
-									label='Mobile Number'
-									helperText='Reciever Mobile Number'
-									{...register("receiverNumber", { required: true })}
-								/>
+								<Box style={{ width: "100%" }}>
+									<input
+										type='text'
+										placeholder="Receiver Number"
+										name="receiverNumber"
+										style={{ width: "100%", padding: "10px 12px", margin: "4px 0px", fontSize: "16px", borderRadius: "5px", border: "1px solid gray" }}
+										value={num}
+										onChange={(e) =>
+											setNum(e.target.value.replace(/[^0-9]/g, ""))
+										}
+										maxLength="11"
+										minLength="11"
+										{...register("receiverNumber", { required: true })}
+									/>
+									<label style={{ textAlign: "left", fontSize: "12px", color: "gray", width: "100%", display: "block", }}>Sender number</label>
+								</Box>
 							</Box>
 							<Box sx={{ display: "flex", gap: "15px", mx: 2 }}>
 								<Autocomplete
@@ -398,20 +403,23 @@ const MerchantOrder = () => {
 								/>
 							</Box>
 							<Box sx={{ display: "flex", gap: "15px", mx: 2 }}>
-								<TextField
-									minlength="11"
-									maxlength="11"
-									type='number'
-									size='small'
-									sx={{ my: 0.5 }}
-									fullWidth
-									required
-									label='Cash Collection'
-									helperText='Cash Collection'
-									{...register("cashCollection", { required: true })}
-									value={cashCollection}
-									onChange={(e) => setCashCollection(e.target.value)}
-								/>
+								<Box style={{ width: "100%" }}>
+									<input
+										type='text'
+										placeholder="Cash collection"
+										name="cashCollection"
+										style={{ width: "100%", padding: "10px 12px", margin: "4px 0px", fontSize: "16px", borderRadius: "5px", border: "1px solid gray" }}
+										value={num}
+										onChange={(e) =>
+											setNum(e.target.value.replace(/[^0-9]/g, ""))
+										}
+										maxLength="11"
+										minLength="11"
+										{...register("cashCollection", { required: true })}
+									/>
+									<label style={{ textAlign: "left", fontSize: "12px", color: "gray", width: "100%", display: "block", }}>Sender number</label>
+								</Box>
+
 								<TextField
 									size='small'
 									sx={{ my: 0.5 }}

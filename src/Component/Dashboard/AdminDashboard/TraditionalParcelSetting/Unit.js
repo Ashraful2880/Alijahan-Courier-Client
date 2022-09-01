@@ -15,7 +15,7 @@ const Unit = () => {
 	const { user, loading, token } = useAPI();
 	const { register, handleSubmit, reset } = useForm();
 	const [submitting, setSubmitting] = useState(false);
-	const [data, setData] = useState();
+	const [data, setData] = useState([]);
 
 	useEffect(() => {
 		axios
@@ -208,7 +208,7 @@ const Unit = () => {
 			<Grid container spacing={1} sx={{ justifyContent: "center", mt: 1 }}>
 				<Grid item xs={12} md={12}>
 					{data && (
-						<div style={{ height: 400, width: "100%" }} className='table'>
+						<div style={{ height: "80vh", width: "100%" }} className='table'>
 							<DataGrid
 								rows={data}
 								getRowId={(row) => row?._id}

@@ -60,9 +60,9 @@ const RiderParcelListFiltered = ({
 	const handleOpen = () => {
 		setOpen(true);
 	};
-	const [data, setData] = useState();
+	const [data, setData] = useState([]);
 	const [status, setStatus] = useState("");
-	const [selectionModel, setSelectionModel] = React.useState();
+	const [selectionModel, setSelectionModel] = React.useState([]);
 	const [selected, setSelected] = React.useState([]);
 	const [openPrint, setOpenPrint] = React.useState(false);
 
@@ -203,7 +203,7 @@ const RiderParcelListFiltered = ({
 			<Box sx={{ display: "flex", alignItems: "center" }}>
 				{params.row?.status === "Delivered To Customer By Rider" &&
 					params.row?.paymentCollectionDetails?.collectionStatus ===
-						"Collected From Customer" && (
+					"Collected From Customer" && (
 						<Button
 							onClick={() =>
 								sendMoneyToBranch(
@@ -225,7 +225,7 @@ const RiderParcelListFiltered = ({
 					)}
 				{params.row?.status === "Parcel Received By Delivery Rider" &&
 					params.row?.paymentCollectionDetails?.collectionStatus ===
-						"Pending" && (
+					"Pending" && (
 						<Button
 							onClick={() =>
 								changePaymentStatus(
@@ -394,11 +394,11 @@ const RiderParcelListFiltered = ({
 												)}
 												{selectedStatus ===
 													"Parcel Received By Pickup Rider" && (
-													<MenuItem
-														value={"Delivered To Branch By Pickup Rider"}>
-														Deliver To Pickup Branch
-													</MenuItem>
-												)}
+														<MenuItem
+															value={"Delivered To Branch By Pickup Rider"}>
+															Deliver To Pickup Branch
+														</MenuItem>
+													)}
 											</Select>
 										</FormControl>
 									</Box>
@@ -425,7 +425,7 @@ const RiderParcelListFiltered = ({
 						sx={{ justifyContent: "center", px: 2, position: "relative" }}>
 						<Grid item xs={12} md={12}>
 							{data && (
-								<div style={{ height: 400, width: "100%" }} className='table'>
+								<div style={{ height: "80vh", width: "100%" }} className='table'>
 									<DataGrid
 										rows={allParcels?.filter(
 											(item) => item.marchentInfo.merchantName === marchantName,

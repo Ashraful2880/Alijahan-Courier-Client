@@ -54,7 +54,8 @@ const AddWarehouseUsers = ({ open, setOpen, token, setSubmitting }) => {
 			confirmButtonText: "Ok",
 		});
 	}
-	const [data, setData] = useState();
+	const [data, setData] = useState([]);
+	const [num, setNum] = React.useState();
 	useEffect(() => {
 		if (user) {
 			axios
@@ -86,7 +87,6 @@ const AddWarehouseUsers = ({ open, setOpen, token, setSubmitting }) => {
 		warehouseUserContact,
 		warehouseUserEmail,
 		warehouseUserPassword,
-		warehouseUserImage,
 	}) => {
 		setData({
 			id: "warehouse-" + Math.floor(Math.random() * 1000000000),
@@ -94,9 +94,8 @@ const AddWarehouseUsers = ({ open, setOpen, token, setSubmitting }) => {
 			warehouseUserAddress,
 			wareHouseName,
 			warehouseUserContact,
-			warehouseUserEmail,
+			warehouseUserEmail: warehouseUserEmail.toLowerCase(),
 			warehouseUserPassword,
-			warehouseUserImage,
 		});
 		setSubmitting(true);
 		createUserWithEmailAndPassword(warehouseUserEmail, warehouseUserPassword);
@@ -176,23 +175,29 @@ const AddWarehouseUsers = ({ open, setOpen, token, setSubmitting }) => {
 											required
 											{...register("wareHouseName", { required: true })}
 											{...params}
-											label='Warehouse Name'
-											helperText=' Warehouse Name'
+											label='Warehouse Type'
+											helperText=' Warehouse Type'
 											variant='outlined'
 										/>
 									)}
 								/>
+								<Box style={{ width: "100%" }}>
+									<input
+										type='text'
+										placeholder="Warehouse Contact"
+										name="warehouseUserContact"
+										style={{ width: "100%", padding: "10px 12px", margin: "4px 0px", fontSize: "16px", borderRadius: "5px", border: "1px solid gray" }}
+										value={num}
+										onChange={(e) =>
+											setNum(e.target.value.replace(/[^0-9]/g, ""))
+										}
+										maxLength="11"
+										minLength="11"
+										{...register("warehouseUserContact", { required: true })}
+									/>
+									<label style={{ textAlign: "left", fontSize: "12px", color: "gray", width: "100%", display: "block", }}>Sender number</label>
+								</Box>
 
-								<TextField
-									minlength="11"
-									maxlength="11"
-									size='small'
-									sx={{ my: 1 }}
-									fullWidth
-									label='Warehouse Contact'
-									helperText=' Warehouse Contact'
-									{...register("warehouseUserContact", { required: true })}
-								/>
 							</Box>
 							<Box sx={{ display: "flex", gap: "20px" }}>
 								<TextField
@@ -210,16 +215,6 @@ const AddWarehouseUsers = ({ open, setOpen, token, setSubmitting }) => {
 									label='Warehouse Password'
 									helperText=' Warehouse Password'
 									{...register("warehouseUserPassword", { required: true })}
-								/>
-							</Box>
-							<Box sx={{ display: "flex", gap: "10px" }}>
-								<TextField
-									size='small'
-									sx={{ my: 0.5, width: "49%" }}
-									fullWidth
-									label='Warehouse Image'
-									helperText=' Warehouse Image'
-									{...register("warehouseUserImage", { required: true })}
 								/>
 							</Box>
 							<Box sx={{ mt: 2, mb: 1 }}>

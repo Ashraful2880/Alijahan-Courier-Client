@@ -27,8 +27,8 @@ const style = {
 const AccountsFiltered = ({ opens, setOpens, marchantName, allParcels, selectedStatus, }) => {
 	const { user, loading, token } = GetAuth();
 	const [submitting, setSubmitting] = useState(false);
-	const [data, setData] = useState();
-	const [selectionModel, setSelectionModel] = React.useState();
+	const [data, setData] = useState([]);
+	const [selectionModel, setSelectionModel] = React.useState([]);
 
 	useEffect(() => {
 		axios
@@ -236,7 +236,7 @@ const AccountsFiltered = ({ opens, setOpens, marchantName, allParcels, selectedS
 					<Grid container spacing={1} sx={{ justifyContent: "center", px: 2 }}>
 						<Grid item xs={12} md={12}>
 							{data && (
-								<div style={{ height: 400, width: "100%" }} className='table'>
+								<div style={{ height: "80vh", width: "100%" }} className='table'>
 									<DataGrid
 										rows={allParcels?.filter(
 											(item) => item.marchentInfo.merchantName === marchantName,

@@ -33,7 +33,7 @@ const style = {
 	backgroundColor: "white",
 };
 
-const EditMerchants = ({ open, setOpen, id, token, setSubmitting }) => {
+const ViewMerchants = ({ open, setOpen, id, token, setSubmitting }) => {
 	const { register, handleSubmit, reset, watch } = useForm({
 		defaultValues: {
 			merchantName: "",
@@ -50,8 +50,9 @@ const EditMerchants = ({ open, setOpen, id, token, setSubmitting }) => {
 	});
 	const [error, setError] = useState(false);
 	const [selectedBranch, setSelectedBranch] = useState();
-	const [branches, setBranches] = useState();
-	const [districts, setDistricts] = useState();
+	const [branches, setBranches] = useState([]);
+	const [districts, setDistricts] = useState([]);
+
 	useEffect(() => {
 		axios
 			.get(`${process.env.REACT_APP_API_PATH}/branches`, {
@@ -60,7 +61,7 @@ const EditMerchants = ({ open, setOpen, id, token, setSubmitting }) => {
 				},
 			})
 			.then((response) => {
-				setBranches(response.data);
+				setBranches(response?.data);
 			})
 			.catch((error) => {
 				console.log(error);
@@ -72,13 +73,14 @@ const EditMerchants = ({ open, setOpen, id, token, setSubmitting }) => {
 				},
 			})
 			.then((response) => {
-				setDistricts(response.data);
+				setDistricts(response?.data);
 			})
 			.catch((error) => {
 				console.log(error);
 			});
 	}, [token]);
 	const [data, setData] = React.useState();
+	console.log(data);
 	useEffect(() => {
 		axios
 			.get(`${process.env.REACT_APP_API_PATH}/merchant/${id}`, {
@@ -87,8 +89,8 @@ const EditMerchants = ({ open, setOpen, id, token, setSubmitting }) => {
 				},
 			})
 			.then((response) => {
-				reset(response.data);
-				setData(response.data);
+				reset(response?.data);
+				setData(response?.data);
 			})
 			.catch((error) => {
 				console.log(error);
@@ -178,7 +180,7 @@ const EditMerchants = ({ open, setOpen, id, token, setSubmitting }) => {
 										display: "flex",
 										alignItems: "center",
 									}}>
-									<BorderColorIcon sx={{ mr: 2 }} /> Edit Merchant
+									<BorderColorIcon sx={{ mr: 2 }} /> View Merchant Details
 								</Typography>
 								<form onSubmit={handleSubmit(onSubmit)}>
 									<Box sx={{ display: "flex", gap: "20px" }}>
@@ -231,13 +233,13 @@ const EditMerchants = ({ open, setOpen, id, token, setSubmitting }) => {
 										size='small'
 										sx={{ my: 0.5, width: "100% !important" }}
 										options={districts}
-										getOptionLabel={(option) => option.district}
+										getOptionLabel={(option) => option?.district}
 										style={{ width: 300 }}
 										defaultValue={
 											districts[
-											districts?.findIndex(
-												(x) => x.district === data?.merchantDistrict,
-											)
+												districts?.findIndex(
+													(x) => x?.district === data?.merchantDistrict,
+												)
 											]
 										}
 										renderInput={(params) => (
@@ -261,13 +263,13 @@ const EditMerchants = ({ open, setOpen, id, token, setSubmitting }) => {
 											size='small'
 											sx={{ my: 0.5, width: "100% !important" }}
 											options={branches}
-											getOptionLabel={(option) => option.branchName}
+											getOptionLabel={(option) => option?.branchName}
 											style={{ width: 300 }}
 											defaultValue={
 												branches[
-												branches?.findIndex(
-													(x) => x.branchName === data?.merchantBranchName,
-												)
+													branches?.findIndex(
+														(x) => x?.branchName === data?.merchantBranchName,
+													)
 												]
 											}
 											renderInput={(params) => (
@@ -283,6 +285,7 @@ const EditMerchants = ({ open, setOpen, id, token, setSubmitting }) => {
 												/>
 											)}
 										/>
+
 										<Autocomplete
 											size='small'
 											sx={{ my: 0.5, width: "100% !important" }}
@@ -300,7 +303,7 @@ const EditMerchants = ({ open, setOpen, id, token, setSubmitting }) => {
 													(x) => x?.branchName === data?.merchantBranchName,
 												)
 												?.branchArea?.find(
-													(xy) => xy.area === data?.merchantArea,
+													(xy) => xy?.area === data?.merchantArea || [],
 												)}
 											renderInput={(params) => (
 												<TextField
@@ -316,8 +319,8 @@ const EditMerchants = ({ open, setOpen, id, token, setSubmitting }) => {
 									</Box>
 									<Box sx={{ display: "flex", gap: "20px" }}>
 										<TextField
-											minlength="11"
-											maxlength="11"
+											minlength='11'
+											maxlength='11'
 											type='number'
 											helperText='Contact Number'
 											id='filled-start-adornment'
@@ -412,4 +415,4 @@ const EditMerchants = ({ open, setOpen, id, token, setSubmitting }) => {
 	);
 };
 
-export default EditMerchants;
+export default ViewMerchants;

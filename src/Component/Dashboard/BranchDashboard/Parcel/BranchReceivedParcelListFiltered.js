@@ -70,10 +70,10 @@ const BranchReceivedParcelListFiltered = ({
 	};
 	const [data, setData] = useState();
 	const [status, setStatus] = useState("");
-	const [riders, setRiders] = useState();
+	const [riders, setRiders] = useState([]);
 	const [branch, setBranch] = useState();
-	const [Warehouse, setWarehouse] = useState();
-	const [selectionModel, setSelectionModel] = React.useState();
+	const [Warehouse, setWarehouse] = useState([]);
+	const [selectionModel, setSelectionModel] = React.useState([]);
 	const [selected, setSelected] = React.useState([]);
 
 	useEffect(() => {
@@ -337,23 +337,23 @@ const BranchReceivedParcelListFiltered = ({
 				{((params.row?.status === "Assigned Rider For Delivery" &&
 					!params.row?.deliverRiderInfo?.riderName) ||
 					params.row?.status === "Cancelled By Delivery Rider") && (
-					<Autocomplete
-						onChange={(event, newValue) => {
-							changeRider(event, newValue, params.row?._id);
-						}}
-						size='small'
-						sx={{ my: 0.5 }}
-						options={riders}
-						getOptionLabel={(option) => option.riderName}
-						style={{ width: 250 }}
-						renderInput={(params) => (
-							<TextField {...params} label='Select Rider' variant='outlined' />
-						)}
-					/>
-				)}
+						<Autocomplete
+							onChange={(event, newValue) => {
+								changeRider(event, newValue, params.row?._id);
+							}}
+							size='small'
+							sx={{ my: 0.5 }}
+							options={riders}
+							getOptionLabel={(option) => option.riderName}
+							style={{ width: 250 }}
+							renderInput={(params) => (
+								<TextField {...params} label='Select Rider' variant='outlined' />
+							)}
+						/>
+					)}
 				{params.row?.status === "Delivered To Customer By Rider" &&
 					params.row?.paymentCollectionDetails?.collectionStatus ===
-						"Sending Money To Branch" && (
+					"Sending Money To Branch" && (
 						<Button
 							onClick={() =>
 								receiveAndSendMoney(
@@ -376,7 +376,7 @@ const BranchReceivedParcelListFiltered = ({
 					)}
 				{params.row?.status === "Delivered To Customer By Rider" &&
 					params.row?.paymentCollectionDetails?.collectionStatus ===
-						"Money Received In Branch" && (
+					"Money Received In Branch" && (
 						<Button
 							onClick={() =>
 								receiveAndSendMoney(
@@ -511,27 +511,27 @@ const BranchReceivedParcelListFiltered = ({
 							<>
 								{(selectedStatus === "Assigned Rider For Delivery" ||
 									selectedStatus === "Cancelled By Delivery Rider") && (
-									<Autocomplete
-										onChange={(event, newValue) => {
-											changeRiderMulti(event, newValue);
-										}}
-										size='small'
-										sx={{ my: 0.5, width: 200 }}
-										options={riders}
-										getOptionLabel={(option) => option.riderName}
-										renderInput={(params) => (
-											<TextField
-												{...params}
-												label='Select Rider'
-												variant='outlined'
-											/>
-										)}
-									/>
-								)}
+										<Autocomplete
+											onChange={(event, newValue) => {
+												changeRiderMulti(event, newValue);
+											}}
+											size='small'
+											sx={{ my: 0.5, width: 200 }}
+											options={riders}
+											getOptionLabel={(option) => option.riderName}
+											renderInput={(params) => (
+												<TextField
+													{...params}
+													label='Select Rider'
+													variant='outlined'
+												/>
+											)}
+										/>
+									)}
 								{selectedStatus !== "All" && (
 									<Box>
 										{selectedStatus === "Assigned Rider For Delivery" ||
-										selectedStatus === "Cancelled By Delivery Rider" ? (
+											selectedStatus === "Cancelled By Delivery Rider" ? (
 											""
 										) : (
 											<Button
@@ -580,11 +580,11 @@ const BranchReceivedParcelListFiltered = ({
 												)}
 												{selectedStatus ===
 													"Returned Parcel Received in Branch" && (
-													<MenuItem
-														value={"Sending Returned Parcel to Warehouse"}>
-														Sent Returned Parcel to Warehouse
-													</MenuItem>
-												)}
+														<MenuItem
+															value={"Sending Returned Parcel to Warehouse"}>
+															Sent Returned Parcel to Warehouse
+														</MenuItem>
+													)}
 											</Select>
 										</FormControl>
 									</Box>
@@ -611,7 +611,7 @@ const BranchReceivedParcelListFiltered = ({
 						sx={{ justifyContent: "center", px: 2, position: "relative" }}>
 						<Grid item xs={12} md={12}>
 							{data && (
-								<div style={{ height: 400, width: "100%" }} className='table'>
+								<div style={{ height: "80vh", width: "100%" }} className='table'>
 									<DataGrid
 										rows={allParcels?.filter(
 											(item) => item.marchentInfo.merchantName === marchantName,

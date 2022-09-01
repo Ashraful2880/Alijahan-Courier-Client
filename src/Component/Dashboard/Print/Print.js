@@ -88,7 +88,7 @@ const Print = ({ data, openPrint, handleClosePrint }) => {
 										<Typography
 											variant='p'
 											sx={{ fontSize: "17px", fontWeight: 600 }}>
-											Total Order: {data.length}
+											Total Order: {data?.length}
 										</Typography>
 									</Box>
 									<Box>

@@ -16,7 +16,7 @@ import GetAuth from "../../../../../FirebaseAuth/GetAuth.js";
 const Vehicles = () => {
 	const { user, loading, token } = GetAuth();
 	const [submitting, setSubmitting] = useState(false);
-	const [data, setData] = useState();
+	const [data, setData] = useState([]);
 	const [open, setOpen] = React.useState(false);
 	const [openEdit, setOpenEdit] = React.useState(false);
 	const [id, setId] = React.useState();
@@ -185,7 +185,7 @@ const Vehicles = () => {
 			<Grid container spacing={1} sx={{ justifyContent: "center" }}>
 				<Grid item xs={12} md={12}>
 					{data && (
-						<div style={{ height: 400, width: "100%" }} className='table'>
+						<div style={{ height: "80vh", width: "100%" }} className='table'>
 							<DataGrid
 								rows={data}
 								getRowId={(row) => row?._id}

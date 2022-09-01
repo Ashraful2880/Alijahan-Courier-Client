@@ -245,7 +245,7 @@ const Contact = () => {
                       placeholder="Your Full Name"
                     />
                   </Box>
-                  <Box sx={{ width: { md: "50%", xs: "100%" } }}>
+                  <Box sx={{ width: { md: "50%", xs: "100%" }, }}>
                     <input
                       type="number"
                       className="contactInput"
@@ -267,7 +267,7 @@ const Contact = () => {
                       placeholder="Your Email Address"
                     />
                   </Box>
-                  <Box sx={{ width: { md: "50%", xs: "100%" } }}>
+                  <Box sx={{ width: { md: "50%", xs: "100%" }, }}>
                     <Autocomplete
                       sx={{ width: "100%", mb: 3, }}
                       value={pickupArea}

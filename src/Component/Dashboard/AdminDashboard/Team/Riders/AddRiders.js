@@ -33,6 +33,7 @@ const AddRiders = ({ open, setOpen, token, setSubmitting }) => {
 	const { register, handleSubmit, reset, watch } = useForm();
 	const [branch, setBranch] = useState();
 	const [errors, setErrors] = useState(false);
+	const [num, setNum] = React.useState();
 	useEffect(() => {
 		axios
 			.get(`${process.env.REACT_APP_API_PATH}/branches`, {
@@ -61,7 +62,7 @@ const AddRiders = ({ open, setOpen, token, setSubmitting }) => {
 			confirmButtonText: "Ok",
 		});
 	}
-	const [data, setData] = useState();
+	const [data, setData] = useState([]);
 	useEffect(() => {
 		if (user) {
 			axios
@@ -106,7 +107,7 @@ const AddRiders = ({ open, setOpen, token, setSubmitting }) => {
 			riderName,
 			riderBranch,
 			riderAddress,
-			riderEmail,
+			riderEmail: riderEmail.toLowerCase(),
 			riderContact,
 			riderNID,
 			riderLicense,
@@ -216,24 +217,26 @@ const AddRiders = ({ open, setOpen, token, setSubmitting }) => {
 									helperText='User Email'
 									{...register("riderEmail", { required: true })}
 								/>
-								<TextField
-									minlength="11"
-									maxlength="11"
-									type='number'
-									size='small'
-									sx={{ my: 0.5 }}
-									fullWidth
-									required
-									label='Mobile Number'
-									helperText='Mobile Number'
-									{...register("riderContact", { required: true })}
-								/>
+								<Box style={{ width: "100%" }}>
+									<input
+										type='text'
+										placeholder="Mobile Number"
+										name="riderContact"
+										style={{ width: "100%", padding: "10px 12px", margin: "4px 0px", fontSize: "16px", borderRadius: "5px", border: "1px solid gray" }}
+										value={num}
+										onChange={(e) =>
+											setNum(e.target.value.replace(/[^0-9]/g, ""))
+										}
+										maxLength="11"
+										minLength="11"
+										{...register("riderContact", { required: true })}
+									/>
+									<label style={{ textAlign: "left", fontSize: "12px", color: "gray", width: "100%", display: "block", }}>Sender number</label>
+								</Box>
 							</Box>
 
 							<Box sx={{ display: "flex", gap: "20px" }}>
 								<TextField
-									minlength="11"
-									maxlength="11"
 									type='number'
 									size='small'
 									sx={{ my: 0.5 }}

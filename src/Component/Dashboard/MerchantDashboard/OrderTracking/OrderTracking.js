@@ -19,7 +19,7 @@ const OrderTracking = () => {
 	const { user, loading, token } = GetAuth();
 	const [submitting, setSubmitting] = useState(false);
 	const [show, setShow] = useState(false);
-	const [data, setData] = useState();
+	const [data, setData] = useState([]);
 	const [id, setId] = useState();
 	const submit = () => {
 		setSubmitting(true);

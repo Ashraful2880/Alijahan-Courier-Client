@@ -6,7 +6,7 @@ import axios from "axios";
 
 const DashboardHome = () => {
     const { user, loading, token } = GetAuth();
-    const [data, setData] = React.useState();
+    const [data, setData] = React.useState([]);
     const [currentUser, setCurrentUser] = React.useState("")
 
     React.useEffect(() => {
@@ -36,13 +36,15 @@ const DashboardHome = () => {
             });
     }, [token, user?.email])
     return (
-        <Box className="faq-background" style={{ height: "93vh" }}>
+        <Box className="dbHomeBackground" style={{ height: "93vh" }}>
             <Box style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
                 <Typography variant="h4" sx={{ fontWeight: "bold", color: "white" }}>
                     Hello <span style={{ color: "orange" }}>{currentUser?.name}</span>
                 </Typography>
                 <Typography variant="h6" sx={{ fontWeight: "bold", color: "white" }}>
-                    Welcome To <span style={{ color: "green" }}>Alijahan International</span> Dashboard
+                    Welcome To <span style={{ color: "green" }}> Alijahan International </span>
+                    <br />
+                    {currentUser?.userRole} Dashboard
                 </Typography>
             </Box>
         </Box>

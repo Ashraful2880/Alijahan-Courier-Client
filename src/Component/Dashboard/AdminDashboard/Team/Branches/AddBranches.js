@@ -38,10 +38,11 @@ const style = {
 const AddBranches = ({ open, setOpen, token, setSubmitting }) => {
 	const { register, handleSubmit, reset } = useForm();
 	const [areas, setAreas] = useState();
-	const [selectedDistricts, setSelectedDistricts] = useState("");
-	const [districts, setDistricts] = useState([]);
-	const [warehouses, setWarehouses] = useState([]);
+	const [selectedDistricts, setSelectedDistricts] = useState();
+	const [districts, setDistricts] = useState();
+	const [warehouses, setWarehouses] = useState();
 	const [warehouse, setWarehouse] = useState();
+	const [num, setNum] = React.useState();
 	useEffect(() => {
 		axios
 			.get(`${process.env.REACT_APP_API_PATH}/areas`, {
@@ -95,7 +96,7 @@ const AddBranches = ({ open, setOpen, token, setSubmitting }) => {
 			confirmButtonText: "Ok",
 		});
 	}
-	const [data, setData] = useState();
+	const [data, setData] = useState([]);
 	useEffect(() => {
 		if (user) {
 			axios
@@ -226,7 +227,7 @@ const AddBranches = ({ open, setOpen, token, setSubmitting }) => {
 										size='small'
 										sx={{ my: 1, width: "100% !important" }}
 										options={districts?.filter(
-											(item, i, ar) => ar.indexOf(item) === i,
+											(item, i, ar) => ar?.indexOf(item) === i,
 										)}
 										getOptionLabel={(option) => option?.district}
 										style={{ width: 300 }}
@@ -252,11 +253,10 @@ const AddBranches = ({ open, setOpen, token, setSubmitting }) => {
 										options={areas?.filter(
 											(item) => item?.district === selectedDistricts?.district,
 										)}
-										getOptionLabel={(option) => option.area}
+										getOptionLabel={(option) => option?.area}
 										filterSelectedOptions
 										renderInput={(params) => (
 											<TextField
-												required
 												{...params}
 												label='Areas'
 												helperText='Areas'
@@ -325,16 +325,22 @@ const AddBranches = ({ open, setOpen, token, setSubmitting }) => {
 									/>
 								</Box>
 								<Box sx={{ display: "flex", gap: "20px" }}>
-									<TextField
-										minlength="11"
-										maxlength="11"
-										size='small'
-										sx={{ my: 0.5 }}
-										fullWidth
-										label='Branch Contact'
-										helperText='Branch Contact'
-										{...register("branchContact", { required: true })}
-									/>
+									<Box style={{ width: "100%" }}>
+										<input
+											type='text'
+											placeholder="Branch Contact"
+											name="branchContact"
+											style={{ width: "100%", padding: "10px 12px", margin: "4px 0px", fontSize: "16px", borderRadius: "5px", border: "1px solid gray" }}
+											value={num}
+											onChange={(e) =>
+												setNum(e.target.value.replace(/[^0-9]/g, ""))
+											}
+											maxLength="11"
+											minLength="11"
+											{...register("branchContact", { required: true })}
+										/>
+										<label style={{ textAlign: "left", fontSize: "12px", color: "gray", width: "100%", display: "block", }}>Sender number</label>
+									</Box>
 									<TextField
 										size='small'
 										sx={{ my: 0.5 }}

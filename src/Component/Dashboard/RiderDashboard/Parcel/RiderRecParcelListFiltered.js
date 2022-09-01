@@ -60,9 +60,9 @@ const RiderRecParcelListFiltered = ({
 	const handleOpen = () => {
 		setOpen(true);
 	};
-	const [data, setData] = useState();
+	const [data, setData] = useState([]);
 	const [status, setStatus] = useState("");
-	const [selectionModel, setSelectionModel] = React.useState();
+	const [selectionModel, setSelectionModel] = React.useState([]);
 	const [selected, setSelected] = React.useState([]);
 	const [openPrint, setOpenPrint] = React.useState(false);
 	const handleOpenPrint = () => {
@@ -204,7 +204,7 @@ const RiderRecParcelListFiltered = ({
 			<Box sx={{ display: "flex", alignItems: "center" }}>
 				{params.row?.status === "Delivered To Customer By Rider" &&
 					params.row?.paymentCollectionDetails?.collectionStatus ===
-						"Collected From Customer" && (
+					"Collected From Customer" && (
 						<Button
 							onClick={() =>
 								sendMoneyToBranch(
@@ -226,7 +226,7 @@ const RiderRecParcelListFiltered = ({
 					)}
 				{params.row?.status === "Parcel Received By Delivery Rider" &&
 					params.row?.paymentCollectionDetails?.collectionStatus ===
-						"Pending" && (
+					"Pending" && (
 						<Button
 							onClick={() =>
 								changePaymentStatus(
@@ -397,16 +397,16 @@ const RiderRecParcelListFiltered = ({
 												)}
 												{selectedStatus ===
 													"Parcel Received By Delivery Rider" && (
-													<MenuItem value={"Delivered To Customer By Rider"}>
-														Deliver To Customer
-													</MenuItem>
-												)}
+														<MenuItem value={"Delivered To Customer By Rider"}>
+															Deliver To Customer
+														</MenuItem>
+													)}
 												{selectedStatus ===
 													"Parcel Received By Delivery Rider" && (
-													<MenuItem value={"Parcel Returned by Customer"}>
-														Parcel Return
-													</MenuItem>
-												)}
+														<MenuItem value={"Parcel Returned by Customer"}>
+															Parcel Return
+														</MenuItem>
+													)}
 												{selectedStatus === "Parcel Returned by Customer" && (
 													<MenuItem value={"Returning Parcel to Branch"}>
 														Returned Parcel Send to Branch
@@ -438,7 +438,7 @@ const RiderRecParcelListFiltered = ({
 						sx={{ justifyContent: "center", px: 2, position: "relative" }}>
 						<Grid item xs={12} md={12}>
 							{data && (
-								<div style={{ height: 400, width: "100%" }} className='table'>
+								<div style={{ height: "80vh", width: "100%" }} className='table'>
 									<DataGrid
 										rows={allParcels?.filter(
 											(item) => item.marchentInfo.merchantName === marchantName,
