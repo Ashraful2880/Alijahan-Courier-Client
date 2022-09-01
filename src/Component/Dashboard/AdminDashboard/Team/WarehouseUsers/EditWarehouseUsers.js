@@ -152,7 +152,6 @@ const EditWarehouseUsers = ({ open, setOpen, id, token, setSubmitting }) => {
 											sx={{ my: 0.5 }}
 											fullWidth
 											required
-											label='Warehouse Name'
 											helperText='Warehouse Name'
 											{...register("warehouseUserName", { required: true })}
 										/>
@@ -162,7 +161,6 @@ const EditWarehouseUsers = ({ open, setOpen, id, token, setSubmitting }) => {
 											fullWidth
 											multiline
 											rows={1}
-											label='Warehouse Address'
 											helperText='Warehouse Address'
 											{...register("warehouseUserAddress", { required: true })}
 										/>
@@ -186,7 +184,6 @@ const EditWarehouseUsers = ({ open, setOpen, id, token, setSubmitting }) => {
 													required
 													{...register("wareHouseName", { required: true })}
 													{...params}
-													label='Warehouse Name'
 													helperText='Warehouse Name'
 													variant='outlined'
 												/>
@@ -197,7 +194,6 @@ const EditWarehouseUsers = ({ open, setOpen, id, token, setSubmitting }) => {
 											size='small'
 											sx={{ my: 0.5 }}
 											fullWidth
-											label='Warehouse Contact'
 											helperText='Warehouse Contact'
 											{...register("warehouseUserContact", { required: true })}
 										/>
@@ -207,7 +203,6 @@ const EditWarehouseUsers = ({ open, setOpen, id, token, setSubmitting }) => {
 											size='small'
 											sx={{ my: 0.5 }}
 											fullWidth
-											label='Warehouse Email'
 											helperText='Warehouse Email'
 											{...register("warehouseUserEmail", { required: true })}
 										/>
@@ -215,19 +210,8 @@ const EditWarehouseUsers = ({ open, setOpen, id, token, setSubmitting }) => {
 											size='small'
 											sx={{ my: 0.5 }}
 											fullWidth
-											label='Warehouse Password'
 											helperText='Warehouse Password'
 											{...register("warehouseUserPassword", { required: true })}
-										/>
-									</Box>
-									<Box sx={{ display: "flex", gap: "20px" }}>
-										<TextField
-											size='small'
-											sx={{ my: 0.5, width: "50%" }}
-											fullWidth
-											label='Warehouse Image'
-											helperText='Warehouse Image'
-											{...register("warehouseUserImage", { required: true })}
 										/>
 									</Box>
 									<Box sx={{ mb: 2 }}>

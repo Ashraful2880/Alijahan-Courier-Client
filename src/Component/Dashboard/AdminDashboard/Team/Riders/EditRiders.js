@@ -164,7 +164,6 @@ const EditRiders = ({ open, setOpen, id, token, setSubmitting }) => {
 											sx={{ my: 0.5 }}
 											fullWidth
 											required
-											label='Rider Name'
 											helperText='Rider Name'
 											{...register("riderName", { required: true })}
 										/>
@@ -173,7 +172,6 @@ const EditRiders = ({ open, setOpen, id, token, setSubmitting }) => {
 											sx={{ my: 0.5 }}
 											fullWidth
 											required
-											label='Address'
 											helperText='Rider Address'
 											{...register("riderAddress", { required: true })}
 										/>
@@ -206,7 +204,6 @@ const EditRiders = ({ open, setOpen, id, token, setSubmitting }) => {
 													required
 													{...register("riderBranch", { required: true })}
 													{...params}
-													label='Rider Branch'
 													helperText='Rider Branch'
 													variant='outlined'
 												/>
@@ -220,7 +217,6 @@ const EditRiders = ({ open, setOpen, id, token, setSubmitting }) => {
 											sx={{ my: 0.5 }}
 											fullWidth
 											required
-											label='User Email'
 											helperText='User Email'
 											{...register("riderEmail", { required: true })}
 										/>
@@ -232,7 +228,6 @@ const EditRiders = ({ open, setOpen, id, token, setSubmitting }) => {
 											sx={{ my: 0.5 }}
 											fullWidth
 											required
-											label='Mobile Number'
 											helperText='Mobile Number'
 											{...register("riderContact", { required: true })}
 										/>
@@ -247,7 +242,6 @@ const EditRiders = ({ open, setOpen, id, token, setSubmitting }) => {
 											sx={{ my: 0.5 }}
 											fullWidth
 											required
-											label='Rider NID'
 											helperText='Rider NID'
 											{...register("riderNID", { required: true })}
 										/>
@@ -256,7 +250,6 @@ const EditRiders = ({ open, setOpen, id, token, setSubmitting }) => {
 											sx={{ my: 0.5 }}
 											fullWidth
 											required
-											label='Driving License'
 											helperText='Deriving License'
 											{...register("riderLicense", { required: true })}
 										/>
@@ -268,7 +261,6 @@ const EditRiders = ({ open, setOpen, id, token, setSubmitting }) => {
 											fullWidth
 											required
 											type='password'
-											label='User Password'
 											helperText='User Password'
 											defaultValue={data?.riderPassword}
 											{...register("password", {
@@ -281,7 +273,6 @@ const EditRiders = ({ open, setOpen, id, token, setSubmitting }) => {
 											type='password'
 											fullWidth
 											required
-											label='Confirm Password'
 											helperText={
 												error ? (
 													<span style={{ color: "red" }}>

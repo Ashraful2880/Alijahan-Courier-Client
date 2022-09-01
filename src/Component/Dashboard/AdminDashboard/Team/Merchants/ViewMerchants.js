@@ -16,6 +16,7 @@ import ReplayIcon from "@mui/icons-material/Replay";
 import DoneIcon from "@mui/icons-material/Done";
 import CancelIcon from "@mui/icons-material/Cancel";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import Swal from "sweetalert2";
 const style = {
 	position: "absolute",
@@ -180,16 +181,17 @@ const ViewMerchants = ({ open, setOpen, id, token, setSubmitting }) => {
 										display: "flex",
 										alignItems: "center",
 									}}>
-									<BorderColorIcon sx={{ mr: 2 }} /> View Merchant Details
+									<RemoveRedEyeIcon sx={{ mr: 2 }} /> View Merchant Details
 								</Typography>
-								<form onSubmit={handleSubmit(onSubmit)}>
+								<form
+									onSubmit={handleSubmit(onSubmit)}
+									style={{ pointerEvents: "none", paddingBottom: "30px" }}>
 									<Box sx={{ display: "flex", gap: "20px" }}>
 										<TextField
 											size='small'
 											sx={{ my: 0.5 }}
 											fullWidth
 											required
-											label='Merchant Name'
 											helperText='Name'
 											{...register("merchantName", { required: true })}
 										/>
@@ -198,7 +200,6 @@ const ViewMerchants = ({ open, setOpen, id, token, setSubmitting }) => {
 											sx={{ my: 0.5 }}
 											fullWidth
 											required
-											label='Company Name'
 											helperText='Company Name'
 											{...register("merchantCompanyName", { required: true })}
 										/>
@@ -211,7 +212,6 @@ const ViewMerchants = ({ open, setOpen, id, token, setSubmitting }) => {
 											required
 											multiline
 											rows={2}
-											label='Merchant Address'
 											helperText='Full Address'
 											{...register("merchantAddress", { required: true })}
 										/>
@@ -222,7 +222,6 @@ const ViewMerchants = ({ open, setOpen, id, token, setSubmitting }) => {
 											required
 											multiline
 											rows={2}
-											label='Business Address'
 											helperText='Business Address'
 											{...register("merchantBusinessAddress", {
 												required: true,
@@ -249,7 +248,6 @@ const ViewMerchants = ({ open, setOpen, id, token, setSubmitting }) => {
 													required: true,
 												})}
 												{...params}
-												label='Select District'
 												variant='outlined'
 												helperText='Branch'
 											/>
@@ -279,7 +277,6 @@ const ViewMerchants = ({ open, setOpen, id, token, setSubmitting }) => {
 														required: true,
 													})}
 													{...params}
-													label='Select Branch'
 													variant='outlined'
 													helperText='Branch'
 												/>
@@ -336,72 +333,9 @@ const ViewMerchants = ({ open, setOpen, id, token, setSubmitting }) => {
 											sx={{ my: 0.5 }}
 											fullWidth
 											required
-											label='Email'
 											helperText='Email'
 											{...register("merchantEmail", { required: true })}
 										/>
-									</Box>
-									<Box sx={{ display: "flex", gap: "20px" }}>
-										<TextField
-											size='small'
-											sx={{ my: 0.5 }}
-											fullWidth
-											required
-											type='password'
-											label='User Password'
-											helperText='User Password'
-											defaultValue={data?.merchantPassword}
-											{...register("password", {
-												required: true,
-											})}
-										/>
-										<TextField
-											size='small'
-											sx={{ my: 0.5 }}
-											type='password'
-											fullWidth
-											required
-											label='Confirm Password'
-											helperText={
-												error ? (
-													<span style={{ color: "red" }}>
-														Your password didn't matched.
-													</span>
-												) : (
-													"Confirm Password"
-												)
-											}
-											{...register("merchantPassword", {
-												required: true,
-												validate: (val) => {
-													if (watch("password") !== val) {
-														setError(true);
-														return "false";
-													}
-												},
-											})}
-										/>
-									</Box>
-
-									<Box sx={{ my: 2 }}>
-										<Button
-											type='submit'
-											variant='contained'
-											color='success'
-											// className='button'
-											sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
-											<DoneIcon sx={{ mr: 0.5 }} />
-											Update
-										</Button>
-										<Button
-											onClick={() => setOpen(false)}
-											type='reset'
-											variant='contained'
-											color='error'
-											sx={{ my: 0.7, fontWeight: "bold", px: 1.5, mx: 1 }}>
-											<ReplayIcon sx={{ mr: 0.5 }} />
-											Close
-										</Button>
 									</Box>
 								</form>
 							</>
