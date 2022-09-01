@@ -204,7 +204,6 @@ const EditBranches = ({ open, setOpen, id, token, setSubmitting }) => {
 											sx={{ my: 0.5 }}
 											fullWidth
 											required
-											label='Branch Name'
 											helperText='Branch Name'
 											{...register("branchName", { required: true })}
 										/>
@@ -214,7 +213,6 @@ const EditBranches = ({ open, setOpen, id, token, setSubmitting }) => {
 											fullWidth
 											multiline
 											rows={2}
-											label='Branch Address'
 											helperText='Branch Address'
 											{...register("branchAddress", { required: true })}
 										/>
@@ -241,7 +239,6 @@ const EditBranches = ({ open, setOpen, id, token, setSubmitting }) => {
 													required
 													{...register("branchDistrict", { required: true })}
 													{...params}
-													label='Districts Name'
 													helperText='Districts Name'
 													variant='outlined'
 												/>
@@ -267,7 +264,6 @@ const EditBranches = ({ open, setOpen, id, token, setSubmitting }) => {
 												<TextField
 													required
 													{...params}
-													label='Areas'
 													helperText='Areas'
 													placeholder='Select Areas'
 												/>
@@ -288,7 +284,6 @@ const EditBranches = ({ open, setOpen, id, token, setSubmitting }) => {
 											<TextField
 												required
 												{...params}
-												label='Warehouse'
 												helperText='Warehouse'
 												variant='outlined'
 											/>
@@ -299,7 +294,6 @@ const EditBranches = ({ open, setOpen, id, token, setSubmitting }) => {
 											size='small'
 											sx={{ my: 0.5 }}
 											fullWidth
-											label='Pickup Commission (in %)'
 											helperText='Pickup Commission (in %)'
 											{...register("pickupCom", { required: true })}
 										/>
@@ -307,7 +301,6 @@ const EditBranches = ({ open, setOpen, id, token, setSubmitting }) => {
 											size='small'
 											sx={{ my: 0.5 }}
 											fullWidth
-											label='Delivery Commission (in %)'
 											helperText='Delivery Commission (in %)'
 											{...register("deliveryCom", { required: true })}
 										/>
@@ -317,7 +310,6 @@ const EditBranches = ({ open, setOpen, id, token, setSubmitting }) => {
 											size='small'
 											sx={{ my: 0.5 }}
 											fullWidth
-											label='Booking Commission (in %)'
 											helperText='Booking Commission (in %)'
 											{...register("bookingCom", { required: true })}
 										/>
@@ -325,7 +317,6 @@ const EditBranches = ({ open, setOpen, id, token, setSubmitting }) => {
 											size='small'
 											sx={{ my: 0.5 }}
 											fullWidth
-											label='Office Delivery Commission (in %)'
 											helperText='Office Delivery Commission (in %)'
 											{...register("officeDeliveryCom", { required: true })}
 										/>
@@ -335,7 +326,6 @@ const EditBranches = ({ open, setOpen, id, token, setSubmitting }) => {
 											size='small'
 											sx={{ my: 0.5 }}
 											fullWidth
-											label='Branch Contact'
 											helperText='Branch Contact'
 											{...register("branchContact", { required: true })}
 										/>
@@ -343,7 +333,6 @@ const EditBranches = ({ open, setOpen, id, token, setSubmitting }) => {
 											size='small'
 											sx={{ my: 0.5 }}
 											fullWidth
-											label='Branch Email'
 											helperText='Branch Email'
 											{...register("branchEmail", { required: true })}
 										/>
@@ -353,7 +342,6 @@ const EditBranches = ({ open, setOpen, id, token, setSubmitting }) => {
 											size='small'
 											sx={{ my: 0.5, width: "50%" }}
 											fullWidth
-											label='Branch Password'
 											helperText='Branch Password'
 											{...register("branchPassword", { required: true })}
 										/>
