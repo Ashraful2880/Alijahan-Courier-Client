@@ -6,14 +6,18 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import "../../../App.css";
-import GetAuth from "../../../FirebaseAuth/GetAuth";
+import BorderColorIcon from '@mui/icons-material/BorderColor';
+import "./../../../../App.css";
+import GetAuth from "../../../../FirebaseAuth/GetAuth";
 import axios from "axios";
+import Button from '@mui/material/Button';
+import EditMarchantProfile from "./EditMarchantProfile";
 
 const MerchantProfile = () => {
 	const { user, loading, token } = GetAuth();
 	const [merchant, setMerchant] = useState([]);
 	const [currentUser, setCurrentUser] = React.useState("")
+	const [open, setOpen] = React.useState(false);
 
 	useEffect(() => {
 		axios
@@ -42,6 +46,7 @@ const MerchantProfile = () => {
 			});
 	}, [token, user?.email]);
 
+	console.log(currentUser)
 	return (
 		<Box sx={{ px: 4, pt: 2, pb: 5, background: "#f8f8f8", height: "93vh" }}>
 			<Box
@@ -68,13 +73,28 @@ const MerchantProfile = () => {
 				<Typography
 					variant='h5'
 					sx={{ fontWeight: "bold", marginBottom: "15px" }}>
-					Welcome Back! <span style={{ color: "green" }}>{currentUser?.userRole}</span>
+					Welcome Back! <span style={{ color: "green" }}>{currentUser?.name}</span>
 				</Typography>
 				<TableContainer
 					component={Paper}
 					style={{ marginTop: "10px", padding: "0px 20px" }}>
 					<Table>
 						<TableBody>
+							<TableRow>
+								<TableCell
+									component='th'
+									scope='row'
+									sx={{ fontSize: "18px", letterSpacing: "0.2px", fontWeight: "600" }}>
+									Profile Information
+								</TableCell>
+								<TableCell
+									sx={{ fontSize: "15px", letterSpacing: "0.2px" }}
+									align='right'>
+									<Button variant="outlined" color="success" onClick={() => setOpen(true)}>
+										Edit <BorderColorIcon sx={{ color: "green", fontSize: "30px" }} />
+									</Button>
+								</TableCell>
+							</TableRow>
 							<TableRow>
 								<TableCell
 									component='th'
@@ -209,6 +229,7 @@ const MerchantProfile = () => {
 					</Table>
 				</TableContainer>
 			</Box>
+			{open && <EditMarchantProfile open={open} setOpen={setOpen} merchant={merchant} currentUser={currentUser} />}
 		</Box>
 	);
 };
