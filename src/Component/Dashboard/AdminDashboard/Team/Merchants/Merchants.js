@@ -10,8 +10,8 @@ import RemoveDoneIcon from "@mui/icons-material/RemoveDone";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
 import AddIcon from "@mui/icons-material/Add";
 import AddMerchants from "./AddMerchants";
-import EditMerchants from "./ViewMerchants";
 import GetAuth from "../../../../../FirebaseAuth/GetAuth";
+import ViewMerchants from "./ViewMerchants";
 
 const Merchants = () => {
 	const { user, loading, token } = GetAuth();
@@ -216,7 +216,7 @@ const Merchants = () => {
 				/>
 			)}
 			{openEdit && (
-				<EditMerchants
+				<ViewMerchants
 					open={openEdit}
 					setOpen={setOpenEdit}
 					id={id}

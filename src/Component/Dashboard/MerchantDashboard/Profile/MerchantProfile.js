@@ -17,7 +17,15 @@ const MerchantProfile = () => {
 	const { user, loading, token } = GetAuth();
 	const [merchant, setMerchant] = useState([]);
 	const [currentUser, setCurrentUser] = React.useState("")
+	const [submitting, setSubmitting] = useState(false);
 	const [open, setOpen] = React.useState(false);
+	const [id, setId] = React.useState();
+
+	const handleOpen = (id) => {
+		setId(id);
+		setOpen(true);
+		console.log("ID", id, open);
+	};
 
 	useEffect(() => {
 		axios
@@ -46,7 +54,6 @@ const MerchantProfile = () => {
 			});
 	}, [token, user?.email]);
 
-	console.log(currentUser)
 	return (
 		<Box sx={{ px: 4, pt: 2, pb: 5, background: "#f8f8f8", height: "93vh" }}>
 			<Box
@@ -90,7 +97,9 @@ const MerchantProfile = () => {
 								<TableCell
 									sx={{ fontSize: "15px", letterSpacing: "0.2px" }}
 									align='right'>
-									<Button variant="outlined" color="success" onClick={() => setOpen(true)}>
+									<Button variant="outlined" color="success" onClick={() => {
+										handleOpen(currentUser?._id);
+									}}>
 										Edit <BorderColorIcon sx={{ color: "green", fontSize: "30px" }} />
 									</Button>
 								</TableCell>
@@ -229,7 +238,13 @@ const MerchantProfile = () => {
 					</Table>
 				</TableContainer>
 			</Box>
-			{open && <EditMarchantProfile open={open} setOpen={setOpen} merchant={merchant} currentUser={currentUser} />}
+			{open && (
+				<EditMarchantProfile
+					open={open}
+					setOpen={setOpen}
+					id={id}
+					token={token}
+					setSubmitting={setSubmitting} />)}
 		</Box>
 	);
 };

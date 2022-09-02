@@ -16,6 +16,7 @@ import ReplayIcon from "@mui/icons-material/Replay";
 import DoneIcon from "@mui/icons-material/Done";
 import CancelIcon from "@mui/icons-material/Cancel";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import Swal from "sweetalert2";
 const style = {
     position: "absolute",
@@ -33,59 +34,100 @@ const style = {
     backgroundColor: "white",
 };
 
-const EditMarchantProfile = ({ open, setOpen, currentUser, merchant }) => {
-    const id = currentUser.id;
-    const { register, handleSubmit, reset } = useForm({
+const EditMarchantProfile = ({ open, setOpen, id, token, setSubmitting }) => {
+    const { register, handleSubmit, reset, watch } = useForm({
         defaultValues: {
             merchantName: "",
-            merchantEmail: "",
-            merchantNumber: "",
+            merchantCompanyName: "",
             merchantAddress: "",
             merchantBusinessAddress: "",
+            merchantDistrict: "",
             merchantBranchName: "",
-            merchantCompanyName: "",
             merchantArea: "",
-            merchantStatus: "",
+            merchantContact: "",
+            merchantEmail: "",
+            merchantPassword: "",
         },
     });
-    const [value, setValue] = React.useState();
-    const [areas, setAreas] = useState();
-    const [selectedDistricts, setSelectedDistricts] = useState();
-    const [warehouses, setWarehouses] = useState();
-    const [warehouse, setWarehouse] = useState();
-    const [districts, setDistricts] = useState();
-    const [submitting, setSubmitting] = useState();
-    const [data, setData] = useState();
+    const [error, setError] = useState(false);
+    const [selectedBranch, setSelectedBranch] = useState();
+    const [branches, setBranches] = useState([]);
+    const [districts, setDistricts] = useState([]);
 
+    useEffect(() => {
+        axios
+            .get(`${process.env.REACT_APP_API_PATH}/branches`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            })
+            .then((response) => {
+                setBranches(response?.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+        axios
+            .get(`${process.env.REACT_APP_API_PATH}/districts`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            })
+            .then((response) => {
+                setDistricts(response?.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, [token]);
+    const [data, setData] = React.useState();
+
+    useEffect(() => {
+        axios
+            .get(`${process.env.REACT_APP_API_PATH}/merchant/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            })
+            .then((response) => {
+                setData(response?.data);
+                reset(response?.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, [id, reset, token]);
     const onSubmit = ({
         merchantName,
-        merchantEmail,
-        merchantNumber,
+        merchantCompanyName,
         merchantAddress,
         merchantBusinessAddress,
         merchantBranchName,
-        merchantCompanyName,
+        merchantDistrict,
+        merchantContact,
         merchantArea,
-        merchantStatus,
+        merchantEmail,
+        merchantPassword,
     }) => {
         setSubmitting(true);
         axios
             .put(
-                `${process.env.REACT_APP_API_PATH}/branch/${id}`,
+                `${process.env.REACT_APP_API_PATH}/merchant/${id}`,
                 {
                     merchantName,
-                    merchantEmail: merchantEmail.toLowercase(),
-                    merchantNumber,
+                    merchantCompanyName,
                     merchantAddress,
                     merchantBusinessAddress,
+                    merchantDistrict,
                     merchantBranchName,
-                    merchantCompanyName,
+                    merchantContact,
                     merchantArea,
-                    merchantStatus,
+                    merchantEmail,
+                    merchantPassword,
                 },
                 {
                     headers: {
-                        Authorization: `Bearer $`,
+                        Authorization: `Bearer ${token}`,
                     },
                 },
             )
@@ -125,7 +167,7 @@ const EditMarchantProfile = ({ open, setOpen, currentUser, merchant }) => {
                                 borderRadius: "50%",
                             }}
                         />
-                        {data && currentUser && merchant ? (
+                        {data && branches ? (
                             <>
                                 <Typography
                                     variant='h6'
@@ -139,104 +181,161 @@ const EditMarchantProfile = ({ open, setOpen, currentUser, merchant }) => {
                                         display: "flex",
                                         alignItems: "center",
                                     }}>
-                                    <BorderColorIcon sx={{ mr: 2 }} /> Edit Merchant Profile
+                                    <RemoveRedEyeIcon sx={{ mr: 2 }} /> View Merchant Details
                                 </Typography>
-                                <form onSubmit={handleSubmit(onSubmit)}>
+                                <form
+                                    onSubmit={handleSubmit(onSubmit)}
+                                    style={{ pointerEvents: "none", paddingBottom: "30px" }}>
                                     <Box sx={{ display: "flex", gap: "20px" }}>
                                         <TextField
                                             size='small'
                                             sx={{ my: 0.5 }}
                                             fullWidth
                                             required
-                                            helperText='Merchant Name'
+                                            helperText='Name'
                                             {...register("merchantName", { required: true })}
                                         />
                                         <TextField
                                             size='small'
                                             sx={{ my: 0.5 }}
                                             fullWidth
-                                            multiline
-                                            rows={2}
-                                            helperText='Merchant Email'
-                                            {...register("merchantEmail", { required: true })}
-                                        />
-                                    </Box>
-                                    <Box sx={{ display: "flex", gap: "20px" }}>
-                                        <TextField
-                                            size='small'
-                                            sx={{ my: 0.5 }}
-                                            fullWidth
-                                            helperText='Merchant Number'
-                                            {...register("merchantNumber", { required: true })}
-                                        />
-                                        <TextField
-                                            size='small'
-                                            sx={{ my: 0.5 }}
-                                            fullWidth
-                                            helperText='Merchant Address'
-                                            {...register("merchantAddress", { required: true })}
-                                        />
-                                    </Box>
-                                    <Box sx={{ display: "flex", gap: "20px" }}>
-                                        <TextField
-                                            size='small'
-                                            sx={{ my: 0.5 }}
-                                            fullWidth
-                                            helperText='Merchant Business Address'
-                                            {...register("MerchantBusinessAddress", { required: true })}
-                                        />
-                                        <TextField
-                                            size='small'
-                                            sx={{ my: 0.5 }}
-                                            fullWidth
-                                            helperText='Merchant Branch Name'
-                                            {...register("merchantBranchName", { required: true })}
-                                        />
-                                    </Box>
-                                    <Box sx={{ display: "flex", gap: "20px" }}>
-                                        <TextField
-                                            size='small'
-                                            sx={{ my: 0.5 }}
-                                            fullWidth
-                                            helperText='Merchant Company Name'
+                                            required
+                                            helperText='Company Name'
                                             {...register("merchantCompanyName", { required: true })}
                                         />
-                                        <TextField
-                                            size='small'
-                                            sx={{ my: 0.5 }}
-                                            fullWidth
-                                            helperText='Merchant Area'
-                                            {...register("merchantArea", { required: true })}
-                                        />
                                     </Box>
                                     <Box sx={{ display: "flex", gap: "20px" }}>
                                         <TextField
                                             size='small'
-                                            sx={{ my: 0.5, width: "50%" }}
+                                            sx={{ my: 0.5 }}
                                             fullWidth
-                                            helperText='Status'
-                                            {...register("status", { required: true })}
+                                            required
+                                            multiline
+                                            rows={2}
+                                            helperText='Full Address'
+                                            {...register("merchantAddress", { required: true })}
+                                        />
+                                        <TextField
+                                            size='small'
+                                            sx={{ my: 0.5 }}
+                                            fullWidth
+                                            required
+                                            multiline
+                                            rows={2}
+                                            helperText='Business Address'
+                                            {...register("merchantBusinessAddress", {
+                                                required: true,
+                                            })}
                                         />
                                     </Box>
-                                    <Box sx={{ my: 1 }}>
-                                        <Button
-                                            type='submit'
-                                            variant='contained'
-                                            color='success'
-                                            // className='button'
-                                            sx={{ my: 0.5, fontWeight: "bold", px: 1.5, mx: 1 }}>
-                                            <DoneIcon sx={{ mr: 0.5 }} />
-                                            Update
-                                        </Button>
-                                        <Button
-                                            onClick={() => setOpen(false)}
-                                            type='reset'
-                                            variant='contained'
-                                            color='error'
-                                            sx={{ my: 0.5, fontWeight: "bold", px: 1.5, mx: 1 }}>
-                                            <ReplayIcon sx={{ mr: 0.5 }} />
-                                            Close
-                                        </Button>
+                                    <Autocomplete
+                                        size='small'
+                                        sx={{ my: 0.5, width: "100% !important" }}
+                                        options={districts}
+                                        getOptionLabel={(option) => option?.district}
+                                        style={{ width: 300 }}
+                                        defaultValue={
+                                            districts[
+                                            districts?.findIndex(
+                                                (x) => x?.district === data?.merchantDistrict,
+                                            )
+                                            ]
+                                        }
+                                        renderInput={(params) => (
+                                            <TextField
+                                                required
+                                                {...register("merchantDistrict", {
+                                                    required: true,
+                                                })}
+                                                {...params}
+                                                variant='outlined'
+                                                helperText='Branch'
+                                            />
+                                        )}
+                                    />
+                                    <Box sx={{ display: "flex", gap: "20px" }}>
+                                        <Autocomplete
+                                            onChange={(event, newValue) => {
+                                                setSelectedBranch(newValue);
+                                            }}
+                                            size='small'
+                                            sx={{ my: 0.5, width: "100% !important" }}
+                                            options={branches}
+                                            getOptionLabel={(option) => option?.branchName}
+                                            style={{ width: 300 }}
+                                            defaultValue={
+                                                branches[
+                                                branches?.findIndex(
+                                                    (x) => x?.branchName === data?.merchantBranchName,
+                                                )
+                                                ]
+                                            }
+                                            renderInput={(params) => (
+                                                <TextField
+                                                    required
+                                                    {...register("merchantBranchName", {
+                                                        required: true,
+                                                    })}
+                                                    {...params}
+                                                    variant='outlined'
+                                                    helperText='Branch'
+                                                />
+                                            )}
+                                        />
+
+                                        <Autocomplete
+                                            size='small'
+                                            sx={{ my: 0.5, width: "100% !important" }}
+                                            options={
+                                                selectedBranch ||
+                                                branches?.filter(
+                                                    (x) => x?.branchName === data?.merchantBranchName,
+                                                )?.branchArea ||
+                                                []
+                                            }
+                                            getOptionLabel={(option) => option?.area}
+                                            style={{ width: 300 }}
+                                            defaultValue={branches
+                                                ?.find(
+                                                    (x) => x?.branchName === data?.merchantBranchName,
+                                                )
+                                                ?.branchArea?.find(
+                                                    (xy) => xy?.area === data?.merchantArea || [],
+                                                )}
+                                            renderInput={(params) => (
+                                                <TextField
+                                                    required
+                                                    {...register("merchantArea", { required: true })}
+                                                    {...params}
+                                                    label='Select Area'
+                                                    variant='outlined'
+                                                    helperText='Area'
+                                                />
+                                            )}
+                                        />
+                                    </Box>
+                                    <Box sx={{ display: "flex", gap: "20px" }}>
+                                        <TextField
+                                            minlength='11'
+                                            maxlength='11'
+                                            type='number'
+                                            helperText='Contact Number'
+                                            id='filled-start-adornment'
+                                            placeholder='Merchant Contact Number'
+                                            size='small'
+                                            sx={{ my: 0.5, width: "100% !important" }}
+                                            {...register("merchantContact", { required: true })}
+                                            variant='outlined'
+                                        />
+                                        <TextField
+                                            type='email'
+                                            size='small'
+                                            sx={{ my: 0.5 }}
+                                            fullWidth
+                                            required
+                                            helperText='Email'
+                                            {...register("merchantEmail", { required: true })}
+                                        />
                                     </Box>
                                 </form>
                             </>
