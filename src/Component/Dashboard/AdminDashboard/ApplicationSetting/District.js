@@ -15,7 +15,7 @@ const District = () => {
 	const { user, loading, token } = useAPI();
 	const { register, handleSubmit, reset } = useForm();
 	const [submitting, setSubmitting] = useState(false);
-	const [data, setData] = useState([]);
+	const [data, setData] = useState();
 
 	useEffect(() => {
 		axios
@@ -59,7 +59,7 @@ const District = () => {
 	const renderDetailsButton = (params) => {
 		return (
 			<strong>
-				{params.row?.status === "Active" ? (
+				{params?.row?.status === "Active" ? (
 					<RemoveDoneIcon
 						className='iconBtn'
 						sx={{ color: "#1565C0!important" }}
@@ -140,7 +140,7 @@ const District = () => {
 							showCancelButton: true,
 							confirmButtonText: "Yes",
 						}).then((result) => {
-							if (result.isConfirmed) {
+							if (result?.isConfirmed) {
 								setSubmitting(true);
 								axios
 									.delete(
@@ -213,7 +213,7 @@ const District = () => {
 					{data && (
 						<div style={{ height: "80vh", width: "100%" }} className='table'>
 							<DataGrid
-								rows={data}
+								rows={data || []}
 								getRowId={(row) => row?._id}
 								columns={columns}
 								pageSize={10}

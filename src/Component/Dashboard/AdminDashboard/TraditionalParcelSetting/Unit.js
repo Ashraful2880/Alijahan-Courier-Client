@@ -15,7 +15,7 @@ const Unit = () => {
 	const { user, loading, token } = useAPI();
 	const { register, handleSubmit, reset } = useForm();
 	const [submitting, setSubmitting] = useState(false);
-	const [data, setData] = useState([]);
+	const [data, setData] = useState();
 
 	useEffect(() => {
 		axios

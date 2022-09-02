@@ -431,12 +431,12 @@ const DeliveryCalculator = () => {
               <Box sx={{ display: "flex", mb: 2 }}>
                 <h2
                   style={{
-                    border: "3px solid #08A74C",
+                    border: "3px solid orange",
                     borderRadius: 10,
                     padding: "5px 25px",
                     fontWeight: 600,
                     fontFamily: "Montserrat, sans-serif",
-                    background: "#fff",
+                    background: "orange",
                   }}
                 >
                   {finalPrice} Tk

@@ -60,7 +60,7 @@ const RiderParcelListFiltered = ({
 	const handleOpen = () => {
 		setOpen(true);
 	};
-	const [data, setData] = useState([]);
+	const [data, setData] = useState();
 	const [status, setStatus] = useState("");
 	const [selectionModel, setSelectionModel] = React.useState([]);
 	const [selected, setSelected] = React.useState([]);
@@ -68,7 +68,7 @@ const RiderParcelListFiltered = ({
 
 	const handleOpenPrint = () => {
 		setOpenPrint(true);
-		setSelected(data?.filter((e) => selectionModel?.find((n) => n === e._id)));
+		setSelected(data?.filter((e) => selectionModel?.find((n) => n === e?._id)));
 	};
 	const handleClosePrint = () => setOpenPrint(false);
 	useEffect(() => {
@@ -229,8 +229,8 @@ const RiderParcelListFiltered = ({
 						<Button
 							onClick={() =>
 								changePaymentStatus(
-									params.row?._id,
-									params.row?.orderSummaray?.totalAmountWithCharges,
+									params?.row?._id,
+									params?.row?.orderSummaray?.totalAmountWithCharges,
 								)
 							}
 							sx={{
@@ -241,7 +241,7 @@ const RiderParcelListFiltered = ({
 								border: "2px solid ",
 							}}>
 							<PaymentsIcon sx={{ mr: 0.5 }} />
-							Collect {params.row?.orderSummaray?.totalAmountWithCharges} ৳
+							Collect {params?.row?.orderSummaray?.totalAmountWithCharges} ৳
 						</Button>
 					)}
 			</Box>
@@ -253,7 +253,7 @@ const RiderParcelListFiltered = ({
 			field: "merchantName",
 			headerName: "Marchant Name",
 			renderCell: (params) => {
-				return params.row.marchentInfo.merchantName;
+				return params?.row?.marchentInfo?.merchantName;
 			},
 			width: 150,
 		},
@@ -261,7 +261,7 @@ const RiderParcelListFiltered = ({
 			field: "receiverBranchArea",
 			headerName: "Pickup Address",
 			renderCell: (params) => {
-				return ` ${params.row.receiverInfo.receiverBranchArea}(${params.row.receiverInfo.receiverBranchName})`;
+				return ` ${params?.row?.receiverInfo?.receiverBranchArea}(${params?.row?.receiverInfo?.receiverBranchName})`;
 			},
 			width: 180,
 		},
@@ -269,7 +269,7 @@ const RiderParcelListFiltered = ({
 			field: "receiverAddress",
 			headerName: "Full Address",
 			renderCell: (params) => {
-				return params.row.receiverInfo.receiverAddress;
+				return params?.row?.receiverInfo?.receiverAddress;
 			},
 			width: 170,
 		},
@@ -277,7 +277,7 @@ const RiderParcelListFiltered = ({
 			field: "receiverNumber",
 			headerName: "Phone Number",
 			renderCell: (params) => {
-				return params.row.receiverInfo.receiverNumber;
+				return params?.row?.receiverInfo?.receiverNumber;
 			},
 			width: 180,
 		},

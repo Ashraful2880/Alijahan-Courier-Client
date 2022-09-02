@@ -143,7 +143,6 @@ const EditWeightPackage = ({ open, setOpen, id, token, setSubmitting }) => {
 											sx={{ my: 0.7 }}
 											fullWidth
 											required
-											label='Weight Package ID'
 											helperText='Weight Package ID'
 											{...register("weightPackageId", { required: true })}
 										/>
@@ -152,7 +151,6 @@ const EditWeightPackage = ({ open, setOpen, id, token, setSubmitting }) => {
 											sx={{ my: 0.7 }}
 											fullWidth
 											required
-											label='Weight Package Name'
 											{...register("weightPackageName", { required: true })}
 										/>
 									</Box>
@@ -161,7 +159,6 @@ const EditWeightPackage = ({ open, setOpen, id, token, setSubmitting }) => {
 											size='small'
 											sx={{ my: 0.7 }}
 											fullWidth
-											label='Weight Package Title'
 											helperText='Weight Package Title'
 											{...register("weightPackageTitle", { required: true })}
 										/>
@@ -181,7 +178,6 @@ const EditWeightPackage = ({ open, setOpen, id, token, setSubmitting }) => {
 											size='small'
 											sx={{ my: 0.7 }}
 											fullWidth
-											label='Weight Package Description'
 											helperText='Weight Package Description'
 											{...register("weightPackageDescription", {
 												required: true,
@@ -191,7 +187,6 @@ const EditWeightPackage = ({ open, setOpen, id, token, setSubmitting }) => {
 											size='small'
 											sx={{ my: 0.7 }}
 											fullWidth
-											label='Weight Package Rate'
 											helperText='Weight Package Rate'
 											{...register("weightPackageRate", { required: true })}
 										/>

@@ -13,7 +13,7 @@ import BranchAccountsFiltered from "./BranchAccountsFiltered";
 const BranchAccounts = () => {
 	const { user, loading, token } = GetAuth();
 	const [submitting, setSubmitting] = useState(false);
-	const [data, setData] = useState([]);
+	const [data, setData] = useState();
 	const [branch, setBranch] = useState();
 	const [opens, setOpens] = React.useState(false);
 	const [parcelData, setParcelData] = useState();
@@ -165,7 +165,7 @@ const BranchAccounts = () => {
 			<BranchAccountsFiltered
 				opens={opens}
 				setOpens={setOpens}
-				marchantName={parcelData}
+				marchantName={parcelData || []}
 				allParcels={selectedStatus === "All" ? data : filterData}
 				selectedStatus={selectedStatus}
 			/>

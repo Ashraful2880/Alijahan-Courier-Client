@@ -123,7 +123,6 @@ const EditItemCategory = ({ open, setOpen, id, token, setSubmitting }) => {
 										sx={{ my: 0.7 }}
 										fullWidth
 										required
-										label='Category Name'
 										{...register("itemCategoryName", { required: true })}
 									/>
 
@@ -131,7 +130,6 @@ const EditItemCategory = ({ open, setOpen, id, token, setSubmitting }) => {
 										size='small'
 										sx={{ my: 0.7 }}
 										fullWidth
-										label='Details'
 										multiline
 										rows={3}
 										{...register("itemCategoryDetails", { required: true })}

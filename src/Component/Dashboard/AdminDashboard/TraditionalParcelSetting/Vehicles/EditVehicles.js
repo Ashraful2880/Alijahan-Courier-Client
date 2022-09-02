@@ -139,7 +139,6 @@ const EditVehicles = ({ open, setOpen, id, token, setSubmitting }) => {
 											sx={{ my: 0.5 }}
 											fullWidth
 											required
-											label='Vehicle Name'
 											helperText='Enter Vehicle Name'
 											{...register("vehicleName", { required: true })}
 										/>
@@ -148,7 +147,6 @@ const EditVehicles = ({ open, setOpen, id, token, setSubmitting }) => {
 											sx={{ my: 0.5 }}
 											fullWidth
 											required
-											label='SL No'
 											helperText='Enter SL No'
 											{...register("vehicleSLNo", { required: true })}
 										/>
@@ -158,7 +156,6 @@ const EditVehicles = ({ open, setOpen, id, token, setSubmitting }) => {
 											size='small'
 											sx={{ my: 0.5 }}
 											fullWidth
-											label='Vehicle No'
 											helperText='Enter Vehicle No'
 											{...register("vehicleNo", { required: true })}
 										/>
@@ -166,7 +163,6 @@ const EditVehicles = ({ open, setOpen, id, token, setSubmitting }) => {
 											size='small'
 											sx={{ my: 0.5 }}
 											fullWidth
-											label='Driver Name'
 											helperText='Enter Driver Name'
 											{...register("vehicleDriverName", { required: true })}
 										/>
@@ -176,7 +172,6 @@ const EditVehicles = ({ open, setOpen, id, token, setSubmitting }) => {
 											size='small'
 											sx={{ my: 0.5 }}
 											fullWidth
-											label='Driver Contact'
 											helperText='Enter Driver Contact'
 											{...register("vehicleDriverContact", { required: true })}
 										/>
@@ -184,7 +179,6 @@ const EditVehicles = ({ open, setOpen, id, token, setSubmitting }) => {
 											size='small'
 											sx={{ my: 0.5 }}
 											fullWidth
-											label='Vehicle Root'
 											helperText='Enter Vehicle Root'
 											{...register("vehicleRoot", { required: true })}
 										/>

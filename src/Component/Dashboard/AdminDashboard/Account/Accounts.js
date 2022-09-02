@@ -10,9 +10,9 @@ import AccountsFiltered from "./AccountsFiltered";
 const Accounts = () => {
 	const { user, loading, token } = GetAuth();
 	const [submitting, setSubmitting] = useState(false);
-	const [data, setData] = useState([]);
+	const [data, setData] = useState();
 	const [opens, setOpens] = React.useState(false);
-	const [parcelData, setParcelData] = useState([]);
+	const [parcelData, setParcelData] = useState();
 	useEffect(() => {
 		axios
 			.get(`${process.env.REACT_APP_API_PATH}/merchantorders`, {

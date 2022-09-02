@@ -9,28 +9,25 @@
 .contactInput {
     border-radius: 5px;
     padding: 12px 20px;
-    width: 93%;
+    width: 100%;
     background: #fff !important;
     outline: none;
     border: none;
-    margin-bottom: 20px;
     font: inherit;
 }
 
 .contactInput,
 .contactTextarea:focus {
-    border: 1px solid #08A74C;
-    margin-bottom: 20px;
+    border: 1px solid orange;
 }
 
 .contactTextarea {
     padding: 10px;
     border-radius: 10px;
     border-color: #8C8989;
-    width: 95%;
+    width: 100%;
     resize: none;
     outline: none;
-    margin-bottom: 20px;
     font: inherit;
 }
 
@@ -61,8 +58,13 @@ input[type=number] {
     -moz-appearance: textfield;
 }
 
+.contact-link {
+    margin: 20px auto !important;
+}
+
 .contact-link:hover {
     color: #08A74C !important;
+    transition: 0.5s all !important;
 }
 
 .selectOption:focus {

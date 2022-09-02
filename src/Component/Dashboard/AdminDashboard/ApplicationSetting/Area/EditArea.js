@@ -166,7 +166,6 @@ const EditArea = ({ open, setOpen, id, token, setSubmitting }) => {
 											<TextField
 												{...register("district", { required: true })}
 												{...params}
-												label='Districts Name'
 												variant='outlined'
 											/>
 										)}
@@ -198,7 +197,6 @@ const EditArea = ({ open, setOpen, id, token, setSubmitting }) => {
 											<TextField
 												{...register("areaType", { required: true })}
 												{...params}
-												label='Area Type'
 												variant='outlined'
 											/>
 										)}
@@ -208,7 +206,6 @@ const EditArea = ({ open, setOpen, id, token, setSubmitting }) => {
 										sx={{ my: 1, ml: 2 }}
 										fullWidth
 										required
-										label='Area Name'
 										{...register("area", { required: true })}
 									/>
 									<Button

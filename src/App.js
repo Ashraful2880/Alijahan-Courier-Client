@@ -11,7 +11,6 @@ import MerchantProfile from "./Component/Dashboard/MerchantDashboard/Profile/Mer
 import AddMerchantParcel from "./Component/Dashboard/MerchantDashboard/Parcel/AddMerchantParcel";
 import District from "./Component/Dashboard/AdminDashboard/ApplicationSetting/District";
 import ServiceCharge from "./Component/Dashboard/MerchantDashboard/ServiceCharge";
-import CoverageArea from "./Component/Dashboard/MerchantDashboard/CoverageArea";
 import DeliveryPaymentList from "./Component/Dashboard/MerchantDashboard/Account/DeliveryPaymentList";
 import Area from "./Component/Dashboard/AdminDashboard/ApplicationSetting/Area/Area";
 import Unit from "./Component/Dashboard/AdminDashboard/TraditionalParcelSetting/Unit";
@@ -55,6 +54,7 @@ import RequireAuth from "./FirebaseAuth/RequireAuth";
 import PageCoverageArea from "./Component/Pages/CoverageArea/PageCoverageArea";
 import OrderTracking from "./Component/Dashboard/MerchantDashboard/OrderTracking/OrderTracking";
 import DashboardHome from "./Component/Dashboard/DashboardHome/DashboardHome";
+import MerchantCoverageArea from "./Component/Dashboard/MerchantDashboard/MerchantCoverageArea";
 
 function App() {
 	return (
@@ -172,7 +172,7 @@ function App() {
 							/>
 							<Route
 								path='/dashboard/merchantDashboard/coverageArea'
-								element={<CoverageArea />}
+								element={<MerchantCoverageArea />}
 							/>
 							<Route
 								path='/dashboard/merchantDashboard/serviceCharge'

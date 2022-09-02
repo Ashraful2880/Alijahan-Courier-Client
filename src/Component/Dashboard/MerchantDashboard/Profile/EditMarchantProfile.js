@@ -52,8 +52,8 @@ const EditMarchantProfile = ({ open, setOpen, token, setSubmitting, data }) => {
 	});
 	const [error, setError] = useState(false);
 	const [selectedBranch, setSelectedBranch] = useState();
-	const [branches, setBranches] = useState([]);
-	const [districts, setDistricts] = useState([]);
+	const [branches, setBranches] = useState();
+	const [districts, setDistricts] = useState();
 	useEffect(() => {
 		axios
 			.get(
@@ -246,9 +246,9 @@ const EditMarchantProfile = ({ open, setOpen, token, setSubmitting, data }) => {
 										style={{ width: 300 }}
 										defaultValue={
 											districts[
-												districts?.findIndex(
-													(x) => x?.district === data?.merchantDistrict,
-												)
+											districts?.findIndex(
+												(x) => x?.district === data?.merchantDistrict,
+											)
 											]
 										}
 										renderInput={(params) => (
@@ -258,7 +258,7 @@ const EditMarchantProfile = ({ open, setOpen, token, setSubmitting, data }) => {
 												})}
 												{...params}
 												variant='outlined'
-												helperText='Branch'
+												helperText='District'
 											/>
 										)}
 									/>
@@ -274,9 +274,9 @@ const EditMarchantProfile = ({ open, setOpen, token, setSubmitting, data }) => {
 											style={{ width: 300 }}
 											defaultValue={
 												branches[
-													branches?.findIndex(
-														(x) => x?.branchName === data?.merchantBranchName,
-													)
+												branches?.findIndex(
+													(x) => x?.branchName === data?.merchantBranchName,
+												)
 												]
 											}
 											renderInput={(params) => (
@@ -314,7 +314,6 @@ const EditMarchantProfile = ({ open, setOpen, token, setSubmitting, data }) => {
 												<TextField
 													{...register("merchantArea", { required: true })}
 													{...params}
-													label='Select Area'
 													variant='outlined'
 													helperText='Area'
 												/>

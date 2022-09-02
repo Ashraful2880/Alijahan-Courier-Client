@@ -9,10 +9,10 @@ import BranchReceivedParcelListFiltered from "./BranchReceivedParcelListFiltered
 
 const BranchReceivedParcelList = () => {
 	const { user, loading, token } = GetAuth();
-	const [data, setData] = useState([]);
+	const [data, setData] = useState();
 	const [branch, setBranch] = useState();
 	const [opens, setOpens] = React.useState(false);
-	const [parcelData, setParcelData] = useState([]);
+	const [parcelData, setParcelData] = useState();
 	useEffect(() => {
 		axios
 			.get(`${process.env.REACT_APP_API_PATH}/branchbyemail/${user?.email}`, {

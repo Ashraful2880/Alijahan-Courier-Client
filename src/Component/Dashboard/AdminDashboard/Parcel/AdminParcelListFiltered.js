@@ -37,11 +37,11 @@ const AdminParcelListFiltered = ({
 }) => {
 	const { user, loading, token } = GetAuth();
 	const [submitting, setSubmitting] = useState(false);
-	const [data, setData] = useState([]);
-	const [parcelData, setParcelData] = useState([]);
+	const [data, setData] = useState();
+	const [parcelData, setParcelData] = useState();
 	const [open, setOpen] = React.useState(false);
 	const [selectionModel, setSelectionModel] = React.useState();
-	const [selected, setSelected] = React.useState([]);
+	const [selected, setSelected] = React.useState();
 	const [openPrint, setOpenPrint] = React.useState(false);
 	const handleClose = () => {
 		setOpen(false);
@@ -51,7 +51,7 @@ const AdminParcelListFiltered = ({
 	};
 	const handleOpenPrint = () => {
 		setOpenPrint(true);
-		setSelected(data?.filter((e) => selectionModel?.find((n) => n === e._id)));
+		setSelected(data?.filter((e) => selectionModel?.find((n) => n === e?._id)));
 	};
 	const handleClosePrint = () => setOpenPrint(false);
 
@@ -63,7 +63,7 @@ const AdminParcelListFiltered = ({
 				},
 			})
 			.then((response) => {
-				setData(response.data);
+				setData(response?.data);
 			})
 			.catch((error) => {
 				console.log(error);
@@ -105,7 +105,7 @@ const AdminParcelListFiltered = ({
 		return (
 			<Box sx={{ display: "flex", alignItems: "center" }}>
 				<RemoveRedEyeIcon
-					onClick={() => handleOpen(setParcelData(params.row))}
+					onClick={() => handleOpen(setParcelData(params?.row))}
 					sx={{ ml: 1.5, color: "green", cursor: "pointer" }}
 				/>
 			</Box>
@@ -117,7 +117,7 @@ const AdminParcelListFiltered = ({
 			field: "merchantName",
 			headerName: "Marchant Name",
 			renderCell: (params) => {
-				return params.row.marchentInfo.merchantName;
+				return params?.row?.marchentInfo?.merchantName;
 			},
 			flex: 1,
 		},
@@ -125,7 +125,7 @@ const AdminParcelListFiltered = ({
 			field: "receiverBranchArea",
 			headerName: "Pickup Address",
 			renderCell: (params) => {
-				return params.row.receiverInfo.receiverBranchArea;
+				return params?.row?.receiverInfo?.receiverBranchArea;
 			},
 			flex: 1,
 		},
@@ -133,7 +133,7 @@ const AdminParcelListFiltered = ({
 			field: "receiverAddress",
 			headerName: "Full Address",
 			renderCell: (params) => {
-				return params.row.receiverInfo.receiverAddress;
+				return params?.row?.receiverInfo?.receiverAddress;
 			},
 			flex: 1,
 		},
@@ -141,7 +141,7 @@ const AdminParcelListFiltered = ({
 			field: "receiverNumber",
 			headerName: "Phone Number",
 			renderCell: (params) => {
-				return params.row.receiverInfo.receiverNumber;
+				return params?.row?.receiverInfo?.receiverNumber;
 			},
 			flex: 1,
 		},
@@ -220,7 +220,7 @@ const AdminParcelListFiltered = ({
 								<div style={{ height: "80vh", width: "100%" }} className='table'>
 									<DataGrid
 										rows={allParcels?.filter(
-											(item) => item.marchentInfo.merchantName === marchantName,
+											(item) => item?.marchentInfo?.merchantName === marchantName,
 										)}
 										selectionModel={selectionModel}
 										onSelectionModelChange={setSelectionModel}
@@ -252,7 +252,7 @@ const AdminParcelListFiltered = ({
 						open={open}
 						handleOpen={handleOpen}
 						handleClose={handleClose}
-						modalData={parcelData}
+						modalData={parcelData || []}
 					/>
 				</Box>
 			</Fade>

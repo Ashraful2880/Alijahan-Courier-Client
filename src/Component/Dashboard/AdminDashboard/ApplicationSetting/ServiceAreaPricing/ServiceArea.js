@@ -17,7 +17,7 @@ import GetAuth from "../../../../../FirebaseAuth/GetAuth.js";
 const ServiceArea = () => {
 	const { user, loading, token } = GetAuth();
 	const [submitting, setSubmitting] = useState(false);
-	const [data, setData] = useState([]);
+	const [data, setData] = useState();
 	const [open, setOpen] = React.useState(false);
 	const [openEdit, setOpenEdit] = React.useState(false);
 	const [id, setId] = React.useState();
@@ -208,7 +208,7 @@ const ServiceArea = () => {
 					{data && (
 						<div style={{ height: "80vh", width: "100%" }} className='table'>
 							<DataGrid
-								rows={data}
+								rows={data || []}
 								getRowId={(row) => row?._id}
 								columns={columns}
 								pageSize={10}

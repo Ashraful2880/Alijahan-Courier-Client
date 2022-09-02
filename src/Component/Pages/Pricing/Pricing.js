@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Container, Grid } from "@mui/material";
+import { Box, Container, Grid, Typography } from "@mui/material";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
@@ -59,9 +59,17 @@ const outsideDhakaData = [
 const Pricing = () => {
   return (
     <>
-      <h2 style={{ textAlign: "center", marginBottom: 0, color: "#08A74C" }}>
-        Delivery Charge
-      </h2>
+      <Box
+        sx={{
+          px: 2.5,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}>
+        <Typography variant='h5' sx={{ fontWeight: "bold", color: "#1E793C" }}>
+          Service Charge
+        </Typography>
+      </Box>
       <Container sx={{ mt: 3 }}>
         <Grid container spacing={2} style={{ marginBottom: "50px" }}>
           <Grid item xs={12} md={6}>
