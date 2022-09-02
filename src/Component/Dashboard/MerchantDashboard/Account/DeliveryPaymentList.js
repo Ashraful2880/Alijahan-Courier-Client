@@ -12,8 +12,8 @@ import ParcelModal from "../../AdminDashboard/Account/ParcelModal";
 const DeliveryPaymentList = () => {
 	const { user, loading, token } = GetAuth();
 	const [submitting, setSubmitting] = useState(false);
-	const [data, setData] = useState([]);
-	const [modalData, setModalData] = useState([]);
+	const [data, setData] = useState();
+	const [modalData, setModalData] = useState();
 	const [open, setOpen] = React.useState(false);
 	const handleOpen = () => setOpen(true);
 	const handleClose = () => setOpen(false);

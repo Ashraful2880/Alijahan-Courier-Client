@@ -19,7 +19,7 @@ const BranchAccountsFiltered = ({
 }) => {
 	const { user, loading, token } = GetAuth();
 	const [submitting, setSubmitting] = useState(false);
-	const [data, setData] = useState([]);
+	const [data, setData] = useState();
 	const [riders, setRiders] = useState([]);
 	const [branch, setBranch] = useState();
 	const [Warehouse, setWarehouse] = useState({});
@@ -270,7 +270,7 @@ const BranchAccountsFiltered = ({
 								<div style={{ height: "80vh", width: "100%" }} className='table'>
 									<DataGrid
 										rows={allParcels?.filter(
-											(item) => item.marchentInfo.merchantName === marchantName,
+											(item) => item?.marchentInfo?.merchantName === marchantName,
 										)}
 										selectionModel={selectionModel}
 										onSelectionModelChange={setSelectionModel}

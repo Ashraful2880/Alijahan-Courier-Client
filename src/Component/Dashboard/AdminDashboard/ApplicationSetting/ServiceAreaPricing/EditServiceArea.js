@@ -36,7 +36,7 @@ const EditServiceArea = ({ open, setOpen, id, token, setSubmitting }) => {
 		},
 	});
 
-	const [data, setData] = React.useState([]);
+	const [data, setData] = React.useState();
 	useEffect(() => {
 		axios
 			.get(`${process.env.REACT_APP_API_PATH}/serviceArea/${id}`, {
@@ -151,7 +151,6 @@ const EditServiceArea = ({ open, setOpen, id, token, setSubmitting }) => {
 											sx={{ my: 0.5 }}
 											fullWidth
 											required
-											label='COD Percentage'
 											helperText='COD Percentage'
 											{...register("serviceAreaCODPercentage", {
 												required: true,
@@ -163,7 +162,6 @@ const EditServiceArea = ({ open, setOpen, id, token, setSubmitting }) => {
 											size='small'
 											sx={{ my: 0.5 }}
 											fullWidth
-											label='Charge'
 											helperText='Charge'
 											{...register("serviceAreaCharge", { required: true })}
 										/>
@@ -171,7 +169,6 @@ const EditServiceArea = ({ open, setOpen, id, token, setSubmitting }) => {
 											size='small'
 											sx={{ my: 0.5 }}
 											fullWidth
-											label='Return Charge'
 											helperText='Return Charge'
 											{...register("returnCharge", { required: true })}
 										/>

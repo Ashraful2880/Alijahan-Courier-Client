@@ -9,10 +9,10 @@ import BranchParcelListFiltered from "./BranchParcelListFiltered";
 
 const BranchParcelList = () => {
 	const { user, loading, token } = GetAuth();
-	const [data, setData] = useState([]);
+	const [data, setData] = useState();
 	const [branch, setBranch] = useState();
 	const [opens, setOpens] = React.useState(false);
-	const [parcelData, setParcelData] = useState([]);
+	const [parcelData, setParcelData] = useState();
 
 	useEffect(() => {
 		axios
@@ -232,7 +232,7 @@ const BranchParcelList = () => {
 			<BranchParcelListFiltered
 				opens={opens}
 				setOpens={setOpens}
-				marchantName={parcelData}
+				marchantName={parcelData || []}
 				allParcels={selectedStatus === "All" ? data : filterData}
 				selectedStatus={selectedStatus}
 			/>

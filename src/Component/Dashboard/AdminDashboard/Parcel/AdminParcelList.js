@@ -9,8 +9,8 @@ import AspectRatioIcon from "@mui/icons-material/AspectRatio";
 
 const AdminParcelList = () => {
 	const { user, loading, token } = GetAuth();
-	const [data, setData] = useState([]);
-	const [parcelData, setParcelData] = useState([]);
+	const [data, setData] = useState();
+	const [parcelData, setParcelData] = useState();
 	const [opens, setOpens] = React.useState(false);
 	useEffect(() => {
 		axios

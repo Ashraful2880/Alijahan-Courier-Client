@@ -82,7 +82,7 @@ const AddMerchants = ({ open, setOpen, token, setSubmitting }) => {
 			confirmButtonText: "Ok",
 		});
 	}
-	const [data, setData] = useState([]);
+	const [data, setData] = useState();
 
 	useEffect(() => {
 		if (user) {

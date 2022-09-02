@@ -60,14 +60,14 @@ const RiderRecParcelListFiltered = ({
 	const handleOpen = () => {
 		setOpen(true);
 	};
-	const [data, setData] = useState([]);
+	const [data, setData] = useState();
 	const [status, setStatus] = useState("");
-	const [selectionModel, setSelectionModel] = React.useState([]);
-	const [selected, setSelected] = React.useState([]);
+	const [selectionModel, setSelectionModel] = React.useState();
+	const [selected, setSelected] = React.useState();
 	const [openPrint, setOpenPrint] = React.useState(false);
 	const handleOpenPrint = () => {
 		setOpenPrint(true);
-		setSelected(data?.filter((e) => selectionModel?.find((n) => n === e._id)));
+		setSelected(data?.filter((e) => selectionModel?.find((n) => n === e?._id)));
 	};
 	const handleClosePrint = () => setOpenPrint(false);
 	useEffect(() => {
@@ -208,8 +208,8 @@ const RiderRecParcelListFiltered = ({
 						<Button
 							onClick={() =>
 								sendMoneyToBranch(
-									params.row?._id,
-									params.row?.paymentCollectionDetails,
+									params?.row?._id,
+									params?.row?.paymentCollectionDetails,
 								)
 							}
 							sx={{
@@ -220,7 +220,7 @@ const RiderRecParcelListFiltered = ({
 								border: "2px solid ",
 							}}>
 							<PaymentsIcon sx={{ mr: 0.5 }} />
-							Send {params.row?.orderSummaray?.totalAmountWithCharges} ৳ To
+							Send {params?.row?.orderSummaray?.totalAmountWithCharges} ৳ To
 							Branch
 						</Button>
 					)}
@@ -230,8 +230,8 @@ const RiderRecParcelListFiltered = ({
 						<Button
 							onClick={() =>
 								changePaymentStatus(
-									params.row?._id,
-									params.row?.orderSummaray?.totalAmountWithCharges,
+									params?.row?._id,
+									params?.row?.orderSummaray?.totalAmountWithCharges,
 								)
 							}
 							sx={{
@@ -242,7 +242,7 @@ const RiderRecParcelListFiltered = ({
 								border: "2px solid ",
 							}}>
 							<PaymentsIcon sx={{ mr: 0.5 }} />
-							Collect {params.row?.orderSummaray?.totalAmountWithCharges} ৳
+							Collect {params?.row?.orderSummaray?.totalAmountWithCharges} ৳
 						</Button>
 					)}
 			</Box>
@@ -254,7 +254,7 @@ const RiderRecParcelListFiltered = ({
 			field: "merchantName",
 			headerName: "Marchant Name",
 			renderCell: (params) => {
-				return params.row.marchentInfo.merchantName;
+				return params?.row?.marchentInfo?.merchantName;
 			},
 			width: 150,
 		},
@@ -262,7 +262,7 @@ const RiderRecParcelListFiltered = ({
 			field: "receiverBranchArea",
 			headerName: "Pickup Address",
 			renderCell: (params) => {
-				return ` ${params.row.receiverInfo.receiverBranchArea}(${params.row.receiverInfo.receiverBranchName})`;
+				return ` ${params?.row?.receiverInfo?.receiverBranchArea}(${params.row.receiverInfo.receiverBranchName})`;
 			},
 			width: 180,
 		},
@@ -270,7 +270,7 @@ const RiderRecParcelListFiltered = ({
 			field: "receiverAddress",
 			headerName: "Full Address",
 			renderCell: (params) => {
-				return params.row.receiverInfo.receiverAddress;
+				return params?.row?.receiverInfo?.receiverAddress;
 			},
 			width: 170,
 		},
@@ -278,7 +278,7 @@ const RiderRecParcelListFiltered = ({
 			field: "receiverNumber",
 			headerName: "Phone Number",
 			renderCell: (params) => {
-				return params.row.receiverInfo.receiverNumber;
+				return params?.row?.receiverInfo?.receiverNumber;
 			},
 			width: 180,
 		},
@@ -441,7 +441,7 @@ const RiderRecParcelListFiltered = ({
 								<div style={{ height: "80vh", width: "100%" }} className='table'>
 									<DataGrid
 										rows={allParcels?.filter(
-											(item) => item.marchentInfo.merchantName === marchantName,
+											(item) => item?.marchentInfo?.merchantName === marchantName,
 										)}
 										selectionModel={selectionModel}
 										onSelectionModelChange={setSelectionModel}

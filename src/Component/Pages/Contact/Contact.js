@@ -31,303 +31,260 @@ const Contact = () => {
       <Box>
         <img width={"100%"} src={contact} alt="ContactImage" />
       </Box>
-      <Box sx={{ padding: "0px 40px", margin: "0px auto 20px auto" }}>
+      <Box>
         {/* Our Branch Offices  */}
-        <Grid container spacing={2}>
+        <Grid container spacing={2} sx={{ px: "50px" }}>
           <Grid item xs={12} md={6}>
-            <Box>
-              <h4 style={{ fontSize: 24, fontWeight: 700, marginBottom: 20 }}>
-                All Branch Locations
-              </h4>
+            <Box sx={{ mt: 2 }}>
               <img src={pointermap} width={"100%"} alt="BranchImage" />
             </Box>
           </Grid>
           <Grid item xs={12} md={6}>
             {/* our branch filter */}
-            <Box>
-              <Box
-                sx={{
-                  border: "1px solid #e6e6e6",
-                  borderRadius: 3,
-                  p: 2,
-                  mt: 11,
-                }}
-              >
-                <h4
-                  style={{
-                    fontSize: 20,
-                    fontWeight: 700,
-                    marginBottom: 14,
-                    marginTop: 0,
-                  }}
-                >
-                  Our Branches
-                </h4>
-                <Grid container spacing={2}>
-                  <Grid item xs={12} md={6}>
-                    <Box>
-                      <select
-                        name="cars"
-                        id="cars"
-                        style={{
-                          padding: 10,
-                          width: "50%",
-                          borderRadius: 6,
-                          borderColor: "#08A74C",
-                          backgroundColor: "#08A74C",
-                          color: "white",
-                          fontSize: "16px"
-                        }}
-                        className="selectOption"
-                      >
-                        <option className="selectOptions">Dhaka City</option>
-                        <option className="selectOptions" value="saab">
-                          Saab
-                        </option>
-                        <option className="selectOptions" value="opel">
-                          Opel
-                        </option>
-                        <option value="audi">Audi</option>
-                      </select>
-                    </Box>
-                  </Grid>
-                  <Grid item xs={12} md={6} sx={{ pb: 4 }}>
-                    <Box sx={{ display: "flex", justifyContent: "end" }}>
-                      <ViewListIcon
-                        style={{ color: "#565454", fontSize: 30 }}
-                      />
-                      <ViewComfyIcon
-                        style={{
-                          color: "#565454",
-                          fontSize: 30,
-                          marginLeft: 20,
-                        }}
-                      />
-                    </Box>
-                  </Grid>
-                </Grid>
+            <Box
+              sx={{
+                border: "1px solid #e6e6e6",
+                borderRadius: 3,
+                p: 2,
+                mt: 2,
+              }}>
+              <h4 style={{
+                fontSize: 24,
+                fontWeight: 700,
+                marginBottom: 14,
+                marginTop: 0,
+              }}> Our Branches </h4>
+              <Box>
+                <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%", margin: "30px 0px" }}>
+                  <Box sx={{ width: "100%" }}>
+                    <select
+                      name="cars"
+                      id="cars"
+                      style={{
+                        padding: 10,
+                        width: "100%",
+                        borderRadius: 6,
+                        borderColor: "#08A74C",
+                        backgroundColor: "#08A74C",
+                        color: "white",
+                        fontSize: "16px"
+                      }}
+                      className="selectOption">
+                      <option className="selectOptions">Dhaka City</option>
+                      <option className="selectOptions" value="saab">
+                        Saab
+                      </option>
+                      <option className="selectOptions" value="opel">
+                        Opel
+                      </option>
+                      <option value="audi">Audi</option>
+                    </select>
+                  </Box>
+                  <Box sx={{ display: "flex", justifyContent: "end", width: "100%", }}>
+                    <ViewListIcon
+                      style={{ color: "#565454", fontSize: 30 }} />
+                    <ViewComfyIcon
+                      style={{
+                        color: "#565454",
+                        fontSize: 30,
+                        marginLeft: 20,
+                      }}
+                    />
+                  </Box>
+                </Box>
               </Box>
             </Box>
             {/* branch list */}
-            <Grid container spacing={2} sx={{ mt: 1 }} style={{ margin: "auto" }}>
-              <Grid item xs={12} md={5}>
-                <Paper elevation={3} sx={{ p: 1 }}>
-                  <Paper
-                    elevation={3}
-                    sx={{
-                      backgroundColor: "#08A74C",
-                      borderRadius: 1,
-                    }}
-                  >
-                    <h4
-                      style={{
-                        fontSize: 17,
-                        fontWeight: 700,
-                        textAlign: "center",
-                        color: "white",
-                        padding: 8,
-                      }}
-                    >
-                      Jatrabari
-                    </h4>
-                  </Paper>
-                  <p
+            <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%", margin: "30px 0px", gap: "30px" }}>
+              <Paper elevation={3} sx={{ width: "100%", paddingBottom: "30px" }}>
+                <Paper
+                  elevation={3}
+                  sx={{ backgroundColor: "#08A74C", borderRadius: 1, }}>
+                  <h4
                     style={{
-                      fontSize: 15,
-                      fontWeight: 500,
+                      fontSize: 17,
+                      fontWeight: 700,
                       textAlign: "center",
-                    }}
-                  >
-                    45 NO, Jatrabari, Dhaka, Bangladesh
-                  </p>
-                  <p
-                    style={{
-                      fontSize: 15,
-                      fontWeight: 500,
-                      textAlign: "center",
-                    }}
-                  >
-                    support@alijahancourier.com
-                  </p>
-                  <p
-                    style={{
-                      fontSize: 15,
-                      fontWeight: 500,
-                      textAlign: "center",
-                    }}
-                  >
-                    096-13829867
-                  </p>
+                      color: "white",
+                      padding: "6px 0px",
+                      marginBottom: "15px"
+                    }}>
+                    Jatrabari
+                  </h4>
                 </Paper>
-              </Grid>
-              <Grid item xs={12} md={5}>
-                <Paper elevation={3} sx={{ p: 1 }}>
-                  <Paper
-                    elevation={3}
-                    sx={{
-                      backgroundColor: "#08A74C",
-                      borderRadius: 1,
-                    }}
-                  >
-                    <h4
-                      style={{
-                        fontSize: 17,
-                        fontWeight: 700,
-                        textAlign: "center",
-                        color: "white",
-                        padding: 8,
-                      }}
-                    >
-                      Jatrabari
-                    </h4>
-                  </Paper>
-                  <p
+                <p
+                  style={{
+                    fontSize: 15,
+                    fontWeight: 500,
+                    textAlign: "center",
+                  }}
+                >
+                  45 NO, Jatrabari, Dhaka, Bangladesh
+                </p>
+                <p
+                  style={{
+                    fontSize: 15,
+                    fontWeight: 500,
+                    textAlign: "center",
+                  }}
+                >
+                  support@alijahancourier.com
+                </p>
+                <p
+                  style={{
+                    fontSize: 15,
+                    fontWeight: 500,
+                    textAlign: "center",
+                  }}
+                >
+                  096-13829867
+                </p>
+              </Paper>
+              <Paper elevation={3} sx={{ width: "100%", paddingBottom: "30px" }}>
+                <Paper
+                  elevation={3}
+                  sx={{
+                    backgroundColor: "#08A74C",
+                    borderRadius: 1,
+                  }}
+                >
+                  <h4
                     style={{
-                      fontSize: 15,
-                      fontWeight: 500,
+                      fontSize: 17,
+                      fontWeight: 700,
                       textAlign: "center",
-                    }}
-                  >
-                    45 NO, Jatrabari, Dhaka, Bangladesh
-                  </p>
-                  <p
-                    style={{
-                      fontSize: 15,
-                      fontWeight: 500,
-                      textAlign: "center",
-                    }}
-                  >
-                    support@alijahancourier.com
-                  </p>
-                  <p
-                    style={{
-                      fontSize: 15,
-                      fontWeight: 500,
-                      textAlign: "center",
-                    }}
-                  >
-                    096-13829867
-                  </p>
+                      color: "white",
+                      padding: "6px 0px",
+                      marginBottom: "15px"
+                    }}>
+                    Jatrabari
+                  </h4>
                 </Paper>
-              </Grid>
-            </Grid>
+                <p
+                  style={{
+                    fontSize: 15,
+                    fontWeight: 500,
+                    textAlign: "center",
+                  }}
+                >
+                  45 NO, Jatrabari, Dhaka, Bangladesh
+                </p>
+                <p
+                  style={{
+                    fontSize: 15,
+                    fontWeight: 500,
+                    textAlign: "center",
+                  }}
+                >
+                  support@alijahancourier.com
+                </p>
+                <p
+                  style={{
+                    fontSize: 15,
+                    fontWeight: 500,
+                    textAlign: "center",
+                  }}
+                >
+                  096-13829867
+                </p>
+              </Paper>
+            </Box>
           </Grid>
         </Grid>
       </Box>
-      <Box sx={{ p: { md: 6, xs: 5 } }} className="contactContainer">
-        <Box sx={{ ml: { md: 5, xs: 5 } }}>
-          <h2 style={{ color: "white", margin: 0 }}>Just Drop a Message</h2>
-        </Box>
-        <Grid container spacing={2} sx={{ alignItems: "center" }}>
-          <Grid item xs={12} md={6}>
+      <Box sx={{ py: 6, px: { lg: 8, md: 4, sm: 2 } }} className="contactContainer">
+        <Box sx={{ width: "100%", display: { sm: "block", md: "block", lg: "flex" }, justifyContent: "space-between", gap: "40px" }}>
+          <Box sx={{ width: "100%" }}>
+            <Box sx={{ width: "100%", textAlign: "left" }}>
+              <h2 style={{ color: "white", marginBottom: "30px" }}>Just Drop a Message</h2>
+            </Box>
             <form>
-              <Paper
-                elevation={3}
-                sx={{
-                  pt: 5,
-                  pl: 5,
-                  pr: 5,
-                  pb: 10,
-                  backgroundColor: "transparent",
-                }}
-              >
-                <Box
-                  sx={{
-                    display: { md: "flex", xs: "block" },
-                    justifyContent: "space-between",
-                    width: "96%",
-                  }}
-                >
-                  <Box sx={{ width: { md: "50%", xs: "100%" }, mr: 5 }}>
-                    <input
-                      type="text"
-                      className="contactInput"
-                      placeholder="Your Full Name"
-                    />
-                  </Box>
-                  <Box sx={{ width: { md: "50%", xs: "100%" }, }}>
-                    <input
-                      type="number"
-                      className="contactInput"
-                      placeholder="Your Mobile Number"
-                    />
-                  </Box>
+              <Box sx={{ display: { lg: "flex", md: "flex", sm: "block" }, width: "100%", alignItems: "center", gap: "16px" }}>
+                <Box sx={{ width: "100%", my: 1 }}>
+                  <input
+                    type="text"
+                    className="contactInput"
+                    placeholder="Your Full Name"
+                  />
                 </Box>
-                <Box
-                  sx={{
-                    display: { md: "flex", xs: "block" },
-                    justifyContent: "space-between",
-                    width: "96%",
-                  }}
-                >
-                  <Box sx={{ width: { md: "50%", xs: "100%" }, mr: 5 }}>
-                    <input
-                      type="email"
-                      className="contactInput"
-                      placeholder="Your Email Address"
-                    />
-                  </Box>
-                  <Box sx={{ width: { md: "50%", xs: "100%" }, }}>
-                    <Autocomplete
-                      sx={{ width: "100%", mb: 3, }}
-                      value={pickupArea}
-                      onChange={(event, newValue) => {
-                        if (typeof newValue === "string") {
-                          setPickupArea({
-                            area: newValue,
-                          });
-                        } else if (newValue && newValue.inputValue) {
-                          // Create a new value from the user input
-                          setPickupArea({
-                            area: newValue.inputValue,
-                          });
-                        } else {
-                          setPickupArea(newValue);
-                        }
-                      }}
-                      selectOnFocus
-                      clearOnBlur
-                      handleHomeEndKeys
-                      id="free-solo-with-text-demo"
-                      options={covarageArea}
-                      getOptionLabel={(option) => {
-                        // Value selected with enter, right from the input
-                        if (typeof option === "string") {
-                          return option;
-                        }
-                        // Add "xxx" option created dynamically
-                        if (option.inputValue) {
-                          return option.inputValue;
-                        }
-                        // Regular option
-                        return option.area;
-                      }}
-                      renderOption={(props, option) => (
-                        <li {...props} key={option._id}>
-                          {option.area}
-                        </li>
-                      )}
-                      freeSolo
-                      renderInput={(params) => (
-                        <TextField
-                          sx={{
-                            "& .MuiInputLabel-root": { color: "green" }, //styles the label
-                            "& .MuiOutlinedInput-root": {
-                              borderColor: "gray",
-                              p: "4px 15px",
-                              "& > fieldset": {
-                                border: "none",
-                              },
+                <Box sx={{ width: "100%", my: 1 }}>
+                  <input
+                    type="number"
+                    className="contactInput"
+                    placeholder="Your Mobile Number"
+                  />
+                </Box>
+              </Box>
+              <Box sx={{ display: { lg: "flex", md: "flex", sm: "block" }, width: "100%", alignItems: "center", gap: "16px", }}>
+                <Box sx={{ width: "100%", my: 1 }}>
+                  <input
+                    type="email"
+                    className="contactInput"
+                    placeholder="Your Email Address"
+                  />
+                </Box>
+                <Box sx={{ width: "100%", my: 1 }}>
+                  <Autocomplete
+                    sx={{ width: "100%" }}
+                    value={pickupArea}
+                    onChange={(event, newValue) => {
+                      if (typeof newValue === "string") {
+                        setPickupArea({
+                          area: newValue,
+                        });
+                      } else if (newValue && newValue.inputValue) {
+                        // Create a new value from the user input
+                        setPickupArea({
+                          area: newValue.inputValue,
+                        });
+                      } else {
+                        setPickupArea(newValue);
+                      }
+                    }}
+                    selectOnFocus
+                    clearOnBlur
+                    handleHomeEndKeys
+                    id="free-solo-with-text-demo"
+                    options={covarageArea}
+                    getOptionLabel={(option) => {
+                      // Value selected with enter, right from the input
+                      if (typeof option === "string") {
+                        return option;
+                      }
+                      // Add "xxx" option created dynamically
+                      if (option.inputValue) {
+                        return option.inputValue;
+                      }
+                      // Regular option
+                      return option.area;
+                    }}
+                    renderOption={(props, option) => (
+                      <li {...props} key={option._id}>
+                        {option.area}
+                      </li>
+                    )}
+                    freeSolo
+                    renderInput={(params) => (
+                      <TextField
+                        sx={{
+                          "& .MuiInputLabel-root": { color: "green" }, //styles the label
+                          "& .MuiOutlinedInput-root": {
+                            borderColor: "gray",
+                            p: "4px 15px",
+                            "& > fieldset": {
+                              border: "none",
                             },
-                            width: "104%",
-                          }}
-                          placeholder="Enter Area"
-                          {...params}
-                        />
-                      )}
-                    />
-                  </Box>
+                          },
+                          width: "100%",
+                        }}
+                        placeholder="Enter Area"
+                        {...params}
+                      />
+                    )}
+                  />
                 </Box>
+              </Box>
+              <Box sx={{ my: 1 }}>
                 <textarea
                   rows="6"
                   name="comment"
@@ -335,17 +292,17 @@ const Contact = () => {
                   className="contactTextarea"
                   placeholder="Your Message"
                 />
+              </Box>
+              <Box style={{ width: "full", display: "flex", textAlign: "center", marginTop: "15px" }}>
                 <button className="contactSendBtn">Send</button>
-              </Paper>
+              </Box>
             </form>
-          </Grid>
-          <Grid
-            item
-            xs={12}
-            md={6}
-            sx={{ display: "flex", justifyContent: "center", height: "492px" }}          >
+          </Box>
+          <Box sx={{ width: "100%" }}>
             <Box sx={{ color: "white" }}>
-              <h2 style={{ marginBottom: 30, fontSize: "26px" }}>Head Office</h2>
+              <Box sx={{ width: "100%", textAlign: "left" }}>
+                <h2 style={{ color: "white", marginBottom: "30px" }}>Head Office</h2>
+              </Box>
               <p
                 style={{
                   marginTop: 5,
@@ -354,9 +311,8 @@ const Contact = () => {
                   fontSize: 18,
                   fontWeight: 500,
                 }}
-                className="contact-link"
-              >
-                <LocationOnIcon style={{ fontSize: 20, marginRight: 10, color: "#fff", background: "#08A74C", padding: "5px", borderRadius: "50%" }} />
+                className="contact-link">
+                <LocationOnIcon style={{ fontSize: 32, marginRight: 10, color: "#fff", background: "#08A74C", padding: "4px", borderRadius: "50%" }} />
                 89/123 , Manik Nagar Bishwo Road, Ram Krishna Mission Rd, Dhaka
                 1203
               </p>
@@ -370,7 +326,7 @@ const Contact = () => {
                 }}
                 className="contact-link"
               >
-                <CallIcon style={{ fontSize: 20, marginRight: 10, color: "#fff", background: "#08A74C", padding: "5px", borderRadius: "50%" }} />
+                <CallIcon style={{ fontSize: 32, marginRight: 10, color: "#fff", background: "#08A74C", padding: "4px", borderRadius: "50%" }} />
                 Hot-Line : 09613829867
               </p>
               <p
@@ -383,7 +339,7 @@ const Contact = () => {
                 }}
                 className="contact-link"
               >
-                <MailIcon style={{ fontSize: 20, marginRight: 10, color: "#fff", background: "#08A74C", padding: "5px", borderRadius: "50%" }} />
+                <MailIcon style={{ fontSize: 32, marginRight: 10, color: "#fff", background: "#08A74C", padding: "4px", borderRadius: "50%" }} />
                 support@alijahancourier.com
               </p>
               <a href="https://www.facebook.com/alijahancourierbd"
@@ -399,7 +355,7 @@ const Contact = () => {
                 }}
                 className="contact-link"
               >
-                <FacebookIcon style={{ fontSize: 20, marginRight: 10, color: "#fff", background: "#08A74C", padding: "5px", borderRadius: "50%" }} />
+                <FacebookIcon style={{ fontSize: 32, marginRight: 10, color: "#fff", background: "#08A74C", padding: "4px", borderRadius: "50%" }} />
                 facebook.com/alijahancourierbd
               </a>
               <a href="https://www.alijahan.com"
@@ -413,14 +369,13 @@ const Contact = () => {
                   textDecoration: "none",
                   color: "#fff",
                 }}
-                className="contact-link"
-              >
-                <LanguageIcon style={{ fontSize: 20, marginRight: 10, color: "#fff", background: "#08A74C", padding: "5px", borderRadius: "50%" }} />
+                className="contact-link">
+                <LanguageIcon style={{ fontSize: 32, marginRight: 10, color: "#fff", background: "#08A74C", padding: "4px", borderRadius: "50%" }} />
                 www.alijahan.com
               </a>
             </Box>
-          </Grid>
-        </Grid>
+          </Box>
+        </Box>
       </Box>
       <Box>
         <div className="gmap_canvas">

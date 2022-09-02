@@ -61,23 +61,23 @@ const WarehouseParcelListFiltered = ({
 	const handleOpen = () => {
 		setOpen(true);
 	};
-	const [data, setData] = useState([]);
+	const [data, setData] = useState();
 	const [status, setStatus] = useState("");
-	const [selectionModel, setSelectionModel] = React.useState([]);
-	const [selected, setSelected] = React.useState([]);
+	const [selectionModel, setSelectionModel] = React.useState();
+	const [selected, setSelected] = React.useState();
 	const [openPrint, setOpenPrint] = React.useState(false);
 	const [openBarCode, setOpenBarCode] = React.useState(false);
 
 	const handleOpenPrint = () => {
 		setOpenPrint(true);
-		setSelected(data?.filter((e) => selectionModel?.find((n) => n === e._id)));
+		setSelected(data?.filter((e) => selectionModel?.find((n) => n === e?._id)));
 	};
 	const handleClosePrint = () => setOpenPrint(false);
 	const handleCloseBarCode = () => setOpenBarCode(false);
 
 	const handleOpenBarCode = () => {
 		setOpenBarCode(true);
-		setSelected(data?.filter((e) => selectionModel?.find((n) => n === e._id)));
+		setSelected(data?.filter((e) => selectionModel?.find((n) => n === e?._id)));
 	};
 
 	useEffect(() => {

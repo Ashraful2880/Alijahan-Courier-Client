@@ -27,7 +27,7 @@ const style = {
 const AccountsFiltered = ({ opens, setOpens, marchantName, allParcels, selectedStatus, }) => {
 	const { user, loading, token } = GetAuth();
 	const [submitting, setSubmitting] = useState(false);
-	const [data, setData] = useState([]);
+	const [data, setData] = useState();
 	const [selectionModel, setSelectionModel] = React.useState([]);
 
 	useEffect(() => {
@@ -239,7 +239,7 @@ const AccountsFiltered = ({ opens, setOpens, marchantName, allParcels, selectedS
 								<div style={{ height: "80vh", width: "100%" }} className='table'>
 									<DataGrid
 										rows={allParcels?.filter(
-											(item) => item.marchentInfo.merchantName === marchantName,
+											(item) => item?.marchentInfo?.merchantName === marchantName,
 										)}
 										selectionModel={selectionModel}
 										onSelectionModelChange={setSelectionModel}

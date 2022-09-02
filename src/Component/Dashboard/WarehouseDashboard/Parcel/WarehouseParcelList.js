@@ -17,10 +17,10 @@ import AspectRatioIcon from "@mui/icons-material/AspectRatio";
 
 const WarehouseParcelList = () => {
 	const { user, loading, token } = GetAuth();
-	const [data, setData] = useState([]);
+	const [data, setData] = useState();
 	const [submitting, setSubmitting] = useState(false);
 	const [opens, setOpens] = React.useState(false);
-	const [parcelData, setParcelData] = useState([]);
+	const [parcelData, setParcelData] = useState();
 
 	useEffect(() => {
 		axios
@@ -55,7 +55,7 @@ const WarehouseParcelList = () => {
 			field: "merchantName",
 			headerName: "Marchant Name",
 			renderCell: (params) => {
-				return params.row.marchentInfo.merchantName;
+				return params?.row?.marchentInfo?.merchantName;
 			},
 			flex: 1,
 		},
@@ -63,7 +63,7 @@ const WarehouseParcelList = () => {
 			field: "merchantBusinessAddress",
 			headerName: "Marchant Address",
 			renderCell: (params) => {
-				return `${params.row.marchentInfo.merchantBusinessAddress}(${params.row.marchentInfo.merchantArea})`;
+				return `${params?.row?.marchentInfo?.merchantBusinessAddress}(${params.row.marchentInfo.merchantArea})`;
 			},
 			flex: 1,
 		},
@@ -71,7 +71,7 @@ const WarehouseParcelList = () => {
 			field: "receiverNumber",
 			headerName: "Phone Number",
 			renderCell: (params) => {
-				return params.row.marchentInfo.merchantContact;
+				return params?.row?.marchentInfo?.merchantContact;
 			},
 			flex: 1,
 		},

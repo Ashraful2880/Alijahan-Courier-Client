@@ -9,9 +9,9 @@ import RiderRecParcelListFiltered from "./RiderRecParcelListFiltered";
 
 const RidersRecParcelList = () => {
 	const { user, loading, token } = GetAuth();
-	const [data, setData] = useState([]);
+	const [data, setData] = useState();
 	const [opens, setOpens] = React.useState(false);
-	const [parcelData, setParcelData] = useState([]);
+	const [parcelData, setParcelData] = useState();
 	useEffect(() => {
 		axios
 			.get(`${process.env.REACT_APP_API_PATH}/riderDeliverOrders/${user?.email}`, {
@@ -32,7 +32,7 @@ const RidersRecParcelList = () => {
 				<AspectRatioIcon
 					onClick={() => {
 						setOpens(true);
-						setParcelData(params.row?.marchentInfo.merchantName);
+						setParcelData(params?.row?.marchentInfo?.merchantName);
 					}}
 					sx={{ ml: 1.5, color: "green", cursor: "pointer" }}
 				/>
@@ -45,7 +45,7 @@ const RidersRecParcelList = () => {
 			field: "merchantName",
 			headerName: "Marchant Name",
 			renderCell: (params) => {
-				return params.row.marchentInfo.merchantName;
+				return params?.row?.marchentInfo?.merchantName;
 			},
 			flex: 1,
 		},
@@ -53,7 +53,7 @@ const RidersRecParcelList = () => {
 			field: "merchantBusinessAddress",
 			headerName: "Marchant Address",
 			renderCell: (params) => {
-				return `${params.row.marchentInfo.merchantBusinessAddress}(${params.row.marchentInfo.merchantArea})`;
+				return `${params?.row?.marchentInfo?.merchantBusinessAddress}(${params.row.marchentInfo.merchantArea})`;
 			},
 			flex: 1,
 		},
@@ -61,7 +61,7 @@ const RidersRecParcelList = () => {
 			field: "merchantContact",
 			headerName: "Phone Number",
 			renderCell: (params) => {
-				return params.row.marchentInfo.merchantContact;
+				return params?.row?.marchentInfo?.merchantContact;
 			},
 			flex: 1,
 		},
@@ -81,7 +81,7 @@ const RidersRecParcelList = () => {
 	)?.filter(
 		(v, i, a) =>
 			a.findIndex(
-				(t) => t.marchentInfo.merchantName === v.marchentInfo.merchantName,
+				(t) => t?.marchentInfo?.merchantName === v.marchentInfo.merchantName,
 			) === i,
 	);
 	return (

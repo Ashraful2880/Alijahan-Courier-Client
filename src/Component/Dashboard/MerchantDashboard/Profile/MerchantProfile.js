@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box, Typography } from "@mui/material";
+import { Backdrop, Box, CircularProgress, Typography } from "@mui/material";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -52,7 +52,7 @@ const MerchantProfile = () => {
 			.catch((error) => {
 				console.log(error);
 			});
-	}, [token, user?.email]);
+	}, [token, user?.email, open]);
 
 	return (
 		<Box sx={{ px: 4, pt: 2, pb: 5, background: "#f8f8f8", height: "93vh" }}>
@@ -248,6 +248,11 @@ const MerchantProfile = () => {
 						</TableBody>
 					</Table>
 				</TableContainer>
+				{<Backdrop
+					sx={{ color: "#fff", zIndex: (theme) => theme?.zIndex?.drawer + 999 }}
+					open={!merchant && !currentUser}>
+					<CircularProgress color='inherit' />
+				</Backdrop>}
 			</Box>
 			{open && (
 				<EditMarchantProfile

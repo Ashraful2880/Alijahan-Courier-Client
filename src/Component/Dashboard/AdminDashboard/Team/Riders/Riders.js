@@ -23,7 +23,7 @@ import GetAuth from "../../../../../FirebaseAuth/GetAuth";
 const Riders = () => {
 	const { user, loading, token } = GetAuth();
 	const [submitting, setSubmitting] = useState(false);
-	const [data, setData] = useState([]);
+	const [data, setData] = useState();
 	const [open, setOpen] = React.useState(false);
 	const [openEdit, setOpenEdit] = React.useState(false);
 	const [id, setId] = React.useState();

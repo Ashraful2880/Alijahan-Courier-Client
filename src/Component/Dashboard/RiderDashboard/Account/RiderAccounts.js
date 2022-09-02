@@ -11,10 +11,10 @@ import ParcelModal from "../../AdminDashboard/Account/ParcelModal";
 const RiderAccounts = () => {
 	const { user, loading, token } = GetAuth();
 	const [submitting, setSubmitting] = useState(false);
-	const [data, setData] = useState([]);
-	const [modalData, setModalData] = useState([]);
+	const [data, setData] = useState();
+	const [modalData, setModalData] = useState();
 	const [open, setOpen] = React.useState(false);
-	const [selectionModel, setSelectionModel] = React.useState([]);
+	const [selectionModel, setSelectionModel] = React.useState();
 	const handleOpen = () => setOpen(true);
 	const handleClose = () => setOpen(false);
 
@@ -107,7 +107,7 @@ const RiderAccounts = () => {
 		return (
 			<Box sx={{ display: "flex", alignItems: "center" }}>
 				<RemoveRedEyeIcon
-					onClick={() => handleOpen(setModalData(params.row))}
+					onClick={() => handleOpen(setModalData(params?.row))}
 					sx={{ ml: 1.5, color: "green", cursor: "pointer" }}
 				/>
 			</Box>
