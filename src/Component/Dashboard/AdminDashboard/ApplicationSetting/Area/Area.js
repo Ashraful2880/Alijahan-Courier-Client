@@ -28,7 +28,7 @@ const Area = () => {
 	const { register, handleSubmit, reset } = useForm();
 	const [submitting, setSubmitting] = useState(false);
 	const [data, setData] = useState();
-	const [districts, setDistricts] = useState([]);
+	const [districts, setDistricts] = useState();
 	const [openEdit, setOpenEdit] = React.useState(false);
 	const [id, setId] = React.useState();
 
@@ -242,7 +242,7 @@ const Area = () => {
 					<Autocomplete
 						size='small'
 						sx={{ my: 1, width: "100% !important" }}
-						options={districts}
+						options={districts || []}
 						getOptionLabel={(option) => option.district}
 						style={{ width: 300 }}
 						renderInput={(params) => (

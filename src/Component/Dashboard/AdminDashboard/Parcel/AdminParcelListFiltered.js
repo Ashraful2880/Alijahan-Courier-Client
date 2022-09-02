@@ -252,7 +252,7 @@ const AdminParcelListFiltered = ({
 						open={open}
 						handleOpen={handleOpen}
 						handleClose={handleClose}
-						modalData={parcelData || []}
+						modalData={parcelData}
 					/>
 				</Box>
 			</Fade>

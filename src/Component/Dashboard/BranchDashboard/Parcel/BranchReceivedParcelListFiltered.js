@@ -59,7 +59,7 @@ const BranchReceivedParcelListFiltered = ({
 	const [openPrint, setOpenPrint] = React.useState(false);
 	const handleOpenPrint = () => {
 		setOpenPrint(true);
-		setSelected(data?.filter((e) => selectionModel?.find((n) => n === e._id)));
+		setSelected(data?.filter((e) => selectionModel?.find((n) => n === e?._id)));
 	};
 	const handleClosePrint = () => setOpenPrint(false);
 	const handleClose = () => {
@@ -70,11 +70,11 @@ const BranchReceivedParcelListFiltered = ({
 	};
 	const [data, setData] = useState();
 	const [status, setStatus] = useState("");
-	const [riders, setRiders] = useState([]);
+	const [riders, setRiders] = useState();
 	const [branch, setBranch] = useState();
-	const [Warehouse, setWarehouse] = useState([]);
-	const [selectionModel, setSelectionModel] = React.useState([]);
-	const [selected, setSelected] = React.useState([]);
+	const [Warehouse, setWarehouse] = useState();
+	const [selectionModel, setSelectionModel] = React.useState();
+	const [selected, setSelected] = React.useState();
 
 	useEffect(() => {
 		axios

@@ -38,9 +38,9 @@ const style = {
 const AddMerchants = ({ open, setOpen, token, setSubmitting }) => {
 	const { register, handleSubmit, reset, watch } = useForm();
 	const [errors, setErrors] = useState(false);
-	const [selectedBranch, setSelectedBranch] = useState([]);
-	const [branches, setBranches] = useState([]);
-	const [districts, setDistricts] = useState([]);
+	const [selectedBranch, setSelectedBranch] = useState();
+	const [branches, setBranches] = useState();
+	const [districts, setDistricts] = useState();
 	const [num, setNum] = React.useState();
 	useEffect(() => {
 		axios
@@ -229,7 +229,7 @@ const AddMerchants = ({ open, setOpen, token, setSubmitting }) => {
 							<Autocomplete
 								size='small'
 								sx={{ my: 0.5, width: "100% !important" }}
-								options={districts}
+								options={districts || []}
 								getOptionLabel={(option) => option?.district}
 								style={{ width: 300 }}
 								renderInput={(params) => (
@@ -252,7 +252,7 @@ const AddMerchants = ({ open, setOpen, token, setSubmitting }) => {
 									}}
 									size='small'
 									sx={{ my: 0.5, width: "100% !important" }}
-									options={branches}
+									options={branches || []}
 									getOptionLabel={(option) => option?.branchName}
 									style={{ width: 300 }}
 									renderInput={(params) => (

@@ -12,8 +12,8 @@ import SearchIcon from "@mui/icons-material/Search";
 
 const PageCoverageArea = () => {
   const { baseUrl } = hooks();
-  const [coverageArea, setCoverageArea] = useState([]);
-  const [uniqArea, setUniqArea] = useState([]);
+  const [coverageArea, setCoverageArea] = useState();
+  const [uniqArea, setUniqArea] = useState();
   const [showMenu, setShowMenu] = useState(true);
   const [searchArea, setSearchArea] = useState("");
 
@@ -133,7 +133,7 @@ const PageCoverageArea = () => {
               </Box>
             </Box>
             {/* area table */}
-            {!showMenu && <FilterArea uniqArea={uniqArea} />}
+            {!showMenu && <FilterArea uniqArea={uniqArea || []} />}
           </Box>
         </Grid>
         <Grid item xs={12} md={4} style={{ marginBottom: "50px", }}>

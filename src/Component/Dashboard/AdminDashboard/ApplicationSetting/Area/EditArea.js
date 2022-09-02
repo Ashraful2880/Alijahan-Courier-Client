@@ -7,16 +7,11 @@ import {
 	Backdrop,
 	Typography,
 	CircularProgress,
-	Select,
-	MenuItem,
-	FormControl,
 	Autocomplete,
 } from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
 import { useForm } from "react-hook-form";
-import ReplayIcon from "@mui/icons-material/Replay";
-import DoneIcon from "@mui/icons-material/Done";
 import CancelIcon from "@mui/icons-material/Cancel";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import DownloadDoneIcon from "@mui/icons-material/DownloadDone";
@@ -46,8 +41,8 @@ const EditArea = ({ open, setOpen, id, token, setSubmitting }) => {
 		},
 	});
 
-	const [data, setData] = React.useState([]);
-	const [districts, setDistricts] = useState([]);
+	const [data, setData] = React.useState();
+	const [districts, setDistricts] = useState();
 
 	console.log(data);
 	useEffect(() => {

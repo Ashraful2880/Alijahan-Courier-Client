@@ -28,7 +28,7 @@ const AccountsFiltered = ({ opens, setOpens, marchantName, allParcels, selectedS
 	const { user, loading, token } = GetAuth();
 	const [submitting, setSubmitting] = useState(false);
 	const [data, setData] = useState();
-	const [selectionModel, setSelectionModel] = React.useState([]);
+	const [selectionModel, setSelectionModel] = React.useState();
 
 	useEffect(() => {
 		axios

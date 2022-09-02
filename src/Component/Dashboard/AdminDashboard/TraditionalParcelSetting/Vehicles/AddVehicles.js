@@ -146,7 +146,6 @@ const AddVehicles = ({ open, setOpen, token, setSubmitting }) => {
 								/>
 							</Box>
 							<Box sx={{ display: "flex", gap: "20px" }}>
-
 								<TextField
 									size='small'
 									sx={{ my: 0.5 }}

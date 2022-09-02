@@ -338,15 +338,6 @@ const EditBranches = ({ open, setOpen, id, token, setSubmitting }) => {
 											{...register("branchEmail", { required: true })}
 										/>
 									</Box>
-									<Box sx={{ display: "flex", gap: "20px" }}>
-										<TextField
-											size='small'
-											sx={{ my: 0.5, width: "50%" }}
-											fullWidth
-											helperText='Branch Password'
-											{...register("branchPassword", { required: true })}
-										/>
-									</Box>
 									<Box sx={{ my: 1 }}>
 										<Button
 											type='submit'

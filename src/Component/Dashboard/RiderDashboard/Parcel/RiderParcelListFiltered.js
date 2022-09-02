@@ -62,8 +62,8 @@ const RiderParcelListFiltered = ({
 	};
 	const [data, setData] = useState();
 	const [status, setStatus] = useState("");
-	const [selectionModel, setSelectionModel] = React.useState([]);
-	const [selected, setSelected] = React.useState([]);
+	const [selectionModel, setSelectionModel] = React.useState();
+	const [selected, setSelected] = React.useState();
 	const [openPrint, setOpenPrint] = React.useState(false);
 
 	const handleOpenPrint = () => {
