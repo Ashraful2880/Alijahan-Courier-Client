@@ -63,7 +63,7 @@ const OrderTracking = () => {
 						}}>
 						Track Your Consignment
 					</h2>
-					<form style={{ marginTop: "10px" }}>
+					<Box style={{ marginTop: "10px" }}>
 						<Box
 							sx={{
 								display: "flex",
@@ -84,7 +84,7 @@ const OrderTracking = () => {
 								/>
 							</button>
 						</Box>
-					</form>
+					</Box>
 				</Box>
 			)}
 			<Backdrop
