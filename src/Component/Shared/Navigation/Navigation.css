@@ -3,12 +3,10 @@
     font-size: 19px;
     color: black;
     font-family: "Montserrat", sans-serif;
-    margin: 0px 5px;
-    padding: 5px 0px;
     border-bottom: 2px solid transparent;
     transition: 0.4s ease-in-out;
     font-weight: 500;
-    padding: 0px 5px
+    margin: 0px 5px;
 }
 
 .inActiveMenu:hover {
@@ -23,10 +21,8 @@
     font-family: "Montserrat", sans-serif;
     font-weight: 500;
     display: block !important;
-    margin: 0px 5px;
-    padding: 5px 0px;
     border-bottom: 2px solid #08A74C;
-    padding: 0px 5px;
+    margin: 0px 5px;
 }
 
 .call {
