@@ -205,7 +205,7 @@ const Riders = () => {
 					{data && (
 						<div style={{ height: "80vh", width: "100%" }} className='table'>
 							<DataGrid
-								rows={data}
+								rows={data || []}
 								getRowId={(row) => row?._id}
 								columns={columns}
 								pageSize={10}

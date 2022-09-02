@@ -64,11 +64,11 @@ const BranchParcelListFiltered = ({
 	};
 	const [data, setData] = useState();
 	const [status, setStatus] = useState("");
-	const [riders, setRiders] = useState([]);
+	const [riders, setRiders] = useState();
 	const [branch, setBranch] = useState();
-	const [Warehouse, setWarehouse] = useState([]);
-	const [selectionModel, setSelectionModel] = React.useState([]);
-	const [selected, setSelected] = React.useState([]);
+	const [Warehouse, setWarehouse] = useState();
+	const [selectionModel, setSelectionModel] = React.useState();
+	const [selected, setSelected] = React.useState();
 	const [openPrint, setOpenPrint] = React.useState(false);
 	const [openBarCode, setOpenBarCode] = React.useState(false);
 

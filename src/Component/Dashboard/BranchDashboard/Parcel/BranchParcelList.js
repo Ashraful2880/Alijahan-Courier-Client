@@ -232,7 +232,7 @@ const BranchParcelList = () => {
 			<BranchParcelListFiltered
 				opens={opens}
 				setOpens={setOpens}
-				marchantName={parcelData || []}
+				marchantName={parcelData}
 				allParcels={selectedStatus === "All" ? data : filterData}
 				selectedStatus={selectedStatus}
 			/>

@@ -6,10 +6,10 @@ import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import { useForm } from "react-hook-form";
 
 const OfficeToOffice = () => {
-	const [hubs, setHubs] = useState([]);
-	const [selectedBranches, setSelectedHub] = useState([]);
-	const [paymentTypes, setPaymentTypes] = useState([]);
-	const [conditionType, setConditionType] = useState([]);
+	const [hubs, setHubs] = useState();
+	const [selectedBranches, setSelectedHub] = useState();
+	const [paymentTypes, setPaymentTypes] = useState();
+	const [conditionType, setConditionType] = useState();
 	const { register, handleSubmit, reset } = useForm();
 	const onSubmit = () => { };
 	return (

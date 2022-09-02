@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import {
-	Button,
 	TextField,
 	Backdrop,
 	Typography,
@@ -12,10 +11,7 @@ import {
 import { Box } from "@mui/system";
 import axios from "axios";
 import { useForm } from "react-hook-form";
-import ReplayIcon from "@mui/icons-material/Replay";
-import DoneIcon from "@mui/icons-material/Done";
 import CancelIcon from "@mui/icons-material/Cancel";
-import BorderColorIcon from "@mui/icons-material/BorderColor";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import Swal from "sweetalert2";
 const style = {
@@ -51,8 +47,8 @@ const ViewMerchants = ({ open, setOpen, id, token, setSubmitting }) => {
 	});
 	const [error, setError] = useState(false);
 	const [selectedBranch, setSelectedBranch] = useState();
-	const [branches, setBranches] = useState([]);
-	const [districts, setDistricts] = useState([]);
+	const [branches, setBranches] = useState();
+	const [districts, setDistricts] = useState();
 
 	useEffect(() => {
 		axios
@@ -231,14 +227,14 @@ const ViewMerchants = ({ open, setOpen, id, token, setSubmitting }) => {
 									<Autocomplete
 										size='small'
 										sx={{ my: 0.5, width: "100% !important" }}
-										options={districts}
+										options={districts || []}
 										getOptionLabel={(option) => option?.district}
 										style={{ width: 300 }}
 										defaultValue={
 											districts[
-												districts?.findIndex(
-													(x) => x?.district === data?.merchantDistrict,
-												)
+											districts?.findIndex(
+												(x) => x?.district === data?.merchantDistrict,
+											)
 											]
 										}
 										renderInput={(params) => (
@@ -260,14 +256,14 @@ const ViewMerchants = ({ open, setOpen, id, token, setSubmitting }) => {
 											}}
 											size='small'
 											sx={{ my: 0.5, width: "100% !important" }}
-											options={branches}
+											options={branches || []}
 											getOptionLabel={(option) => option?.branchName}
 											style={{ width: 300 }}
 											defaultValue={
 												branches[
-													branches?.findIndex(
-														(x) => x?.branchName === data?.merchantBranchName,
-													)
+												branches?.findIndex(
+													(x) => x?.branchName === data?.merchantBranchName,
+												)
 												]
 											}
 											renderInput={(params) => (

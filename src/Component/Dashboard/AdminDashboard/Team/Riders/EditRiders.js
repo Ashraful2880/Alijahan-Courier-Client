@@ -189,7 +189,7 @@ const EditRiders = ({ open, setOpen, id, token, setSubmitting }) => {
 										<Autocomplete
 											size='small'
 											sx={{ my: 0.5, width: "100% !important" }}
-											options={branch}
+											options={branch || []}
 											getOptionLabel={(option) => option.branchName}
 											style={{ width: 300 }}
 											defaultValue={

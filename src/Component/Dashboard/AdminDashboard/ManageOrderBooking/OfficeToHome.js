@@ -6,10 +6,10 @@ import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import { useForm } from 'react-hook-form';
 
 const OfficeToHome = () => {
-    const [deliveryAreas, setdeliveryAreas] = useState([]);
-    const [selectedBranches, setSelectDeliveryArea] = useState([]);
-    const [paymentTypes, setPaymentTypes] = useState([]);
-    const [conditionType, setConditionType] = useState([]);
+    const [deliveryAreas, setdeliveryAreas] = useState();
+    const [selectedBranches, setSelectDeliveryArea] = useState();
+    const [paymentTypes, setPaymentTypes] = useState();
+    const [conditionType, setConditionType] = useState();
     const { register, handleSubmit, reset } = useForm();
     return (
         <Box sx={{ mt: 2.5, mx: 2.5, boxShadow: "0px 0px 10px #b5b5b5", pt: 2, pb: 5 }}>

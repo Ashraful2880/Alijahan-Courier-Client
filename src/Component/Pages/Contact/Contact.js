@@ -25,7 +25,7 @@ const top100Films = [
 
 const Contact = () => {
   const [pickupArea, setPickupArea] = React.useState(null);
-  const [covarageArea, setCovarageArea] = React.useState([]);
+  const [covarageArea, setCovarageArea] = React.useState();
   return (
     <Box>
       <Box>

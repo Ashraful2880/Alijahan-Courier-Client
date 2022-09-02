@@ -6,7 +6,6 @@ import ListItemText from "@mui/material/ListItemText";
 import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import HomeIcon from "@mui/icons-material/Home";
 import FormatListNumberedIcon from "@mui/icons-material/FormatListNumbered";
 import RedeemIcon from "@mui/icons-material/Redeem";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";

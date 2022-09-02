@@ -30,7 +30,7 @@ const outsideDhaka = [
 const DeliveryCalculator = () => {
   const [pickupArea, setPickupArea] = React.useState(null);
   const [deliveryArea, setDeliveryArea] = React.useState(null);
-  const [covarageArea, setCovarageArea] = React.useState([]);
+  const [covarageArea, setCovarageArea] = React.useState();
   const [weightValue, setWeightValue] = React.useState(null);
   const [weight, setWeight] = React.useState(insideDhaka);
   const [price, setPrice] = React.useState(0);
@@ -139,7 +139,7 @@ const DeliveryCalculator = () => {
                   clearOnBlur
                   handleHomeEndKeys
                   id="free-solo-with-text-demo"
-                  options={covarageArea}
+                  options={covarageArea || []}
                   getOptionLabel={(option) => {
                     // Value selected with enter, right from the input
                     if (typeof option === "string") {
