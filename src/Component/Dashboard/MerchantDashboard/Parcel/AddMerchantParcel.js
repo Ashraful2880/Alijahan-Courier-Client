@@ -29,15 +29,15 @@ const AddMerchantParcel = () => {
 	const { register, handleSubmit, reset } = useForm();
 	const [selectedDistricts, setSelectedDistricts] = useState("");
 	const [branch, setBranch] = useState();
-	const [productCategory, setProductCategory] = useState([]);
+	const [productCategory, setProductCategory] = useState();
 	const [weight, setWeight] = useState();
 	const [selectWeight, setSelectWeight] = useState();
 	const [cashCollection, setCashCollection] = useState();
-	const [districts, setDistricts] = useState([]);
-	const [marchant, setMarchant] = useState([]);
-	const [areas, setAreas] = useState([]);
-	const [selectedArea, setSelectedArea] = useState([]);
-	const [serviceAreas, setServiceAreas] = useState([]);
+	const [districts, setDistricts] = useState();
+	const [marchant, setMarchant] = useState();
+	const [areas, setAreas] = useState();
+	const [selectedArea, setSelectedArea] = useState();
+	const [serviceAreas, setServiceAreas] = useState();
 	const [num, setNum] = React.useState();
 
 	const senderBranch = branch?.find(
@@ -49,13 +49,10 @@ const AddMerchantParcel = () => {
 
 	const [selectArea, setSelectArea] = useState();
 	useEffect(() => {
-		if (marchant?.merchantBranchName === receiverBranch?.branchName) {
-			setSelectArea("Inside Same City");
-		} else if (marchant?.merchantDistrict === receiverBranch?.branchDistrict) {
+		if (marchant?.merchantDistrict === receiverBranch?.branchDistrict) {
 			const findArea = receiverBranch?.branchArea?.find(
 				(a) => a?.area === selectedArea?.area,
 			);
-
 			if (findArea?.area === marchant?.merchantArea) {
 				setSelectArea("Inside Same City");
 			}
@@ -237,9 +234,7 @@ const AddMerchantParcel = () => {
 			.then((response) => {
 				setSubmitting(false);
 				reset();
-				Swal.fire("", "Successfully Added!", "success").then(function () {
-					window.location.reload();
-				});
+				Swal.fire("", "Successfully Added!", "success");
 			})
 			.catch((error) => {
 				setSubmitting(false);
@@ -304,18 +299,34 @@ const AddMerchantParcel = () => {
 								<Box style={{ width: "100%" }}>
 									<input
 										type='text'
-										placeholder="Receiver Number"
-										name="receiverNumber"
-										style={{ width: "100%", padding: "10px 12px", margin: "4px 0px", fontSize: "16px", borderRadius: "5px", border: "1px solid gray" }}
+										placeholder='Receiver Number'
+										name='receiverNumber'
+										style={{
+											width: "100%",
+											padding: "10px 12px",
+											margin: "4px 0px",
+											fontSize: "16px",
+											borderRadius: "5px",
+											border: "1px solid gray",
+										}}
 										value={num}
 										onChange={(e) =>
 											setNum(e.target.value.replace(/[^0-9]/g, ""))
 										}
-										maxLength="11"
-										minLength="11"
+										maxLength='11'
+										minLength='11'
 										{...register("receiverNumber", { required: true })}
 									/>
-									<label style={{ textAlign: "left", fontSize: "12px", color: "gray", width: "100%", display: "block", }}>Sender number</label>
+									<label
+										style={{
+											textAlign: "left",
+											fontSize: "12px",
+											color: "gray",
+											width: "100%",
+											display: "block",
+										}}>
+										Sender number
+									</label>
 								</Box>
 							</Box>
 							<Box sx={{ display: "flex", gap: "15px", mx: 2 }}>
@@ -434,22 +445,18 @@ const AddMerchantParcel = () => {
 								/>
 							</Box>
 							<Box sx={{ display: "flex", gap: "15px", mx: 2 }}>
-								<Box style={{ width: "100%" }}>
-									<input
-										type='text'
-										placeholder="Cash Collection"
-										name="cashCollection"
-										style={{ width: "100%", padding: "10px 12px", margin: "4px 0px", fontSize: "16px", borderRadius: "5px", border: "1px solid gray" }}
-										value={num}
-										onChange={(e) =>
-											setNum(e.target.value.replace(/[^0-9]/g, ""))
-										}
-										maxLength="11"
-										minLength="11"
-										{...register("cashCollection", { required: true })}
-									/>
-									<label style={{ textAlign: "left", fontSize: "12px", color: "gray", width: "100%", display: "block", }}>Sender number</label>
-								</Box>
+								<TextField
+									type='number'
+									size='small'
+									sx={{ my: 0.5 }}
+									fullWidth
+									required
+									label='Cash Collection'
+									helperText='Cash Collection'
+									{...register("cashCollection", { required: true })}
+									value={cashCollection}
+									onChange={(e) => setCashCollection(e.target.value)}
+								/>
 								<TextField
 									size='small'
 									sx={{ my: 0.5 }}
@@ -560,7 +567,7 @@ const AddMerchantParcel = () => {
 														color: "gray",
 														fontSize: "15px",
 													}}>
-													COD Charge
+													Cash On Delivery Charge
 												</Typography>
 											</TableCell>
 											<TableCell align='right'>
@@ -605,7 +612,7 @@ const AddMerchantParcel = () => {
 														color: "gray",
 														fontSize: "15px",
 													}}>
-													Payable
+													Total Receive
 												</Typography>
 											</TableCell>
 											<TableCell align='right'>
