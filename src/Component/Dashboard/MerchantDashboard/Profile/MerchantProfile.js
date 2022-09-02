@@ -6,17 +6,17 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import BorderColorIcon from '@mui/icons-material/BorderColor';
+import BorderColorIcon from "@mui/icons-material/BorderColor";
 import "./../../../../App.css";
 import GetAuth from "../../../../FirebaseAuth/GetAuth";
 import axios from "axios";
-import Button from '@mui/material/Button';
+import Button from "@mui/material/Button";
 import EditMarchantProfile from "./EditMarchantProfile";
 
 const MerchantProfile = () => {
 	const { user, loading, token } = GetAuth();
-	const [merchant, setMerchant] = useState([]);
-	const [currentUser, setCurrentUser] = React.useState("")
+	const [merchant, setMerchant] = useState();
+	const [currentUser, setCurrentUser] = React.useState("");
 	const [submitting, setSubmitting] = useState(false);
 	const [open, setOpen] = React.useState(false);
 	const [id, setId] = React.useState();
@@ -80,7 +80,8 @@ const MerchantProfile = () => {
 				<Typography
 					variant='h5'
 					sx={{ fontWeight: "bold", marginBottom: "15px" }}>
-					Welcome Back! <span style={{ color: "green" }}>{currentUser?.name}</span>
+					Welcome Back!{" "}
+					<span style={{ color: "green" }}>{currentUser?.name}</span>
 				</Typography>
 				<TableContainer
 					component={Paper}
@@ -91,16 +92,26 @@ const MerchantProfile = () => {
 								<TableCell
 									component='th'
 									scope='row'
-									sx={{ fontSize: "18px", letterSpacing: "0.2px", fontWeight: "600" }}>
+									sx={{
+										fontSize: "18px",
+										letterSpacing: "0.2px",
+										fontWeight: "600",
+									}}>
 									Profile Information
 								</TableCell>
 								<TableCell
 									sx={{ fontSize: "15px", letterSpacing: "0.2px" }}
 									align='right'>
-									<Button variant="outlined" color="success" onClick={() => {
-										handleOpen(currentUser?._id);
-									}}>
-										Edit <BorderColorIcon sx={{ color: "green", fontSize: "30px" }} />
+									<Button
+										variant='outlined'
+										color='success'
+										onClick={() => {
+											handleOpen(currentUser?._id);
+										}}>
+										Edit{" "}
+										<BorderColorIcon
+											sx={{ color: "green", fontSize: "30px" }}
+										/>
 									</Button>
 								</TableCell>
 							</TableRow>
@@ -242,9 +253,11 @@ const MerchantProfile = () => {
 				<EditMarchantProfile
 					open={open}
 					setOpen={setOpen}
-					id={id}
 					token={token}
-					setSubmitting={setSubmitting} />)}
+					setSubmitting={setSubmitting}
+					data={merchant}
+				/>
+			)}
 		</Box>
 	);
 };
