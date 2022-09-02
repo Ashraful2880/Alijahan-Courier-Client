@@ -179,7 +179,7 @@ const EditMarchantProfile = ({ open, setOpen, token, setSubmitting, data }) => {
 								borderRadius: "50%",
 							}}
 						/>
-						{data && branches ? (
+						{branches && districts ? (
 							<>
 								<Typography
 									variant='h6'
