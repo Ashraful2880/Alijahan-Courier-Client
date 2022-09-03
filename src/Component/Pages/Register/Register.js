@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import React from "react";
 import logo from "../../../Assets/Image/logo.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import ReplayIcon from "@mui/icons-material/Replay";
@@ -31,7 +31,8 @@ const Register = ({ token }) => {
 	const [area, setArea] = useState();
 	const [num, setNum] = React.useState();
 	const [selectedArea, setSelectedArea] = React.useState();
-	console.log("Data", data);
+	const navigate = useNavigate();
+
 	useEffect(() => {
 		axios
 			.get(`${process.env.REACT_APP_API_PATH}/areas`, {
@@ -92,7 +93,7 @@ const Register = ({ token }) => {
 					`${process.env.REACT_APP_API_PATH}/merchant`,
 					{
 						...data,
-						status: "Active",
+						status: "Inactive",
 					},
 					{
 						headers: {
@@ -104,6 +105,7 @@ const Register = ({ token }) => {
 					setSubmitting(false);
 					Swal.fire("", "Successfully Added!", "success");
 					signOut(auth2);
+					navigate("/dashboard");
 				})
 				.catch((error) => {
 					console.log(error);
