@@ -1,6 +1,13 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { CircularProgress, Grid, Backdrop, Typography, Box, Button, } from "@mui/material";
+import {
+	CircularProgress,
+	Grid,
+	Backdrop,
+	Typography,
+	Box,
+	Button,
+} from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import axios from "axios";
 import GetAuth from "../../../../FirebaseAuth/GetAuth";
@@ -96,7 +103,28 @@ const BranchParcelList = () => {
 	];
 
 	const [selectedStatus, setSelectedStatus] = useState("All");
-	const filterData = data?.filter((item) => item?.status === selectedStatus);
+	const [filterData, setFilterData] = useState();
+	useEffect(() => {
+		if (selectedStatus === "Rider Assigned for Pickup") {
+			setFilterData(
+				data?.filter(
+					(item) =>
+						item?.status === "Assigned for Pickup" &&
+						item?.collectRiderInfo?.id,
+				),
+			);
+		} else if (selectedStatus === "Assigned for Pickup") {
+			setFilterData(
+				data?.filter(
+					(item) =>
+						item?.status === selectedStatus && !item?.collectRiderInfo?.id,
+				),
+			);
+		} else {
+			setFilterData(data?.filter((item) => item?.status === selectedStatus));
+		}
+	}, [data, selectedStatus]);
+
 	const filteredByMarchant = (
 		selectedStatus === "All" ? data : filterData
 	)?.filter(
@@ -146,6 +174,14 @@ const BranchParcelList = () => {
 				<Button
 					className={selectedStatus === "Assigned for Pickup" ? "active" : ""}
 					onClick={() => setSelectedStatus("Assigned for Pickup")}
+					sx={{ my: 0.7, fontWeight: "bold", mx: 1, color: "gray" }}>
+					Assign
+				</Button>
+				<Button
+					className={
+						selectedStatus === "Rider Assigned for Pickup" ? "active" : ""
+					}
+					onClick={() => setSelectedStatus("Rider Assigned for Pickup")}
 					sx={{ my: 0.7, fontWeight: "bold", mx: 1, color: "gray" }}>
 					Assigned
 				</Button>
@@ -217,7 +253,7 @@ const BranchParcelList = () => {
 					{filterData && (
 						<div style={{ height: "80vh", width: "100%" }} className='table'>
 							<DataGrid
-								rows={filteredByMarchant}
+								rows={filteredByMarchant || []}
 								getRowId={(row) => row?._id}
 								columns={columns}
 								pageSize={10}
