@@ -275,7 +275,8 @@ const BranchParcelListFiltered = ({
 			<Box sx={{ display: "flex", alignItems: "center" }}>
 				{((params.row?.status === "Assigned for Pickup" &&
 					!params.row?.collectRiderInfo?.riderName) ||
-					params.row?.status === "Cancelled by Pickup Rider") && (
+					params.row?.status === "Cancelled by Pickup Rider") &&
+					selectedStatus !== "Rider Assigned for Pickup" && (
 						<Autocomplete
 							onChange={(event, newValue) => {
 								changeRider(event, newValue, params.row?._id);
@@ -285,7 +286,11 @@ const BranchParcelListFiltered = ({
 							options={riders}
 							getOptionLabel={(option) => option.riderName}
 							renderInput={(params) => (
-								<TextField {...params} label='Select Rider' variant='outlined' />
+								<TextField
+									{...params}
+									label='Select Rider'
+									variant='outlined'
+								/>
 							)}
 						/>
 					)}
@@ -326,7 +331,14 @@ const BranchParcelListFiltered = ({
 			},
 			width: 180,
 		},
-		{ field: "status", headerName: "Status", width: 250 },
+		{
+			field: "status",
+			headerName: "Status",
+			renderCell: (params) => {
+				return `${params.row.status} (<b>${params.row.collectRiderInfo.riderName}</b>)`;
+			},
+			width: 250,
+		},
 		{
 			field: "_id",
 			headerName: "Action",
@@ -374,7 +386,11 @@ const BranchParcelListFiltered = ({
 			</GridToolbarContainer>
 		);
 	}
-
+	console.log(
+		allParcels?.filter(
+			(item) => item.marchentInfo.merchantName === marchantName,
+		),
+	);
 	return (
 		<Modal
 			aria-labelledby='transition-modal-title'
@@ -418,27 +434,27 @@ const BranchParcelListFiltered = ({
 							<>
 								{(selectedStatus === "Assigned for Pickup" ||
 									selectedStatus === "Cancelled by Pickup Rider") && (
-										<Autocomplete
-											onChange={(event, newValue) => {
-												changeRiderMulti(event, newValue);
-											}}
-											size='small'
-											sx={{ my: 0.5, width: 200 }}
-											options={riders}
-											getOptionLabel={(option) => option.riderName}
-											renderInput={(params) => (
-												<TextField
-													{...params}
-													label='Select Rider'
-													variant='outlined'
-												/>
-											)}
-										/>
-									)}
+									<Autocomplete
+										onChange={(event, newValue) => {
+											changeRiderMulti(event, newValue);
+										}}
+										size='small'
+										sx={{ my: 0.5, width: 200 }}
+										options={riders}
+										getOptionLabel={(option) => option.riderName}
+										renderInput={(params) => (
+											<TextField
+												{...params}
+												label='Select Rider'
+												variant='outlined'
+											/>
+										)}
+									/>
+								)}
 								{selectedStatus !== "All" && (
 									<Box>
 										{selectedStatus === "Assigned for Pickup" ||
-											selectedStatus === "Cancelled by Pickup Rider" ? (
+										selectedStatus === "Cancelled by Pickup Rider" ? (
 											""
 										) : (
 											<Button
@@ -476,10 +492,10 @@ const BranchParcelListFiltered = ({
 												)}
 												{selectedStatus ===
 													"Delivered To Branch By Pickup Rider" && (
-														<MenuItem value={"Received in Pickup Branch"}>
-															Received in Pickup Branch
-														</MenuItem>
-													)}
+													<MenuItem value={"Received in Pickup Branch"}>
+														Received in Pickup Branch
+													</MenuItem>
+												)}
 												{selectedStatus === "Received in Pickup Branch" && (
 													<MenuItem value={"Delivered To Warehouse"}>
 														Deliver To Warehouse
@@ -487,18 +503,18 @@ const BranchParcelListFiltered = ({
 												)}
 												{selectedStatus ===
 													"Sending Returned Parcel to Branch" && (
-														<MenuItem
-															value={"Returned Parcel Received in Branch"}>
-															Returned Parcel Received
-														</MenuItem>
-													)}
+													<MenuItem
+														value={"Returned Parcel Received in Branch"}>
+														Returned Parcel Received
+													</MenuItem>
+												)}
 												{selectedStatus ===
 													"Returned Parcel Received in Branch" && (
-														<MenuItem
-															value={"Sending Returned Parcel to Merchant"}>
-															Sent Returned Parcel to Merchant
-														</MenuItem>
-													)}
+													<MenuItem
+														value={"Sending Returned Parcel to Merchant"}>
+														Sent Returned Parcel to Merchant
+													</MenuItem>
+												)}
 											</Select>
 										</FormControl>
 									</Box>
@@ -526,7 +542,9 @@ const BranchParcelListFiltered = ({
 						sx={{ justifyContent: "center", px: 2, position: "relative" }}>
 						<Grid item xs={12} md={12}>
 							{data && (
-								<div style={{ height: "80vh", width: "100%" }} className='table'>
+								<div
+									style={{ height: "80vh", width: "100%" }}
+									className='table'>
 									<DataGrid
 										rows={allParcels?.filter(
 											(item) => item.marchentInfo.merchantName === marchantName,
