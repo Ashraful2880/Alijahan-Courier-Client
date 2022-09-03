@@ -141,7 +141,7 @@ function Dashboard(props) {
 			</Link>
 			{data?.userRole === "Admin" && (<AdminDashboard />)}
 			{data?.userRole === "Branch" && (<BranchDashboard />)}
-			{data?.userRole === "Merchant" && (<MerchantDashboard />)}
+			{data?.userRole === "Merchant" && merchant?.status === "Active" && (<MerchantDashboard />)}
 			{data?.userRole === "Warehouse" && (<WarehouseDashboard />)}
 			{data?.userRole === "Rider" && (<RiderDashboard />)}
 			<Backdrop
@@ -162,8 +162,7 @@ function Dashboard(props) {
 		!loading &&
 		user &&
 		data &&
-		(merchant?.status === "Inactive" ||
-			branch?.status === "Inactive" ||
+		(branch?.status === "Inactive" ||
 			riders?.status === "Inactive" ||
 			warehouse?.status === "Inactive")
 	) {

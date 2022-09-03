@@ -158,7 +158,9 @@ const Navigation = () => {
 						</Menu>
 					</Box>
 					<Box sx={{ pt: 1, pb: 1 }}>
-						<img src={logo} alt='' className='webLogo' />
+						<Link to="/">
+							<img src={logo} alt='' className='Main Logo' />
+						</Link>
 					</Box>
 
 					<Box

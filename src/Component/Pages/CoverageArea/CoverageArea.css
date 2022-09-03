@@ -18,24 +18,24 @@
     width: 100%;
     padding: 13px 11px;
     outline: none;
-    border: 1px solid #58C0C5;
+    border: 1px solid #21AA56;
 
 }
 
 .covarageSearchBtn {
-    border: 1px solid #ACCCCC;
-    padding: 8px 24px;
+    border: 1px solid #21AA56;
+    padding: 8.5px 24px;
     display: flex;
     align-items: center;
     border-radius: 0px 8px 8px 0px;
     border-left: none;
     cursor: pointer;
-    background-color: #58C0C5;
+    background-color: #21AA56;
     transition: 0.2s;
 }
 
 .district-name:hover {
-    background-color: #58C0C5;
+    background-color: #21AA56;
     color: white;
 }
 
@@ -46,10 +46,9 @@
 
 .covarageSearchBtn:hover {
     background-color: transparent;
-
 }
 
 .covarageSearchBtn:hover .searchIcon {
-    color: #58C0C5;
+    color: #21AA56;
     transition: 0.2s;
 }
