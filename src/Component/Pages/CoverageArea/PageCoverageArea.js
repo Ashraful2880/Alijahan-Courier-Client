@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Container, Grid, Paper } from "@mui/material";
+import { Box, Container, Grid, Paper, Typography } from "@mui/material";
 import coverageareamap from "../../../Assets/Image/covaragemap.png";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { useEffect } from "react";
@@ -19,7 +19,7 @@ const PageCoverageArea = () => {
 
   useEffect(() => {
     try {
-      fetch(`https://alijahancourie.herokuapp.com/areas`)
+      fetch(`${process.env.REACT_APP_API_PATH}/areas`)
         .then((res) => res.json())
         .then((data) => {
           setCoverageArea(data);
@@ -44,10 +44,21 @@ const PageCoverageArea = () => {
 
   return (
     <Container sx={{ mt: 5 }}>
-      <h4 style={{ fontSize: 22, fontWeight: 700 }}>Coverage Area</h4>
-      <Grid container spacing={3}>
-        <Grid item xs={12} md={8}>
-          {/* search */}
+      <Box
+        sx={{
+          px: 2.5,
+          pb: 1,
+          mb: 1,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}>
+        <Typography variant='h5' sx={{ fontWeight: "bold", color: "#1E793C" }}>
+          Coverage Area
+        </Typography>
+      </Box>
+      <Box sx={{ display: "flex" }}>
+        <Box style={{ width: "100%", marginTop: "50px" }}>
           <Box
             sx={{
               display: "flex",
@@ -78,18 +89,20 @@ const PageCoverageArea = () => {
             <Box
               sx={{
                 borderRadius: 2,
-                border: "1px solid #58C0C5",
+                border: "1px solid #21aa56",
+                background: "#21aa56",
+                color: "#fff",
                 width: { md: "50%", xs: "100%" },
               }}
               className={showMenu ? "district-name" : "active"}
               onClick={() => handleArea()}>
               <Box
                 sx={{
+                  width: "100%",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "space-between",
-                }}
-                className="disName">
+                }}>
                 <p
                   style={{
                     fontSize: 17,
@@ -105,12 +118,12 @@ const PageCoverageArea = () => {
             {/* area table */}
             {!showMenu && <FilterArea uniqArea={uniqArea || []} />}
           </Box>
-        </Grid>
-        <Grid item xs={12} md={4} style={{ marginBottom: "50px", }}>
-          <img src={coverageareamap} width={"100%"} height="100%" alt="CoverageImage" />
-        </Grid>
-      </Grid>
-    </Container>
+        </Box>
+        <Box style={{ width: "100%", marginBottom: "50px", }}>
+          <img src={coverageareamap} width={"80%"} height="600px" alt="CoverageImage" />
+        </Box>
+      </Box>
+    </Container >
   );
 };
 

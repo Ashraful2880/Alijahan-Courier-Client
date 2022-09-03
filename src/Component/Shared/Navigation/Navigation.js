@@ -59,7 +59,7 @@ const Navigation = () => {
 	return (
 		<AppBar
 			position='sticky'
-			sx={{ backgroundColor: "white" }} /* style={{ display: `${hide}` }} */
+			sx={{ backgroundColor: "#ffffff", boxShadow: "none", borderBottom: "1px solid lightgray" }} /* style={{ display: `${hide}` }} */
 		>
 			<Container maxWidth='xl'>
 				<Toolbar disableGutters>
@@ -158,7 +158,9 @@ const Navigation = () => {
 						</Menu>
 					</Box>
 					<Box sx={{ pt: 1, pb: 1 }}>
-						<img src={logo} alt='' className='webLogo' />
+						<Link to="/">
+							<img src={logo} alt='' className='Main Logo' />
+						</Link>
 					</Box>
 
 					<Box
