@@ -59,7 +59,7 @@ const Navigation = () => {
 	return (
 		<AppBar
 			position='sticky'
-			sx={{ backgroundColor: "white" }} /* style={{ display: `${hide}` }} */
+			sx={{ backgroundColor: "#ffffff", boxShadow: "none", borderBottom: "1px solid lightgray" }} /* style={{ display: `${hide}` }} */
 		>
 			<Container maxWidth='xl'>
 				<Toolbar disableGutters>

@@ -64,7 +64,7 @@ const Pricing = () => {
           px: 2.5,
           display: "flex",
           alignItems: "center",
-          justifyContent: "space-between",
+          justifyContent: "center",
         }}>
         <Typography variant='h5' sx={{ fontWeight: "bold", color: "#1E793C" }}>
           Service Charge
