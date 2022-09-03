@@ -1,6 +1,13 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { CircularProgress, Grid, Backdrop, Typography, Box, Button, } from "@mui/material";
+import {
+	CircularProgress,
+	Grid,
+	Backdrop,
+	Typography,
+	Box,
+	Button,
+} from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import axios from "axios";
 import GetAuth from "../../../../FirebaseAuth/GetAuth";
@@ -36,7 +43,8 @@ const Accounts = () => {
 						setOpens(true);
 						setParcelData(params.row?.marchentInfo.merchantName);
 					}}
-					sx={{ ml: 1.5, color: "green", cursor: "pointer" }} />
+					sx={{ ml: 1.5, color: "green", cursor: "pointer" }}
+				/>
 			</Box>
 		);
 	};

@@ -335,7 +335,7 @@ const BranchParcelListFiltered = ({
 			field: "status",
 			headerName: "Status",
 			renderCell: (params) => {
-				return `${params.row.status} (<b>${params.row.collectRiderInfo.riderName}</b>)`;
+				return `${params.row.status} (${params.row.collectRiderInfo.riderName})`;
 			},
 			width: 250,
 		},
