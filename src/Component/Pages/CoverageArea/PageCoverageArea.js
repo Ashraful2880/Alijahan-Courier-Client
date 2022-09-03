@@ -19,7 +19,7 @@ const PageCoverageArea = () => {
 
   useEffect(() => {
     try {
-      fetch(`${baseUrl}/coveregeArea`)
+      fetch(`https://alijahancourie.herokuapp.com/areas`)
         .then((res) => res.json())
         .then((data) => {
           setCoverageArea(data);
@@ -29,12 +29,9 @@ const PageCoverageArea = () => {
     }
   }, [baseUrl]);
 
-  const handleArea = (e) => {
+  const handleArea = () => {
     setShowMenu(!showMenu);
-    const uniqe = coverageArea.filter(
-      (a) => a.area.toLowerCase().split(" ")[0] === e.toLowerCase()
-    );
-    setUniqArea(uniqe);
+    setUniqArea(coverageArea);
   };
 
   const handleSearchArea = (e) => {
@@ -57,40 +54,17 @@ const PageCoverageArea = () => {
               alignItems: "center",
               width: { md: "50%", xs: "100%" },
               mb: 2,
-            }}
-          >
+            }}>
             <input
               type="text"
               placeholder="Search"
               className="covarageSearch"
-              onChange={(e) => setSearchArea(e.target.value)}
-            />
+              onChange={(e) => setSearchArea(e.target.value)} />
             <button
               className="covarageSearchBtn"
-              onClick={() => handleSearchArea(searchArea)}
-            >
+              onClick={() => handleSearchArea(searchArea)}>
               <SearchIcon className="searchIcon" />
             </button>
-          </Box>
-          <Box
-            sx={{
-              display: { md: "flex", xs: "block" },
-              justifyContent: "space-between",
-              alignItems: "center",
-              mb: 2,
-            }}
-          >
-            <Box
-              sx={{
-                backgroundColor: "#58C0C5",
-                borderRadius: 2,
-                width: { md: "50%", xs: "100%" },
-                color: "white",
-                fontWeight: 500,
-              }}
-            >
-              <p style={{ padding: 12, margin: 0 }}>District</p>
-            </Box>
           </Box>
           {/* district name */}
           <Box>
@@ -98,8 +72,7 @@ const PageCoverageArea = () => {
               elevation={3}
               sx={{ width: 25, p: 1, borderRadius: "50%", mb: 3 }}
               onClick={() => handleArea("")}
-              className={showMenu ? "hideArrow" : ""}
-            >
+              className={showMenu ? "hideArrow" : ""}>
               <ArrowBackIcon sx={{ display: "flex", alignItems: "center" }} />
             </Paper>
             <Box
@@ -109,25 +82,22 @@ const PageCoverageArea = () => {
                 width: { md: "50%", xs: "100%" },
               }}
               className={showMenu ? "district-name" : "active"}
-              onClick={() => handleArea("Bagerhat")}
-            >
+              onClick={() => handleArea()}>
               <Box
                 sx={{
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "space-between",
                 }}
-                className="disName"
-              >
+                className="disName">
                 <p
                   style={{
                     fontSize: 17,
                     fontWeight: 500,
                     margin: 0,
                     padding: 10,
-                  }}
-                >
-                  Bagerhats
+                  }}>
+                  All Areas
                 </p>
                 <ChevronRightIcon />
               </Box>
