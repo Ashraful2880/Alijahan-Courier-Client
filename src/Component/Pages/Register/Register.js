@@ -1,13 +1,12 @@
 import {
 	Autocomplete,
+	Backdrop,
 	Box,
 	Button,
-	Grid,
+	CircularProgress,
 	TextField,
-	Typography,
 } from "@mui/material";
 import React from "react";
-import loginsidebanner from "../../../Assets/Image/loginsidebanner.png";
 import logo from "../../../Assets/Image/logo.png";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -23,6 +22,7 @@ import { useEffect } from "react";
 
 const Register = ({ token }) => {
 	const [data, setData] = useState();
+	const [submitting, setSubmitting] = useState(false);
 	const { register, handleSubmit, reset, watch } = useForm();
 	const [errors, setErrors] = useState(false);
 	const [branches, setBranches] = useState();
@@ -101,6 +101,7 @@ const Register = ({ token }) => {
 					},
 				)
 				.then((response) => {
+					setSubmitting(false);
 					Swal.fire("", "Successfully Added!", "success");
 					signOut(auth2);
 				})
@@ -136,6 +137,7 @@ const Register = ({ token }) => {
 			merchantPassword,
 			status: "Inactive",
 		});
+		setSubmitting(true);
 		createUserWithEmailAndPassword(merchantEmail, merchantPassword);
 	};
 	return (
@@ -385,7 +387,12 @@ const Register = ({ token }) => {
 						</Link>
 					</p>
 				</Box>
-			</Box>
+			</Box>{" "}
+			<Backdrop
+				sx={{ color: "#fff", zIndex: (theme) => theme?.zIndex?.drawer + 999 }}
+				open={submitting}>
+				<CircularProgress color='inherit' />
+			</Backdrop>
 		</Box>
 	);
 };
