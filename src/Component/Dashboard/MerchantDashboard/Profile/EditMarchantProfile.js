@@ -18,6 +18,7 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import Swal from "sweetalert2";
+
 const style = {
 	position: "absolute",
 	top: "50%",
@@ -48,6 +49,10 @@ const EditMarchantProfile = ({ open, setOpen, token, setSubmitting, data }) => {
 			merchantContact: "",
 			merchantEmail: "",
 			merchantPassword: "",
+			merchantBankName: "",
+			merchantBankBranch: "",
+			merchantBankAccNumber: "",
+			merchantMobileBanking: ""
 		},
 	});
 	const [error, setError] = useState(false);
@@ -108,6 +113,11 @@ const EditMarchantProfile = ({ open, setOpen, token, setSubmitting, data }) => {
 		merchantArea,
 		merchantEmail,
 		merchantPassword,
+		merchantBankName,
+		merchantBankBranch,
+		merchantBankAccNumber,
+		merchantMobileBanking
+
 	}) => {
 		console.log({
 			merchantName,
@@ -120,6 +130,10 @@ const EditMarchantProfile = ({ open, setOpen, token, setSubmitting, data }) => {
 			merchantArea,
 			merchantEmail,
 			merchantPassword,
+			merchantBankName,
+			merchantBankBranch,
+			merchantBankAccNumber,
+			merchantMobileBanking
 		});
 		setSubmitting(true);
 		axios
@@ -136,6 +150,10 @@ const EditMarchantProfile = ({ open, setOpen, token, setSubmitting, data }) => {
 					merchantArea,
 					merchantEmail,
 					merchantPassword,
+					merchantBankName,
+					merchantBankBranch,
+					merchantBankAccNumber,
+					merchantMobileBanking
 				},
 				{
 					headers: {
@@ -193,7 +211,7 @@ const EditMarchantProfile = ({ open, setOpen, token, setSubmitting, data }) => {
 										display: "flex",
 										alignItems: "center",
 									}}>
-									<RemoveRedEyeIcon sx={{ mr: 2 }} /> View Merchant Details
+									<RemoveRedEyeIcon sx={{ mr: 2 }} /> Edit Merchant Details
 								</Typography>
 								<form onSubmit={handleSubmit(onSubmit)}>
 									<Box sx={{ display: "flex", gap: "20px" }}>
@@ -341,6 +359,51 @@ const EditMarchantProfile = ({ open, setOpen, token, setSubmitting, data }) => {
 											required
 											helperText='Email'
 											{...register("merchantEmail", { required: true })}
+										/>
+									</Box>
+									<Box sx={{ display: "flex", gap: "20px" }}>
+										<TextField
+											minlength='11'
+											maxlength='11'
+											type='name'
+											helperText='Bank Name'
+											id='filled-start-adornment'
+											placeholder='Bank Name'
+											size='small'
+											sx={{ my: 0.5, width: "100% !important" }}
+											{...register("merchantBankName", { required: true })}
+											variant='outlined'
+										/>
+										<TextField
+											type='name'
+											size='small'
+											sx={{ my: 0.5 }}
+											fullWidth
+											required
+											placeholder='Bank Branch Name'
+											helperText='Bank Branch Name'
+											{...register("merchantBankBranch", { required: true })}
+										/>
+									</Box>
+									<Box sx={{ display: "flex", gap: "20px" }}>
+										<TextField
+											type='number'
+											helperText='Bank Account Number'
+											id='filled-start-adornment'
+											placeholder='Bank Account Number'
+											size='small'
+											sx={{ my: 0.5, width: "100% !important" }}
+											{...register("merchantBankAccNumber", { required: true })}
+											variant='outlined'
+										/>
+										<TextField
+											type='number'
+											size='small'
+											sx={{ my: 0.5 }}
+											fullWidth
+											placeholder='Mobile Banking Number'
+											helperText='Mobile Banking Number'
+											{...register("merchantMobileBanking", { required: true })}
 										/>
 									</Box>
 									<Box sx={{ my: 1 }}>
