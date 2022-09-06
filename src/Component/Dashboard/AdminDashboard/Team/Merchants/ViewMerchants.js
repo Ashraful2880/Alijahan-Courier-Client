@@ -224,7 +224,7 @@ const ViewMerchants = ({ open, setOpen, id, token, setSubmitting }) => {
 											})}
 										/>
 									</Box>
-									<Autocomplete
+									{/* <Autocomplete
 										size='small'
 										sx={{ my: 0.5, width: "100% !important" }}
 										options={districts || []}
@@ -237,20 +237,22 @@ const ViewMerchants = ({ open, setOpen, id, token, setSubmitting }) => {
 											)
 											]
 										}
-										renderInput={(params) => (
-											<TextField
-												required
-												{...register("merchantDistrict", {
-													required: true,
-												})}
-												{...params}
-												variant='outlined'
-												helperText='Branch'
-											/>
-										)}
+										renderInput={(params) => ( */}
+									<TextField
+										size='small'
+										sx={{ my: 0.5, width: "100% !important" }}
+										required
+										{...register("merchantDistrict", {
+											required: true,
+										})}
+										/* {...params} */
+										variant='outlined'
+										helperText='Branch'
 									/>
+									{/* 	)}
+									/> */}
 									<Box sx={{ display: "flex", gap: "20px" }}>
-										<Autocomplete
+										{/* <Autocomplete
 											onChange={(event, newValue) => {
 												setSelectedBranch(newValue);
 											}}
@@ -261,25 +263,27 @@ const ViewMerchants = ({ open, setOpen, id, token, setSubmitting }) => {
 											style={{ width: 300 }}
 											defaultValue={
 												branches[
-												branches?.findIndex(
-													(x) => x?.branchName === data?.merchantBranchName,
-												)
+													branches?.findIndex(
+														(x) => x?.branchName === data?.merchantBranchName,
+													)
 												]
 											}
-											renderInput={(params) => (
-												<TextField
-													required
-													{...register("merchantBranchName", {
-														required: true,
-													})}
-													{...params}
-													variant='outlined'
-													helperText='Branch'
-												/>
-											)}
+											renderInput={(params) => ( */}
+										<TextField
+											size='small'
+											sx={{ my: 0.5, width: "100% !important" }}
+											required
+											{...register("merchantBranchName", {
+												required: true,
+											})}
+											/* 	{...params} */
+											variant='outlined'
+											helperText='Branch'
 										/>
+										{/* 	)}
+										/> */}
 
-										<Autocomplete
+										{/* <Autocomplete
 											size='small'
 											sx={{ my: 0.5, width: "100% !important" }}
 											options={
@@ -298,17 +302,19 @@ const ViewMerchants = ({ open, setOpen, id, token, setSubmitting }) => {
 												?.branchArea?.find(
 													(xy) => xy?.area === data?.merchantArea || [],
 												)}
-											renderInput={(params) => (
-												<TextField
-													required
-													{...register("merchantArea", { required: true })}
-													{...params}
-													label='Select Area'
-													variant='outlined'
-													helperText='Area'
-												/>
-											)}
+											renderInput={(params) => ( */}
+										<TextField
+											size='small'
+											sx={{ my: 0.5, width: "100% !important" }}
+											required
+											{...register("merchantArea", { required: true })}
+											/* {...params} */
+											label='Select Area'
+											variant='outlined'
+											helperText='Area'
 										/>
+										{/* 	)}
+										/> */}
 									</Box>
 									<Box sx={{ display: "flex", gap: "20px" }}>
 										<TextField

@@ -51,18 +51,17 @@ const AddMerchantParcel = () => {
 	useEffect(() => {
 		if (marchant?.merchantDistrict === receiverBranch?.branchDistrict) {
 			const findArea = receiverBranch?.branchArea?.find(
-				(a) => a?.area === selectedArea?.area,
+				(a) => a?.area === marchant?.merchantArea,
 			);
-			if (findArea?.area === marchant?.merchantArea) {
+			if (findArea) {
 				setSelectArea("Inside Same City");
-			}
-			if (findArea?.area !== marchant?.merchantArea) {
+			} else if (!findArea) {
 				setSelectArea("City to " + findArea?.areaType);
 			}
 		} else {
 			setSelectArea("City to City");
 		}
-	}, [marchant, receiverBranch, selectedArea]);
+	}, [marchant, receiverBranch, selectArea, selectedArea]);
 
 	const serviceArea = serviceAreas?.find(
 		(s) => s.serviceAreaName === selectArea,
