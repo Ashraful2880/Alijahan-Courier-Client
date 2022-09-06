@@ -333,6 +333,46 @@ const ViewMerchants = ({ open, setOpen, id, token, setSubmitting }) => {
 											{...register("merchantEmail", { required: true })}
 										/>
 									</Box>
+									<Box sx={{ display: "flex", gap: "20px" }}>
+										<TextField
+											type='name'
+											helperText='Merchant Bank Name'
+											id='filled-start-adornment'
+											size='small'
+											sx={{ my: 0.5, width: "100% !important" }}
+											{...register("merchantBankName", { required: true })}
+											variant='outlined'
+										/>
+										<TextField
+											type='text'
+											size='small'
+											sx={{ my: 0.5 }}
+											fullWidth
+											required
+											helperText='Merchant Branch Branch'
+											{...register("merchantBankBranch", { required: true })}
+										/>
+									</Box>
+									<Box sx={{ display: "flex", gap: "20px" }}>
+										<TextField
+											type='name'
+											helperText='Merchant Bank Account Number'
+											id='filled-start-adornment'
+											size='small'
+											sx={{ my: 0.5, width: "100% !important" }}
+											{...register("merchantBankAccNumber", { required: true })}
+											variant='outlined'
+										/>
+										<TextField
+											type='text'
+											size='small'
+											sx={{ my: 0.5 }}
+											fullWidth
+											required
+											helperText='Merchant Mobile Banking'
+											{...register("merchantMobileBanking", { required: true })}
+										/>
+									</Box>
 								</form>
 							</>
 						) : (
