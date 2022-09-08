@@ -51,11 +51,11 @@ const AddMerchantParcel = () => {
 	useEffect(() => {
 		if (marchant?.merchantDistrict === receiverBranch?.branchDistrict) {
 			const findArea = receiverBranch?.branchArea?.find(
-				(a) => a?.area === marchant?.merchantArea,
+				(a) => a?.area === selectedArea?.area,
 			);
-			if (findArea) {
+			if (findArea?.area === marchant?.merchantArea) {
 				setSelectArea("Inside Same City");
-			} else if (!findArea) {
+			} else {
 				setSelectArea("City to " + findArea?.areaType);
 			}
 		} else {
