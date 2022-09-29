@@ -1,16 +1,15 @@
 .delivery-conainer {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.872), rgba(0, 0, 0, 0.872)), url("../../../Assets/Image/faqimg.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
+    background-image: linear-gradient(#253138de, #253138de), url("../../../Assets/Image/Background.png");
     background-attachment: fixed;
-    background-position: top;
+    background-position: bottom bottom;
+    background-size: cover;
 }
 
 .MuiOutlinedInput-root,
 .MuiAutocomplete-input {
     border-color: rgb(210, 210, 210) !important;
     background: #fff !important;
-    border-radius: 10px;
+    border-radius: 3px;
 }
 
 .MuiOutlinedInput-root,

@@ -228,12 +228,12 @@ input[type="number"] {
 }
 
 input#free-solo-with-text-demo {
-	padding: 13px !important;
+	padding: 8px !important;
 }
 
-input#free-solo-with-text-demo:focus {
-	box-shadow: 0px -10px 0px green;
-}
+/* input#free-solo-with-text-demo:focus {
+	box-shadow: 0px -10px 5px green;
+} */
 
 .MuiContainer-root.MuiContainer-maxWidthLg.css-1oa0whr-MuiContainer-root {
 	margin-top: 1px !important;
@@ -301,4 +301,10 @@ input#free-solo-with-text-demo:focus {
 	100% {
 		background-position: 100% 0;
 	}
+}
+
+.bgShape {
+	background-image: url("./Assets/Image/greenShapeHalf.png");
+	background-repeat: no-repeat;
+	background-position: top left;
 }
