@@ -243,3 +243,62 @@ input#free-solo-with-text-demo:focus {
 	cursor: pointer !important;
 	margin-bottom: 5px !important;
 }
+
+.AppStore img {
+	border: 1px solid green;
+	border-radius: 8px;
+	transition: 0.3s all;
+}
+
+.AppStore img:hover {
+	box-shadow: 3px 3px 8px #008000 !important;
+}
+
+.map-bg {
+	background-image: url("./Assets/Image/Map.png");
+	background-size: cover !important;
+	background-position: center !important;
+	width: 100% !important;
+}
+
+
+.tiny {
+	font-size: 1rem;
+	text-align: center;
+	margin-bottom: 2rem;
+}
+
+.swiper-container {
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+
+.swiper-wrapper {
+	-webkit-transition-timing-function: linear !important;
+	transition-timing-function: linear !important;
+	position: relative;
+}
+
+.swiper-slide {
+	text-align: center;
+	font-size: 33px;
+	background: #fff;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: auto;
+	position: relative;
+	overflow: hidden;
+	padding: 0 50px;
+}
+
+@keyframes line-slide {
+	0% {
+		background-position: -5% 0;
+	}
+
+	100% {
+		background-position: 100% 0;
+	}
+}

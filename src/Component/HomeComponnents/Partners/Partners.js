@@ -1,6 +1,5 @@
-import { Box, Container } from "@mui/material";
 import React from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
+import { Container } from "@mui/material";
 import A2i from "../../../Assets/Image/partner/A2i.png";
 import DarulHikmah from "../../../Assets/Image/partner/DarulHikmah.png";
 import DuaInt from "../../../Assets/Image/partner/DuaInt.png";
@@ -9,25 +8,20 @@ import MNFashion from "../../../Assets/Image/partner/M&NFashion.png";
 import PHPrivateLtd from "../../../Assets/Image/partner/PHPrivateLtd.png";
 import StickerHub from "../../../Assets/Image/partner/StickerHub.png";
 import "./Partner.css";
-
-// Import Swiper styles
-
-// Import Swiper styles
-import "swiper/css";
-import "swiper/css/free-mode";
-import "swiper/css/pagination";
-
-// import required modules
-import SwiperCore, {
-  FreeMode,
-  Pagination,
-  Mousewheel,
-  Keyboard,
-  Autoplay,
-} from "swiper";
+import Marquee from "react-marquee-slider";
+import times from "lodash/times";
 
 const Partners = () => {
-  SwiperCore.use([Autoplay]);
+  const images = [
+    A2i,
+    DarulHikmah,
+    DuaInt,
+    ekshop,
+    MNFashion,
+    PHPrivateLtd,
+    StickerHub
+  ]
+
   return (
     <Container>
       <h2
@@ -42,62 +36,15 @@ const Partners = () => {
         }}>
         Our Partners
       </h2>
-      <Box>
-        <Swiper
-          slidesPerView={7}
-          spaceBetween={30}
-          freeMode={true}
-          mousewheel={false}
-          keyboard={true}
-          autoplay={true}
-          pauseOnMouseEnter={false}
-          disableOnInteraction={false}
-          modules={[FreeMode, Pagination, Mousewheel, Keyboard, Autoplay]}
-          className="partnerSwiper">
-          <SwiperSlide className="partnerSlide">
-            <img src={A2i} width={70} height={60} alt="sliderimg" />
-          </SwiperSlide>
-          <SwiperSlide className="partnerSlide">
-            <img src={DarulHikmah} width={70} height={60} alt="sliderimg" />
-          </SwiperSlide>
-          <SwiperSlide className="partnerSlide">
-            <img src={DuaInt} width={70} height={60} alt="sliderimg" />
-          </SwiperSlide>
-          <SwiperSlide className="partnerSlide">
-            <img src={ekshop} width={70} height={60} alt="sliderimg" />
-          </SwiperSlide>
-          <SwiperSlide className="partnerSlide">
-            <img src={MNFashion} width={70} height={60} alt="sliderimg" />
-          </SwiperSlide>
-          <SwiperSlide className="partnerSlide">
-            <img src={PHPrivateLtd} width={70} height={60} alt="sliderimg" />
-          </SwiperSlide>
-          <SwiperSlide className="partnerSlide">
-            <img src={StickerHub} width={70} height={60} alt="sliderimg" />
-          </SwiperSlide>
-          <SwiperSlide className="partnerSlide">
-            <img src={A2i} width={70} height={60} alt="sliderimg" />
-          </SwiperSlide>
-          <SwiperSlide className="partnerSlide">
-            <img src={DarulHikmah} width={70} height={60} alt="sliderimg" />
-          </SwiperSlide>
-          <SwiperSlide className="partnerSlide">
-            <img src={DuaInt} width={70} height={60} alt="sliderimg" />
-          </SwiperSlide>
-          <SwiperSlide className="partnerSlide">
-            <img src={ekshop} width={70} height={60} alt="sliderimg" />
-          </SwiperSlide>
-          <SwiperSlide className="partnerSlide">
-            <img src={MNFashion} width={70} height={60} alt="sliderimg" />
-          </SwiperSlide>
-          <SwiperSlide className="partnerSlide">
-            <img src={PHPrivateLtd} width={70} height={60} alt="sliderimg" />
-          </SwiperSlide>
-          <SwiperSlide className="partnerSlide">
-            <img src={StickerHub} width={70} height={60} alt="sliderimg" />
-          </SwiperSlide>
-        </Swiper>
-      </Box>
+      <div style={{ height: 200 }}>
+        <Marquee velocity={35}>
+          {times(7, Number).map(id => (
+            <img src={images[id]} key={`marquee-example-people-${id}`} alt="Slider" style={{
+              marginLeft: "50px", width: "45%", height: "45%"
+            }} />
+          ))}
+        </Marquee>
+      </div>
     </Container>
   );
 };

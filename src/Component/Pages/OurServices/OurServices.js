@@ -1,11 +1,11 @@
 import React from "react";
 import { Container } from "@mui/material";
 import { Box } from "@mui/material";
-import SingleService from "../../HomeComponnents/OurService/SingleService/SingleService";
+import SingleService from "./SingleService/SingleService";
 
 const OurServices = () => {
   return (
-    <Container sx={{ mt: 6, height: "80vh" }}>
+    <Container sx={{ mt: 6, mb: 10 }}>
       <h2
         style={{
           textAlign: "start",

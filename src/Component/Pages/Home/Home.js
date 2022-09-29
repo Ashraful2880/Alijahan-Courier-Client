@@ -3,7 +3,6 @@ import { Box } from "@mui/material";
 import HeroSlider from "../../HomeComponnents/HeroSlider/HeroSlider";
 import ConsignmentTracking from "../../HomeComponnents/ConsignmentTracking/ConsignmentTracking";
 import WhyChooseUs from "../../HomeComponnents/WhyChooseUs/WhyChooseUs";
-import OurService from "../../HomeComponnents/OurService/OurService";
 import OurBlog from "../../HomeComponnents/OurBlog/OurBlog";
 import DeliveryCalculator from "../../HomeComponnents/DeliveryCalculator/DeliveryCalculator";
 import NoticeBoard from "../../HomeComponnents/NoticeBoard/NoticeBoard";
@@ -11,21 +10,23 @@ import Partners from "../../HomeComponnents/Partners/Partners";
 import Faq from "../../HomeComponnents/Faq/Faq";
 import NewsLater from "../../HomeComponnents/NewsLater/NewsLater";
 import HomeCoverageArea from "../../HomeComponnents/CoverageArea/HomeCoverageArea";
-
+import OurApp from "../../HomeComponnents/OurApp/OurApp";
+import OurServices from './../OurServices/OurServices';
 
 const Home = () => {
 	return (
 		<Box>
 			<HeroSlider />
 			<ConsignmentTracking />
-			<OurService />
+			<OurServices />
+			<OurApp />
 			<WhyChooseUs />
 			<OurBlog />
 			<DeliveryCalculator />
 			<NoticeBoard />
 			<Partners />
-			<NewsLater />
 			<HomeCoverageArea />
+			<NewsLater />
 			<Faq />
 		</Box>
 	);
