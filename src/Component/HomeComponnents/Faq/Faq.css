@@ -1,5 +1,5 @@
 .faq-background {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.866), rgba(0, 0, 0, 0.856)), url("../../../Assets/Image/sliderimg.png") !important;
+    background-color: #2b2c41;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -9,4 +9,21 @@
     justify-items: center;
     justify-content: center;
     align-items: center;
+}
+
+.faq-shape {
+    background-image: url("../../../Assets/Image/greenShapeHalf.png");
+    background-repeat: no-repeat;
+    background-position: left top;
+    width: 100% !important;
+}
+
+.cardContainer:hover .cardText {
+    color: black !important;
+}
+
+.css-1pxs7hz-MuiSvgIcon-root {
+    background-color: #2B2C41 !important;
+    border: 2px solid white !important;
+    font-size: 22px !important;
 }

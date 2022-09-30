@@ -13,20 +13,21 @@ import EmailIcon from "@mui/icons-material/Email";
 import DirectionsIcon from "@mui/icons-material/Directions";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
+import shapeImage from "../../../Assets/Image/shape4.png";
 
 const Footer = () => {
 	/*   const [hide, setHide] = useState("block");
   const location = useLocation();
   useEffect(() => {
-    if (location?.pathname.includes("/")) {
-      setHide("block");
-    }
-    if (location?.pathname.includes("/home")) {
-      setHide("block");
-    }
-    if (location?.pathname.includes("/dashboard")) {
-      setHide("none");
-    }
+	if (location?.pathname.includes("/")) {
+	  setHide("block");
+	}
+	if (location?.pathname.includes("/home")) {
+	  setHide("block");
+	}
+	if (location?.pathname.includes("/dashboard")) {
+	  setHide("none");
+	}
   }, [location.pathname]); */
 	const location = useLocation();
 	if (location?.pathname.includes("/dashboard")) {
@@ -34,7 +35,7 @@ const Footer = () => {
 	}
 
 	return (
-		<Box className='footerContainer' /* style={{ display: `${hide}` }} */>
+		<Box className='footerContainer' >
 			<Box sx={{ backgroundColor: "#00283ede" }}>
 				<Box>
 					<Grid
@@ -67,8 +68,10 @@ const Footer = () => {
 								</div>
 							</Box>
 						</Grid>
+
 						<Grid item xs={12} md={2} sx={{}}>
 							<h4 className='footerMenuHeading'>Contact Us</h4>
+							<hr className="hrDesign" />
 							<h4 className='contactInfo'>
 								<CallIcon sx={{ pr: 1 }} />
 								Call us: +8809613829867
@@ -98,6 +101,7 @@ const Footer = () => {
 						{/* menu about */}
 						<Grid item xs={12} md={2}>
 							<h4 className='footerMenuHeading'>About Us</h4>
+							<hr className="hrDesign" />
 							<Link to='/' className='footerMenuLink'>
 								<p style={{ display: "flex", alignItems: "center" }}>
 									<KeyboardDoubleArrowRightIcon sx={{ pr: "2px" }} />
@@ -138,6 +142,7 @@ const Footer = () => {
 						{/* menu service */}
 						<Grid item xs={12} md={2}>
 							<h4 className='footerMenuHeading'>Services</h4>
+							<hr className="hrDesign" />
 							<Link to='/' className='footerMenuLink'>
 								<p style={{ display: "flex", alignItems: "center" }}>
 									<KeyboardDoubleArrowRightIcon sx={{ pr: "2px" }} />
@@ -172,6 +177,7 @@ const Footer = () => {
 						{/* menu How We Can Help You */}
 						<Grid item xs={12} md={2}>
 							<h4 className='footerMenuHeading'>How We Can Help You</h4>
+							<hr className="hrDesign" />
 							<Link to='/' className='footerMenuLink'>
 								<p style={{ display: "flex", alignItems: "center" }}>
 									<KeyboardDoubleArrowRightIcon sx={{ pr: "2px" }} />
@@ -221,7 +227,7 @@ const Footer = () => {
 							width: "100%",
 							pb: 1,
 						}}>
-						<p style={{ color: "#c3c3c3", textAlign: "center", padding: 10 }}>
+						<p style={{ color: "white", textAlign: "center", padding: 10 }}>
 							Copyright &copy; All Rights Reserved-
 							<span style={{ color: "#08A74C", marginLeft: 5, marginRight: 5 }}>
 								Alijahan Courier Service 2021-2022

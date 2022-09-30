@@ -3,7 +3,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import SingleNotice from "./SingleNotice/SingleNotice";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import line from "../../../Assets/Image/line.png";
 
 const NoticeBoard = () => {
   return (

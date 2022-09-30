@@ -308,3 +308,11 @@ input#free-solo-with-text-demo {
 	background-repeat: no-repeat;
 	background-position: top left;
 }
+
+.hrDesign {
+	border: 0;
+	height: 2px;
+	background-image: linear-gradient(to right, rgba(0, 0, 0, 0), orange, rgba(0, 0, 0, 0));
+	margin-bottom: 25px;
+	width: 40%;
+}
