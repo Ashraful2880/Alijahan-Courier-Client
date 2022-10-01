@@ -151,9 +151,9 @@ const Register = ({ token }) => {
 					borderRadius: "10px",
 					padding: "30px 30px",
 					backgroundColor: "white",
-					boxShadow: "0px 0px 30px green",
+					boxShadow: "0px 0px 30px #08A74C",
 				}}>
-				<h3 style={{ color: "green", fontSize: "20px", fontWeight: "bold" }}>
+				<h3 style={{ color: "#08A74C", fontSize: "20px", fontWeight: "bold" }}>
 					Welcome To Alijahan Courier
 				</h3>
 				<img src={logo} alt='Main logo' />

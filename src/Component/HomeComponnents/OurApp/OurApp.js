@@ -20,7 +20,7 @@ const OurApp = () => {
                             <Box>
                                 <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
                                     <Box sx={{
-                                        background: "green", color: "white", width: "30px", height: "30px", borderRadius: "100%", textAlign: "center", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", p: 2, border: "10px solid #cae5ca"
+                                        background: "#08A74C", color: "white", width: "30px", height: "30px", borderRadius: "100%", textAlign: "center", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", p: 2, border: "10px solid #cae5ca"
                                     }}>01</Box>
                                     <Typography variant="h5" sx={{ ml: 2 }}>
                                         Follow Delivery Status
@@ -28,7 +28,7 @@ const OurApp = () => {
                                 </Box>
                                 <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
                                     <Box sx={{
-                                        background: "green", color: "white", width: "30px", height: "30px", borderRadius: "100%", textAlign: "center", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", p: 2, border: "10px solid #cae5ca"
+                                        background: "#08A74C", color: "white", width: "30px", height: "30px", borderRadius: "100%", textAlign: "center", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", p: 2, border: "10px solid #cae5ca"
                                     }}>02</Box>
                                     <Typography variant="h5" sx={{ ml: 2 }}>
                                         Order From Any Location
@@ -36,7 +36,7 @@ const OurApp = () => {
                                 </Box>
                                 <Box sx={{ display: "flex", alignItems: "center", mb: 4 }}>
                                     <Box sx={{
-                                        background: "green", color: "white", width: "30px", height: "30px", borderRadius: "100%", textAlign: "center", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", p: 2, border: "10px solid #cae5ca"
+                                        background: "#08A74C", color: "white", width: "30px", height: "30px", borderRadius: "100%", textAlign: "center", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", p: 2, border: "10px solid #cae5ca"
                                     }}>03</Box>
                                     <Typography variant="h5" sx={{ ml: 2 }}>
                                         Get Important Notices

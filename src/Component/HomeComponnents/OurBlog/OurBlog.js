@@ -11,17 +11,18 @@ const OurBlog = () => {
     Aos.init();
   }, []);
   return (
-    <Container sx={{ mt: 5, mb: 5 }}>
+    <Container sx={{ mt: 5, mb: 5, position: "relative" }}>
+      <p className="divider" style={{ textAlign: "left", color: "#08A74C", fontWeight: 600, marginBottom: "5px" }}>NEWS UPDATE</p>
       <h2
         style={{
           textAlign: "start",
           fontWeight: 600,
-          color: "#08A74C",
           fontFamily: "Montserrat, sans-serif",
-          fontSize: 30,
-          marginBottom: 0,
-        }}>
-        Our Blogs
+          fontSize: 27,
+          marginBottom: "30px",
+        }}
+      >
+        Reed Our <span style={{ color: "#08A74C" }}>Awesome Blogs</span>
       </h2>
       <Box sx={{ mt: 3 }}>
         <SingleBlog />

@@ -35,7 +35,7 @@ const AdminParcelList = () => {
 						setOpens(true);
 						setParcelData(params.row?.marchentInfo.merchantName);
 					}}
-					sx={{ ml: 1.5, color: "green", cursor: "pointer" }}
+					sx={{ ml: 1.5, color: "#08A74C", cursor: "pointer" }}
 				/>
 			</Box>
 		);

@@ -22,7 +22,7 @@ const SingleService = () => {
                 component="img"
                 height="150"
                 image={Ecommerce}
-                alt="green iguana"
+                alt="#08A74C iguana"
               />
               <CardContent>
                 <Typography gutterBottom variant="h5" component="div" sx={{ textAlign: "left", fontSize: "22px", fontWeight: 600, }}>
@@ -53,7 +53,7 @@ const SingleService = () => {
                 component="img"
                 height="150"
                 image={Logistics}
-                alt="green iguana"
+                alt="#08A74C iguana"
               />
               <CardContent>
                 <Typography gutterBottom variant="h5" component="div" sx={{ textAlign: "left", fontSize: "22px", fontWeight: 600, }}>
@@ -84,7 +84,7 @@ const SingleService = () => {
                 component="img"
                 height="150"
                 image={pickdrop}
-                alt="green iguana"
+                alt="#08A74C iguana"
               />
               <CardContent>
                 <Typography gutterBottom variant="h5" component="div" sx={{ textAlign: "left", fontSize: "22px", fontWeight: 600, }}>

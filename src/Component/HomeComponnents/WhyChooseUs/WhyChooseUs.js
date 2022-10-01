@@ -18,7 +18,7 @@ const WhyChooseUs = () => {
     <Box className="whyShape">
       <Container sx={{ mb: 4, pb: 4, pt: 4, position: "relative" }}>
         <Box sx={{ marginBottom: 3, }}>
-          <p className="whyDivider" style={{ textAlign: "left", color: "green", fontWeight: 600, marginBottom: "6px" }}>OUR FEATURES </p>
+          <p className="whyDivider" style={{ textAlign: "left", color: "#08A74C", fontWeight: 600, marginBottom: "6px" }}>OUR FEATURES </p>
           <h2
             style={{
               textAlign: "start",
@@ -49,7 +49,7 @@ const WhyChooseUs = () => {
                     Alijahan Courier Service gives you the opportunity to daily pickup.
                   </Typography>
                   <Box style={{ position: "absolute", bottom: "2%" }}>
-                    <Button size="small" color="primary">
+                    <Button size="small" color="primary" sx={{ ml: 2 }}>
                       <button className="whyMoreButton">
                         <span>More </span>
                       </button>
@@ -76,7 +76,7 @@ const WhyChooseUs = () => {
                     we can ensure our customer’s growth.
                   </Typography>
                   <Box style={{ position: "absolute", bottom: "2%" }}>
-                    <Button size="small" color="primary">
+                    <Button size="small" color="primary" sx={{ ml: 2 }}>
                       <button className="whyMoreButton">
                         <span>More </span>
                       </button>
@@ -102,8 +102,8 @@ const WhyChooseUs = () => {
                     We trusted our delivery man will deliver parcel to customer and
                     collect the money.
                   </Typography>
-                  <Box style={{ position: "absolute", bottom: "2%" }}>
-                    <Button size="small" color="primary">
+                  <Box style={{ position: "absolute", bottom: "2%", }}>
+                    <Button size="small" color="primary" sx={{ ml: 2 }}>
                       <button className="whyMoreButton">
                         <span>More </span>
                       </button>
@@ -129,7 +129,7 @@ const WhyChooseUs = () => {
                     We provides full tracking opportunity for every consignments.
                   </Typography>
                   <Box style={{ position: "absolute", bottom: "2%" }}>
-                    <Button size="small" color="primary">
+                    <Button size="small" color="primary" sx={{ ml: 2 }}>
                       <button className="whyMoreButton">
                         <span>More </span>
                       </button>

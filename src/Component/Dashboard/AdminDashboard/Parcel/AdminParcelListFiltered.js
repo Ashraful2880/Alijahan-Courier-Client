@@ -106,7 +106,7 @@ const AdminParcelListFiltered = ({
 			<Box sx={{ display: "flex", alignItems: "center" }}>
 				<RemoveRedEyeIcon
 					onClick={() => handleOpen(setParcelData(params?.row))}
-					sx={{ ml: 1.5, color: "green", cursor: "pointer" }}
+					sx={{ ml: 1.5, color: "#08A74C", cursor: "pointer" }}
 				/>
 			</Box>
 		);

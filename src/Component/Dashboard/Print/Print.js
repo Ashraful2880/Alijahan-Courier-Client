@@ -280,7 +280,7 @@ const Print = ({ data, openPrint, handleClosePrint }) => {
 								</Box>
 								<Typography variant='p' sx={{ fontSize: "13px" }}>
 									This is an Auto Generated Report of{" "}
-									<span style={{ color: "green", fontStyle: "italic" }}>
+									<span style={{ color: "#08A74C", fontStyle: "italic" }}>
 										Alijahan Courier
 									</span>
 								</Typography>

@@ -140,8 +140,8 @@ input[type="number"] {
 }
 
 .active {
-	color: green !important;
-	border: 1px solid green !important
+	color: #08A74C !important;
+	border: 1px solid #08A74C !important
 }
 
 .button {
@@ -236,7 +236,7 @@ input#free-solo-with-text-demo {
 }
 
 .AppStore img {
-	border: 1px solid green;
+	border: 1px solid #08A74C;
 	border-radius: 8px;
 	transition: 0.3s all;
 }

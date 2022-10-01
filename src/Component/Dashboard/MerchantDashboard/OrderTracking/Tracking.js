@@ -48,7 +48,7 @@ const Tracking = ({ data, setShow }) => {
 				{sendStatus?.map((s, i) => (
 					<>
 						{data?.status === s?.status ? (
-							<TimelineItem sx={{ color: "green" }}>
+							<TimelineItem sx={{ color: "#08A74C" }}>
 								<TimelineOppositeContent
 									sx={{ m: "auto 0" }}
 									align='right'
@@ -62,7 +62,7 @@ const Tracking = ({ data, setShow }) => {
 										variant='contained'
 										sx={{
 											borderRadius: "50%",
-											backgroundColor: "green",
+											backgroundColor: "#08A74C",
 											my: 1,
 										}}>
 										{s?.id}
@@ -74,14 +74,14 @@ const Tracking = ({ data, setShow }) => {
 								</TimelineContent>
 							</TimelineItem>
 						) : (
-							<TimelineItem sx={{ color: i < idIndex ? "green" : "gray" }}>
+							<TimelineItem sx={{ color: i < idIndex ? "#08A74C" : "gray" }}>
 								<TimelineOppositeContent
 									sx={{ m: "auto 0" }}
 									align='right'
 									variant='body2'
 									color='text.secondary'>
 									{i > idIndex && <HourglassBottomIcon />}
-									{i < idIndex && <CheckCircleIcon sx={{ color: "green" }} />}
+									{i < idIndex && <CheckCircleIcon sx={{ color: "#08A74C" }} />}
 								</TimelineOppositeContent>
 								<TimelineSeparator>
 									<TimelineConnector />
@@ -89,7 +89,7 @@ const Tracking = ({ data, setShow }) => {
 										variant='contained'
 										sx={{
 											borderRadius: "50%",
-											backgroundColor: i < idIndex ? "green" : "gray",
+											backgroundColor: i < idIndex ? "#08A74C" : "gray",
 											my: 1,
 										}}>
 										{s?.id}

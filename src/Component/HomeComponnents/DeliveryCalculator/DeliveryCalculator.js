@@ -89,7 +89,7 @@ const DeliveryCalculator = () => {
                 <ul style={{ listStyle: "none", color: "#fff" }}>
                   <li style={{ display: "flex", alignItems: "center", marginBottom: "25px" }}>
                     <Box sx={{ background: "#b4edb4", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", height: "35px", width: "35px", mr: 2 }}>
-                      <CheckCircleIcon sx={{ color: "green" }} />
+                      <CheckCircleIcon sx={{ color: "#08A74C" }} />
                     </Box>
                     <Typography variant="span" sx={{ fontSize: "17px", letterSpacing: "1px", textAlign: "left", color: "lightgray" }}>
                       1% Cash Handling & Risk Management Charge will be added.
@@ -98,7 +98,7 @@ const DeliveryCalculator = () => {
 
                   <li style={{ display: "flex", alignItems: "center", margin: "25px 0px" }}>
                     <Box sx={{ background: "#b4edb4", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", height: "35px", width: "35px", mr: 2 }}>
-                      <CheckCircleIcon sx={{ color: "green" }} />
+                      <CheckCircleIcon sx={{ color: "#08A74C" }} />
                     </Box>
                     <Typography variant="span" sx={{ fontSize: "17px", letterSpacing: "1px", textAlign: "left", color: "lightgray" }}>
                       Price may vary due to parcel size.
@@ -107,7 +107,7 @@ const DeliveryCalculator = () => {
 
                   <li style={{ display: "flex", alignItems: "center", margin: "25px 0px" }}>
                     <Box sx={{ background: "#b4edb4", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", height: "35px", width: "35px", mr: 2 }}>
-                      <CheckCircleIcon sx={{ color: "green", }} />
+                      <CheckCircleIcon sx={{ color: "#08A74C", }} />
                     </Box>
                     <Typography variant="span" sx={{ fontSize: "17px", letterSpacing: "1px", textAlign: "left", color: "lightgray" }}>
                       All charges are VAT & Tax excluded.
@@ -116,7 +116,7 @@ const DeliveryCalculator = () => {
 
                   <li style={{ display: "flex", alignItems: "center", margin: "25px 0px" }}>
                     <Box sx={{ background: "#b4edb4", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", height: "35px", width: "35px", mr: 2 }}>
-                      <CheckCircleIcon sx={{ color: "green" }} />
+                      <CheckCircleIcon sx={{ color: "#08A74C" }} />
                     </Box>
                     <Typography variant="span" sx={{ fontSize: "17px", letterSpacing: "1px", textAlign: "left", color: "lightgray" }}>
                       Unavoidable circumstances may change in time of delivery.
@@ -125,7 +125,7 @@ const DeliveryCalculator = () => {
 
                   <li style={{ display: "flex", alignItems: "center", margin: "25px 0px" }}>
                     <Box sx={{ background: "#b4edb4", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", height: "35px", width: "35px", mr: 2 }}>
-                      <CheckCircleIcon sx={{ color: "green" }} />
+                      <CheckCircleIcon sx={{ color: "#08A74C" }} />
                     </Box>
                     <Typography variant="span" sx={{ fontSize: "17px", letterSpacing: "1px", textAlign: "left", color: "lightgray" }}>
                       Provide a service we are proud of.
@@ -199,7 +199,7 @@ const DeliveryCalculator = () => {
                   renderInput={(params) => (
                     <TextField
                       sx={{
-                        "& .MuiInputLabel-root": { color: "green" }, //styles the label
+                        "& .MuiInputLabel-root": { color: "#08A74C" }, //styles the label
                         "& .MuiOutlinedInput-root": {
                           borderColor: "gray",
                           p: 0,
@@ -281,7 +281,7 @@ const DeliveryCalculator = () => {
                   renderInput={(params, id) => (
                     <TextField
                       sx={{
-                        "& .MuiInputLabel-root": { color: "green" }, //styles the label
+                        "& .MuiInputLabel-root": { color: "#08A74C" }, //styles the label
                         "& .MuiOutlinedInput-root": {
                           p: 0,
                           "& > fieldset": {
@@ -362,7 +362,7 @@ const DeliveryCalculator = () => {
                   renderInput={(params) => (
                     <TextField
                       sx={{
-                        "& .MuiInputLabel-root": { color: "green" }, //styles the label
+                        "& .MuiInputLabel-root": { color: "#08A74C" }, //styles the label
                         "& .MuiOutlinedInput-root": {
                           p: 0,
                           "& > fieldset": {

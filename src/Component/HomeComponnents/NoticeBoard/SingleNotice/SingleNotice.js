@@ -13,7 +13,7 @@ const SingleNotice = () => {
                 component="img"
                 height="300"
                 image={Notice}
-                alt="green iguana"
+                alt="#08A74C iguana"
               />
             </Card>
           </CardActionArea>

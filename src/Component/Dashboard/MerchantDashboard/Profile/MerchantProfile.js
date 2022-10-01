@@ -81,7 +81,7 @@ const MerchantProfile = () => {
 					variant='h5'
 					sx={{ fontWeight: "bold", marginBottom: "15px" }}>
 					Welcome Back!{" "}
-					<span style={{ color: "green" }}>{currentUser?.name}</span>
+					<span style={{ color: "#08A74C" }}>{currentUser?.name}</span>
 				</Typography>
 				<TableContainer
 					component={Paper}
@@ -110,7 +110,7 @@ const MerchantProfile = () => {
 										}}>
 										Edit{" "}
 										<BorderColorIcon
-											sx={{ color: "green", fontSize: "30px" }}
+											sx={{ color: "#08A74C", fontSize: "30px" }}
 										/>
 									</Button>
 								</TableCell>

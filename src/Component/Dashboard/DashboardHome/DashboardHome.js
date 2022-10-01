@@ -56,7 +56,7 @@ const DashboardHome = () => {
                     Hello <span style={{ color: "orange" }}>{currentUser?.name}</span>
                 </Typography>
                 <Typography variant="h6" sx={{ fontWeight: "bold", color: "white" }}>
-                    Welcome To <span style={{ color: "green" }}> Alijahan International </span>
+                    Welcome To <span style={{ color: "#08A74C" }}> Alijahan International </span>
                     <br />
                     {currentUser?.userRole} Dashboard
                 </Typography>
