@@ -26,7 +26,7 @@ const SingleService = () => {
               />
               <CardContent>
                 <Typography gutterBottom variant="h5" component="div" sx={{ textAlign: "left", fontSize: "22px", fontWeight: 600, }}>
-                  <span className="animatedText">
+                  <span>
                     E-commerce Delivery
                   </span>
                 </Typography>
