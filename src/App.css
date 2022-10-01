@@ -139,11 +139,6 @@ input[type="number"] {
 	border-left: 4px solid var(--color3) !important;
 }
 
-/* .active {
-	background-color: var(--color1) !important;
-	color: white !important;
-	box-shadow: none !important;
-} */
 .active {
 	color: green !important;
 	border: 1px solid green !important
@@ -231,10 +226,6 @@ input#free-solo-with-text-demo {
 	padding: 8px !important;
 }
 
-/* input#free-solo-with-text-demo:focus {
-	box-shadow: 0px -10px 5px green;
-} */
-
 .MuiContainer-root.MuiContainer-maxWidthLg.css-1oa0whr-MuiContainer-root {
 	margin-top: 1px !important;
 }
@@ -251,7 +242,7 @@ input#free-solo-with-text-demo {
 }
 
 .AppStore img:hover {
-	box-shadow: 3px 3px 8px #008000 !important;
+	box-shadow: 3px 3px 8px orangered !important;
 }
 
 .map-bg {
@@ -260,7 +251,6 @@ input#free-solo-with-text-demo {
 	background-position: center !important;
 	width: 100% !important;
 }
-
 
 .tiny {
 	font-size: 1rem;
@@ -290,7 +280,6 @@ input#free-solo-with-text-demo {
 	width: auto;
 	position: relative;
 	overflow: hidden;
-	padding: 0 50px;
 }
 
 @keyframes line-slide {

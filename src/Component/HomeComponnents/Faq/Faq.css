@@ -18,6 +18,12 @@
     width: 100% !important;
 }
 
+.cardContainer {
+    border: 1px solid rgb(114, 114, 114);
+    border-radius: 5px;
+    padding-left: 6px;
+}
+
 .cardContainer:hover .cardText {
     color: black !important;
 }

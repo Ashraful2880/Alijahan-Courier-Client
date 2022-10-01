@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Button, Container } from "@mui/material";
 import { Grid } from "@mui/material";
-import Map from "../../../Assets/Image/Map.png";
+import mapImage from "../../../Assets/Image/newMap.png";
 import Aos from "aos";
 import "aos/dist/aos.css";
 
@@ -11,26 +11,15 @@ const HomeCoverageArea = () => {
   }, []);
   return (
     <Container>
-      <h2
-        style={{
-          fontFamily: "Montserrat, sans-serif",
-          fontSize: 30,
-          textAlign: "start",
-          fontWeight: 700,
-          color: "#08A74C",
-          marginBottom: 10,
-          marginTop: 5
-        }}>
-        Coverage Area
-      </h2>
       <Grid
         container
         spacing={2}
-        sx={{ marginTop: 3, marginBottom: 2, alignItems: "center" }}>
+        sx={{ marginBottom: 2, alignItems: "center" }}>
         <Grid item xs={12} md={8} data-aos="fade-right">
-          <img src={Map} width={"100%"} alt="MapImage" />
+          <img src={mapImage} width={"100%"} alt="MapImage" />
         </Grid>
         <Grid
+          data-aos="fade-left"
           item
           xs={12}
           md={4}

@@ -36,7 +36,7 @@ const Partners = () => {
         }}>
         Our Partners
       </h2>
-      <div style={{ height: 200 }}>
+      <div style={{ height: 120 }}>
         <Marquee velocity={35}>
           {times(7, Number).map(id => (
             <img src={images[id]} key={`marquee-example-people-${id}`} alt="Slider" style={{

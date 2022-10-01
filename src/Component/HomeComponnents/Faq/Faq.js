@@ -82,11 +82,14 @@ const Faq = () => {
           <Grid container spacing={2} sx={{ padding: "30px 0px" }}>
             <Grid item xs={12} md={6}>
               <Box>
+                <Typography variant="h6" sx={{ color: "#08A74C", textAlign: "left", fontSize: "24px", letterSpacing: "1px", mb: 1 }}>
+                  Freequently Ask Questions
+                </Typography>
                 <Typography variant="h6" sx={{ color: "white", textAlign: "left", fontSize: "15px", letterSpacing: "1px", mb: 2 }}>
                   WHAT WE DO
                 </Typography>
                 <Typography variant="h4" sx={{ color: "white", textAlign: "left", letterSpacing: "1px", fontFamily: "Rajdhani", fontWeight: "600", fontSize: "40px" }}>
-                  Provide a Reliable Services Since 1942
+                  Provide a Reliable Services Since 2010
                 </Typography>
                 <Typography variant="p" component="div" sx={{ color: "lightgray", textAlign: "left", letterSpacing: "1px", mt: 3 }}>
                   We may allow you to submit testimonials about your experience with our Site. If you provide a testimonial, we may post it on this website along with your name. If you want your testimonial removed, please contact with our customer support team

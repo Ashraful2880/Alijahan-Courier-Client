@@ -10,14 +10,14 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/autoplay";
+import "swiper/css/zoom";
 
 // import required modules
 import SwiperCore, {
-  Navigation,
   Pagination,
   Mousewheel,
   Keyboard,
-  Autoplay,
+  Autoplay
 } from "swiper";
 import { Box } from "@mui/material";
 import "./HeroSlider.css";
@@ -28,20 +28,18 @@ const HeroSlider = () => {
     <Box>
       <Swiper
         cssMode={true}
-        navigation={true}
         mousewheel={true}
         keyboard={true}
         loop={true}
         autoplay={true}
-        modules={[Navigation, Pagination, Mousewheel, Keyboard, Autoplay]}
-        className="heroSwiper"
-      >
+        modules={[Pagination, Mousewheel, Keyboard, Autoplay]}
+        className="heroSwiper">
         <SwiperSlide>
           <img src={sliderimg} alt="sliderimg" className="sliderimg" />
         </SwiperSlide>
         <SwiperSlide>
           <img src={sliderimg2} alt="sliderimg" className="sliderimg" />
-        </SwiperSlide>
+        </SwiperSlide >
         <SwiperSlide>
           <img src={sliderimg3} alt="sliderimg" className="sliderimg" />
         </SwiperSlide>
