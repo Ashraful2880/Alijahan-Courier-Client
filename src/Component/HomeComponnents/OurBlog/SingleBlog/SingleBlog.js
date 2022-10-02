@@ -18,7 +18,7 @@ const SingleBlog = () => {
     <Box sx={{ mb: 4 }}>
       <Grid container spacing={2}>
         <Grid item xs={12} md={4}>
-          <Card sx={{ maxWidth: 345, height: 470, position: "relative" }} className="blogCard">
+          <Card sx={{ width: "100%", height: 470, position: "relative" }} className="blogCard">
             <CardMedia
               component="img"
               height="240"
@@ -65,7 +65,7 @@ const SingleBlog = () => {
         </Grid>
         {/* 2nd */}
         <Grid item xs={12} md={4}>
-          <Card sx={{ maxWidth: 345, height: 470, position: "relative" }} className="blogCard" >
+          <Card sx={{ width: "100%", height: 470, position: "relative" }} className="blogCard" >
             <CardMedia
               component="img"
               height="240"
@@ -112,7 +112,7 @@ const SingleBlog = () => {
         </Grid>
         {/* 3rd */}
         <Grid item xs={12} md={4}>
-          <Card sx={{ maxWidth: 345, height: 470, position: "relative" }} className="blogCard">
+          <Card sx={{ width: "100%", height: 470, position: "relative" }} className="blogCard">
             <CardMedia
               component="img"
               height="240"

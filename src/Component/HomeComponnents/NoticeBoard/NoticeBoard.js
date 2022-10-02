@@ -6,8 +6,8 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 const NoticeBoard = () => {
   return (
-    <Container sx={{ mb: 5, mt: 5, position: "relative" }}>
-      <p className="divider" style={{ textAlign: "left", color: "#08A74C", fontWeight: 600, marginBottom: "5px" }}>NEED UPDATE</p>
+    <Container sx={{ mb: 5, mt: 5 }}>
+      <p style={{ textAlign: "left", color: "#08A74C", fontWeight: 600, marginBottom: "5px" }}>NEED UPDATE</p>
       <h2
         style={{
           textAlign: "start",
@@ -26,7 +26,7 @@ const NoticeBoard = () => {
           style={{
             textDecoration: "none",
           }}>
-          <Box style={{ width: "20%", margin: "35px auto 0px auto" }}>
+          <Box style={{ width: "100%", margin: "35px auto 0px auto" }}>
             <Button
               variant="outlined"
               sx={{

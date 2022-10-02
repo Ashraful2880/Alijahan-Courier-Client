@@ -44,8 +44,8 @@ const Footer = () => {
 						sx={{
 							pl: { md: 10, xs: 5 },
 							color: "white",
-							pt: 8,
-							pb: 10,
+							pt: { md: 8, sm: 2, xs: 2 },
+							pb: { md: 10, sm: 2, xs: 2 },
 						}}>
 						<Grid item xs={12} md={3}>
 							<Box>
@@ -69,7 +69,7 @@ const Footer = () => {
 							</Box>
 						</Grid>
 
-						<Grid item xs={12} md={2} sx={{}}>
+						<Grid item xs={12} md={2}>
 							<h4 className='footerMenuHeading'>Contact Us</h4>
 							<hr className="hrDesign" />
 							<h4 className='contactInfo'>

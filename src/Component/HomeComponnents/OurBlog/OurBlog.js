@@ -13,8 +13,8 @@ const OurBlog = () => {
   }, []);
   return (
     <Box className="blogContainer">
-      <Container sx={{ mt: 5, mb: 5, position: "relative" }}>
-        <p className="divider" style={{ textAlign: "left", color: "#08A74C", fontWeight: 600, marginBottom: "5px" }}>NEWS UPDATE</p>
+      <Container sx={{ mt: 5, mb: 5 }}>
+        <p style={{ textAlign: "left", color: "#08A74C", fontWeight: 600, marginBottom: "5px" }}>NEWS UPDATE</p>
         <h2
           style={{
             textAlign: "start",
@@ -33,7 +33,7 @@ const OurBlog = () => {
             style={{
               textDecoration: "none",
             }}>
-            <Box style={{ width: "13%", margin: "auto" }}>
+            <Box style={{ width: "100%", margin: "auto" }}>
               <Button
                 variant="outlined"
                 sx={{
@@ -51,8 +51,8 @@ const OurBlog = () => {
             </Box>
           </Link>
         </Box>
-      </Container>
-    </Box>
+      </Container >
+    </Box >
   );
 };
 

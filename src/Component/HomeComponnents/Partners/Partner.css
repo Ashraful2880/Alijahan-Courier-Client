@@ -6,17 +6,6 @@
   background-position: top center;
 }
 
-.partnerDivider::after {
-  content: "";
-  height: 2px;
-  width: 20px;
-  color: #f4ad2b;
-  background-color: #f4ad2b;
-  position: absolute;
-  top: 18%;
-  left: 10.5%;
-}
-
 .partnerSlide {
   border-radius: 10px;
   padding: 20px 0px;

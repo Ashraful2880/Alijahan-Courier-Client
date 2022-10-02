@@ -24,19 +24,7 @@
     background-position: right top;
 }
 
-.divider::after {
-    content: "";
-    height: 2px;
-    width: 20px;
-    color: #08A74C;
-    background-color: #08A74C;
-    position: absolute;
-    top: 2%;
-    left: 11%;
-}
-
 /* Button Hover Effect */
-
 
 .moreButton {
     border: none;

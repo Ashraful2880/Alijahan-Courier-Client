@@ -18,7 +18,7 @@ const WhyChooseUs = () => {
     <Box className="whyShape">
       <Container sx={{ mb: 4, pb: 4, pt: 4, position: "relative" }}>
         <Box sx={{ marginBottom: 3, }}>
-          <p className="whyDivider" style={{ textAlign: "left", color: "#08A74C", fontWeight: 600, marginBottom: "6px" }}>OUR FEATURES </p>
+          <p style={{ textAlign: "left", color: "#08A74C", fontWeight: 600, marginBottom: "6px" }}>OUR FEATURES </p>
           <h2
             style={{
               textAlign: "start",

@@ -6,8 +6,8 @@ import SingleService from "./SingleService/SingleService";
 const OurServices = () => {
   return (
     <Box sx={{ pt: 5, pb: 2 }} className="serviceContainer">
-      <Container style={{ position: "relative" }}>
-        <p className="divider" style={{ textAlign: "left", color: "#08A74C", fontWeight: 600, marginBottom: "5px" }}>WHAT WE DO</p>
+      <Container>
+        <p style={{ textAlign: "left", color: "#08A74C", fontWeight: 600, marginBottom: "5px" }}>WHAT WE DO</p>
         <h2
           style={{
             textAlign: "start",

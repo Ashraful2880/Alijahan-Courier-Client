@@ -17,7 +17,7 @@ const SingleService = () => {
       <Grid container spacing={2}>
         <Grid item xs={12} md={3}>
           <Box>
-            <Card sx={{ maxWidth: 345, height: 375, position: "relative" }} className="serviceCardContainer">
+            <Card sx={{ width: "100%", height: 375, position: "relative" }} className="serviceCardContainer">
               <CardMedia
                 component="img"
                 height="150"
@@ -48,7 +48,7 @@ const SingleService = () => {
         {/* 2nd */}
         <Grid item xs={12} md={3}>
           <Box>
-            <Card sx={{ maxWidth: 345, height: 375, position: "relative" }} className="serviceCardContainer">
+            <Card sx={{ width: "100%", height: 375, position: "relative" }} className="serviceCardContainer">
               <CardMedia
                 component="img"
                 height="150"
@@ -79,7 +79,7 @@ const SingleService = () => {
         {/* 3rd */}
         <Grid item xs={12} md={3}>
           <Box>
-            <Card sx={{ maxWidth: 345, height: 375, position: "relative" }} className="serviceCardContainer">
+            <Card sx={{ width: "100%", height: 375, position: "relative" }} className="serviceCardContainer">
               <CardMedia
                 component="img"
                 height="150"
@@ -110,7 +110,7 @@ const SingleService = () => {
         {/* 4th */}
         <Grid item xs={12} md={3}>
           <Box>
-            <Card sx={{ maxWidth: 345, height: 375, position: "relative" }} className="serviceCardContainer">
+            <Card sx={{ width: "100%", height: 375, position: "relative" }} className="serviceCardContainer">
               <CardMedia
                 component="img"
                 height="150"

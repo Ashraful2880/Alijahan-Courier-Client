@@ -24,8 +24,8 @@ const Partners = () => {
 
   return (
     <Box className="partnerContainer">
-      <Container sx={{ position: "relative", py: 5 }}>
-        <p className="partnerDivider" style={{ textAlign: "left", color: "#cfcfcf", fontWeight: 600, marginBottom: "8px" }}>TOP BRANDS</p>
+      <Container sx={{ py: 5 }}>
+        <p style={{ textAlign: "left", color: "#cfcfcf", fontWeight: 600, marginBottom: "8px" }}>TOP BRANDS</p>
         <h2
           style={{
             textAlign: "start",
@@ -42,7 +42,7 @@ const Partners = () => {
           <Marquee velocity={35}>
             {times(7, Number).map(id => (
               <img src={images[id]} key={`marquee-example-people-${id}`} alt="Slider" style={{
-                margin: "0px 60px", width: "80px", height: "80px", borderRadius: "5px",
+                margin: "0px 50px", width: "80px", height: "80px", borderRadius: "5px",
               }} />
             ))}
           </Marquee>

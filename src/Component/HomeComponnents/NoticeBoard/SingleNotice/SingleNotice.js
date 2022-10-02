@@ -5,10 +5,10 @@ import React from "react";
 const SingleNotice = () => {
   return (
     <Box>
-      <Grid container spacing={2}>
+      <Grid container spacing={4}>
         <Grid item xs={12} md={4}>
-          <CardActionArea sx={{ maxWidth: 345 }}>
-            <Card sx={{ maxWidth: 345, height: 300, borderRadius: 2 }}>
+          <CardActionArea >
+            <Card sx={{ width: "100%", height: 300, borderRadius: 2 }}>
               <CardMedia
                 component="img"
                 height="300"
@@ -41,8 +41,8 @@ const SingleNotice = () => {
         </Grid>
         {/* Notice-02 */}
         <Grid item xs={12} md={4}>
-          <CardActionArea sx={{ maxWidth: 345 }}>
-            <Card sx={{ maxWidth: 345, height: 300, borderRadius: 2 }}>
+          <CardActionArea>
+            <Card sx={{ width: "100%", height: 300, borderRadius: 2 }}>
               <CardMedia
                 component="img"
                 height="300"
@@ -75,8 +75,8 @@ const SingleNotice = () => {
         </Grid>
         {/* Notice-03 */}
         <Grid item xs={12} md={4}>
-          <CardActionArea sx={{ maxWidth: 345 }}>
-            <Card sx={{ maxWidth: 345, height: 300, borderRadius: 2 }}>
+          <CardActionArea>
+            <Card sx={{ width: "100%", height: 300, borderRadius: 2 }}>
               <CardMedia
                 component="img"
                 height="300"

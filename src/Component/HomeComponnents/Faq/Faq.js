@@ -79,7 +79,7 @@ const Faq = () => {
     <Box className="faq-background">
       <Box className="faq-shape">
         <Container sx={{ mb: 5, mt: 5 }}>
-          <Grid container spacing={7} sx={{ padding: "30px 0px" }}>
+          <Grid container spacing={7} sx={{ padding: { md: "30px 0px", sm: "10px 0px", sx: "10px 0px" } }}>
             <Grid item xs={12} md={6}>
               <Box>
                 <Typography variant="h6" sx={{ color: "#08A74C", textAlign: "left", fontSize: "24px", letterSpacing: "1px", mb: 1 }}>
@@ -95,8 +95,8 @@ const Faq = () => {
                   We may allow you to submit testimonials about your experience with our Site. If you provide a testimonial, we may post it on this website along with your name. If you want your testimonial removed, please contact with our customer support team
                 </Typography>
 
-                <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "10px", mt: 4 }}>
-                  <Box>
+                <Box sx={{ display: { md: "flex", sm: "block", xs: "block" }, justifyContent: "space-between", alignItems: "center", gap: "10px", mt: 4 }}>
+                  <Box sx={{ mb: 1 }}>
                     <Box className="cardContainer" sx={{
                       display: "flex", justifyContent: "space-between", alignItems: "center", gap: "10px", py: 1, transition: "0.5s all", "&:hover": {
                         background: "white",
@@ -117,7 +117,7 @@ const Faq = () => {
                       </Box>
                     </Box>
                   </Box>
-                  <Box>
+                  <Box sx={{ mb: 1 }}>
                     <Box className="cardContainer" sx={{
                       display: "flex", justifyContent: "space-between", alignItems: "center", gap: "10px", py: 1, transition: "0.5s all", "&:hover": {
                         background: "white",

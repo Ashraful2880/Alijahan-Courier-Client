@@ -9,8 +9,8 @@ const OurApp = () => {
         <Box style={{ background: "#00800008" }}>
             <Box className="bgShape">
                 <Container>
-                    <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} sx={{ pt: 8 }}>
-                        <Grid item xs={7} sx={{ textAlign: "left" }}>
+                    <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} sx={{ pt: { md: 8, xs: 2 } }}>
+                        <Grid item md={7} xs={12} sx={{ textAlign: "left" }}>
                             <Typography variant="h3" sx={{ fontSize: "45px", fontWeight: "600", width: "100%", mb: 3 }}>
                                 Get More With <span style={{ color: "#08A74C" }}>Our Application</span>
                             </Typography>
@@ -56,7 +56,7 @@ const OurApp = () => {
                                 </Box>
                             </Box>
                         </Grid>
-                        <Grid item xs={5} className="map-bg">
+                        <Grid item md={5} xs={12} className="map-bg">
                             <img src={hand} alt="App HandImage" style={{ width: "100%", }} />
                         </Grid>
                     </Grid>

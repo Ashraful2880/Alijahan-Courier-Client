@@ -153,7 +153,7 @@ const DeliveryCalculator = () => {
                   Pick-Up Area :
                 </h4>
                 <Autocomplete
-                  sx={{ p: 0, width: "80%", }}
+                  sx={{ p: 0, width: { md: "80%", sm: "100%", xs: "100%" }, }}
                   value={pickupArea}
                   onChange={(event, newValue) => {
                     if (typeof newValue === "string") {
@@ -235,7 +235,7 @@ const DeliveryCalculator = () => {
                   Delivery Area :
                 </h4>
                 <Autocomplete
-                  sx={{ p: 0, width: "80%" }}
+                  sx={{ p: 0, width: { md: "80%", sm: "100%", xs: "100%" } }}
                   value={deliveryArea}
                   onChange={(event, newValue) => {
                     if (typeof newValue === "string") {
@@ -316,7 +316,7 @@ const DeliveryCalculator = () => {
                   Weight (KG) :
                 </h4>
                 <Autocomplete
-                  sx={{ p: 0, width: "80%" }}
+                  sx={{ p: 0, width: { md: "80%", sm: "100%", xs: "100%" } }}
                   value={weightValue}
                   onChange={(event, newValue) => {
                     if (typeof newValue === "string") {
@@ -397,7 +397,7 @@ const DeliveryCalculator = () => {
                   Service :
                 </h4>
                 <Autocomplete
-                  sx={{ p: 0, width: "80%" }}
+                  sx={{ p: 0, width: { md: "80%", sm: "100%", xs: "100%" } }}
                   value={deliveryArea}
                   onChange={(event, newValue) => {
                     if (typeof newValue === "string") {
@@ -459,19 +459,18 @@ const DeliveryCalculator = () => {
                 />
               </Grid>
               <Box sx={{ display: "flex", mb: 2, mt: 3, }}>
-                <h2
-                  style={{
-                    width: "80%",
-                    border: "3px solid orange",
-                    borderRadius: 5,
-                    padding: "4px 25px",
-                    fontWeight: 600,
-                    fontFamily: "Montserrat, sans-serif",
-                    background: "orange",
-                  }}
-                >
+                <Typography variant="h2" component="div" sx={{
+                  width: { md: "80%", sm: "100%", xs: "100%" },
+                  border: "3px solid orange",
+                  borderRadius: 5,
+                  padding: "4px 25px",
+                  fontWeight: 600,
+                  fontFamily: "Montserrat, sans-serif",
+                  background: "orange",
+                  fontSize: "22px"
+                }}>
                   {finalPrice} Tk
-                </h2>
+                </Typography>
               </Box>
 
             </Grid>
