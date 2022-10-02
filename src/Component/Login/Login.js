@@ -61,11 +61,7 @@ export default function Login() {
 			<CssBaseline />
 			{!resetpass ? (
 				<form onSubmit={handleLogin}>
-					<Box
-						display='flex'
-						justifyContent='center'
-						alignItems='center'
-						minHeight='100vh'>
+					<Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", height: { md: "80vh", sm: "50vh", xs: "50vh" } }}>
 						<Box style={{ marginTop: 3, textAlign: "center" }}>
 							<Box>
 								<Avatar

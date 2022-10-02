@@ -143,15 +143,14 @@ const Register = ({ token }) => {
 		createUserWithEmailAndPassword(merchantEmail, merchantPassword);
 	};
 	return (
-		<Box className='registerBackground' style={{ paddingBottom: "100px" }}>
+		<Box className='registerBackground' sx={{ paddingBottom: "100px", height: { md: "100vh", sm: "115vh", xs: "120vh", position: "relative" } }}>
 			<Box
-				sx={{ width: { lg: "50%", md: "70%", sm: "95%" }, margin: "auto" }}
+				sx={{ width: { lg: "50%", md: "70%", sm: "95%", xs: "95%" }, margin: "auto" }}
 				className='center'
 				style={{
 					borderRadius: "10px",
 					padding: "30px 30px",
 					backgroundColor: "white",
-					boxShadow: "0px 0px 30px #08A74C",
 				}}>
 				<h3 style={{ color: "#08A74C", fontSize: "20px", fontWeight: "bold" }}>
 					Welcome To Alijahan Courier
