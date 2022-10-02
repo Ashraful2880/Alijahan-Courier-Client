@@ -26,7 +26,7 @@ const Home = () => {
 			<NoticeBoard />
 			<Partners />
 			<HomeCoverageArea />
-			<NewsLater />
+			{/* <NewsLater /> */}
 			<Faq />
 		</Box>
 	);

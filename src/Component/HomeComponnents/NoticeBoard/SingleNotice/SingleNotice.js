@@ -39,6 +39,74 @@ const SingleNotice = () => {
             NOTICE FOR EID-UL-FITR 2022
           </h4>
         </Grid>
+        {/* Notice-02 */}
+        <Grid item xs={12} md={4}>
+          <CardActionArea sx={{ maxWidth: 345 }}>
+            <Card sx={{ maxWidth: 345, height: 300, borderRadius: 2 }}>
+              <CardMedia
+                component="img"
+                height="300"
+                image={Notice}
+                alt="#08A74C iguana"
+              />
+            </Card>
+          </CardActionArea>
+          <h3
+            style={{
+              fontWeight: 500,
+              marginTop: 10,
+              marginBottom: 0,
+              color: "#838181",
+              fontFamily: "Montserrat, sans-serif",
+              textAlign: "left"
+            }}>
+            April 25, 2022
+          </h3>
+          <h4
+            style={{
+              fontWeight: 700,
+              marginTop: 7,
+              color: "#08A74C",
+              fontFamily: "Montserrat, sans-serif",
+              textAlign: "left"
+            }}>
+            NOTICE FOR EID-UL-FITR 2022
+          </h4>
+        </Grid>
+        {/* Notice-03 */}
+        <Grid item xs={12} md={4}>
+          <CardActionArea sx={{ maxWidth: 345 }}>
+            <Card sx={{ maxWidth: 345, height: 300, borderRadius: 2 }}>
+              <CardMedia
+                component="img"
+                height="300"
+                image={Notice}
+                alt="#08A74C iguana"
+              />
+            </Card>
+          </CardActionArea>
+          <h3
+            style={{
+              fontWeight: 500,
+              marginTop: 10,
+              marginBottom: 0,
+              color: "#838181",
+              fontFamily: "Montserrat, sans-serif",
+              textAlign: "left"
+            }}>
+            April 25, 2022
+          </h3>
+          <h4
+            style={{
+              fontWeight: 700,
+              marginTop: 7,
+              color: "#08A74C",
+              fontFamily: "Montserrat, sans-serif",
+              textAlign: "left"
+            }}>
+            NOTICE FOR EID-UL-FITR 2022
+          </h4>
+        </Grid>
       </Grid>
     </Box>
   );

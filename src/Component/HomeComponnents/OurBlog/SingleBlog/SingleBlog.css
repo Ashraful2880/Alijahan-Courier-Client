@@ -9,3 +9,10 @@
 .blogCard:hover .blogImage {
     transform: scale(1.1);
 }
+
+.blogContainer {
+    background-image: url("../../../../Assets/Image/greenShapeHalf.png");
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-attachment: fixed;
+}

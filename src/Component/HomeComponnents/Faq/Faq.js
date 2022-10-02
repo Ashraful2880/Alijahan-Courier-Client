@@ -79,7 +79,7 @@ const Faq = () => {
     <Box className="faq-background">
       <Box className="faq-shape">
         <Container sx={{ mb: 5, mt: 5 }}>
-          <Grid container spacing={2} sx={{ padding: "30px 0px" }}>
+          <Grid container spacing={7} sx={{ padding: "30px 0px" }}>
             <Grid item xs={12} md={6}>
               <Box>
                 <Typography variant="h6" sx={{ color: "#08A74C", textAlign: "left", fontSize: "24px", letterSpacing: "1px", mb: 1 }}>
@@ -117,8 +117,6 @@ const Faq = () => {
                       </Box>
                     </Box>
                   </Box>
-
-
                   <Box>
                     <Box className="cardContainer" sx={{
                       display: "flex", justifyContent: "space-between", alignItems: "center", gap: "10px", py: 1, transition: "0.5s all", "&:hover": {
@@ -146,9 +144,9 @@ const Faq = () => {
 
 
             <Grid item xs={12} md={6}>
-              <Box sx={{ mt: 1 }}>
+              <Box sx={{ my: 1 }}>
                 <Accordion
-                  sx={{ background: "white", color: "#2B2C41", border: "1px solid white", borderRadius: "2px", margin: "15px auto", transition: "0.4s all", "&:hover": { background: "#2B2C41", color: "white" } }}
+                  sx={{ background: "white", color: "#011e25", border: "2px solid white", borderRadius: "2px", margin: "15px auto", transition: "0.4s all", "&:hover": { background: "#011e25", color: "white" } }}
                   expanded={expanded === "panel1"}
                   onChange={handleChange("panel1")}>
                   <AccordionSummary
@@ -166,7 +164,7 @@ const Faq = () => {
                   </AccordionDetails>
                 </Accordion>
                 <Accordion
-                  sx={{ background: "white", color: "#2B2C41", border: "1px solid white", borderRadius: "2px", margin: "15px auto", transition: "0.4s all", "&:hover": { background: "#2B2C41", color: "white" } }}
+                  sx={{ background: "white", color: "#011e25", border: "1px solid white", borderRadius: "2px", margin: "15px auto", transition: "0.4s all", "&:hover": { background: "#011e25", color: "white" } }}
                   expanded={expanded === "panel2"}
                   onChange={handleChange("panel2")}
                 >
@@ -187,7 +185,7 @@ const Faq = () => {
                   </AccordionDetails>
                 </Accordion>
                 <Accordion
-                  sx={{ background: "white", color: "#2B2C41", border: "1px solid white", borderRadius: "2px", margin: "15px auto", transition: "0.4s all", "&:hover": { background: "#2B2C41", color: "white" } }}
+                  sx={{ background: "white", color: "#011e25", border: "1px solid white", borderRadius: "2px", margin: "15px auto", transition: "0.4s all", "&:hover": { background: "#011e25", color: "white" } }}
                   expanded={expanded === "panel3"}
                   onChange={handleChange("panel3")}
                 >
@@ -211,7 +209,7 @@ const Faq = () => {
                   </AccordionDetails>
                 </Accordion>
                 <Accordion
-                  sx={{ background: "white", color: "#2B2C41", border: "1px solid white", borderRadius: "2px", margin: "15px auto", transition: "0.4s all", "&:hover": { background: "#2B2C41", color: "white" } }}
+                  sx={{ background: "white", color: "#011e25", border: "1px solid white", borderRadius: "2px", margin: "15px auto", transition: "0.4s all", "&:hover": { background: "#011e25", color: "white" } }}
                   expanded={expanded === "panel4"}
                   onChange={handleChange("panel4")}
                 >

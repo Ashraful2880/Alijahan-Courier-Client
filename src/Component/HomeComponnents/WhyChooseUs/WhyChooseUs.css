@@ -38,11 +38,11 @@
 }
 
 .card-header.one {
-    background: linear-gradient(to bottom left, #f12711, #f5af19);
+    background: linear-gradient(to bottom left, #7F00FF, #E100FF);
 }
 
 .card-header.two {
-    background: linear-gradient(to bottom left, #7F00FF, #E100FF);
+    background: linear-gradient(to bottom left, #f12711, #f5af19);
 }
 
 .card-header.three {
@@ -66,7 +66,7 @@
     position: relative;
     color: #fff;
     background-color: #08A74C;
-    padding: 8px 40px;
+    padding: 10px 40px;
     margin: 0 auto;
 }
 

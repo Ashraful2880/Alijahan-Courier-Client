@@ -18,6 +18,15 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../../../FirebaseAuth/firebase.config";
 import LogoutIcon from '@mui/icons-material/Logout';
 import LoginIcon from '@mui/icons-material/Login';
+import HomeIcon from '@mui/icons-material/Home';
+import ForwardToInboxIcon from '@mui/icons-material/ForwardToInbox';
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import InfoIcon from '@mui/icons-material/Info';
+import TextSnippetIcon from '@mui/icons-material/TextSnippet';
+import ContentPasteSearchIcon from '@mui/icons-material/ContentPasteSearch';
+import LocalOfferIcon from '@mui/icons-material/LocalOffer';
+import LocationCityIcon from '@mui/icons-material/LocationCity';
+import SettingsSuggestIcon from '@mui/icons-material/SettingsSuggest';
 import { signOut } from "firebase/auth";
 import Swal from "sweetalert2";
 
@@ -59,11 +68,11 @@ const Navigation = () => {
 	return (
 		<AppBar
 			position='sticky'
-			sx={{ backgroundColor: "#ffffff", boxShadow: "none", borderBottom: "1px solid lightgray" }} /* style={{ display: `${hide}` }} */
+			sx={{ backgroundColor: "#ffffff", boxShadow: "none", borderBottom: "1px solid lightgray", height: "76px" }} /* style={{ display: `${hide}` }} */
 		>
 			<Container maxWidth='xl'>
-				<Toolbar disableGutters>
-					<Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+				<Toolbar disableGutters style={{ height: "78px" }}>
+					<Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" }, }}>
 						<IconButton
 							size='large'
 							aria-label='account of current user'
@@ -71,7 +80,7 @@ const Navigation = () => {
 							aria-haspopup='true'
 							onClick={handleOpenNavMenu}
 							color='inherit'>
-							<MenuIcon style={{ color: "black" }} />
+							<MenuIcon style={{ color: "green", fontSize: "26px" }} />
 						</IconButton>
 						<Menu
 							id='menu-appbar'
@@ -92,72 +101,93 @@ const Navigation = () => {
 							}}>
 							<Link
 								to='/'
+								style={{ display: "block", height: "50px" }}
 								className={path === "home" ? "activeMenu" : "inActiveMenu"}>
-								<MenuItem onClick={handleCloseNavMenu}>
+								<MenuItem onClick={handleCloseNavMenu} style={{ width: "100vw" }}>
+									<HomeIcon sx={{ color: "green", mr: 1, fontSize: "24px" }} />
 									<Typography textAlign='center'>Home</Typography>
 								</MenuItem>
 							</Link>
 							<Link
 								to='/service'
+								style={{ display: "block", height: "50px" }}
 								className={path === "service" ? "activeMenu" : "inActiveMenu"}>
-								<MenuItem onClick={handleCloseNavMenu}>
+								<MenuItem onClick={handleCloseNavMenu} style={{ width: "100vw" }}>
+									<SettingsSuggestIcon sx={{ color: "green", mr: 1, fontSize: "24px" }} />
 									<Typography textAlign='center'>Services</Typography>
 								</MenuItem>
 							</Link>
 							<Link
 								to='/covarage'
+								style={{ display: "block", height: "50px" }}
 								className={path === "covarage" ? "activeMenu" : "inActiveMenu"}>
-								<MenuItem onClick={handleCloseNavMenu}>
+								<MenuItem onClick={handleCloseNavMenu} style={{ width: "100vw" }}>
+									<LocationCityIcon sx={{ color: "green", mr: 1, fontSize: "24px" }} />
 									<Typography textAlign='center'>Coverage Area</Typography>
 								</MenuItem>
 							</Link>
 							<Link
 								to='/pricing'
+								style={{ display: "block", height: "50px" }}
 								className={path === "pricing" ? "activeMenu" : "inActiveMenu"}>
-								<MenuItem onClick={handleCloseNavMenu}>
+								<MenuItem onClick={handleCloseNavMenu} style={{ width: "100vw" }}>
+									<LocalOfferIcon sx={{ color: "green", mr: 1, fontSize: "24px" }} />
 									<Typography textAlign='center'>Pricing</Typography>
 								</MenuItem>
 							</Link>
 							<Link
 								to='/tracking'
+								style={{ display: "block", height: "50px" }}
 								className={path === "tracking" ? "activeMenu" : "inActiveMenu"}>
-								<MenuItem onClick={handleCloseNavMenu}>
+								<MenuItem onClick={handleCloseNavMenu} style={{ width: "100vw" }}>
+									<ContentPasteSearchIcon sx={{ color: "green", mr: 1, fontSize: "24px" }} />
 									<Typography textAlign='center'>Tracking</Typography>
 								</MenuItem>
 							</Link>
 							<Link
 								to='/blog'
+								style={{ display: "block", height: "50px" }}
 								className={path === "blog" ? "activeMenu" : "inActiveMenu"}>
-								<MenuItem onClick={handleCloseNavMenu}>
+								<MenuItem onClick={handleCloseNavMenu} style={{ width: "100vw" }}>
+									<TextSnippetIcon sx={{ color: "green", mr: 1, fontSize: "24px" }} />
 									<Typography textAlign='center'>Our Blogs</Typography>
 								</MenuItem>
 							</Link>
 							<Link
 								to='/about'
+								style={{ display: "block", height: "50px" }}
 								className={path === "about" ? "activeMenu" : "inActiveMenu"}>
-								<MenuItem onClick={handleCloseNavMenu}>
+								<MenuItem onClick={handleCloseNavMenu} style={{ width: "100vw" }}>
+									<InfoIcon sx={{ color: "green", mr: 1, fontSize: "24px" }} />
 									<Typography textAlign='center'>About</Typography>
 								</MenuItem>
 							</Link>
 							<Link
 								to='/contact'
+								style={{ display: "block", height: "50px" }}
 								className={path === "contact" ? "activeMenu" : "inActiveMenu"}>
-								<MenuItem onClick={handleCloseNavMenu}>
+								<MenuItem onClick={handleCloseNavMenu} style={{ width: "100vw" }}>
+									<ForwardToInboxIcon sx={{ color: "green", mr: 1, fontSize: "24px" }} />
 									<Typography textAlign='center'>Contact Us</Typography>
 								</MenuItem>
 							</Link>
 							<Link
 								to='/dashboard'
+								style={{ display: "block", height: "50px", }}
 								className={
 									path === "dashboard" ? "activeMenu" : "inActiveMenu"
 								}>
-								<MenuItem onClick={handleCloseNavMenu}>
+								<MenuItem onClick={handleCloseNavMenu} style={{ width: "100vw" }}>
+									<ManageAccountsIcon sx={{ color: "green", mr: 1, fontSize: "24px" }} />
 									<Typography textAlign='center'>Dashboard</Typography>
 								</MenuItem>
 							</Link>
 						</Menu>
 					</Box>
-					<Box sx={{ pt: 1, pb: 1 }}>
+
+					{/* Large Screen Menu Bar */}
+
+					<Box sx={{ pt: 1, pb: 1, display: { md: "block", sm: "none", xs: "none" } }}>
 						<Link to="/">
 							<img src={logo} alt='' className='Main Logo' />
 						</Link>
@@ -175,10 +205,16 @@ const Navigation = () => {
 							Home
 						</Link>
 						<Link
+							to='/about'
+							onClick={handleCloseNavMenu}
+							className={path === "about" ? "activeMenu" : "inActiveMenu"}>
+							About
+						</Link>
+						<Link
 							to='/service'
 							onClick={handleCloseNavMenu}
 							className={path === "service" ? "activeMenu" : "inActiveMenu"}>
-							Our Services
+							Services
 						</Link>
 						<Link
 							to='/covarage'
@@ -202,19 +238,13 @@ const Navigation = () => {
 							to='/blog'
 							onClick={handleCloseNavMenu}
 							className={path === "blog" ? "activeMenu" : "inActiveMenu"}>
-							Our Blogs
-						</Link>
-						<Link
-							to='/about'
-							onClick={handleCloseNavMenu}
-							className={path === "about" ? "activeMenu" : "inActiveMenu"}>
-							About
+							Blogs
 						</Link>
 						<Link
 							to='/contact'
 							onClick={handleCloseNavMenu}
 							className={path === "contact" ? "activeMenu" : "inActiveMenu"}>
-							Contact Us
+							Contact
 						</Link>
 						<Link
 							to='/dashboard'
@@ -227,7 +257,8 @@ const Navigation = () => {
 					<Box
 						sx={{
 							flexGrow: 0,
-							display: { md: "flex", xs: "block" },
+							display: "flex",
+							alignItems: "center",
 						}}>
 						<Box
 							sx={{
@@ -265,7 +296,6 @@ const Navigation = () => {
 									border: "1px solid #08A74C",
 									textTransform: "capitalize",
 									mr: 2,
-									mb: { xs: 2, md: 0, },
 								}}
 								onClick={() => {
 									Swal.fire({
@@ -291,6 +321,25 @@ const Navigation = () => {
 									<Button
 										style={{ padding: "3px 13px", fontSize: "16px" }}
 										sx={{
+											backgroundColor: "#08A74C",
+											"&:hover": {
+												backgroundColor: "transparent",
+												color: "#08A74C",
+											},
+											color: "white",
+											border: "1px solid #08A74C",
+											textTransform: "capitalize",
+											mr: 1,
+										}}>
+										Register
+										<PersonIcon sx={{ width: "20px", ml: 0.5 }} />
+									</Button>
+								</Link>
+								{/* <Link to='/login' style={{ textDecoration: "none" }}>
+									<Button
+										variant='outlined'
+										style={{ padding: "3px 13px", fontSize: "16px" }}
+										sx={{
 											backgroundColor: "transparent",
 											"&:hover": {
 												backgroundColor: "#08A74C",
@@ -302,36 +351,16 @@ const Navigation = () => {
 											mr: 1,
 											mb: { xs: 2, md: 0, },
 										}}>
-										Register
-										<PersonIcon sx={{ width: "20px", ml: 0.5 }} />
-									</Button>
-								</Link>
-								<Link to='/login' style={{ textDecoration: "none" }}>
-									<Button
-										variant='outlined'
-										style={{ padding: "3px 13px", fontSize: "16px" }}
-										sx={{
-											backgroundColor: "#08A74C",
-											"&:hover": {
-												backgroundColor: "transparent",
-												color: "#08A74C",
-											},
-											color: "white",
-											border: "1px solid #08A74C",
-											textTransform: "capitalize",
-											mr: 1,
-											mb: { xs: 2, md: 0, },
-										}}>
 										Login
 										<LoginIcon sx={{ width: "20px", ml: 0.5 }} />
 									</Button>
-								</Link>
+								</Link> */}
 							</>
 						}
 					</Box>
 				</Toolbar>
 			</Container>
-		</AppBar>
+		</AppBar >
 	);
 };
 

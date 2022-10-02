@@ -25,7 +25,7 @@ const SingleBlog = () => {
               image={blogimg1}
               alt="BlogImage"
               className="blogImage" />
-            <Box sx={{ backgroundColor: "#2B2C41", height: "45px", width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center", padding: "0px 20px", }}>
+            <Box sx={{ backgroundColor: "#2B2C41", height: "45px", width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center", padding: "0px 20px" }}>
               <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", cursor: "pointer" }}>
                 <CalendarMonthIcon sx={{ color: "white", fontSize: "20px", mr: 1, mt: "2px" }} />
                 <Typography variant="p" component="div" sx={{ color: "white" }}>

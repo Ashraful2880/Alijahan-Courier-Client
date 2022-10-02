@@ -305,3 +305,42 @@ input#free-solo-with-text-demo {
 	margin-bottom: 25px;
 	width: 40%;
 }
+
+.coverageButton {
+	border: none;
+	display: block;
+	text-align: center;
+	cursor: pointer;
+	text-transform: uppercase;
+	outline: none;
+	overflow: hidden;
+	position: relative;
+	color: #fff;
+	background-color: #2b2c41;
+	padding: 15px 20px;
+	margin: 0 auto;
+}
+
+.coverageButton span {
+	position: relative;
+	z-index: 1;
+}
+
+.coverageButton:after {
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 900%;
+	width: 120%;
+	background: #0C9A49;
+	-webkit-transition: all .5s ease-in-out;
+	transition: all .5s ease-in-out;
+	-webkit-transform: translateX(-98%) translateY(-25%) rotate(45deg);
+	transform: translateX(-98%) translateY(-25%) rotate(45deg);
+}
+
+.coverageButton:hover:after {
+	-webkit-transform: translateX(-9%) translateY(-25%) rotate(45deg);
+	transform: translateX(-9%) translateY(-25%) rotate(45deg);
+}
