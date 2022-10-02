@@ -205,6 +205,12 @@ const Navigation = () => {
 							Home
 						</Link>
 						<Link
+							to='/tracking'
+							onClick={handleCloseNavMenu}
+							className={path === "tracking" ? "activeMenu" : "inActiveMenu"}>
+							Tracking
+						</Link>
+						<Link
 							to='/about'
 							onClick={handleCloseNavMenu}
 							className={path === "about" ? "activeMenu" : "inActiveMenu"}>
@@ -227,18 +233,6 @@ const Navigation = () => {
 							onClick={handleCloseNavMenu}
 							className={path === "pricing" ? "activeMenu" : "inActiveMenu"}>
 							Pricing
-						</Link>
-						<Link
-							to='/tracking'
-							onClick={handleCloseNavMenu}
-							className={path === "tracking" ? "activeMenu" : "inActiveMenu"}>
-							Tracking
-						</Link>
-						<Link
-							to='/blog'
-							onClick={handleCloseNavMenu}
-							className={path === "blog" ? "activeMenu" : "inActiveMenu"}>
-							Blogs
 						</Link>
 						<Link
 							to='/contact'
