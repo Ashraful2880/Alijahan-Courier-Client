@@ -1,32 +1,69 @@
 import React from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
+import { Box } from "@mui/material";
+/* import { Swiper, SwiperSlide } from "swiper/react";
 import sliderimg from "../../../Assets/Image/sliderimg.png";
 import sliderimg2 from "../../../Assets/Image/slide3.jpg";
 import sliderimg3 from "../../../Assets/Image/slide4.jpg";
-import sliderimg4 from "../../../Assets/Image/slide5.png";
+import sliderimg4 from "../../../Assets/Image/slide5.png"; */
 
 // Import Swiper styles
-import "swiper/css";
+/* import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/autoplay";
-import "swiper/css/zoom";
+import "swiper/css/zoom"; */
 
 // import required modules
-import SwiperCore, {
+/* import SwiperCore, {
   Pagination,
   Mousewheel,
   Keyboard,
   Autoplay
 } from "swiper";
-import { Box } from "@mui/material";
+*/
 import "./HeroSlider.css";
-
 const HeroSlider = () => {
-  SwiperCore.use([Autoplay]);
+  // SwiperCore.use([Autoplay]);
   return (
-    <Box>
-      <Swiper
+    <Box style={{ height: "75vh" }}>
+      <div className="slider-section">
+        <div className="slider-container">
+
+          <div className="singleSlider">
+            <div className="sliderImage"></div>
+          </div>
+
+          <div className="singleSlider">
+            <div className="sliderImage"></div>
+          </div>
+
+          <div className="singleSlider">
+            <div className="sliderImage"></div>
+          </div>
+
+          <div className="singleSlider">
+            <div className="sliderImage"></div>
+          </div>
+
+        </div>
+        <div className="sliderStyle"></div>
+      </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      {/* <Swiper
         cssMode={true}
         mousewheel={true}
         keyboard={true}
@@ -46,7 +83,7 @@ const HeroSlider = () => {
         <SwiperSlide>
           <img src={sliderimg4} alt="sliderimg" className="sliderimg" />
         </SwiperSlide>
-      </Swiper>
+      </Swiper> */}
     </Box>
   );
 };
