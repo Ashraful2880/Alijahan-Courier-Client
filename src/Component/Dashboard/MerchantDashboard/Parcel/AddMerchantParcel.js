@@ -55,14 +55,13 @@ const AddMerchantParcel = () => {
 			);
 			if (findArea?.area === marchant?.merchantArea) {
 				setSelectArea("Inside Same City");
-			}
-			if (findArea?.area !== marchant?.merchantArea) {
+			} else {
 				setSelectArea("City to " + findArea?.areaType);
 			}
 		} else {
 			setSelectArea("City to City");
 		}
-	}, [marchant, receiverBranch, selectedArea]);
+	}, [marchant, receiverBranch, selectArea, selectedArea]);
 
 	const serviceArea = serviceAreas?.find(
 		(s) => s.serviceAreaName === selectArea,
