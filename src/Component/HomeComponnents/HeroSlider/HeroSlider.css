@@ -3,9 +3,9 @@
   height: 75vh;
   width: 100%;
   -webkit-animation: rotateHue infinite 28s linear;
-  animation: rotateHue infinite 28s linear;
-  -webkit-animation-delay: 0.875s;
-  animation-delay: 0.875s;
+  animation: rotateHue infinite 25s linear;
+  -webkit-animation-delay: 0.775s;
+  animation-delay: 0.775s;
   overflow: hidden;
 }
 
@@ -17,8 +17,8 @@
   top: calc(50% - 75vmax);
   pointer-events: none;
   z-index: 2;
-  -webkit-animation: rotateFrame 14s linear infinite;
-  animation: rotateFrame 14s linear infinite;
+  -webkit-animation: rotateFrame 111s linear infinite;
+  animation: rotateFrame 11s linear infinite;
 }
 
 @-webkit-keyframes rotateFrame {
@@ -55,8 +55,8 @@
 
 .sliderStyle:before {
   bottom: 50%;
-  -webkit-animation: openTop 7s infinite;
-  animation: openTop 7s infinite;
+  -webkit-animation: openTop 4s infinite;
+  animation: openTop 4s infinite;
 }
 
 @-webkit-keyframes openTop {
