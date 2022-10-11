@@ -301,7 +301,7 @@ input#free-solo-with-text-demo {
 	border: 0;
 	height: 2px;
 	background-image: linear-gradient(to right, rgba(0, 0, 0, 0), orange, rgba(0, 0, 0, 0));
-	margin-bottom: 25px;
+	margin: 0px auto 25px auto;
 	width: 40%;
 }
 
