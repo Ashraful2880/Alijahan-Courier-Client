@@ -3,11 +3,10 @@ import { Box, Container, Grid } from "@mui/material";
 import "./DeliveryCalculator.css";
 import TextField from "@mui/material/TextField";
 import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
-import line from "../../../Assets/Image/line.png";
-import calculate from "../../../Assets/Image/calculate.png";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import Typography from "@mui/material/Typography";
 import hooks from './../../../Hooks/hooks';
+import shapeImage from "../../../Assets/Image/shape4.png";
 
 const filter = createFilterOptions();
 
@@ -73,49 +72,88 @@ const DeliveryCalculator = () => {
 
   return (
     <>
-      <Container sx={{ mt: 5, mb: 5 }}>
-        <h2
-          style={{
-            fontFamily: "Montserrat, sans-serif",
-            fontSize: 30,
-            textAlign: "start",
-            fontWeight: 600,
-            color: "#08A74C",
-            marginBottom: 0,
-          }}
-        >
-          Delivery Calculator
-        </h2>
-      </Container>
-      <Box className="delivery-conainer">
+      <Box className="delivery-conainer" style={{ paddingTop: "45px", paddingBottom: "10px" }}>
         <Container sx={{ mb: 3 }}>
           <Grid
             container
-            spacing={2}
-            sx={{ ml: { md: 5, xs: 0 }, alignItems: "center" }}
-          >
-            <Grid item xs={12} md={5} sx={{ mt: 4 }}>
-              <img src={calculate} width={"100%"} alt="DeliveryImage" />
+            spacing={2} sx={{ placeContent: "space-between" }}>
+
+            <Grid item xs={12} md={6}>
+              <Box>
+                <Typography variant="h5" sx={{ color: "white", textAlign: "left", pt: 2, fontSize: "28px", letterSpacing: "1px" }}>
+                  We Create Opportunity <br /> to Reach Potential
+                </Typography>
+                <Box sx={{ mb: { sx: 2, md: 4 }, display: "flex", justifyContent: "start" }}>
+                  <img src={shapeImage} alt="Shape" style={{ width: "30%", marginTop: "8px", marginLeft: "30px" }} />
+                </Box>
+                <ul style={{ listStyle: "none", color: "#fff" }}>
+                  <li style={{ display: "flex", alignItems: "center", marginBottom: "25px" }}>
+                    <Box sx={{ background: "#b4edb4", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", height: "35px", width: "35px", mr: 2 }}>
+                      <CheckCircleIcon sx={{ color: "#08A74C" }} />
+                    </Box>
+                    <Typography variant="span" sx={{ fontSize: "17px", letterSpacing: "1px", textAlign: "left", color: "lightgray" }}>
+                      1% Cash Handling & Risk Management Charge will be added.
+                    </Typography>
+                  </li>
+
+                  <li style={{ display: "flex", alignItems: "center", margin: "25px 0px" }}>
+                    <Box sx={{ background: "#b4edb4", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", height: "35px", width: "35px", mr: 2 }}>
+                      <CheckCircleIcon sx={{ color: "#08A74C" }} />
+                    </Box>
+                    <Typography variant="span" sx={{ fontSize: "17px", letterSpacing: "1px", textAlign: "left", color: "lightgray" }}>
+                      Price may vary due to parcel size.
+                    </Typography>
+                  </li>
+
+                  <li style={{ display: "flex", alignItems: "center", margin: "25px 0px" }}>
+                    <Box sx={{ background: "#b4edb4", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", height: "35px", width: "35px", mr: 2 }}>
+                      <CheckCircleIcon sx={{ color: "#08A74C", }} />
+                    </Box>
+                    <Typography variant="span" sx={{ fontSize: "17px", letterSpacing: "1px", textAlign: "left", color: "lightgray" }}>
+                      All charges are VAT & Tax excluded.
+                    </Typography>
+                  </li>
+
+                  <li style={{ display: "flex", alignItems: "center", margin: "25px 0px" }}>
+                    <Box sx={{ background: "#b4edb4", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", height: "35px", width: "35px", mr: 2 }}>
+                      <CheckCircleIcon sx={{ color: "#08A74C" }} />
+                    </Box>
+                    <Typography variant="span" sx={{ fontSize: "17px", letterSpacing: "1px", textAlign: "left", color: "lightgray" }}>
+                      Unavoidable circumstances may change in time of delivery.
+                    </Typography>
+                  </li>
+
+                  <li style={{ display: "flex", alignItems: "center", margin: "25px 0px" }}>
+                    <Box sx={{ background: "#b4edb4", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", height: "35px", width: "35px", mr: 2 }}>
+                      <CheckCircleIcon sx={{ color: "#08A74C" }} />
+                    </Box>
+                    <Typography variant="span" sx={{ fontSize: "17px", letterSpacing: "1px", textAlign: "left", color: "lightgray" }}>
+                      Provide a service we are proud of.
+                    </Typography>
+                  </li>
+
+                </ul>
+              </Box>
             </Grid>
-            <Grid item xs={12} md={7} sx={{ mt: { md: 5 }, pb: 6, }}>
+
+            <Grid item xs={12} md={6} sx={{ mt: { md: 5 }, pb: 6, }}>
               <Grid item xs={12} md={12}
                 sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
                   color: "#fff",
                   mb: 2
                 }}>
                 <h4
                   style={{
-                    fontWeight: 700,
-                    fontFamily: "Montserrat, sans-serif",
+                    fontWeight: 500,
                     fontSize: 18,
+                    textAlign: "left",
+                    marginBottom: 9,
+                    letterSpacing: "1px"
                   }}>
-                  Pick-up Area :
+                  Pick-Up Area :
                 </h4>
                 <Autocomplete
-                  sx={{ p: 0, width: "80%", }}
+                  sx={{ p: 0, width: { md: "80%", sm: "100%", xs: "100%" }, }}
                   value={pickupArea}
                   onChange={(event, newValue) => {
                     if (typeof newValue === "string") {
@@ -161,7 +199,7 @@ const DeliveryCalculator = () => {
                   renderInput={(params) => (
                     <TextField
                       sx={{
-                        "& .MuiInputLabel-root": { color: "green" }, //styles the label
+                        "& .MuiInputLabel-root": { color: "#08A74C" }, //styles the label
                         "& .MuiOutlinedInput-root": {
                           borderColor: "gray",
                           p: 0,
@@ -170,7 +208,7 @@ const DeliveryCalculator = () => {
                           },
                         },
                       }}
-                      placeholder="Enter Pick-up Area"
+                      placeholder="Enter Pick-Up Area"
                       {...params}
                     />
                   )}
@@ -182,24 +220,22 @@ const DeliveryCalculator = () => {
                 xs={12}
                 md={12}
                 sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
                   color: "#fff",
                   mb: 2
                 }}
               >
                 <h4
                   style={{
-                    fontWeight: 700,
-                    fontFamily: "Montserrat, sans-serif",
+                    fontWeight: 500,
                     fontSize: 18,
-                  }}
-                >
+                    textAlign: "left",
+                    marginBottom: 9,
+                    letterSpacing: "1px"
+                  }}>
                   Delivery Area :
                 </h4>
                 <Autocomplete
-                  sx={{ p: 0, width: "80%" }}
+                  sx={{ p: 0, width: { md: "80%", sm: "100%", xs: "100%" } }}
                   value={deliveryArea}
                   onChange={(event, newValue) => {
                     if (typeof newValue === "string") {
@@ -209,7 +245,7 @@ const DeliveryCalculator = () => {
                     } else if (newValue && newValue.inputValue) {
                       // Create a new value from the user input
                       setDeliveryArea({
-                        area: newValue.inputValue,
+                        area: newValue?.inputValue,
                       });
                     } else {
                       setDeliveryArea(newValue);
@@ -217,7 +253,6 @@ const DeliveryCalculator = () => {
                   }}
                   filterOptions={(options, params) => {
                     const filtered = filter(options, params);
-
                     return filtered;
                   }}
                   selectOnFocus
@@ -231,22 +266,22 @@ const DeliveryCalculator = () => {
                       return option;
                     }
                     // Add "xxx" option created dynamically
-                    if (option.inputValue) {
-                      return option.inputValue;
+                    if (option?.inputValue) {
+                      return option?.inputValue;
                     }
                     // Regular option
-                    return option.area;
+                    return option?.area;
                   }}
                   renderOption={(props, option) => (
-                    <li {...props} key={option._id}>
-                      {option.area}
+                    <li {...props} key={option?._id}>
+                      {option?.area}
                     </li>
                   )}
                   freeSolo
                   renderInput={(params, id) => (
                     <TextField
                       sx={{
-                        "& .MuiInputLabel-root": { color: "green" }, //styles the label
+                        "& .MuiInputLabel-root": { color: "#08A74C" }, //styles the label
                         "& .MuiOutlinedInput-root": {
                           p: 0,
                           "& > fieldset": {
@@ -266,24 +301,22 @@ const DeliveryCalculator = () => {
                 xs={12}
                 md={12}
                 sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
                   color: "#fff",
                   mb: 2
                 }}
               >
                 <h4
                   style={{
-                    fontWeight: 700,
-                    fontFamily: "Montserrat, sans-serif",
+                    fontWeight: 500,
                     fontSize: 18,
-                  }}
-                >
+                    textAlign: "left",
+                    marginBottom: 9,
+                    letterSpacing: "1px"
+                  }}>
                   Weight (KG) :
                 </h4>
                 <Autocomplete
-                  sx={{ p: 0, width: "80%" }}
+                  sx={{ p: 0, width: { md: "80%", sm: "100%", xs: "100%" } }}
                   value={weightValue}
                   onChange={(event, newValue) => {
                     if (typeof newValue === "string") {
@@ -301,7 +334,6 @@ const DeliveryCalculator = () => {
                   }}
                   filterOptions={(options, params) => {
                     const filtered = filter(options, params);
-
                     return filtered;
                   }}
                   selectOnFocus
@@ -330,7 +362,7 @@ const DeliveryCalculator = () => {
                   renderInput={(params) => (
                     <TextField
                       sx={{
-                        "& .MuiInputLabel-root": { color: "green" }, //styles the label
+                        "& .MuiInputLabel-root": { color: "#08A74C" }, //styles the label
                         "& .MuiOutlinedInput-root": {
                           p: 0,
                           "& > fieldset": {
@@ -350,24 +382,22 @@ const DeliveryCalculator = () => {
                 xs={12}
                 md={12}
                 sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
                   color: "#fff",
                   mb: 2
                 }}
               >
                 <h4
                   style={{
-                    fontWeight: 700,
-                    fontFamily: "Montserrat, sans-serif",
+                    fontWeight: 500,
                     fontSize: 18,
-                  }}
-                >
+                    textAlign: "left",
+                    marginBottom: 9,
+                    letterSpacing: "1px"
+                  }}>
                   Service :
                 </h4>
                 <Autocomplete
-                  sx={{ p: 0, width: "80%" }}
+                  sx={{ p: 0, width: { md: "80%", sm: "100%", xs: "100%" } }}
                   value={deliveryArea}
                   onChange={(event, newValue) => {
                     if (typeof newValue === "string") {
@@ -428,48 +458,21 @@ const DeliveryCalculator = () => {
                   )}
                 />
               </Grid>
-              <Box sx={{ display: "flex", mb: 2 }}>
-                <h2
-                  style={{
-                    border: "3px solid orange",
-                    borderRadius: 10,
-                    padding: "5px 25px",
-                    fontWeight: 600,
-                    fontFamily: "Montserrat, sans-serif",
-                    background: "orange",
-                  }}
-                >
+              <Box sx={{ display: "flex", mb: 2, mt: 3, }}>
+                <Typography variant="h2" component="div" sx={{
+                  width: { md: "80%", sm: "100%", xs: "100%" },
+                  border: "3px solid orange",
+                  borderRadius: 5,
+                  padding: "4px 25px",
+                  fontWeight: 600,
+                  fontFamily: "Montserrat, sans-serif",
+                  background: "orange",
+                  fontSize: "22px"
+                }}>
                   {finalPrice} Tk
-                </h2>
+                </Typography>
               </Box>
-              <Box>
-                <ul style={{ listStyle: "none", color: "#fff" }}>
-                  <li style={{ display: "flex", alignItems: "center", gap: "5px", marginBottom: "15px" }}>
-                    <CheckCircleIcon sx={{ color: "green", marginRight: "5px" }} />
-                    <Typography variant="span">
-                      1% Cash Handling & Risk Management Charge will be added.
-                    </Typography>
-                  </li>
-                  <li style={{ display: "flex", alignItems: "center", gap: "5px", marginBottom: "15px" }}>
-                    <CheckCircleIcon sx={{ color: "green", marginRight: "5px" }} />
-                    <Typography variant="span">
-                      Price may vary due to parcel size.
-                    </Typography>
-                  </li>
-                  <li style={{ display: "flex", alignItems: "center", gap: "5px", marginBottom: "15px" }}>
-                    <CheckCircleIcon sx={{ color: "green", marginRight: "5px" }} />
-                    <Typography variant="span">
-                      All charges are VAT & Tax excluded.
-                    </Typography>
-                  </li>
-                  <li style={{ display: "flex", alignItems: "center", gap: "5px", marginBottom: "15px" }}>
-                    <CheckCircleIcon sx={{ color: "green", marginRight: "5px" }} />
-                    <Typography variant="span">
-                      Unavoidable circumstances may change in time of delivery.
-                    </Typography>
-                  </li>
-                </ul>
-              </Box>
+
             </Grid>
           </Grid>
         </Container>

@@ -3,22 +3,21 @@ import React from "react";
 import { Link } from "react-router-dom";
 import SingleNotice from "./SingleNotice/SingleNotice";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import line from "../../../Assets/Image/line.png";
 
 const NoticeBoard = () => {
   return (
     <Container sx={{ mb: 5, mt: 5 }}>
+      <p style={{ textAlign: "left", color: "#08A74C", fontWeight: 600, marginBottom: "5px" }}>NEED UPDATE</p>
       <h2
         style={{
-          fontFamily: "Montserrat, sans-serif",
-          fontSize: 30,
           textAlign: "start",
           fontWeight: 600,
-          color: "#08A74C",
-          marginBottom: 0,
+          fontFamily: "Montserrat, sans-serif",
+          fontSize: 27,
+          marginBottom: "30px",
         }}
       >
-        Notice Board
+        Get Notice From <span style={{ color: "#08A74C" }}>Notice Board</span>
       </h2>
       <Box sx={{ mt: 3 }}>
         <SingleNotice />
@@ -27,7 +26,7 @@ const NoticeBoard = () => {
           style={{
             textDecoration: "none",
           }}>
-          <Box style={{ width: "20%", margin: "auto" }}>
+          <Box style={{ width: "100%", margin: "35px auto 0px auto" }}>
             <Button
               variant="outlined"
               sx={{

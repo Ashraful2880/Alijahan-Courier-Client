@@ -1,0 +1,108 @@
+.singleServiceImage {
+    transition: 0.5s ease-in-out;
+}
+
+.singleServiceItem {
+    border: 1px solid rgb(238, 238, 238);
+    box-shadow: none !important;
+    cursor: pointer;
+    transition: 0.3s ease-in-out !important;
+}
+
+.singleServiceItem:hover .singleServiceImage {
+    transform: scale(1.05);
+    transition: all 0.5s ease-in-out;
+}
+
+.singleServiceItem:hover {
+    box-shadow: 0px 12px 0px 0px #08A74C !important;
+}
+
+.serviceContainer {
+    background-image: url("../../../../Assets/Image/greenShape.png");
+    background-repeat: no-repeat;
+    background-position: right top;
+}
+
+/* Button Hover Effect */
+
+.moreButton {
+    border: none;
+    display: block;
+    text-align: center;
+    cursor: pointer;
+    text-transform: uppercase;
+    outline: none;
+    overflow: hidden;
+    position: relative;
+    color: #fff;
+    background-color: #222;
+    padding: 12px 40px;
+    margin: 0 auto;
+}
+
+.moreButton span {
+    position: relative;
+    z-index: 1;
+}
+
+.moreButton:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 600%;
+    width: 140%;
+    background: #08A74C;
+    -webkit-transition: all .5s ease-in-out;
+    transition: all .5s ease-in-out;
+    -webkit-transform: translateX(-98%) translateY(-25%) rotate(45deg);
+    transform: translateX(-98%) translateY(-25%) rotate(45deg);
+}
+
+.moreButton:hover:after {
+    -webkit-transform: translateX(-9%) translateY(-25%) rotate(45deg);
+    transform: translateX(-9%) translateY(-25%) rotate(45deg);
+}
+
+/* Animated Text Design */
+
+/* .animatedText {
+    letter-spacing: 0;
+    display: block;
+    margin: 0 auto;
+    background: url(https://i.ibb.co/RDTnNrT/animated-text-fill.png) repeat-y;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-animation: aitf 80s linear infinite;
+    -webkit-transform: translate3d(0, 0, 0);
+    -webkit-backface-visibility: hidden;
+    animation: aitf 80s linear infinite;
+}
+
+@keyframes aitf {
+    0% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+} */
+
+/* Style For Card Container */
+
+.serviceCardContainer {
+    border: 1px solid rgb(230, 230, 230);
+    box-shadow: 0px 0px 20px rgb(211, 211, 211) !important;
+    transition: all 0.5s !important;
+    border-left: 3px solid rgb(230, 230, 230);
+    cursor: pointer;
+}
+
+.serviceCardContainer:hover {
+    border-left: 3px solid rgba(0, 128, 0, 0.575);
+    border-bottom-right-radius: 15px;
+    border-top-left-radius: 15px;
+}

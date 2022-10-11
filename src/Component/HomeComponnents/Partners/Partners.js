@@ -1,6 +1,5 @@
-import { Box, Container } from "@mui/material";
 import React from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
+import { Container, Box } from "@mui/material";
 import A2i from "../../../Assets/Image/partner/A2i.png";
 import DarulHikmah from "../../../Assets/Image/partner/DarulHikmah.png";
 import DuaInt from "../../../Assets/Image/partner/DuaInt.png";
@@ -9,96 +8,47 @@ import MNFashion from "../../../Assets/Image/partner/M&NFashion.png";
 import PHPrivateLtd from "../../../Assets/Image/partner/PHPrivateLtd.png";
 import StickerHub from "../../../Assets/Image/partner/StickerHub.png";
 import "./Partner.css";
-
-// Import Swiper styles
-
-// Import Swiper styles
-import "swiper/css";
-import "swiper/css/free-mode";
-import "swiper/css/pagination";
-
-// import required modules
-import SwiperCore, {
-  FreeMode,
-  Pagination,
-  Mousewheel,
-  Keyboard,
-  Autoplay,
-} from "swiper";
+import Marquee from "react-marquee-slider";
+import times from "lodash/times";
 
 const Partners = () => {
-  SwiperCore.use([Autoplay]);
+  const images = [
+    A2i,
+    DarulHikmah,
+    DuaInt,
+    ekshop,
+    MNFashion,
+    PHPrivateLtd,
+    StickerHub
+  ]
+
   return (
-    <Container>
-      <h2
-        style={{
-          fontFamily: "Montserrat, sans-serif",
-          fontSize: 30,
-          textAlign: "start",
-          fontWeight: 700,
-          color: "#08A74C",
-          marginBottom: 10,
-          marginTop: 5
-        }}>
-        Our Partners
-      </h2>
-      <Box>
-        <Swiper
-          slidesPerView={7}
-          spaceBetween={30}
-          freeMode={true}
-          mousewheel={false}
-          keyboard={true}
-          autoplay={true}
-          pauseOnMouseEnter={false}
-          disableOnInteraction={false}
-          modules={[FreeMode, Pagination, Mousewheel, Keyboard, Autoplay]}
-          className="partnerSwiper">
-          <SwiperSlide className="partnerSlide">
-            <img src={A2i} width={70} height={60} alt="sliderimg" />
-          </SwiperSlide>
-          <SwiperSlide className="partnerSlide">
-            <img src={DarulHikmah} width={70} height={60} alt="sliderimg" />
-          </SwiperSlide>
-          <SwiperSlide className="partnerSlide">
-            <img src={DuaInt} width={70} height={60} alt="sliderimg" />
-          </SwiperSlide>
-          <SwiperSlide className="partnerSlide">
-            <img src={ekshop} width={70} height={60} alt="sliderimg" />
-          </SwiperSlide>
-          <SwiperSlide className="partnerSlide">
-            <img src={MNFashion} width={70} height={60} alt="sliderimg" />
-          </SwiperSlide>
-          <SwiperSlide className="partnerSlide">
-            <img src={PHPrivateLtd} width={70} height={60} alt="sliderimg" />
-          </SwiperSlide>
-          <SwiperSlide className="partnerSlide">
-            <img src={StickerHub} width={70} height={60} alt="sliderimg" />
-          </SwiperSlide>
-          <SwiperSlide className="partnerSlide">
-            <img src={A2i} width={70} height={60} alt="sliderimg" />
-          </SwiperSlide>
-          <SwiperSlide className="partnerSlide">
-            <img src={DarulHikmah} width={70} height={60} alt="sliderimg" />
-          </SwiperSlide>
-          <SwiperSlide className="partnerSlide">
-            <img src={DuaInt} width={70} height={60} alt="sliderimg" />
-          </SwiperSlide>
-          <SwiperSlide className="partnerSlide">
-            <img src={ekshop} width={70} height={60} alt="sliderimg" />
-          </SwiperSlide>
-          <SwiperSlide className="partnerSlide">
-            <img src={MNFashion} width={70} height={60} alt="sliderimg" />
-          </SwiperSlide>
-          <SwiperSlide className="partnerSlide">
-            <img src={PHPrivateLtd} width={70} height={60} alt="sliderimg" />
-          </SwiperSlide>
-          <SwiperSlide className="partnerSlide">
-            <img src={StickerHub} width={70} height={60} alt="sliderimg" />
-          </SwiperSlide>
-        </Swiper>
-      </Box>
-    </Container>
+    <Box className="partnerContainer">
+      <Container sx={{ py: 5 }}>
+        <p style={{ textAlign: "left", color: "#cfcfcf", fontWeight: 600, marginBottom: "8px" }}>TOP BRANDS</p>
+        <h2
+          style={{
+            textAlign: "start",
+            fontWeight: 600,
+            fontFamily: "Montserrat, sans-serif",
+            fontSize: 27,
+            marginBottom: "30px",
+            color: "white"
+          }}
+        >
+          Meet Our <span style={{ color: "#f4ad2b" }}>Partners</span>
+        </h2>
+        <div style={{ height: 130 }}>
+          <Marquee velocity={35}>
+            {times(7, Number).map(id => (
+              <img src={images[id]} key={`marquee-example-people-${id}`} alt="Slider" style={{
+                margin: "0px 50px", width: "80px", height: "80px", borderRadius: "5px",
+              }} />
+            ))}
+          </Marquee>
+        </div>
+      </Container>
+    </Box>
   );
 };
 

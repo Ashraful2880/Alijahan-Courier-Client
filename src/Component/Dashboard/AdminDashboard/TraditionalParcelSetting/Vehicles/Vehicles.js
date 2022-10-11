@@ -116,7 +116,7 @@ const Vehicles = () => {
 				)}
 				<EditIcon
 					className='iconBtn'
-					sx={{ color: "green!important" }}
+					sx={{ color: "#08A74C!important" }}
 					onClick={() => {
 						handleOpen(params.row?._id);
 					}}

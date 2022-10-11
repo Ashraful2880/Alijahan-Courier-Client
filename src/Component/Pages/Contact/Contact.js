@@ -267,7 +267,7 @@ const Contact = () => {
                     renderInput={(params) => (
                       <TextField
                         sx={{
-                          "& .MuiInputLabel-root": { color: "green" }, //styles the label
+                          "& .MuiInputLabel-root": { color: "#08A74C" }, //styles the label
                           "& .MuiOutlinedInput-root": {
                             borderColor: "gray",
                             p: "4px 15px",

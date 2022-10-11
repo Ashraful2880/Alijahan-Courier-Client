@@ -11,13 +11,13 @@ const TermsCondition = () => {
         </Typography>
       </Box>
       <Box sx={{ mb: 3 }}>
-        <Typography variant="h5" sx={{ color: "green", mb: 2, fontWeight: "500", textAlign: "left" }}>
+        <Typography variant="h5" sx={{ color: "#08A74C", mb: 2, fontWeight: "500", textAlign: "left" }}>
           Privacy & Policy
         </Typography>
       </Box>
       <Box sx={{ textAlign: "left", }}>
         <Box>
-          <Typography variant="h5" sx={{ color: "green", my: 2, fontWeight: "500" }}>
+          <Typography variant="h5" sx={{ color: "#08A74C", my: 2, fontWeight: "500" }}>
             1. Privacy Policy
           </Typography>
           <Typography variant="p" sx={{ color: "gray" }}>
@@ -25,7 +25,7 @@ const TermsCondition = () => {
           </Typography>
         </Box>
         <Box>
-          <Typography variant="h5" sx={{ color: "green", my: 2, fontWeight: "500" }}>
+          <Typography variant="h5" sx={{ color: "#08A74C", my: 2, fontWeight: "500" }}>
             2. How We Collect Information
           </Typography>
           <Typography variant="p" sx={{ color: "gray" }}>
@@ -33,7 +33,7 @@ const TermsCondition = () => {
           </Typography>
         </Box>
         <Box>
-          <Typography variant="h4" sx={{ color: "green", my: 2, fontWeight: "500" }}>
+          <Typography variant="h4" sx={{ color: "#08A74C", my: 2, fontWeight: "500" }}>
             For Merchants
           </Typography>
           <Typography variant="p" sx={{ color: "gray" }}>
@@ -41,7 +41,7 @@ const TermsCondition = () => {
           </Typography>
         </Box>
         <Box>
-          <Typography variant="h5" sx={{ color: "green", my: 2, fontWeight: "500" }}>
+          <Typography variant="h5" sx={{ color: "#08A74C", my: 2, fontWeight: "500" }}>
             3. Information from our merchant’s customers
           </Typography>
           <Typography variant="p" sx={{ color: "gray" }}>
@@ -49,7 +49,7 @@ const TermsCondition = () => {
           </Typography>
         </Box>
         <Box>
-          <Typography variant="h5" sx={{ color: "green", my: 2, fontWeight: "500" }}>
+          <Typography variant="h5" sx={{ color: "#08A74C", my: 2, fontWeight: "500" }}>
             4.Payment Information
           </Typography>
           <Typography variant="p" sx={{ color: "gray" }}>
@@ -57,7 +57,7 @@ const TermsCondition = () => {
           </Typography>
         </Box>
         <Box>
-          <Typography variant="h5" sx={{ color: "green", my: 2, fontWeight: "500" }}>
+          <Typography variant="h5" sx={{ color: "#08A74C", my: 2, fontWeight: "500" }}>
             5. Information from Alijahan visitors and support users. What information do we collect and why?
           </Typography>
           <Typography variant="p" sx={{ color: "gray" }}>
@@ -65,7 +65,7 @@ const TermsCondition = () => {
           </Typography>
         </Box>
         <Box>
-          <Typography variant="h5" sx={{ color: "green", my: 2, fontWeight: "500" }}>
+          <Typography variant="h5" sx={{ color: "#08A74C", my: 2, fontWeight: "500" }}>
             6. Use Of Cookies
           </Typography>
           <Typography variant="p" sx={{ color: "gray" }}>
@@ -73,7 +73,7 @@ const TermsCondition = () => {
           </Typography>
         </Box>
         <Box>
-          <Typography variant="h5" sx={{ color: "green", my: 2, fontWeight: "500" }}>
+          <Typography variant="h5" sx={{ color: "#08A74C", my: 2, fontWeight: "500" }}>
             7. When and why do we share Personal Information with third parties?
           </Typography>
           <Typography variant="p" sx={{ color: "gray" }}>
@@ -81,7 +81,7 @@ const TermsCondition = () => {
           </Typography>
         </Box>
         <Box>
-          <Typography variant="h5" sx={{ color: "green", my: 2, fontWeight: "500" }}>
+          <Typography variant="h5" sx={{ color: "#08A74C", my: 2, fontWeight: "500" }}>
             8. What do we do with your Personal Information when you terminate your relationship with us?
           </Typography>
           <Typography variant="p" sx={{ color: "gray" }}>
@@ -89,7 +89,7 @@ const TermsCondition = () => {
           </Typography>
         </Box>
         <Box>
-          <Typography variant="h5" sx={{ color: "green", my: 2, fontWeight: "500" }}>
+          <Typography variant="h5" sx={{ color: "#08A74C", my: 2, fontWeight: "500" }}>
             9. Ratings And Reviews
           </Typography>
           <Typography variant="p" sx={{ color: "gray" }}>
@@ -97,7 +97,7 @@ const TermsCondition = () => {
           </Typography>
         </Box>
         <Box>
-          <Typography variant="h5" sx={{ color: "green", my: 2, fontWeight: "500" }}>
+          <Typography variant="h5" sx={{ color: "#08A74C", my: 2, fontWeight: "500" }}>
             10.How We Protect Your Data
           </Typography>
           <Typography variant="p" sx={{ color: "gray" }}>
@@ -105,7 +105,7 @@ const TermsCondition = () => {
           </Typography>
         </Box>
         <Box>
-          <Typography variant="h5" sx={{ color: "green", my: 2, fontWeight: "500" }}>
+          <Typography variant="h5" sx={{ color: "#08A74C", my: 2, fontWeight: "500" }}>
             11.How do we keep your Personal Information secure?.
           </Typography>
           <Typography variant="p" sx={{ color: "gray" }}>
@@ -113,7 +113,7 @@ const TermsCondition = () => {
           </Typography>
         </Box>
         <Box>
-          <Typography variant="h5" sx={{ color: "green", my: 2, fontWeight: "500" }}>
+          <Typography variant="h5" sx={{ color: "#08A74C", my: 2, fontWeight: "500" }}>
             12. Changes To Your Information
           </Typography>
           <Typography variant="p" sx={{ color: "gray" }}>
@@ -121,7 +121,7 @@ const TermsCondition = () => {
           </Typography>
         </Box>
         <Box>
-          <Typography variant="h5" sx={{ color: "green", my: 2, fontWeight: "500" }}>
+          <Typography variant="h5" sx={{ color: "#08A74C", my: 2, fontWeight: "500" }}>
             13. Access to your personal information
           </Typography>
           <Typography variant="p" sx={{ color: "gray" }}>
@@ -129,7 +129,7 @@ const TermsCondition = () => {
           </Typography>
         </Box>
         <Box>
-          <Typography variant="h5" sx={{ color: "green", my: 2, fontWeight: "500" }}>
+          <Typography variant="h5" sx={{ color: "#08A74C", my: 2, fontWeight: "500" }}>
             14. This Policy Is An Agreement
           </Typography>
           <Typography variant="p" sx={{ color: "gray" }}>
