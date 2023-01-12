@@ -6,8 +6,8 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import blogimg1 from "../../../../Assets/Image/blogimg1.png";
-import blogimg2 from "../../../../Assets/Image/blogimg2.png";
-import blogimg3 from "../../../../Assets/Image/blogimg3.png";
+import blogimg3 from "../../../../Assets/Image/blogimg2.png";
+import blogimg2 from "../../../../Assets/Image/blogimg3.jpg";
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import MapsUgcIcon from '@mui/icons-material/MapsUgc';
 import ShareIcon from '@mui/icons-material/Share';
@@ -25,7 +25,7 @@ const SingleBlog = () => {
               image={blogimg1}
               alt="BlogImage"
               className="blogImage" />
-            <Box sx={{ backgroundColor: "#2B2C41", height: "45px", width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center", padding: "0px 20px" }}>
+            <Box sx={{ backgroundColor: "#2B2C41", height: "45px", width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center", padding: "0px 20px", overflow: "hidden", zIndex: 999 }}>
               <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", cursor: "pointer" }}>
                 <CalendarMonthIcon sx={{ color: "white", fontSize: "20px", mr: 1, mt: "2px" }} />
                 <Typography variant="p" component="div" sx={{ color: "white" }}>

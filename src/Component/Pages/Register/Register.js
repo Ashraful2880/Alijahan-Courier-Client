@@ -153,9 +153,9 @@ const Register = ({ token }) => {
 					backgroundColor: "white",
 				}}>
 				<h3 style={{ color: "#08A74C", fontSize: "20px", fontWeight: "bold" }}>
-					Welcome To Alijahan Courier
+					Welcome To Trust Courier
 				</h3>
-				<img src={logo} alt='Main logo' />
+				<img src={logo} alt='Main logo' style={{ width: "300px" }} />
 				<h3
 					style={{
 						color: "black",

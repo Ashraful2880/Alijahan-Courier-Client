@@ -14,7 +14,9 @@ const OurBlog = () => {
   return (
     <Box className="blogContainer">
       <Container sx={{ mt: 5, mb: 5 }}>
-        <p style={{ textAlign: "left", color: "#08A74C", fontWeight: 600, marginBottom: "5px" }}>NEWS UPDATE</p>
+        <p style={{ textAlign: "left", color: "#08A74C", fontWeight: 600, marginBottom: "5px" }}>
+          NEWS UPDATE
+        </p>
         <h2
           style={{
             textAlign: "start",

@@ -195,7 +195,7 @@ input[type="number"] {
 }
 
 .registerBackground {
-	background-image: linear-gradient(rgba(0, 0, 0, 0.664), rgba(0, 0, 0, 0.664)), url("./Assets/Image/sliderimg.png");
+	background-image: linear-gradient(rgba(0, 0, 0, 0.664), rgba(0, 0, 0, 0.664)), url("./Assets/Image/slider1.jpg");
 	background-size: cover;
 	background-attachment: fixed;
 	background-repeat: no-repeat;
@@ -209,7 +209,7 @@ input[type="number"] {
 }
 
 .dbHomeBackground {
-	background-image: linear-gradient(rgba(0, 0, 0, 0.774), rgba(0, 0, 0, 0.801)), url("./Assets/Image/sliderimg.png") !important;
+	background-image: linear-gradient(rgba(0, 0, 0, 0.774), rgba(0, 0, 0, 0.801)), url("./Assets/Image/slider1.jpg") !important;
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: center;
@@ -342,4 +342,28 @@ input#free-solo-with-text-demo {
 .coverageButton:hover:after {
 	-webkit-transform: translateX(-9%) translateY(-25%) rotate(45deg);
 	transform: translateX(-9%) translateY(-25%) rotate(45deg);
+}
+
+.slider-bg {
+	background-image: linear-gradient(rgba(0, 0, 0, 0.411), rgba(0, 0, 0, 0.411)), url("./Assets/Image/slider1.jpg");
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center center;
+	height: 80vh;
+}
+
+.slider-bg2 {
+	background-image: linear-gradient(rgba(0, 0, 0, 0.411), rgba(0, 0, 0, 0.411)), url("./Assets/Image/slider2.jpg");
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center center;
+	height: 80vh;
+}
+
+.slider-bg3 {
+	background-image: linear-gradient(rgba(0, 0, 0, 0.411), rgba(0, 0, 0, 0.411)), url("./Assets/Image/slider3.jpg");
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center center;
+	height: 80vh;
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -17,7 +17,6 @@ import call from "../../../Assets/Image/Call.png";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../../../FirebaseAuth/firebase.config";
 import LogoutIcon from '@mui/icons-material/Logout';
-import LoginIcon from '@mui/icons-material/Login';
 import HomeIcon from '@mui/icons-material/Home';
 import ForwardToInboxIcon from '@mui/icons-material/ForwardToInbox';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
@@ -189,7 +188,7 @@ const Navigation = () => {
 
 					<Box sx={{ pt: 1, pb: 1, display: { md: "block", sm: "none", xs: "none" } }}>
 						<Link to="/">
-							<img src={logo} alt='' className='Main Logo' />
+							<img src={logo} alt="Logo" style={{ width: "200px" }} />
 						</Link>
 					</Box>
 
@@ -274,7 +273,7 @@ const Navigation = () => {
 								target='_blank'
 								rel='noopener noreferrer'
 								className='call'>
-								09613829867
+								01974238487
 							</a>
 						</Box>
 						{user?.email ?
@@ -329,26 +328,6 @@ const Navigation = () => {
 										<PersonIcon sx={{ width: "20px", ml: 0.5 }} />
 									</Button>
 								</Link>
-								{/* <Link to='/login' style={{ textDecoration: "none" }}>
-									<Button
-										variant='outlined'
-										style={{ padding: "3px 13px", fontSize: "16px" }}
-										sx={{
-											backgroundColor: "transparent",
-											"&:hover": {
-												backgroundColor: "#08A74C",
-												color: "white",
-											},
-											color: "#08A74C",
-											border: "1px solid #08A74C",
-											textTransform: "capitalize",
-											mr: 1,
-											mb: { xs: 2, md: 0, },
-										}}>
-										Login
-										<LoginIcon sx={{ width: "20px", ml: 0.5 }} />
-									</Button>
-								</Link> */}
 							</>
 						}
 					</Box>

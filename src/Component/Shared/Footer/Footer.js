@@ -1,8 +1,6 @@
 import React from "react";
-import { useState, useEffect } from "react";
 import { Box, Grid, Paper } from "@mui/material";
 import "./Footer.css";
-import footerlogo from "../../../Assets/Image/footerlogo.png";
 import { Link, useLocation } from "react-router-dom";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
@@ -12,7 +10,6 @@ import CallIcon from "@mui/icons-material/Call";
 import EmailIcon from "@mui/icons-material/Email";
 import DirectionsIcon from "@mui/icons-material/Directions";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
-import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import { styled } from '@mui/material/styles';
 
 const Footer = () => {
@@ -41,18 +38,20 @@ const Footer = () => {
 									<hr className="hrDesign" />
 									<Box style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
 										<Box>
+											<h4 style={{ fontSize: "22px", fontWeight: "bold", color: "green", marginBottom: "6px", textAlign: "center" }}>
+												Trust Courier Service
+											</h4>
 											<h4 className='contactInfo'>
 												<CallIcon sx={{ pr: 1 }} style={{ color: "green", fontSize: "30px" }} />
-												Call us: +8809613829867
+												Call us: +8801974238487
 											</h4>
 											<h4 className='contactInfo'>
 												<EmailIcon sx={{ pr: 1 }} style={{ color: "green", fontSize: "30px" }} />
-												info@alijahan.com
+												contact.ashraful1@gmail.com
 											</h4>
 											<h4 className='contactInfo'>
 												<DirectionsIcon sx={{ pr: 1 }} style={{ color: "green", fontSize: "35px" }} />
-												89/123 ,( Manik Nagar Bishwo Road, <br /> Ram Krishna Mission Rd, Dhaka
-												1203
+												Jhenaidah, Dhaka, Bangladesh
 											</h4>
 											<Box sx={{ width: { md: "100%", xs: "90%" } }}>
 												<Box
@@ -211,7 +210,7 @@ const Footer = () => {
 						<p style={{ color: "white", textAlign: "center", padding: 10 }}>
 							Copyright &copy; All Rights Reserved-
 							<span style={{ color: "#08A74C", marginLeft: 5, marginRight: 5 }}>
-								Alijahan Courier Service 2021-2022
+								Trust Courier By - Ashraful Islam
 							</span>
 						</p>
 					</Box>

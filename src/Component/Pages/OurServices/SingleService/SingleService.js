@@ -35,7 +35,7 @@ const SingleService = () => {
                   reduce your risk,and will parcel to delivery.....
                 </Typography>
               </CardContent>
-              <CardActions style={{ position: "absolute", bottom: "0%" }}>
+              <CardActions style={{ position: "absolute", bottom: "1%" }}>
                 <Button size="small" color="primary">
                   <button className="moreButton">
                     <span>Read More! </span>
@@ -66,7 +66,7 @@ const SingleService = () => {
                   place and will deliver parcel with 100% safety....
                 </Typography>
               </CardContent>
-              <CardActions style={{ position: "absolute", bottom: "0%" }}>
+              <CardActions style={{ position: "absolute", bottom: "1%" }}>
                 <Button size="small" color="primary">
                   <button className="moreButton">
                     <span>Read More! </span>
@@ -97,7 +97,7 @@ const SingleService = () => {
                   place and will deliver parcel with 100% safety....
                 </Typography>
               </CardContent>
-              <CardActions style={{ position: "absolute", bottom: "0%" }}>
+              <CardActions style={{ position: "absolute", bottom: "1%" }}>
                 <Button size="small" color="primary">
                   <button className="moreButton">
                     <span>Read More! </span>
@@ -128,7 +128,7 @@ const SingleService = () => {
                   sorting and processing. Also we have top class warehouses ....
                 </Typography>
               </CardContent>
-              <CardActions style={{ position: "absolute", bottom: "0%" }}>
+              <CardActions style={{ position: "absolute", bottom: "1%" }}>
                 <Button size="small" color="primary">
                   <button className="moreButton">
                     <span>Read More! </span>

@@ -3,6 +3,7 @@ import { Box, Container, Grid, Typography } from "@mui/material";
 import hand from "../../../Assets/Image/hand.png";
 import AppStore from "../../../Assets/Image/socialicon/App Store.png";
 import GooglePlay from "../../../Assets/Image/socialicon/Google Play.png";
+import { Link } from 'react-router-dom';
 
 const OurApp = () => {
     return (
@@ -44,14 +45,14 @@ const OurApp = () => {
                                 </Box>
                                 <Box sx={{ display: "flex", alignItems: "center", gap: 5, }}>
                                     <Box>
-                                        <a href="https://www.alijahan.com" target="blank" className="AppStore">
+                                        <Link to="/home" className="AppStore">
                                             <img src={AppStore} alt="App HandImage" />
-                                        </a>
+                                        </Link>
                                     </Box>
                                     <Box>
-                                        <a href="https://www.alijahan.com" target="blank" className="AppStore">
+                                        <Link to="/home" className="AppStore">
                                             <img src={GooglePlay} alt="App HandImage" />
-                                        </a>
+                                        </Link>
                                     </Box>
                                 </Box>
                             </Box>
