@@ -46,7 +46,7 @@ const WhyChooseUs = () => {
                     </span>
                   </Typography>
                   <Typography variant="body2" color="text.secondary" sx={{ textAlign: "left", fontSize: "16px", px: 2 }}>
-                    Alijahan Courier Service gives you the opportunity to daily pickup.
+                    TrustCourier Service gives you the opportunity to daily pickup.
                   </Typography>
                   <Box style={{ position: "absolute", bottom: "2%" }}>
                     <Button size="small" color="primary" sx={{ ml: 2 }}>

@@ -124,7 +124,7 @@ const SingleService = () => {
                   </span>
                 </Typography>
                 <Typography variant="body2" color="text.secondary" sx={{ textAlign: "left", fontSize: "16px" }}>
-                  Alijahan Courier Service provide Complete solution for storage,
+                  TrustCourier Service provide Complete solution for storage,
                   sorting and processing. Also we have top class warehouses ....
                 </Typography>
               </CardContent>

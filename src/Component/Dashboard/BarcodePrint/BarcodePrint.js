@@ -64,7 +64,7 @@ const BarcodePrint = ({ data, openBarCode, handleCloseBarCode }) => {
 										<Typography
 											variant='h4'
 											sx={{ fontWeight: "bold", color: "#1E793C", textAlign: "center", fontSize: "10px", lineHeight: "10px" }}>
-											Alijahan Courier Service
+											Trust Courier Service
 										</Typography>
 										<Box sx={{ textAlign: "center" }}>
 											<Typography variant='h6' component='h6' style={{ fontSize: "10px", lineHeight: "10px", }}>

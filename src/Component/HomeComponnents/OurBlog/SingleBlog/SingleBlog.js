@@ -46,7 +46,7 @@ const SingleBlog = () => {
                 </span>
               </Typography>
               <Typography variant="body2" color="text.secondary" sx={{ textAlign: "left", fontSize: "16px", }}>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Saepe, in!This is Alijahan international Test Blog......
+                Saepe, in!This is Trustinternational Test Blog......
               </Typography>
             </CardContent>
             <CardActions style={{ position: "absolute", bottom: "0%", width: "100%" }}>
@@ -93,7 +93,7 @@ const SingleBlog = () => {
                 </span>
               </Typography>
               <Typography variant="body2" color="text.secondary" sx={{ textAlign: "left", fontSize: "16px", }}>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Saepe, in!This is Alijahan international Test Blog......
+                Saepe, in!This is Trustinternational Test Blog......
               </Typography>
             </CardContent>
             <CardActions style={{ position: "absolute", bottom: "0%", width: "100%" }}>
@@ -140,7 +140,7 @@ const SingleBlog = () => {
                 </span>
               </Typography>
               <Typography variant="body2" color="text.secondary" sx={{ textAlign: "left", fontSize: "16px", }}>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Saepe, in!This is Alijahan international Test Blog......
+                Saepe, in!This is Trustinternational Test Blog......
               </Typography>
             </CardContent>
             <CardActions style={{ position: "absolute", bottom: "0%", width: "100%" }}>

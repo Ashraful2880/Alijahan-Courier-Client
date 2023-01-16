@@ -28,7 +28,7 @@ const About = () => {
             Who we are
           </h2>
           <p style={{ fontSize: 19, marginTop: 4, color: "#424242", paddingRight: "20px", lineHeight: "30px", }}>
-            Alijahan Courier Service is simply dummy text ofthe printing and
+            TrustCourier Service is simply dummy text ofthe printing and
             typesetting industry. Lorem Ipsum has been the industry's standard
             dummy text ever since the 1500s, when an unknown printer took a
             galley of type and scrambled it to make a type specimen book. It has
@@ -72,7 +72,7 @@ const About = () => {
           data-aos="fade-up"
         >
           <p style={{ fontSize: 19, marginTop: 4, color: "#424242", paddingLeft: "20px", lineHeight: "30px" }}>
-            Alijahan Courier Service is simply dummy text ofthe printing and
+            TrustCourier Service is simply dummy text ofthe printing and
             typesetting industry. Lorem Ipsum has been the industry's standard
             dummy text ever since the 1500s, when an unknown printer took a
             galley of type and scrambled it to make a type specimen book. It has
@@ -100,7 +100,7 @@ const About = () => {
             Our History
           </h2>
           <p style={{ fontSize: 19, marginTop: 4, color: "#424242", paddingRight: "20px", lineHeight: "30px" }}>
-            Alijahan Courier Service is simply dummy text ofthe printing and
+            TrustCourier Service is simply dummy text ofthe printing and
             typesetting industry. Lorem Ipsum has been the industry's standard
             dummy text ever since the 1500s, when an unknown printer took a
             galley of type and scrambled it to make a type specimen book. It has
@@ -138,7 +138,7 @@ const About = () => {
             Certificates
           </h2>
           <p style={{ fontSize: 19, marginTop: 4, color: "#424242", paddingRight: "20px", lineHeight: "30px" }}>
-            <strong>Alijahan Courier Service </strong> is simply dummy text
+            <strong>TrustCourier Service </strong> is simply dummy text
             ofthe printing and typesetting industry. Lorem Ipsum has been the
             industry's standard dummy text ever since the 1500s, when an unknown
             printer took a galley of type and scrambled it to make a type

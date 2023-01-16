@@ -28,171 +28,8 @@ const Contact = () => {
   const [covarageArea, setCovarageArea] = React.useState();
   return (
     <Box>
-      <Box>
-        <img width={"100%"} src={contact} alt="ContactImage" />
-      </Box>
-      <Box>
-        {/* Our Branch Offices  */}
-        <Grid container spacing={2} sx={{ px: "50px" }}>
-          <Grid item xs={12} md={6}>
-            <Box sx={{ mt: 2 }}>
-              <img src={pointermap} width={"100%"} alt="BranchImage" />
-            </Box>
-          </Grid>
-          <Grid item xs={12} md={6}>
-            {/* our branch filter */}
-            <Box
-              sx={{
-                border: "1px solid #e6e6e6",
-                borderRadius: 3,
-                p: 2,
-                mt: 2,
-              }}>
-              <h4 style={{
-                fontSize: 24,
-                fontWeight: 700,
-                marginBottom: 14,
-                marginTop: 0,
-              }}> Our Branches </h4>
-              <Box>
-                <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%", margin: "30px 0px" }}>
-                  <Box sx={{ width: "100%" }}>
-                    <select
-                      name="cars"
-                      id="cars"
-                      style={{
-                        padding: 10,
-                        width: "100%",
-                        borderRadius: 6,
-                        borderColor: "#08A74C",
-                        backgroundColor: "#08A74C",
-                        color: "white",
-                        fontSize: "16px"
-                      }}
-                      className="selectOption">
-                      <option className="selectOptions">Dhaka City</option>
-                      <option className="selectOptions" value="saab">
-                        Saab
-                      </option>
-                      <option className="selectOptions" value="opel">
-                        Opel
-                      </option>
-                      <option value="audi">Audi</option>
-                    </select>
-                  </Box>
-                  <Box sx={{ display: "flex", justifyContent: "end", width: "100%", }}>
-                    <ViewListIcon
-                      style={{ color: "#565454", fontSize: 30 }} />
-                    <ViewComfyIcon
-                      style={{
-                        color: "#565454",
-                        fontSize: 30,
-                        marginLeft: 20,
-                      }}
-                    />
-                  </Box>
-                </Box>
-              </Box>
-            </Box>
-            {/* branch list */}
-            <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%", margin: "30px 0px", gap: "30px" }}>
-              <Paper elevation={3} sx={{ width: "100%", paddingBottom: "30px" }}>
-                <Paper
-                  elevation={3}
-                  sx={{ backgroundColor: "#08A74C", borderRadius: 1, }}>
-                  <h4
-                    style={{
-                      fontSize: 17,
-                      fontWeight: 700,
-                      textAlign: "center",
-                      color: "white",
-                      padding: "6px 0px",
-                      marginBottom: "15px"
-                    }}>
-                    Jatrabari
-                  </h4>
-                </Paper>
-                <p
-                  style={{
-                    fontSize: 15,
-                    fontWeight: 500,
-                    textAlign: "center",
-                  }}
-                >
-                  45 NO, Jatrabari, Dhaka, Bangladesh
-                </p>
-                <p
-                  style={{
-                    fontSize: 15,
-                    fontWeight: 500,
-                    textAlign: "center",
-                  }}
-                >
-                  support@alijahancourier.com
-                </p>
-                <p
-                  style={{
-                    fontSize: 15,
-                    fontWeight: 500,
-                    textAlign: "center",
-                  }}
-                >
-                  096-13829867
-                </p>
-              </Paper>
-              <Paper elevation={3} sx={{ width: "100%", paddingBottom: "30px" }}>
-                <Paper
-                  elevation={3}
-                  sx={{
-                    backgroundColor: "#08A74C",
-                    borderRadius: 1,
-                  }}
-                >
-                  <h4
-                    style={{
-                      fontSize: 17,
-                      fontWeight: 700,
-                      textAlign: "center",
-                      color: "white",
-                      padding: "6px 0px",
-                      marginBottom: "15px"
-                    }}>
-                    Jatrabari
-                  </h4>
-                </Paper>
-                <p
-                  style={{
-                    fontSize: 15,
-                    fontWeight: 500,
-                    textAlign: "center",
-                  }}
-                >
-                  45 NO, Jatrabari, Dhaka, Bangladesh
-                </p>
-                <p
-                  style={{
-                    fontSize: 15,
-                    fontWeight: 500,
-                    textAlign: "center",
-                  }}
-                >
-                  support@alijahancourier.com
-                </p>
-                <p
-                  style={{
-                    fontSize: 15,
-                    fontWeight: 500,
-                    textAlign: "center",
-                  }}
-                >
-                  096-13829867
-                </p>
-              </Paper>
-            </Box>
-          </Grid>
-        </Grid>
-      </Box>
-      <Box sx={{ py: 6, px: { lg: 8, md: 4, sm: 2 } }} className="contactContainer">
+      <Box sx={{ py: 4, px: { lg: 8, md: 4, sm: 2 } }} className="contactContainer">
+        <h1 style={{ paddingBottom: "100px", textAlign: "center", color: "white" }}> Contact Us</h1>
         <Box sx={{ width: "100%", display: { sm: "block", md: "block", lg: "flex" }, justifyContent: "space-between", gap: "40px" }}>
           <Box sx={{ width: "100%" }}>
             <Box sx={{ width: "100%", textAlign: "left" }}>
@@ -313,8 +150,7 @@ const Contact = () => {
                 }}
                 className="contact-link">
                 <LocationOnIcon style={{ fontSize: 32, marginRight: 10, color: "#fff", background: "#08A74C", padding: "4px", borderRadius: "50%" }} />
-                89/123 , Manik Nagar Bishwo Road, Ram Krishna Mission Rd, Dhaka
-                1203
+                Jhenaidah, Bangladesh
               </p>
               <p
                 style={{
@@ -327,7 +163,7 @@ const Contact = () => {
                 className="contact-link"
               >
                 <CallIcon style={{ fontSize: 32, marginRight: 10, color: "#fff", background: "#08A74C", padding: "4px", borderRadius: "50%" }} />
-                Hot-Line : 09613829867
+                Hot-Line : 01974238487
               </p>
               <p
                 style={{
@@ -340,9 +176,9 @@ const Contact = () => {
                 className="contact-link"
               >
                 <MailIcon style={{ fontSize: 32, marginRight: 10, color: "#fff", background: "#08A74C", padding: "4px", borderRadius: "50%" }} />
-                support@alijahancourier.com
+                contact.ashraful1@gmail.com
               </p>
-              <a href="https://www.facebook.com/alijahancourierbd"
+              <a href="https://www.facebook.com/ashraful-2880"
                 target="blank"
                 style={{
                   marginTop: 5,
@@ -356,9 +192,9 @@ const Contact = () => {
                 className="contact-link"
               >
                 <FacebookIcon style={{ fontSize: 32, marginRight: 10, color: "#fff", background: "#08A74C", padding: "4px", borderRadius: "50%" }} />
-                facebook.com/alijahancourierbd
+                facebook.com/ashraful-2880
               </a>
-              <a href="https://www.alijahan.com"
+              <a href="https://www.google.com"
                 target="blank"
                 style={{
                   marginTop: 5,
@@ -371,7 +207,7 @@ const Contact = () => {
                 }}
                 className="contact-link">
                 <LanguageIcon style={{ fontSize: 32, marginRight: 10, color: "#fff", background: "#08A74C", padding: "4px", borderRadius: "50%" }} />
-                www.alijahan.com
+                Test Website.com
               </a>
             </Box>
           </Box>
@@ -380,15 +216,11 @@ const Contact = () => {
       <Box>
         <div className="gmap_canvas">
           <iframe
-            title="map"
-            width="100%"
-            height="450"
-            id="gmap_canvas"
-            src="https://maps.google.com/maps?q=89/123%20,(%20Manik%20Nagar%20Bishwo%20Road,%20Ram%20Krishna%20Mission%20Rd,%20Dhaka%201203&t=&z=13&ie=UTF8&iwloc=&output=embed"
-            frameBorder="0"
-            scrolling="no"
-            marginHeight="0"
-            marginWidth="0"
+            title="googleMap"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14631.723472551384!2d89.18012139999999!3d23.53498875!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39fee5dfb6ab292b%3A0x714cc79d538236a4!2sPaira%20Chottor!5e0!3m2!1sen!2sbd!4v1647341237352!5m2!1sen!2sbd"
+            style={{ height: "50vh", width: "100%" }}
+            allowFullScreen=""
+            loading="lazy"
           ></iframe>
         </div>
       </Box>

@@ -153,12 +153,12 @@ const Faq = () => {
                     aria-controls="panel1d-content"
                     id="panel1d-header">
                     <Typography variant="h6" sx={{ fontSize: "18px", textAlign: "left" }}>
-                      What kind of product does Alijahan Courier Service deliver?
+                      What kind of product does Trust Courier Service deliver?
                     </Typography>
                   </AccordionSummary>
                   <AccordionDetails>
                     <Typography variant="p" component="div" style={{ fontSize: "18px", textAlign: "left", }}>
-                      Alijahan Courier Service delivers all kinds of valid and
+                      Trust Courier Service delivers all kinds of valid and
                       portable products.
                     </Typography>
                   </AccordionDetails>
@@ -173,7 +173,7 @@ const Faq = () => {
                     id="panel2d-header"
                   >
                     <Typography variant="h6" sx={{ fontSize: "18px", textAlign: "left" }}>
-                      How do I contact with Alijahan Courier Service Delivery?
+                      How do I contact with Trust Courier Service Delivery?
                     </Typography>
                   </AccordionSummary>
                   <AccordionDetails>
@@ -194,7 +194,7 @@ const Faq = () => {
                     id="panel3d-header"
                   >
                     <Typography variant="h6" sx={{ fontSize: "18px", textAlign: "left" }}>
-                      How to send package or Parcel through Alijahan Courier
+                      How to send package or Parcel through Trust Courier
                       Service?
                     </Typography>
                   </AccordionSummary>

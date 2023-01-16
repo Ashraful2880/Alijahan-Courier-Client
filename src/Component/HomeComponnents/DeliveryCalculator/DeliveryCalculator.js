@@ -242,7 +242,7 @@ const DeliveryCalculator = () => {
                       setDeliveryArea({
                         area: newValue,
                       });
-                    } else if (newValue && newValue.inputValue) {
+                    } else if (newValue && newValue?.inputValue) {
                       // Create a new value from the user input
                       setDeliveryArea({
                         area: newValue?.inputValue,
@@ -259,7 +259,7 @@ const DeliveryCalculator = () => {
                   clearOnBlur
                   handleHomeEndKeys
                   id="free-solo-with-text-demo"
-                  options={covarageArea}
+                  options={covarageArea || []}
                   getOptionLabel={(option) => {
                     // Value selected with enter, right from the input
                     if (typeof option === "string") {
@@ -270,11 +270,11 @@ const DeliveryCalculator = () => {
                       return option?.inputValue;
                     }
                     // Regular option
-                    return option?.area;
+                    return option?.area || [];
                   }}
                   renderOption={(props, option) => (
                     <li {...props} key={option?._id}>
-                      {option?.area}
+                      {option?.area || []}
                     </li>
                   )}
                   freeSolo
@@ -323,10 +323,10 @@ const DeliveryCalculator = () => {
                       setWeightValue({
                         label: newValue,
                       });
-                    } else if (newValue && newValue.inputValue) {
+                    } else if (newValue && newValue?.inputValue) {
                       // Create a new value from the user input
                       setWeightValue({
-                        label: newValue.inputValue,
+                        label: newValue?.inputValue,
                       });
                     } else {
                       setWeightValue(newValue);
@@ -347,15 +347,15 @@ const DeliveryCalculator = () => {
                       return option;
                     }
                     // Add "xxx" option created dynamically
-                    if (option.inputValue) {
-                      return option.inputValue;
+                    if (option?.inputValue) {
+                      return option?.inputValue;
                     }
                     // Regular option
-                    return option.label;
+                    return option?.label;
                   }}
                   renderOption={(props, option) => (
-                    <li {...props} key={option.label}>
-                      {option.label} : {option.price}
+                    <li {...props} key={option?.label}>
+                      {option?.label} : {option?.price}
                     </li>
                   )}
                   freeSolo
@@ -422,7 +422,7 @@ const DeliveryCalculator = () => {
                   clearOnBlur
                   handleHomeEndKeys
                   id="free-solo-with-text-demo"
-                  options={covarageArea}
+                  options={covarageArea || []}
                   getOptionLabel={(option) => {
                     // Value selected with enter, right from the input
                     if (typeof option === "string") {

@@ -65,7 +65,7 @@ const Print = ({ data, openPrint, handleClosePrint }) => {
 									<Typography
 										variant='h5'
 										sx={{ fontWeight: "bold", color: "#166534" }}>
-										Alijahan Courier Service
+										TrustCourier Service
 									</Typography>
 									<Typography component='div' variant='p'>
 										89/123 Maniknagar,R.K Mission Road,Dhaka-1203
@@ -281,7 +281,7 @@ const Print = ({ data, openPrint, handleClosePrint }) => {
 								<Typography variant='p' sx={{ fontSize: "13px" }}>
 									This is an Auto Generated Report of{" "}
 									<span style={{ color: "#08A74C", fontStyle: "italic" }}>
-										Alijahan Courier
+										TrustCourier
 									</span>
 								</Typography>
 							</Box>
