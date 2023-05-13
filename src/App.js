@@ -57,160 +57,161 @@ import DashboardHome from "./Component/Dashboard/DashboardHome/DashboardHome";
 import MerchantCoverageArea from "./Component/Dashboard/MerchantDashboard/MerchantCoverageArea";
 
 function App() {
-	return (
-		<div className='App'>
-			<APIContextProvider>
-				<BrowserRouter>
-					<Navigation />
-					<Routes>
-						<Route path='/' element={<Home />} />
-						<Route path='/home' element={<Home />} />
-						<Route path='/about' element={<About />} />
-						<Route path='/contact' element={<Contact />} />
-						<Route path='/privacypolicy' element={<PrivacyPolicy />} />
-						<Route path='/termscondition' element={<TermsCondition />} />
-						<Route
-							path='/returnrefundpolicy'
-							element={<ReturnRefundPolicy />}
-						/>
-						<Route path='/blog' element={<OurBlog />} />
-						<Route path='/pricing' element={<Pricing />} />
-						<Route path='/service' element={<OurServices />} />
-						<Route path='/tracking' element={<OrderTracking />} />
-						<Route path='/covarage' element={<PageCoverageArea />} />
-						<Route path='/login' element={<Login />} />
-						<Route path='/register' element={<Register />} />
-						<Route path='*' element={<NotFound />} />
-						<Route path='/login' element={<Login />} />
-						<Route
-							path='/dashboard'
-							element={
-								<RequireAuth>
-									<Dashboard />
-								</RequireAuth>
-							}>
-							<Route path='/dashboard' element={<DashboardHome />} />
-							<Route path='/dashboard/branches' element={<Branches />} />
-							<Route
-								path='/dashboard/deliveryPaymentList'
-								element={<Accounts />}
-							/>
-							<Route path='/dashboard/merchants' element={<Merchants />} />
-							<Route path='/dashboard/riders' element={<Riders />} />
-							<Route
-								path='/dashboard/warehouseusers'
-								element={<WarehouseUsers />}
-							/>
-							<Route
-								path='/dashboard/parcelList'
-								element={<AdminParcelList />}
-							/>
-							<Route
-								path='/dashboard/officeToOffice'
-								element={<OfficeToOffice />}
-							/>
-							<Route
-								path='/dashboard/officeToHome'
-								element={<OfficeToHome />}
-							/>
-							<Route
-								path='/dashboard/createMerchantOrder'
-								element={<MerchantOrder />}
-							/>
-							<Route
-								path='/dashboard/weightPackage'
-								element={<WeightPackage />}
-							/>
-							<Route path='/dashboard/serviceArea' element={<ServiceArea />} />
-							<Route path='/dashboard/district' element={<District />} />
-							<Route path='/dashboard/area' element={<Area />} />
-							<Route path='/dashboard/vehicle' element={<Vehicles />} />
-							<Route
-								path='/dashboard/itemCategory'
-								element={<ItemCategory />}
-							/>
-							<Route path='/dashboard/unit' element={<Unit />} />
-							<Route path='/dashboard/item' element={<Item />} />
-							<Route path='/dashboard/allUsers' element={<AllUsers />} />
-							{/* Branch Dashboard Code Here */}
-							<Route
-								path='/dashboard/branchDashboard/profile'
-								element={<BranchProfile />}
-							/>
-							<Route
-								path='/dashboard/branchDashboard/accounts'
-								element={<BranchAccounts />}
-							/>
-							<Route
-								path='/dashboard/branchDashboard/parcelList'
-								element={<BranchParcelList />}
-							/>
-							<Route
-								path='/dashboard/branchDashboard/receivedParcelList'
-								element={<BranchReceivedParcelList />}
-							/>
-							{/* Merchant Dashboard Code Here */}
-							<Route
-								path='/dashboard/merchantDashboard/profile'
-								element={<MerchantProfile />}
-							/>
-							<Route
-								path='/dashboard/merchantDashboard/AddParcel'
-								element={<AddMerchantParcel />}
-							/>
-							<Route
-								path='/dashboard/merchantDashboard/parcelList'
-								element={<MerchantParcelList />}
-							/>
-							<Route
-								path='/dashboard/merchantDashboard/deliveryPaymentList'
-								element={<DeliveryPaymentList />}
-							/>
-							<Route
-								path='/dashboard/merchantDashboard/orderTracking'
-								element={<OrderTracking />}
-							/>
-							<Route
-								path='/dashboard/merchantDashboard/coverageArea'
-								element={<MerchantCoverageArea />}
-							/>
-							<Route
-								path='/dashboard/merchantDashboard/serviceCharge'
-								element={<ServiceCharge />}
-							/>
-							{/* Warehouse Dashboard Code Here */}
-							<Route
-								path='/dashboard/warehouseDashboard/profile'
-								element={<WarehouseProfile />}
-							/>
-							<Route
-								path='/dashboard/warehouseDashboard/parcelList'
-								element={<WarehouseParcelList />}
-							/>
-							{/* Riders Dashboard Code Here */}
-							<Route
-								path='/dashboard/ridersDashboard/profile'
-								element={<RidersProfile />}
-							/>
-							<Route
-								path='/dashboard/ridersDashboard/parcelList'
-								element={<RidersParcelList />}
-							/>
-							<Route
-								path='/dashboard/ridersDashboard/parceReclList'
-								element={<RidersRecParcelList />}
-							/>
-							<Route
-								path='/dashboard/ridersDashboard/accounts'
-								element={<RiderAccounts />}
-							/>
-						</Route>
-					</Routes>
-					<Footer />
-				</BrowserRouter>
-			</APIContextProvider>
-		</div>
-	);
+  return (
+    <div className="App">
+      <APIContextProvider>
+        <BrowserRouter>
+          <Navigation />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/privacypolicy" element={<PrivacyPolicy />} />
+            <Route path="/termscondition" element={<TermsCondition />} />
+            <Route
+              path="/returnrefundpolicy"
+              element={<ReturnRefundPolicy />}
+            />
+            <Route path="/blog" element={<OurBlog />} />
+            <Route path="/pricing" element={<Pricing />} />
+            <Route path="/service" element={<OurServices />} />
+            <Route path="/tracking" element={<OrderTracking />} />
+            <Route path="/covarage" element={<PageCoverageArea />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="*" element={<NotFound />} />
+            <Route path="/login" element={<Login />} />
+            <Route
+              path="/dashboard"
+              element={
+                <RequireAuth>
+                  <Dashboard />
+                </RequireAuth>
+              }
+            >
+              <Route path="/dashboard" element={<DashboardHome />} />
+              <Route path="/dashboard/branches" element={<Branches />} />
+              <Route
+                path="/dashboard/deliveryPaymentList"
+                element={<Accounts />}
+              />
+              <Route path="/dashboard/merchants" element={<Merchants />} />
+              <Route path="/dashboard/riders" element={<Riders />} />
+              <Route
+                path="/dashboard/warehouseusers"
+                element={<WarehouseUsers />}
+              />
+              <Route
+                path="/dashboard/parcelList"
+                element={<AdminParcelList />}
+              />
+              <Route
+                path="/dashboard/officeToOffice"
+                element={<OfficeToOffice />}
+              />
+              <Route
+                path="/dashboard/officeToHome"
+                element={<OfficeToHome />}
+              />
+              <Route
+                path="/dashboard/createMerchantOrder"
+                element={<MerchantOrder />}
+              />
+              <Route
+                path="/dashboard/weightPackage"
+                element={<WeightPackage />}
+              />
+              <Route path="/dashboard/serviceArea" element={<ServiceArea />} />
+              <Route path="/dashboard/district" element={<District />} />
+              <Route path="/dashboard/area" element={<Area />} />
+              <Route path="/dashboard/vehicle" element={<Vehicles />} />
+              <Route
+                path="/dashboard/itemCategory"
+                element={<ItemCategory />}
+              />
+              <Route path="/dashboard/unit" element={<Unit />} />
+              <Route path="/dashboard/item" element={<Item />} />
+              <Route path="/dashboard/allUsers" element={<AllUsers />} />
+              {/* Branch Dashboard Code Here */}
+              <Route
+                path="/dashboard/branchDashboard/profile"
+                element={<BranchProfile />}
+              />
+              <Route
+                path="/dashboard/branchDashboard/accounts"
+                element={<BranchAccounts />}
+              />
+              <Route
+                path="/dashboard/branchDashboard/parcelList"
+                element={<BranchParcelList />}
+              />
+              <Route
+                path="/dashboard/branchDashboard/receivedParcelList"
+                element={<BranchReceivedParcelList />}
+              />
+              {/* Merchant Dashboard Code Here */}
+              <Route
+                path="/dashboard/merchantDashboard/profile"
+                element={<MerchantProfile />}
+              />
+              <Route
+                path="/dashboard/merchantDashboard/AddParcel"
+                element={<AddMerchantParcel />}
+              />
+              <Route
+                path="/dashboard/merchantDashboard/parcelList"
+                element={<MerchantParcelList />}
+              />
+              <Route
+                path="/dashboard/merchantDashboard/deliveryPaymentList"
+                element={<DeliveryPaymentList />}
+              />
+              <Route
+                path="/dashboard/merchantDashboard/orderTracking"
+                element={<OrderTracking />}
+              />
+              <Route
+                path="/dashboard/merchantDashboard/coverageArea"
+                element={<MerchantCoverageArea />}
+              />
+              <Route
+                path="/dashboard/merchantDashboard/serviceCharge"
+                element={<ServiceCharge />}
+              />
+              {/* Warehouse Dashboard Code Here */}
+              <Route
+                path="/dashboard/warehouseDashboard/profile"
+                element={<WarehouseProfile />}
+              />
+              <Route
+                path="/dashboard/warehouseDashboard/parcelList"
+                element={<WarehouseParcelList />}
+              />
+              {/* Riders Dashboard Code Here */}
+              <Route
+                path="/dashboard/ridersDashboard/profile"
+                element={<RidersProfile />}
+              />
+              <Route
+                path="/dashboard/ridersDashboard/parcelList"
+                element={<RidersParcelList />}
+              />
+              <Route
+                path="/dashboard/ridersDashboard/parceReclList"
+                element={<RidersRecParcelList />}
+              />
+              <Route
+                path="/dashboard/ridersDashboard/accounts"
+                element={<RiderAccounts />}
+              />
+            </Route>
+          </Routes>
+          <Footer />
+        </BrowserRouter>
+      </APIContextProvider>
+    </div>
+  );
 }
 
 export default App;

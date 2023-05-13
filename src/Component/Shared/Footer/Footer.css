@@ -1,11 +1,11 @@
 .contactInfo {
-    font-size: 16px;
-    font-weight: 400;
+    font-size: 15px;
+    font-weight: 600;
     margin: 0;
-    padding-bottom: 15px;
+    padding-bottom: 10px;
     display: flex;
     align-items: center;
-    color: black;
+    color: rgba(0, 0, 0, 0.623);
 }
 
 .mapouter {
@@ -21,7 +21,7 @@
 
 .footerMenuLink {
     text-decoration: none;
-    color: black;
+    color: rgba(0, 0, 0, 0.623);
     font-weight: 500;
     transition: 0.2s;
 }
@@ -60,11 +60,11 @@
     transition: 0.3s !important;
     font-size: 30px !important;
     cursor: pointer;
-    color: rgb(63, 63, 63);
+    color: green;
 }
 
 .socialIcon:hover {
-    color: #08A74C;
+    color: black;
     transform: scale(1.2);
 }
 

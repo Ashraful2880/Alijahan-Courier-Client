@@ -121,13 +121,13 @@ function Dashboard(props) {
 				<Box
 					sx={{
 						padding: "2px 0px 0px 0px",
-						backgroundColor: "white",
-						border: "1px solid #1E793C",
+						backgroundColor: "#2C3135",
+						borderBottom: "1px solid gray",
 					}}>
-					<img src={logo} alt='Main Logo' />
+					<img src={logo} alt='Main Logo' style={{ width: "100%", paddingTop: "10px", paddingBottom: "3px", paddingLeft: "25px", paddingRight: "25px" }} />
 				</Box>
 			</Link>
-			<Link to='/dashboard'>
+			<Link to='/dashboard' style={{ display: "block", marginTop: "30px" }}>
 				<ListItem
 					button
 					className={

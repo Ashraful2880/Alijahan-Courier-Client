@@ -17,23 +17,38 @@ import Swal from "sweetalert2";
 import auth2 from "../../../FirebaseAuth/firebase.config2";
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { signOut } from "firebase/auth";
-import { useState } from "react";
 import { useEffect } from "react";
 
 const Register = ({ token }) => {
-	const [data, setData] = useState();
-	const [submitting, setSubmitting] = useState(false);
-	const { register, handleSubmit, reset, watch } = useForm();
-	const [errors, setErrors] = useState(false);
-	const [branches, setBranches] = useState();
-	const [selectedDistricts, setSelectedDistricts] = useState();
-	const [districts, setDistricts] = useState();
-	const [area, setArea] = useState();
-	const [num, setNum] = React.useState();
+	// All State From GET API
+
+	const [districts, setDistricts] = React.useState();
+	const [area, setArea] = React.useState();
+	const [branches, setBranches] = React.useState();
+	const [selectedDistricts, setSelectedDistricts] = React.useState();
 	const [selectedArea, setSelectedArea] = React.useState();
+
+	const [data, setData] = React.useState();
+	const { register, handleSubmit, watch } = useForm();
+	const [submitting, setSubmitting] = React.useState(false);
+	const [errors, setErrors] = React.useState(false);
+	const [num, setNum] = React.useState();
 	const navigate = useNavigate();
+	console.log("data", data);
 
 	useEffect(() => {
+		axios
+			.get(`${process.env.REACT_APP_API_PATH}/districts`, {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			})
+			.then((response) => {
+				setDistricts(response.data);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
 		axios
 			.get(`${process.env.REACT_APP_API_PATH}/areas`, {
 				headers: {
@@ -54,18 +69,6 @@ const Register = ({ token }) => {
 			})
 			.then((response) => {
 				setBranches(response.data);
-			})
-			.catch((error) => {
-				console.log(error);
-			});
-		axios
-			.get(`${process.env.REACT_APP_API_PATH}/districts`, {
-				headers: {
-					Authorization: `Bearer ${token}`,
-				},
-			})
-			.then((response) => {
-				setDistricts(response.data);
 			})
 			.catch((error) => {
 				console.log(error);
@@ -225,8 +228,8 @@ const Register = ({ token }) => {
 							}}
 							size='small'
 							sx={{ my: 0.5, width: "100% !important" }}
-							options={districts}
-							getOptionLabel={(option) => option.district}
+							options={districts || ""}
+							getOptionLabel={(option) => option?.district}
 							style={{ width: 300 }}
 							renderInput={(params) => (
 								<TextField
