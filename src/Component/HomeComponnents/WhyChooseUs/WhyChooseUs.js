@@ -7,7 +7,10 @@ import truck from "../../../Assets/Image/Icons/truck.png";
 import fastService from "../../../Assets/Image/Icons/fastService.png";
 import cod from "../../../Assets/Image/Icons/cod.png";
 import tracking from "../../../Assets/Image/Icons/tracking.png";
-
+import onTimeDelivery from "../../../Assets/Image/Service/onTime-Delivery.png";
+import bookingCommission from "../../../Assets/Image/Service/booking-commission.png";
+import allTimeService from "../../../Assets/Image/Service/24-service.png";
+import homeService from "../../../Assets/Image/Service/home-door-service.png";
 
 const WhyChooseUs = () => {
   useEffect(() => {
@@ -123,6 +126,112 @@ const WhyChooseUs = () => {
                   <Typography gutterBottom variant="h5" component="div" sx={{ textAlign: "center", fontSize: "22px", fontWeight: 600, mt: 1, mb: 2 }}>
                     <span>
                       Full Tracking
+                    </span>
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" sx={{ textAlign: "left", fontSize: "16px", px: 2 }}>
+                    We provides full tracking opportunity for every consignments.
+                  </Typography>
+                  <Box style={{ position: "absolute", bottom: "2%" }}>
+                    <Button size="small" color="primary" sx={{ ml: 2 }}>
+                      <button className="whyMoreButton">
+                        <span>More </span>
+                      </button>
+                    </Button>
+                  </Box>
+                </Box>
+              </div>
+            </Grid>
+          </Grid>
+          <Grid container spacing={4} data-aos="fade-up" style={{marginTop:"10px"}}>
+            <Grid item xs={12} md={3}>
+              <div className="card-wrap">
+                <div className="card-header one">
+                  <img src={onTimeDelivery} alt="Truck Icon" style={{ height: "80px" }} />
+                </div>
+                <div>
+                  <Typography gutterBottom variant="h5" component="div" sx={{ textAlign: "center", fontSize: "22px", fontWeight: 600, mt: 1, mb: 2 }}>
+                    <span>
+                      On Time Delivery
+                    </span>
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" sx={{ textAlign: "left", fontSize: "16px", px: 2 }}>
+                    TrustCourier Service gives you the opportunity to daily pickup.
+                  </Typography>
+                  <Box style={{ position: "absolute", bottom: "2%" }}>
+                    <Button size="small" color="primary" sx={{ ml: 2 }}>
+                      <button className="whyMoreButton">
+                        <span>More </span>
+                      </button>
+                    </Button>
+                  </Box>
+                </div>
+              </div>
+            </Grid>
+
+            {/* Fastest Service */}
+            <Grid item xs={12} md={3}>
+              <div className="card-wrap">
+                <div className="card-header two">
+                  <img src={homeService} alt="Fast Service Icon" style={{ height: "80px" }} />
+                </div>
+                <div>
+                  <Typography gutterBottom variant="h5" component="div" sx={{ textAlign: "center", fontSize: "22px", fontWeight: 600, mt: 1, mb: 2 }}>
+                    <span>
+                      Home Door Service
+                    </span>
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" sx={{ textAlign: "left", fontSize: "16px", px: 2 }}>
+                    Our team works to ensure fastest delivery that
+                    we can ensure our customer’s growth.
+                  </Typography>
+                  <Box style={{ position: "absolute", bottom: "2%" }}>
+                    <Button size="small" color="primary" sx={{ ml: 2 }}>
+                      <button className="whyMoreButton">
+                        <span>More </span>
+                      </button>
+                    </Button>
+                  </Box>
+                </div>
+              </div>
+            </Grid>
+
+            {/* Cash on Delivery */}
+            <Grid item xs={12} md={3}>
+              <div className="card-wrap">
+                <div className="card-header three">
+                  <img src={bookingCommission} alt="Cash On Delivery Icon" style={{ height: "80px" }} />
+                </div>
+                <div>
+                  <Typography gutterBottom variant="h5" component="div" sx={{ textAlign: "center", fontSize: "22px", fontWeight: 600, mt: 1, mb: 2 }}>
+                    <span>
+                      Booking Commission
+                    </span>
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" sx={{ textAlign: "left", fontSize: "16px", px: 2 }}>
+                    We trusted our delivery man will deliver parcel to customer and
+                    collect the money.
+                  </Typography>
+                  <Box style={{ position: "absolute", bottom: "2%", }}>
+                    <Button size="small" color="primary" sx={{ ml: 2 }}>
+                      <button className="whyMoreButton">
+                        <span>More </span>
+                      </button>
+                    </Button>
+                  </Box>
+                </div>
+              </div>
+            </Grid>
+
+            {/* Full Tracking  */}
+            <Grid item xs={12} md={3}>
+              <div className="card-wrap">
+                <div className="card-header four">
+                  <img src={allTimeService} alt="Tracking Icon" style={{ height: "80px" }} />
+                </div>
+                <Box>
+                  <Typography gutterBottom variant="h5" component="div" sx={{ textAlign: "center", fontSize: "22px", fontWeight: 600, mt: 1, mb: 2 }}>
+                    <span>
+                      24/7 Services
                     </span>
                   </Typography>
                   <Typography variant="body2" color="text.secondary" sx={{ textAlign: "left", fontSize: "16px", px: 2 }}>

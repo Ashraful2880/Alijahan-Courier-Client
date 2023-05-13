@@ -9,10 +9,10 @@ import Ecommerce from "../../../../Assets/Image/Ecommerce.png";
 import Logistics from "../../../../Assets/Image/Logistics.png";
 import pickdrop from "../../../../Assets/Image/pickdrop.png";
 import Warehouse from "../../../../Assets/Image/Warehouse.png";
-import freeDelivery from "../../../../Assets/Image/Service/free -delivery.png";
+import freeDelivery from "../../../../Assets/Image/Service/free-delivery.png";
 import homeDelivery from "../../../../Assets/Image/Service/home-delivery.png";
+import vendor from "../../../../Assets/Image/Service/vendor-service.png"; 
 import fastDelivery from "../../../../Assets/Image/Service/fast-delivery.png";
-import vendor from "../../../../Assets/Image/Service/vendor-service.png";
 import "./SingleService.css";
 
 const SingleService = () => {
