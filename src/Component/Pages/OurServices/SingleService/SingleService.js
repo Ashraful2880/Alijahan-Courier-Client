@@ -143,7 +143,7 @@ const SingleService = () => {
           </Box>
         </Grid>
       </Grid>
-      <Grid container spacing={2} style={{marginTop:"10 px"}}>
+      <Grid container spacing={2} style={{marginTop:"10px"}}>
         <Grid item xs={12} md={3}>
           <Box>
             <Card sx={{ width: "100%", height: 375, position: "relative" }} className="serviceCardContainer">
