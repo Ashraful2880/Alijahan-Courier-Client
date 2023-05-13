@@ -10,7 +10,6 @@ import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
 import DeliveryCalculator from "../../HomeComponnents/DeliveryCalculator/DeliveryCalculator";
 
-
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: "#08A74C",
@@ -41,7 +40,7 @@ function createData(weight, price) {
   return { weight, price };
 }
 const insideDhakaData = [
-  createData("upto 1kg", 40),
+  createData("Upto 1kg", 40),
   createData("1kg to 2kg", 60),
   createData("2kg to 3kg", 80),
   createData("3kg to 4kg", 100),
@@ -49,7 +48,7 @@ const insideDhakaData = [
 ];
 
 const outsideDhakaData = [
-  createData("upto 1kg", 100),
+  createData("Upto 1kg", 100),
   createData("1kg to 2kg", 130),
   createData("2kg to 3kg", 160),
   createData("3kg to 4kg", 190),
@@ -65,8 +64,9 @@ const Pricing = () => {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-        }}>
-        <Typography variant='h5' sx={{ fontWeight: "bold", color: "#1E793C" }}>
+        }}
+      >
+        <Typography variant="h5" sx={{ fontWeight: "bold", color: "#1E793C" }}>
           Service Charge
         </Typography>
       </Box>
@@ -84,17 +84,41 @@ const Pricing = () => {
               <Table aria-label="customized table">
                 <TableHead>
                   <TableRow>
-                    <StyledTableCell sx={{ fontSize: "16px", fontWeight: "700", textAlign: "center" }}>Weight</StyledTableCell>
-                    <StyledTableCell sx={{ fontSize: "16px", fontWeight: "700", textAlign: "center" }} align="center">Price</StyledTableCell>
+                    <StyledTableCell
+                      sx={{
+                        fontSize: "16px",
+                        fontWeight: "700",
+                        textAlign: "center",
+                      }}
+                    >
+                      Weight
+                    </StyledTableCell>
+                    <StyledTableCell
+                      sx={{
+                        fontSize: "16px",
+                        fontWeight: "700",
+                        textAlign: "center",
+                      }}
+                      align="center"
+                    >
+                      Price
+                    </StyledTableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {insideDhakaData.map((row) => (
                     <StyledTableRow key={row.name} hover>
-                      <StyledTableCell component="th" scope="row" style={{ textAlign: "center" }}>
+                      <StyledTableCell
+                        component="th"
+                        scope="row"
+                        style={{ textAlign: "center" }}
+                      >
                         {row.weight}
                       </StyledTableCell>
-                      <StyledTableCell align="center" style={{ textAlign: "center" }}>
+                      <StyledTableCell
+                        align="center"
+                        style={{ textAlign: "center" }}
+                      >
                         {row.price} TK
                       </StyledTableCell>
                     </StyledTableRow>
@@ -115,17 +139,41 @@ const Pricing = () => {
               <Table aria-label="customized table">
                 <TableHead>
                   <TableRow>
-                    <StyledTableCell sx={{ fontSize: "16px", fontWeight: "700", textAlign: "center" }}>Weight</StyledTableCell>
-                    <StyledTableCell sx={{ fontSize: "16px", fontWeight: "700", textAlign: "center" }} align="center">Price</StyledTableCell>
+                    <StyledTableCell
+                      sx={{
+                        fontSize: "16px",
+                        fontWeight: "700",
+                        textAlign: "center",
+                      }}
+                    >
+                      Weight
+                    </StyledTableCell>
+                    <StyledTableCell
+                      sx={{
+                        fontSize: "16px",
+                        fontWeight: "700",
+                        textAlign: "center",
+                      }}
+                      align="center"
+                    >
+                      Price
+                    </StyledTableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {outsideDhakaData.map((row) => (
                     <StyledTableRow key={row.name} hover>
-                      <StyledTableCell component="th" scope="row" style={{ textAlign: "center" }}>
+                      <StyledTableCell
+                        component="th"
+                        scope="row"
+                        style={{ textAlign: "center" }}
+                      >
                         {row.weight}
                       </StyledTableCell>
-                      <StyledTableCell align="center" style={{ textAlign: "center" }}>
+                      <StyledTableCell
+                        align="center"
+                        style={{ textAlign: "center" }}
+                      >
                         {row.price} TK
                       </StyledTableCell>
                     </StyledTableRow>
