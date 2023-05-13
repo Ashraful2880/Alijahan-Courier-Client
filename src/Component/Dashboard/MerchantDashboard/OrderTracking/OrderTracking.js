@@ -40,7 +40,7 @@ const OrderTracking = () => {
 			});
 	};
 	return (
-		<Box sx={{ mx: 4, pt: 1, pb: 5 }}>
+		<Box sx={{ mx: 4, pt: 1, pb: 5 }} style={{minHeight:"70vh"}}>
 			{show ? (
 				<Tracking data={data} setShow={setShow} />
 			) : (
